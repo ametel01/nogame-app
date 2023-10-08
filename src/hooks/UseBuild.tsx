@@ -23,7 +23,7 @@ export type ComponentBuildType =
 
 export default function useBuild(
   unitName: ComponentBuildType,
-  quantity: number
+  quantity: number,
 ) {
   const tx = {
     contractAddress: GAMEADDRESS,

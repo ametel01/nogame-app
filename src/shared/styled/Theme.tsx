@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 
-
 export const FixedGlobalStyle = createGlobalStyle`
 
 html, input, textarea, button {

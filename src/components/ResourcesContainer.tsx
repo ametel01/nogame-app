@@ -135,7 +135,7 @@ const Resource = ({
         </div>
         {address && !copied && (
           <ResourceAddress>{`${address.substring(0, 6)}...${address.slice(
-            -4
+            -4,
           )}`}</ResourceAddress>
         )}
         {copied && <ResourceAddress>Copied</ResourceAddress>}

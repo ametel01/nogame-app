@@ -99,7 +99,7 @@ const PlanetImage: FC = () => {
 
   const imgId = useMemo(
     () => (tokenId !== undefined ? Number(tokenId) % IMG_MODULO : undefined),
-    [tokenId]
+    [tokenId],
   );
 
   const findAttribute = (name: string) =>
@@ -136,7 +136,7 @@ const PlanetImage: FC = () => {
           label="Diameter"
           icon={<ScaleIcon />}
           value={`${numberWithCommas(
-            dataToNumber(findAttribute("size")) * 10 ** 4
+            dataToNumber(findAttribute("size")) * 10 ** 4,
           )} km`}
         />
         <PlanetInfoRow

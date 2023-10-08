@@ -115,7 +115,7 @@ export const CompoundsTabPanel = ({
             compoundsCostUpgrade?.[compound.compoundName] &&
             calculEnoughResources(
               compoundsCostUpgrade[compound.compoundName],
-              spendableResources
+              spendableResources,
             )
           }
         />

@@ -71,7 +71,7 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
   }));
 
   const actualButtonState = statesButton.find(
-    (state) => state.state === buttonState
+    (state) => state.state === buttonState,
   );
 
   return (

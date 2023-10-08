@@ -183,7 +183,7 @@ export const ResearchTabPanel = ({
             techCostUpgrade?.[research.techName] &&
             calculEnoughResources(
               techCostUpgrade[research.techName],
-              spendableResources
+              spendableResources,
             )
           }
           requirementsMet={research.requirements}

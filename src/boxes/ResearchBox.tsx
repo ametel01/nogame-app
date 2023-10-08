@@ -40,7 +40,7 @@ const ResearchBox = ({
   description,
 }: Props) => {
   const { write: upgrade } = useUpgrade(
-    functionCallName as ComponentUpgradeType
+    functionCallName as ComponentUpgradeType,
   );
 
   const steel = costUpdate ? numberWithCommas(costUpdate.steel) : null;
@@ -107,7 +107,7 @@ const ResearchBox = ({
   ];
 
   const actualButtonState = statesButton.find(
-    (state) => state.state === buttonState
+    (state) => state.state === buttonState,
   );
 
   const hasRequirements = actualButtonState?.state === "noRequirements";

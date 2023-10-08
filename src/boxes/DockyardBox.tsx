@@ -73,7 +73,7 @@ const DockyardBox = ({
   }));
 
   const actualButtonState = statesButton.find(
-    (state) => state.state === buttonState
+    (state) => state.state === buttonState,
   );
 
   const steel = costUpdate ? numberWithCommas(costUpdate.steel) : null;

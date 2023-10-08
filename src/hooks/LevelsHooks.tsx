@@ -10,7 +10,7 @@ import {
 } from "../shared/types";
 
 export function useCompoundsLevels(
-  planetId: number | undefined
+  planetId: number | undefined,
 ): CompoundsLevels {
   const { data } = useContractRead({
     address: GAMEADDRESS,

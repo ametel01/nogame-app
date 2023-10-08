@@ -12,7 +12,7 @@ export const Box = styled("div")<{ customcolor: string }>(
     backgroundColor: "#151a1e",
     borderRadius: "4px",
     overflow: "hidden",
-  })
+  }),
 );
 
 export const SubBox = styled("div")({
