@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { LayerGroup } from "../components/icons/LayerGroup";
-import { Coins } from "../components/icons/Coins";
-import useUpgrade, { ComponentUpgradeType } from "../hooks/UseUpgrade";
-import { numberWithCommas } from "../shared/utils";
-import { ButtonUpgrade } from "../components/Button";
-import ImagePopover from "../components/Modals";
-import * as Styled from "../shared/styled/Box";
+import { LayerGroup } from "../icons/LayerGroup";
+import { Coins } from "../icons/Coins";
+import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
+import { numberWithCommas } from "../../shared/utils";
+import { ButtonUpgrade } from "../ui/Button";
+import ImagePopover from "../modals";
+import * as Styled from "../../shared/styled/Box";
 
 const Box = styled.div`
   width: 100%;

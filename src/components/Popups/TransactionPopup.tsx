@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { AutoColumn } from "../../shared/styled/Column";
-import { AutoRow } from "../Row";
+import { AutoRow } from "../ui/Row";
 
 export type Status = "idle" | "error" | "loading" | "success";
 

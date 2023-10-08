@@ -2,12 +2,12 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { useAccount } from "@starknet-react/core";
 import axios from "axios";
 
-import { ImageIcon } from "./icons/Image";
-import { PlanetIcon } from "./icons/Planet";
-import { ScaleIcon } from "./icons/Scale";
-import { TemperatureIcon } from "./icons/Temperature";
-import { dataToNumber, numberWithCommas } from "../shared/utils";
-import { useTokenOf } from "../hooks/UseTokenOf";
+import { ImageIcon } from "../icons/Image";
+import { PlanetIcon } from "../icons/Planet";
+import { ScaleIcon } from "../icons/Scale";
+import { TemperatureIcon } from "../icons/Temperature";
+import { dataToNumber, numberWithCommas } from "../../shared/utils";
+import { useTokenOf } from "../../hooks/useTokenOf";
 
 import { styled, Box } from "@mui/system";
 import { Typography } from "@mui/material";
@@ -99,7 +99,7 @@ const PlanetImage: FC = () => {
 
   const imgId = useMemo(
     () => (tokenId !== undefined ? Number(tokenId) % IMG_MODULO : undefined),
-    [tokenId],
+    [tokenId]
   );
 
   const findAttribute = (name: string) =>
@@ -136,7 +136,7 @@ const PlanetImage: FC = () => {
           label="Diameter"
           icon={<ScaleIcon />}
           value={`${numberWithCommas(
-            dataToNumber(findAttribute("size")) * 10 ** 4,
+            dataToNumber(findAttribute("size")) * 10 ** 4
           )} km`}
         />
         <PlanetInfoRow

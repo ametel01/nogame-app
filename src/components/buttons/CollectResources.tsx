@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import CircularProgress from "@mui/material/CircularProgress";
-import { GAMEADDRESS } from "../constants/addresses";
+import { GAMEADDRESS } from "../../constants/addresses";
 import { useContractWrite } from "@starknet-react/core";
 
 const StyledBox = styled(Box)(() => ({

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ThemedGlobalStyle, FixedGlobalStyle } from "./shared/styled/Theme";
-import AuthController from "./components/AuthController";
+import AuthController from "./components/auth/AuthController";
 
 export const AppWrapper = styled.div`
   min-height: 100vh;

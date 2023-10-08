@@ -5,7 +5,7 @@ import {
   Resources,
   TechLevels,
 } from "../shared/types";
-import DefencesBox from "../boxes/DefencesBox";
+import DefencesBox from "../components/boxes/DefencesBox";
 import {
   calculEnoughResources,
   blasterRequirements,
@@ -22,8 +22,8 @@ import {
   BeamDescription,
   AstralDescription,
   PlasmaDescription,
-} from "../components/Descriptions/DefencesPopover";
-import { ComponentBuildType } from "../hooks/UseBuild";
+} from "../components/descriptions/DefencesPopover";
+import { ComponentBuildType } from "../hooks/useBuild";
 
 interface Props {
   spendableResources?: Resources;

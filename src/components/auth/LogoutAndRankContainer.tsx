@@ -2,11 +2,11 @@ import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { useContractRead } from "@starknet-react/core";
 import nogameLogo from "../assets/NoGameLogo.png";
-import { numberWithCommas } from "../shared/utils";
-import { TrophyIcon } from "./icons/Trophy";
-import { ERC721ADDRESS } from "../constants/addresses";
-import erc721 from "../constants/erc721.json";
-import { useTokenOf } from "../hooks/UseTokenOf";
+import { numberWithCommas } from "../../shared/utils";
+import { TrophyIcon } from "../icons/Trophy";
+import { ERC721ADDRESS } from "../../constants/addresses";
+import erc721 from "../../constants/erc721.json";
+import { useTokenOf } from "../../hooks/useTokenOf";
 
 const LogoContainer = styled.div`
   display: flex;

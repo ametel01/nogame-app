@@ -1,20 +1,20 @@
 import { FC } from "react";
 import { useAccount } from "@starknet-react/core";
 
-import { RowCentered } from "../components/Row";
+import { RowCentered } from "../components/ui/Row";
 import {
   ResourcesTabList,
   ResourcesTabs,
   ResourceTab,
-} from "../components/Popups/ResourcesSection/styleds";
-import { CompoundsIcon } from "../assets/icons/factory";
-import { ResearchIcon } from "../assets/icons/lab";
+} from "../components/popups/ResourcesSection/styleds";
+import { CompoundsIcon } from "../assets/uiIcons/factory";
+import { ResearchIcon } from "../assets/uiIcons/lab";
 import { ResearchTabPanel } from "./ResearchTab";
 import { DockyardTabPanel } from "./DockyardTab";
 import { DefenceTabPanel } from "./DefencesTab";
 import { EmptyTabPanel } from "./EmptyTabPanel";
 import { CompoundsTabPanel } from "./CompoundsTab";
-import { useTokenOf } from "../hooks/UseTokenOf";
+import { useTokenOf } from "../hooks/useTokenOf";
 import { useSpendableResources } from "../hooks/ResourcesHooks";
 import {
   useCompoundsLevels,

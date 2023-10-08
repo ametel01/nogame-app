@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import CircularProgress from "@mui/material/CircularProgress";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { useContractWrite } from "@starknet-react/core";
-import { GAMEADDRESS } from "../constants/addresses";
+import { GAMEADDRESS } from "../../constants/addresses";
 
 const StyledButton = styled(Button)({
   width: "100%",

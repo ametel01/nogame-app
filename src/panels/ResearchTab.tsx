@@ -1,6 +1,6 @@
 import { StyledTabPanel } from "./styleds";
 import { TechCost, Resources, TechLevels, TechEntities } from "../shared/types";
-import ResearchBox from "../boxes/ResearchBox";
+import ResearchBox from "../components/boxes/ResearchBox";
 import {
   armourRequirements,
   beamTechRequirements,
@@ -43,7 +43,7 @@ import {
   ThrustDescription,
   WarpDescription,
   WeaponsDescription,
-} from "../components/Descriptions/LabPopover";
+} from "../components/descriptions/LabPopover";
 
 type ResearchConfigType = {
   description: React.ReactNode;
@@ -183,7 +183,7 @@ export const ResearchTabPanel = ({
             techCostUpgrade?.[research.techName] &&
             calculEnoughResources(
               techCostUpgrade[research.techName],
-              spendableResources,
+              spendableResources
             )
           }
           requirementsMet={research.requirements}

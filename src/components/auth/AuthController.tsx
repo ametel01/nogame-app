@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "@starknet-react/core";
-import { useTokenOf } from "../hooks/UseTokenOf";
-import AuthScreen from "../views/LoginOrGenerate";
-import Dashboard from "../views/DashBoard";
+import { useTokenOf } from "../../hooks/useTokenOf";
+import AuthScreen from "../../views/LoginOrGenerate";
+import Dashboard from "../../views/DashBoard";
 
 const AuthController = () => {
   console.log("Auth Controller");

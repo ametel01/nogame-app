@@ -6,10 +6,10 @@ import {
   QUARTZADDRESS,
   STEELADDRESS,
   TRITIUMADDRESS,
-} from "../constants/addresses";
-import { numberWithCommas } from "../shared/utils";
-import game from "../constants/nogame.json";
-import { useTokenOf } from "../hooks/UseTokenOf";
+} from "../../constants/addresses";
+import { numberWithCommas } from "../../shared/utils";
+import game from "../../constants/nogame.json";
+import { useTokenOf } from "../../hooks/useTokenOf";
 
 // Asset imports
 import ironImg from "../assets/resources/nogameiron.png";
@@ -135,7 +135,7 @@ const Resource = ({
         </div>
         {address && !copied && (
           <ResourceAddress>{`${address.substring(0, 6)}...${address.slice(
-            -4,
+            -4
           )}`}</ResourceAddress>
         )}
         {copied && <ResourceAddress>Copied</ResourceAddress>}

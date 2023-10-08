@@ -1,35 +1,37 @@
-import React, { useMemo, useState } from "react";
-import ImagePopover from "../components/Modals";
-import { ButtonBuild } from "../components/Button";
-import { LayerGroup } from "../components/icons/LayerGroup";
-import { Coins } from "../components/icons/Coins";
-import useBuild, { ComponentBuildType } from "../hooks/UseBuild";
-import { numberWithCommas } from "../shared/utils";
+import { ReactNode } from "react";
+import * as Styled from "../../shared/styled/Box";
+import { LayerGroup } from "../icons/LayerGroup";
+import { Coins } from "../icons/Coins";
+import { ButtonBuild } from "../ui/Button";
+import { numberWithCommas } from "../../shared/utils";
 import plus from "../assets/icons/Plus.svg";
-import * as Styled from "../shared/styled/Box";
+import React, { useMemo, useState } from "react";
+import useBuild, { ComponentBuildType } from "../../hooks/useBuild";
+import { Input } from "@mui/joy";
+import ImagePopover from "../modals";
 
-type DefencesBoxProps = {
+interface Props {
   img: string;
   title: string;
-  functionCallName: ComponentBuildType; // Adjust the type here if necessary
+  functionCallName: ComponentBuildType;
   level?: number;
   costUpdate?: { steel: number; quartz: number; tritium: number };
   hasEnoughResources?: boolean;
   requirementsMet?: boolean;
-  description: React.ReactNode;
-};
+  description: ReactNode;
+}
 
 type ButtonState = "valid" | "noResource" | "noRequirements";
 
-type ButtonArrayStates = {
+interface ButtonArrayStates {
   state: ButtonState;
   title: string;
   callback?: () => void;
   color?: string;
   icon: React.ReactNode;
-};
+}
 
-const DefencesBox: React.FC<DefencesBoxProps> = ({
+const DockyardBox = ({
   img,
   title,
   level,
@@ -38,7 +40,7 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
   functionCallName,
   requirementsMet,
   description,
-}) => {
+}: Props) => {
   const [quantity, setQuantity] = useState(0);
   const { write: build } = useBuild(functionCallName, quantity);
 
@@ -71,8 +73,12 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
   }));
 
   const actualButtonState = statesButton.find(
-    (state) => state.state === buttonState,
+    (state) => state.state === buttonState
   );
+
+  const steel = costUpdate ? numberWithCommas(costUpdate.steel) : null;
+  const quartz = costUpdate ? numberWithCommas(costUpdate.quartz) : null;
+  const tritium = costUpdate ? numberWithCommas(costUpdate.tritium) : null;
 
   return (
     <Styled.Box customcolor={actualButtonState?.color ?? "grey"}>
@@ -81,7 +87,10 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
         <img
           src={img}
           alt={title}
-          style={{ maxWidth: "100%", height: "auto" }}
+          style={{
+            maxWidth: "100%",
+            height: "auto",
+          }}
         />
       </Styled.ImageContainer>
       <Styled.SubBox>
@@ -98,28 +107,29 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
             <Styled.ResourceTitle>STEEL COST</Styled.ResourceTitle>
             <Styled.NumberContainer>
               <Coins />
-              {costUpdate?.steel ? numberWithCommas(costUpdate.steel) : "0"}
+              {steel}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>QUARTZ COST</Styled.ResourceTitle>
             <Styled.NumberContainer>
               <Coins />
-              {costUpdate?.quartz ? numberWithCommas(costUpdate.quartz) : "0"}
+              {quartz}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>TRITIUM COST</Styled.ResourceTitle>
             <Styled.NumberContainer>
               <Coins />
-              {costUpdate?.tritium ? numberWithCommas(costUpdate.tritium) : "0"}
+              {tritium}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
-          <Styled.CustomInput
+          <Input
             type="text"
             value={quantity}
             onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
             size="sm"
+            color="neutral"
             variant="soft"
           />
         </Styled.InfoContainer>
@@ -134,4 +144,4 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
   );
 };
 
-export default DefencesBox;
+export default DockyardBox;

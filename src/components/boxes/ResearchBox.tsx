@@ -1,12 +1,12 @@
-import * as Styled from "../shared/styled/Box";
-import { LayerGroup } from "../components/icons/LayerGroup";
-import { Coins } from "../components/icons/Coins";
-import { ButtonUpgrade } from "../components/Button";
-import { numberWithCommas } from "../shared/utils";
+import * as Styled from "../../shared/styled/Box";
+import { LayerGroup } from "../icons/LayerGroup";
+import { Coins } from "../icons/Coins";
+import { ButtonUpgrade } from "../ui/Button";
+import { numberWithCommas } from "../../shared/utils";
 import plus from "../assets/icons/Plus.svg";
 import React, { ReactNode, useMemo } from "react";
-import useUpgrade, { ComponentUpgradeType } from "../hooks/UseUpgrade";
-import ImagePopover from "../components/Modals";
+import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
+import ImagePopover from "../modals";
 
 interface Props {
   img: string;
@@ -40,7 +40,7 @@ const ResearchBox = ({
   description,
 }: Props) => {
   const { write: upgrade } = useUpgrade(
-    functionCallName as ComponentUpgradeType,
+    functionCallName as ComponentUpgradeType
   );
 
   const steel = costUpdate ? numberWithCommas(costUpdate.steel) : null;
@@ -107,7 +107,7 @@ const ResearchBox = ({
   ];
 
   const actualButtonState = statesButton.find(
-    (state) => state.state === buttonState,
+    (state) => state.state === buttonState
   );
 
   const hasRequirements = actualButtonState?.state === "noRequirements";

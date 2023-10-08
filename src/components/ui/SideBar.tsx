@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { useAccount } from "@starknet-react/core";
 import WalletHeader from "./WalletHeader";
-import LogoAndRankContainer from "./LogoutAndRankContainer";
+import LogoAndRankContainer from "../auth/LogoutAndRankContainer";
 import ResourcesContainer from "./ResourcesContainer";
-import { UseCollectResources } from "../hooks/UseCollectResources";
+import { UseCollectResources } from "../buttons/CollectResources";
 
 const BodyContainer = styled.div`
   flex: 1;

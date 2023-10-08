@@ -5,9 +5,9 @@ import NoGameLogo from "../assets/NoGameLogo.png";
 import ufoLogo from "../assets/icons/UFO.svg";
 import { Button } from "@mui/base";
 import { ColumnCenter } from "../shared/styled/Column";
-import { RowCentered } from "../components/Row";
-import ConnectWalletButton from "../components/ConnectWallet";
-import { GeneratePlanet } from "../hooks/UseGeneratePlanet";
+import { RowCentered } from "../components/ui/Row";
+import ConnectWalletButton from "../components/auth/ConnectWallet";
+import { GeneratePlanet } from "../components/buttons/GeneratePlanet";
 import React from "react";
 
 const MainWrapper = styled(ColumnCenter)`

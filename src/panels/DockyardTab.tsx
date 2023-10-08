@@ -15,16 +15,16 @@ import {
   SparrowDescription,
   FrigateDescription,
   ArmadeDescription,
-} from "../components/Descriptions/DockyardPopover";
+} from "../components/descriptions/DockyardPopover";
 import { ShipsCost, Resources, ShipsLevels, TechLevels } from "../shared/types";
-import DockyardBox from "../boxes/DockyardBox";
+import DockyardBox from "../components/boxes/DockyardBox";
 import armadeImg from "../assets/ships/armade.png";
 import frigateImg from "../assets/ships/frigate.png";
 import carrierImg from "../assets/ships/carrier.png";
 import sparrowImg from "../assets/ships/sparrow.png";
 import scraperImg from "../assets/ships/scraper.png";
 import celestiaImg from "../assets/ships/celestia.png";
-import { ComponentBuildType } from "../hooks/UseBuild";
+import { ComponentBuildType } from "../hooks/useBuild";
 
 type ShipConfigType = {
   description: React.ReactNode;

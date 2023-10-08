@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import SideBar from "../components/SideBar";
-import { PlanetSection } from "../components/PlanetSection";
+import SideBar from "../components/ui/SideBar";
+import { PlanetSection } from "../components/ui/PlanetSection";
 import { ResourcesSection } from "../panels";
 
 const GameContainer = styled.div`

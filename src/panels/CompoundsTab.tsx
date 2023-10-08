@@ -12,7 +12,7 @@ import {
   Resources,
 } from "../shared/types";
 import { calculEnoughResources } from "../shared/utils";
-import CompoundsBox from "../boxes/CompoundsBox";
+import CompoundsBox from "../components/boxes/CompoundsBox";
 import {
   DockyardDescription,
   EnergyMineDescription,
@@ -20,8 +20,8 @@ import {
   QuartzMineDescription,
   SteelMineDescription,
   TritiumMineDescription,
-} from "../components/Descriptions/CompoundsPopover";
-import { ComponentUpgradeType } from "../hooks/UseUpgrade";
+} from "../components/descriptions/CompoundsPopover";
+import { ComponentUpgradeType } from "../hooks/useUpgrade";
 
 type CompoundConfigType = {
   description: React.ReactNode;
@@ -115,7 +115,7 @@ export const CompoundsTabPanel = ({
             compoundsCostUpgrade?.[compound.compoundName] &&
             calculEnoughResources(
               compoundsCostUpgrade[compound.compoundName],
-              spendableResources,
+              spendableResources
             )
           }
         />
