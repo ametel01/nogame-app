@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 const Row = styled.div<{
-  align?: "flex-start" | "center" | "flex-end";
+  align?: string;
   padding?: string;
   border?: string;
   borderRadius?: string;
@@ -9,11 +9,12 @@ const Row = styled.div<{
 }>`
   width: 100%;
   display: flex;
-  align-items: ${({ align = "center" }) => align};
-  padding: ${({ padding = "0" }) => padding};
+  padding: 0;
+  align-items: ${({ align }) => (align ? align : "center")};
+  padding: ${({ padding }) => padding};
   border: ${({ border }) => border};
   border-radius: ${({ borderRadius }) => borderRadius};
-  gap: ${({ gap }) => gap};
+  gap: ${({ gap }) => gap && gap};
 `;
 
 export const RowBetween = styled(Row)`
@@ -31,8 +32,8 @@ export const RowFlat = styled.div`
 
 export const AutoRow = styled(Row)<{ gap?: string; justify?: string }>`
   flex-wrap: wrap;
-  margin: ${({ gap }) => (gap ? `-${gap}` : "0")};
-  justify-content: ${({ justify }) => justify};
+  margin: ${({ gap }) => gap && `-${gap}`};
+  justify-content: ${({ justify }) => justify && justify};
 
   & > * {
     margin: ${({ gap }) => gap} !important;
@@ -41,7 +42,7 @@ export const AutoRow = styled(Row)<{ gap?: string; justify?: string }>`
 
 export const RowFixed = styled(Row)<{ gap?: string; justify?: string }>`
   width: fit-content;
-  margin: ${({ gap }) => (gap ? `-${gap}` : "0")};
+  margin: ${({ gap }) => gap && `-${gap}`};
 `;
 
 export default Row;

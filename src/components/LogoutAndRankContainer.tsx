@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { useContractRead } from "@starknet-react/core";
 import nogameLogo from "../assets/NoGameLogo.png";
 import { numberWithCommas } from "../shared/utils";

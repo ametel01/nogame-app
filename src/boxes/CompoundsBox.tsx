@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { LayerGroup } from "../components/icons/LayerGroup";
 import { Coins } from "../components/icons/Coins";
 import useUpgrade, { ComponentUpgradeType } from "../hooks/UseUpgrade";
