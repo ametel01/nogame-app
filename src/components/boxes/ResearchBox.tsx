@@ -1,9 +1,9 @@
 import * as Styled from "../../shared/styled/Box";
 import { LayerGroup } from "../icons/LayerGroup";
-import { Coins } from "../icons/Coins";
 import { ButtonUpgrade } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
-import plus from "../assets/icons/Plus.svg";
+import { Coins } from "../icons/Coins";
+import plus from "../../assets/uiIcons/Plus.svg";
 import React, { ReactNode, useMemo } from "react";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
 import ImagePopover from "../modals";

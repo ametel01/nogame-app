@@ -12,14 +12,14 @@ import game from "../../constants/nogame.json";
 import { useTokenOf } from "../../hooks/useTokenOf";
 
 // Asset imports
-import ironImg from "../assets/resources/nogameiron.png";
-import quartzImg from "../assets/resources/nogamecrystal.png";
-import tritiumImg from "../assets/resources/nogamedeuterium.png";
-import energyImg from "../assets/resources/nogameenergy.png";
-import coins from "../assets/icons/Coins.svg";
-import gem from "../assets/icons/Gem.svg";
-import atom from "../assets/icons/Atom.svg";
-import bolt from "../assets/icons/Bolt.svg";
+import ironImg from "../../assets/gameElements/resources/metal.jpg";
+import quartzImg from "../../assets/gameElements/resources/nogamecrystal.png";
+import tritiumImg from "../../assets/gameElements/resources/nogamedeuterium.png";
+import energyImg from "../../assets/gameElements/resources/nogameenergy.png";
+import coins from "../../assets/uiIcons/Coins.svg";
+import gem from "../../assets/uiIcons/Gem.svg";
+import atom from "../../assets/uiIcons/Atom.svg";
+import bolt from "../../assets/uiIcons/Bolt.svg";
 
 // Styled Components
 const Container = styled.div`

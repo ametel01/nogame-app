@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
-import { ThemedGlobalStyle, FixedGlobalStyle } from "./shared/styled/Theme";
+import { CssBaseline } from "@mui/material";
 import AuthController from "./components/auth/AuthController";
+import { GlobalStyle, ThemedStyle } from "./shared/styled/Theme";
 
 export const AppWrapper = styled.div`
   min-height: 100vh;
@@ -9,8 +10,9 @@ export const AppWrapper = styled.div`
 function App() {
   return (
     <>
-      <FixedGlobalStyle />
-      <ThemedGlobalStyle />
+      <CssBaseline />
+      <GlobalStyle />
+      <ThemedStyle />
       <AppWrapper>
         <AuthController />
       </AppWrapper>

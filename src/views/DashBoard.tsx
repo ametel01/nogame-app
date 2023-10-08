@@ -1,7 +1,8 @@
-import styled, { css } from "styled-components";
+import styled from "@emotion/styled";
 import SideBar from "../components/ui/SideBar";
 import { PlanetSection } from "../components/ui/PlanetSection";
 import { ResourcesSection } from "../panels";
+import { css } from "@emotion/react";
 
 const GameContainer = styled.div`
   display: grid;

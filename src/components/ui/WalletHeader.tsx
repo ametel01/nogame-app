@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import astronaut from "../assets/icons/Astronaut.svg";
+import styled from "@emotion/styled";
+import astronaut from "../../assets/uiIcons/Astronaut.svg";
 
 const AstronautContainer = styled.div`
   display: flex;

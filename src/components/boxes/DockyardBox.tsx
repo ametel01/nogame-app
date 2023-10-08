@@ -4,7 +4,7 @@ import { LayerGroup } from "../icons/LayerGroup";
 import { Coins } from "../icons/Coins";
 import { ButtonBuild } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
-import plus from "../assets/icons/Plus.svg";
+import plus from "../../assets/uiIcons/Plus.svg";
 import React, { useMemo, useState } from "react";
 import useBuild, { ComponentBuildType } from "../../hooks/useBuild";
 import { Input } from "@mui/joy";

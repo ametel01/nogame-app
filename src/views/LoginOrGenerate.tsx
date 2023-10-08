@@ -1,14 +1,13 @@
 import { styled } from "@mui/system";
 import { FC } from "react";
 
-import NoGameLogo from "../assets/NoGameLogo.png";
-import ufoLogo from "../assets/icons/UFO.svg";
+import NoGameLogo from "../assets/logos/NoGameLogo.png";
+import ufoLogo from "../assets/uiIcons/UFO.svg";
 import { Button } from "@mui/base";
 import { ColumnCenter } from "../shared/styled/Column";
 import { RowCentered } from "../components/ui/Row";
 import ConnectWalletButton from "../components/auth/ConnectWallet";
 import { GeneratePlanet } from "../components/buttons/GeneratePlanet";
-import React from "react";
 
 const MainWrapper = styled(ColumnCenter)`
   height: 80vh;

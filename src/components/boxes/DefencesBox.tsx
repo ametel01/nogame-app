@@ -5,7 +5,7 @@ import { LayerGroup } from "../icons/LayerGroup";
 import { Coins } from "../icons/Coins";
 import useBuild, { ComponentBuildType } from "../../hooks/useBuild";
 import { numberWithCommas } from "../../shared/utils";
-import plus from "../assets/icons/Plus.svg";
+import plus from "../../assets/uiIcons/Plus.svg";
 import * as Styled from "../../shared/styled/Box";
 
 type DefencesBoxProps = {
