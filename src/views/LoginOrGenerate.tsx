@@ -25,7 +25,7 @@ const SubTextBefore = styled("div")`
   text-align: center;
   letter-spacing: 0.02em;
   padding: 0 15px 16px;
-  width: 80%;
+  width: 70%;
   opacity: 0.5;
   margin-y: 80px;
 `;
