@@ -11,6 +11,7 @@ import { ResearchIcon } from "../assets/uiIcons/lab";
 import { ResearchTabPanel } from "./ResearchTab";
 import { DockyardTabPanel } from "./DockyardTab";
 import { DefenceTabPanel } from "./DefencesTab";
+
 import { CompoundsTabPanel } from "./CompoundsTab";
 import { useTokenOf } from "../hooks/useTokenOf";
 import { useSpendableResources } from "../hooks/ResourcesHooks";
@@ -41,7 +42,6 @@ export const ResourcesSection: FC = () => {
     planetId !== undefined ? useCompoundsUpgradeCost(planetId) : undefined;
   const energyCost =
     planetId !== undefined ? useEnergyCost(planetId) : undefined;
-  // console.log(energyCost);
   const techLevels =
     planetId !== undefined ? useTechsLevels(planetId) : undefined;
   const techCost =

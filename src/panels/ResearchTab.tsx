@@ -176,7 +176,7 @@ export const ResearchTabPanel = ({
           img={research.img}
           title={research.title}
           functionCallName={research.functionCallName}
-          level={techLevels?.[research.techName]}
+          level={Number(techLevels?.[research.techName])}
           costUpdate={techCostUpgrade?.[research.techName]}
           hasEnoughResources={
             spendableResources &&
