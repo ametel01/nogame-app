@@ -5,21 +5,30 @@ export const ResourcesTabs = styled(Tabs)`
   width: 100%;
   display: flex;
   flex-direction: column;
+  &.react-tabs__tab--selected {
+    background: #1e2327;
+    border-bottom: 2px solid white;
+    position: relative; // Add relative positioning
+    z-index: 1; // Increase z-index
+  }
 `;
 
 export const ResourcesTabList = styled(TabList)`
   border: none;
   display: flex;
-  padding: 0px 24px;
+  padding: 0px 24px 4px 24px; // Add some bottom padding
 `;
 
-export const ResourceTab = styled(Tab)`
-  flex: 1;
+interface ResourceTabProps {
+  active: boolean;
+}
 
+export const ResourceTab = styled(Tab)<ResourceTabProps>`
+  flex: 1;
+  position: relative; // Ensure it's on top of other content
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-weight: 500;
   font-size: 16px;
   line-height: 21px;
@@ -29,21 +38,7 @@ export const ResourceTab = styled(Tab)`
   padding: 16px;
   cursor: pointer;
   border-radius: 4px 4px 0px 0px;
-
-  &.react-tabs__tab--selected {
-    background: #1e2327;
-    border: #bab7b0;
-  }
-
-  :focus-visible,
-  :focus {
-    outline: none;
-    border: none;
-
-    :after {
-      background: transparent;
-    }
-  }
+  opacity: ${(props) => (props.active ? 1.0 : 0.3)};
 `;
 
 export const StyledTabPanel = styled(TabPanel)`

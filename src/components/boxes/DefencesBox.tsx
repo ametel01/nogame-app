@@ -131,7 +131,7 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
   const tritiumDisplay = adjustedTritium
     ? numberWithCommas(adjustedTritium)
     : 0;
-  console.log(level);
+
   return (
     <Styled.Box>
       <Styled.ImageContainer>

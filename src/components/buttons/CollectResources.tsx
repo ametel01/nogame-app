@@ -40,7 +40,6 @@ export function UseCollectResources() {
     calldata: [],
   };
   const { write, isLoading, status } = useContractWrite({ calls: [tx] });
-  console.log(status);
 
   return (
     <>

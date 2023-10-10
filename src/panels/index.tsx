@@ -2,12 +2,16 @@ import { FC } from "react";
 import { useState } from "react";
 import { RowCentered } from "../components/ui/Row";
 import {
+  PrecisionManufacturing,
+  Biotech,
+  Rocket,
+  Security,
+} from "@mui/icons-material";
+import {
   ResourcesTabList,
   ResourcesTabs,
   ResourceTab,
 } from "../components/popups/ResourcesSection/styleds";
-import { CompoundsIcon } from "../assets/uiIcons/factory";
-import { ResearchIcon } from "../assets/uiIcons/lab";
 import { ResearchTabPanel } from "./ResearchTab";
 import { DockyardTabPanel } from "./DockyardTab";
 import { DefenceTabPanel } from "./DefencesTab";
@@ -53,27 +57,40 @@ export const ResourcesSection: FC = () => {
     planetId !== undefined ? useDefencesLevels(planetId) : undefined;
   const defencesCost = useDefencesCost();
 
+  console.log(activeTab);
   return (
     <ResourcesTabs>
       <ResourcesTabList>
-        <ResourceTab onClick={() => setActiveTab(0)}>
+        <ResourceTab
+          onClick={() => setActiveTab(0)}
+          active={activeTab === 0 ? true : false}
+        >
           <RowCentered gap={"8px"}>
-            <CompoundsIcon /> Compounds
+            <PrecisionManufacturing /> Compounds
           </RowCentered>
         </ResourceTab>
-        <ResourceTab onClick={() => setActiveTab(1)}>
+        <ResourceTab
+          onClick={() => setActiveTab(1)}
+          active={activeTab === 1 ? true : false}
+        >
           <RowCentered gap={"8px"}>
-            <ResearchIcon /> Research Lab
+            <Biotech /> Research Lab
           </RowCentered>
         </ResourceTab>
-        <ResourceTab onClick={() => setActiveTab(2)}>
+        <ResourceTab
+          onClick={() => setActiveTab(2)}
+          active={activeTab === 2 ? true : false}
+        >
           <RowCentered gap={"8px"}>
-            <ResearchIcon /> Dockyard
+            <Rocket /> Dockyard
           </RowCentered>
         </ResourceTab>
-        <ResourceTab onClick={() => setActiveTab(3)}>
+        <ResourceTab
+          onClick={() => setActiveTab(3)}
+          active={activeTab === 3 ? true : false}
+        >
           <RowCentered gap={"8px"}>
-            <ResearchIcon /> Defences
+            <Security /> Defences
           </RowCentered>
         </ResourceTab>
       </ResourcesTabList>
