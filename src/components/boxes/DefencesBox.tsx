@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { Input } from "@mui/joy";
 import ImagePopover from "../modals";
 import { ButtonBuild } from "../ui/Button";
 import { LayerGroup } from "../icons/LayerGroup";
@@ -115,12 +116,20 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
               {costUpdate?.tritium ? numberWithCommas(costUpdate.tritium) : "0"}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
-          <Styled.CustomInput
+          <Input
             type="text"
             value={quantity}
-            onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setQuantity(0);
+              } else {
+                setQuantity(parseInt(e.target.value, 10));
+              }
+            }}
             size="sm"
+            color="neutral"
             variant="soft"
+            style={{ width: "80px" }}
           />
         </Styled.InfoContainer>
         <Styled.ButtonContainer>

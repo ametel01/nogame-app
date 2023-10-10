@@ -97,8 +97,6 @@ export const CompoundsTabPanel = ({
     },
   ];
 
-  console.log(energyRequired);
-
   return (
     <StyledTabPanel {...rest}>
       {compoundsConfig.map((compound) => (

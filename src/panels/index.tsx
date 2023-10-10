@@ -48,11 +48,13 @@ export const ResourcesSection: FC = () => {
     planetId !== undefined ? useTechsUpgradeCost(planetId) : undefined;
   const shipsLevels =
     planetId !== undefined ? useShipsLevels(planetId) : undefined;
-  const shipsCost = planetId !== undefined ? useShipsCost(planetId) : undefined;
+  const shipsCost = planetId !== undefined ? useShipsCost() : undefined;
   const defencesLevels =
     planetId !== undefined ? useDefencesLevels(planetId) : undefined;
   const defencesCost =
     planetId !== undefined ? useDefencesCost(planetId) : undefined;
+
+  console.log(shipsCost);
 
   return (
     <ResourcesTabs>

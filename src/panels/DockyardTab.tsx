@@ -32,7 +32,7 @@ type ShipConfigType = {
   title: string;
   functionCallName: string;
   shipName: keyof ShipsLevels;
-  requirements: (dockyardLevel?: number, techLevels?: TechLevels) => boolean;
+  requirements: boolean;
 };
 
 interface Props {
@@ -43,57 +43,6 @@ interface Props {
   techLevels?: TechLevels;
 }
 
-const shipsConfig: ShipConfigType[] = [
-  {
-    description: <CarrierDescription />,
-    img: carrierImg,
-    title: "Carrier",
-    functionCallName: "carrier",
-    shipName: "carrier",
-    requirements: carrierRequirements,
-  },
-  {
-    description: <CelestiaDescription />,
-    img: celestiaImg,
-    title: "Celestia",
-    functionCallName: "celestia",
-    shipName: "celestia",
-    requirements: celestiaRequirements,
-  },
-  {
-    description: <ScraperDescription />,
-    img: scraperImg,
-    title: "Scraper",
-    functionCallName: "scraper",
-    shipName: "scraper",
-    requirements: scraperRequirements,
-  },
-  {
-    description: <SparrowDescription />,
-    img: sparrowImg,
-    title: "Sparrow",
-    functionCallName: "sparrow",
-    shipName: "sparrow",
-    requirements: sparrowRequirements,
-  },
-  {
-    description: <FrigateDescription />,
-    img: frigateImg,
-    title: "Frigate",
-    functionCallName: "frigate",
-    shipName: "frigate",
-    requirements: frigateRequirements,
-  },
-  {
-    description: <ArmadeDescription />,
-    img: armadeImg,
-    title: "Armade",
-    functionCallName: "armade",
-    shipName: "armade",
-    requirements: armadeRequirements,
-  },
-];
-
 export const DockyardTabPanel = ({
   spendableResources,
   shipsLevels,
@@ -102,6 +51,58 @@ export const DockyardTabPanel = ({
   techLevels,
   ...rest
 }: Props) => {
+  const shipsConfig: ShipConfigType[] = [
+    {
+      description: <CarrierDescription />,
+      img: carrierImg,
+      title: "Carrier",
+      functionCallName: "carrier",
+      shipName: "carrier",
+      requirements: carrierRequirements(dockyardLevel, techLevels),
+    },
+    {
+      description: <CelestiaDescription />,
+      img: celestiaImg,
+      title: "Celestia",
+      functionCallName: "celestia",
+      shipName: "celestia",
+      requirements: celestiaRequirements(dockyardLevel, techLevels),
+    },
+    {
+      description: <ScraperDescription />,
+      img: scraperImg,
+      title: "Scraper",
+      functionCallName: "scraper",
+      shipName: "scraper",
+      requirements: scraperRequirements(dockyardLevel, techLevels),
+    },
+    {
+      description: <SparrowDescription />,
+      img: sparrowImg,
+      title: "Sparrow",
+      functionCallName: "sparrow",
+      shipName: "sparrow",
+      requirements: sparrowRequirements(dockyardLevel),
+    },
+    {
+      description: <FrigateDescription />,
+      img: frigateImg,
+      title: "Frigate",
+      functionCallName: "frigate",
+      shipName: "frigate",
+      requirements: frigateRequirements(dockyardLevel, techLevels),
+    },
+    {
+      description: <ArmadeDescription />,
+      img: armadeImg,
+      title: "Armade",
+      functionCallName: "armade",
+      shipName: "armade",
+      requirements: armadeRequirements(dockyardLevel, techLevels),
+    },
+  ];
+
+  console.log(shipsCost?.sparrow);
   return (
     <StyledTabPanel {...rest}>
       {shipsConfig.map((ship) => (
@@ -111,14 +112,14 @@ export const DockyardTabPanel = ({
           img={ship.img}
           title={ship.title}
           functionCallName={ship.functionCallName as ComponentBuildType}
-          level={shipsLevels?.[ship.shipName]}
+          level={Number(shipsLevels?.[ship.shipName])}
           costUpdate={shipsCost?.[ship.shipName]}
           hasEnoughResources={
             spendableResources &&
             shipsCost?.[ship.shipName] &&
             calculEnoughResources(shipsCost[ship.shipName], spendableResources)
           }
-          requirementsMet={ship.requirements(dockyardLevel, techLevels)}
+          requirementsMet={ship.requirements}
         />
       ))}
     </StyledTabPanel>

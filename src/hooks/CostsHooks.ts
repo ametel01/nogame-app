@@ -30,12 +30,12 @@ export function useTechsUpgradeCost(planetId: number | undefined) {
   return data as unknown as TechCost;
 }
 
-export function useShipsCost(planetId: number | undefined) {
+export function useShipsCost() {
   const { data } = useContractRead({
     address: GAMEADDRESS,
     abi: game.abi,
     functionName: "get_ships_cost",
-    args: [planetId],
+    args: [],
   });
   return data as unknown as ShipsCost;
 }
