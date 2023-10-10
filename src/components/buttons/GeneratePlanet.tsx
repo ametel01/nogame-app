@@ -13,13 +13,13 @@ const StyledButton = styled(Button)({
   fontSize: "24px",
   fontWeight: "bold",
   letterSpacing: "0.15em",
-  border: "1px solid #243B55",
+  border: "1px solid #7FA0B3", // Using the light blue-grey for the border.
   display: "flex",
   justifyContent: "center",
-  background: "linear-gradient(90deg, #141E30 0%, #243B55 50%, #564D4A 100%)", // A gradient from deep space blue to galactic gray
-  color: "#ECD9A0", // A golden star-like color for the text to make it stand out like a star
+  background: "linear-gradient(90deg, #1B1E2A 0%, #454D74 50%, #363C5C 100%)", // Gradient using the main background, deep blue, and a darker shade.
+  color: "#ECD9A0", // Keeping the golden star-like color for the text.
   "&:hover": {
-    background: "linear-gradient(90deg, #0B1C2D 0%, #1E2D40 50%, #4E4140 100%)", // Darkened versions of the colors for hover state, as if journeying deeper into space
+    background: "linear-gradient(90deg, #111427 0%, #36405A 50%, #2B2E3C 100%)", // Slightly darkened versions for hover.
   },
 });
 

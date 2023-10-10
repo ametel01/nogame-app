@@ -11,7 +11,7 @@ import { GeneratePlanet } from "../components/buttons/GeneratePlanet";
 
 const MainWrapper = styled(ColumnCenter)`
   height: 80vh;
-  justify-content: center;
+  justify-content: space-evenly; // Evenly distribute the child elements
   gap: 16px;
 `;
 
@@ -40,7 +40,7 @@ const SubText = styled("div")`
   padding: 0 15px 16px;
   width: 50%;
   opacity: 0.5;
-  margin-y: 80px;
+  margin: 0; // Reset the margin
 `;
 
 const GeneratePlanetWrapper = styled("div")`
@@ -58,6 +58,26 @@ const TopRightButtonContainer = styled("div")`
   position: absolute;
   top: 20px; /* Adjust the top position as needed */
   right: 20px; /* Adjust the right position as needed */
+`;
+
+const PriceText = styled("div")`
+  color: #ecd9a0; // A golden color for the ticker text
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  background-color: rgba(
+    34,
+    36,
+    45,
+    0.8
+  ); // Slightly transparent dark background
+  padding: 8px 16px; // Padding to give it some space
+  border-radius: 8px; // Rounded borders
+  font-family: "Courier New", Courier, monospace; // Monospace font for the techy feel
+  white-space: nowrap; // To prevent wrapping of text
+  overflow: hidden; // In case we want to add scrolling effect later
+  opacity: 0.9;
 `;
 
 interface AuthScreenProps {
@@ -140,6 +160,7 @@ const GeneratePlanetView: FC<GeneratePlanetViewProps> = () => {
         <SubText>
           In the intricate dance of the cosmos, are we not poised for ascension?
         </SubText>
+        <PriceText>Latest NFT price: 0.021 ETH</PriceText>
         <GeneratePlanet />
       </MainWrapper>
     </GeneratePlanetWrapper>

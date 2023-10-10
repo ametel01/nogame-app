@@ -11,13 +11,13 @@ import argentIcon from "../../assets/logos/argent.svg";
 const StyledBox = styled(Box)({
   fontWeight: 800,
   fontSize: 20,
-  color: "#E7ECEE",
+  color: "#E7ECEE", // This is a good neutral light color. Keeping it.
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  backgroundColor: "#1E272F",
-  border: "1px solid #2E3A45",
+  backgroundColor: "#454D74", // Deep blue from the logo.
+  border: "1px solid #7FA0B3", // Light blue-grey for the border.
   borderRadius: 16,
   boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
   padding: "8px 32px",
@@ -34,6 +34,7 @@ const CloseStyledIcon = styled(CloseIcon)({
   cursor: "pointer",
   padding: "0 8px",
   fontSize: "2em",
+  color: "#E13936", // Red as it's a close (important) action.
 });
 
 const StyledUl = styled("ul")({
@@ -53,14 +54,16 @@ const ConnectorIcon = styled("img")({
 const ConnectorText = styled("span")({
   flexGrow: 1,
   textAlign: "center",
+  color: "#E7ECEE", // Neutral light color for consistent readability.
 });
 
 const DisclaimerText = styled("div")({
   fontSize: "12px",
   fontWeight: "400",
   width: "70%",
-  margin: "20px auto", // auto margin on the sides will center it horizontally
-  textAlign: "center", // center the text itself
+  margin: "20px auto",
+  textAlign: "center",
+  color: "#7FA0B3", // Using light blue-grey for less important text.
 });
 
 const StyledButton = styled(Button)({
@@ -69,13 +72,13 @@ const StyledButton = styled(Button)({
   padding: "8px 32px",
   textTransform: "capitalize",
   letterSpacing: "0.1em",
-  border: "1px solid #2E3A45",
+  border: "1px solid #7FA0B3",
   display: "flex",
   justifyContent: "center",
-  bgcolor: "#007bff",
+  backgroundColor: "#454D74", // Deep blue from the logo.
   color: "#fff",
   "&:hover": {
-    background: "#2E434C",
+    background: "#363C5C", // A slightly darker shade of the deep blue for a subtle hover effect.
   },
 });
 
