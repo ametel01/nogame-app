@@ -109,15 +109,6 @@ const DockyardBox = ({
 
   const isDisabled = actualButtonState?.state === "noResource";
 
-  // console.log(costUpdate?.steel);
-  // const steel = costUpdate ? numberWithCommas(Number(costUpdate.steel)) : null;
-  // const quartz = costUpdate
-  //   ? numberWithCommas(Number(costUpdate.quartz))
-  //   : null;
-  // const tritium = costUpdate
-  //   ? numberWithCommas(Number(costUpdate.tritium))
-  //   : null;
-
   // Calculate the cost based on the quantity
   const adjustedSteel = costUpdate
     ? quantity === 0
@@ -141,7 +132,7 @@ const DockyardBox = ({
   const tritiumDisplay = adjustedTritium
     ? numberWithCommas(adjustedTritium)
     : 0;
-  console.log(tritiumDisplay);
+
   return (
     <Styled.Box customcolor={actualButtonState?.color ?? "grey"}>
       <Styled.ImageContainer>

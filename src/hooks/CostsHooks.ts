@@ -40,12 +40,12 @@ export function useShipsCost() {
   return data as unknown as ShipsCost;
 }
 
-export function useDefencesCost(planetId: number | undefined) {
+export function useDefencesCost() {
   const { data } = useContractRead({
     address: GAMEADDRESS,
     abi: game.abi,
     functionName: "get_defences_cost",
-    args: [planetId],
+    args: [],
   });
   return data as unknown as DefenceCost;
 }

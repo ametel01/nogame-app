@@ -102,7 +102,6 @@ export const DockyardTabPanel = ({
     },
   ];
 
-  console.log(shipsCost?.sparrow);
   return (
     <StyledTabPanel {...rest}>
       {shipsConfig.map((ship) => (

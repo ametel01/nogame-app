@@ -1,8 +1,6 @@
 import * as Styled from "../../shared/styled/Box";
-import { LayerGroup } from "../icons/LayerGroup";
 import { ButtonUpgrade } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
-import { Coins } from "../icons/Coins";
 import plus from "../../assets/uiIcons/Plus.svg";
 import React, { ReactNode, useMemo } from "react";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
@@ -124,31 +122,19 @@ const ResearchBox = ({
         <Styled.InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>LEVEL</Styled.ResourceTitle>
-            <Styled.NumberContainer>
-              <LayerGroup />
-              {level}
-            </Styled.NumberContainer>
+            <Styled.NumberContainer>{level}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>STEEL COST</Styled.ResourceTitle>
-            <Styled.NumberContainer>
-              <Coins />
-              {steel}
-            </Styled.NumberContainer>
+            <Styled.ResourceTitle>STEEL</Styled.ResourceTitle>
+            <Styled.NumberContainer>{steel}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>QUARTZ COST</Styled.ResourceTitle>
-            <Styled.NumberContainer>
-              <Coins />
-              {quartz}
-            </Styled.NumberContainer>
+            <Styled.ResourceTitle>QUARTZ</Styled.ResourceTitle>
+            <Styled.NumberContainer>{quartz}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>TRITIUM COST</Styled.ResourceTitle>
-            <Styled.NumberContainer>
-              <Coins />
-              {tritium}
-            </Styled.NumberContainer>
+            <Styled.ResourceTitle>TRITIUM</Styled.ResourceTitle>
+            <Styled.NumberContainer>{tritium}</Styled.NumberContainer>
           </Styled.ResourceContainer>
         </Styled.InfoContainer>
         <Styled.ButtonContainer>

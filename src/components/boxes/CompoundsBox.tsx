@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { LayerGroup } from "../icons/LayerGroup";
-import { Coins } from "../icons/Coins";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
 import { numberWithCommas } from "../../shared/utils";
 import { ButtonUpgrade } from "../ui/Button";
@@ -77,38 +75,23 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
         <Styled.InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>LEVEL</Styled.ResourceTitle>
-            <Styled.NumberContainer>
-              <LayerGroup />
-              {level}
-            </Styled.NumberContainer>
+            <Styled.NumberContainer>{level}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>STEEL COST</Styled.ResourceTitle>
-            <Styled.NumberContainer>
-              <Coins />
-              {steel}
-            </Styled.NumberContainer>
+            <Styled.ResourceTitle>STEEL</Styled.ResourceTitle>
+            <Styled.NumberContainer>{steel}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>QUARTZ COST</Styled.ResourceTitle>
-            <Styled.NumberContainer>
-              <Coins />
-              {quartz}
-            </Styled.NumberContainer>
+            <Styled.ResourceTitle>QUARTZ</Styled.ResourceTitle>
+            <Styled.NumberContainer>{quartz}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>TRITIUM COST</Styled.ResourceTitle>
-            <Styled.NumberContainer>
-              <Coins />
-              {tritium}
-            </Styled.NumberContainer>
+            <Styled.ResourceTitle>TRITIUM</Styled.ResourceTitle>
+            <Styled.NumberContainer>{tritium}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>ENERGY REQUIRED</Styled.ResourceTitle>
-            <Styled.NumberContainer>
-              <Coins />
-              {energy}
-            </Styled.NumberContainer>
+            <Styled.ResourceTitle>ENERGY</Styled.ResourceTitle>
+            <Styled.NumberContainer>{energy}</Styled.NumberContainer>
           </Styled.ResourceContainer>
         </Styled.InfoContainer>
         <Styled.ButtonContainer>

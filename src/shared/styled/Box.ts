@@ -8,11 +8,11 @@ export const Box = styled("div")<{ customcolor: string }>(
     maxHeight: "70px",
     display: "flex",
     marginBottom: "10px",
-    border: `2px solid ${customcolor}`,
+    border: `1px solid rgba(${customcolor}, 0.5)`,
     backgroundColor: "#151a1e",
     borderRadius: "4px",
     overflow: "hidden",
-  }),
+  })
 );
 
 export const SubBox = styled("div")({
