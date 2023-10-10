@@ -4,8 +4,8 @@ import { useContractRead } from "@starknet-react/core";
 import nogameLogo from "../../assets/logos/NoGameLogo.png";
 import { numberWithCommas } from "../../shared/utils";
 import { TrophyIcon } from "../icons/Trophy";
-import { ERC721ADDRESS } from "../../constants/addresses";
-import erc721 from "../../constants/erc721.json";
+import { GAMEADDRESS } from "../../constants/addresses";
+import game from "../../constants/nogame.json";
 import { useTokenOf } from "../../hooks/useTokenOf";
 
 const LogoContainer = styled.div`
@@ -53,16 +53,13 @@ const StyledImage = styled.img`
   objectfit: contain;
 `;
 
-interface Props {
-  account: string; // 0x prefixed Ethereum address
-}
-
-const LogoAndRankContainer = (props: Props) => {
-  const planetId = useTokenOf(props.account);
+const LogoAndRankContainer = () => {
+  const data = useTokenOf();
+  const planetId = Number(data.planetId);
 
   const { data: points } = useContractRead({
-    address: ERC721ADDRESS,
-    abi: erc721.abi,
+    address: GAMEADDRESS,
+    abi: game.abi,
     functionName: "get_planet_points",
     args: [planetId],
     watch: false,

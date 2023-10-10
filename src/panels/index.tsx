@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { useAccount } from "@starknet-react/core";
 
 import { RowCentered } from "../components/ui/Row";
 import {
@@ -31,11 +30,10 @@ import {
 } from "../hooks/CostsHooks";
 
 export const ResourcesSection: FC = () => {
-  const { address } = useAccount();
-  const { data: planetIdData } = useTokenOf(address);
+  const data = useTokenOf();
+  const planetId = Number(data!.planetId);
 
   // Check if planetIdData is defined and extract the first item (assuming it's the planetId)
-  const planetId = planetIdData && planetIdData[0];
 
   // Data Retrieval Hooks
   const compoundsLevels =

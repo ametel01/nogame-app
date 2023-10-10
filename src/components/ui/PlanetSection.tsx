@@ -81,12 +81,13 @@ interface Metadata {
 
 const PlanetImage: FC = () => {
   const { address } = useAccount();
-  const tokenId = useTokenOf(address);
+  const data = useTokenOf();
+  const planetId = Number(data.planetId);
   const [metadata, setMetadata] = useState<Metadata | null>(null);
 
   useEffect(() => {
     if (address && !metadata) {
-      const url = `${IPFS_BASE_URL}/${tokenId}.json`;
+      const url = `${IPFS_BASE_URL}/${planetId}.json`;
       axios
         .get(url)
         .then((result) => {
@@ -95,11 +96,12 @@ const PlanetImage: FC = () => {
         })
         .catch(console.error);
     }
-  }, [tokenId, metadata, address]);
+  }, [planetId, metadata, address]);
 
   const imgId = useMemo(
-    () => (tokenId !== undefined ? Number(tokenId) % IMG_MODULO : undefined),
-    [tokenId]
+    () =>
+      planetId !== undefined ? dataToNumber(planetId) % IMG_MODULO : undefined,
+    [planetId]
   );
 
   const findAttribute = (name: string) =>
@@ -113,7 +115,7 @@ const PlanetImage: FC = () => {
     <>
       <PlanetImageWrapper>
         {imgId ? (
-          <a href={`${IPFS_BASE_URL}/${tokenId}.json`}>
+          <a href={`${IPFS_BASE_URL}/${planetId}.json`}>
             <img
               src={getPlanetImageUrl()}
               width={250}

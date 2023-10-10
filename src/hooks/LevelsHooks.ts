@@ -9,9 +9,7 @@ import {
   TechLevels,
 } from "../shared/types";
 
-export function useCompoundsLevels(
-  planetId: number | undefined,
-): CompoundsLevels {
+export function useCompoundsLevels(planetId: number): CompoundsLevels {
   const { data } = useContractRead({
     address: GAMEADDRESS,
     abi: game.abi,

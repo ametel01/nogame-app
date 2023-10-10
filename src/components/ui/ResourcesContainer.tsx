@@ -1,18 +1,15 @@
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
-import { useAccount, useContractRead } from "@starknet-react/core";
 import {
-  GAMEADDRESS,
   QUARTZADDRESS,
   STEELADDRESS,
   TRITIUMADDRESS,
 } from "../../constants/addresses";
 import { numberWithCommas } from "../../shared/utils";
-import game from "../../constants/nogame.json";
 import { useTokenOf } from "../../hooks/useTokenOf";
 
 // Asset imports
-import ironImg from "../../assets/gameElements/resources/metal.jpg";
+import ironImg from "../../assets/gameElements/resources/nogameiron.png";
 import quartzImg from "../../assets/gameElements/resources/nogamecrystal.png";
 import tritiumImg from "../../assets/gameElements/resources/nogamedeuterium.png";
 import energyImg from "../../assets/gameElements/resources/nogameenergy.png";
@@ -20,6 +17,11 @@ import coins from "../../assets/uiIcons/Coins.svg";
 import gem from "../../assets/uiIcons/Gem.svg";
 import atom from "../../assets/uiIcons/Atom.svg";
 import bolt from "../../assets/uiIcons/Bolt.svg";
+import {
+  useCollectibleResources,
+  useEnergyAvailable,
+  useSpendableResources,
+} from "../../hooks/ResourcesHooks";
 
 // Styled Components
 const Container = styled.div`
@@ -76,7 +78,7 @@ const ImageAddressContainer = styled.div`
 interface Props {
   spendable?: string;
   collectible?: string;
-  available?: string;
+  available?: number;
   img: string;
   iconImg: string;
   title: string;
@@ -157,36 +159,15 @@ const Resource = ({
 };
 
 const ResourcesContainer = () => {
-  const { address } = useAccount();
-  const planetId = useTokenOf(address);
-  if (!planetId) return null;
+  const data = useTokenOf();
+  const planetId = Number(data.planetId);
+  const spendable =
+    planetId !== undefined ? useSpendableResources(planetId) : undefined;
 
-  interface ResourceData {
-    steel: string;
-    quartz: string;
-    tritium: string;
-  }
+  const collectible =
+    planetId != undefined ? useCollectibleResources(planetId) : undefined;
 
-  const { data: spendable } = useContractRead({
-    address: GAMEADDRESS,
-    abi: game.abi,
-    functionName: "get_spendable_resources",
-    args: [planetId],
-  }) as unknown as { data: ResourceData };
-
-  const { data: collectible } = useContractRead({
-    address: GAMEADDRESS,
-    abi: game.abi,
-    functionName: "getCollectibleResources",
-    args: [planetId],
-  }) as unknown as { data: ResourceData };
-
-  const { data: energy } = useContractRead({
-    address: GAMEADDRESS,
-    abi: game.abi,
-    functionName: "get_energy_available",
-    args: [planetId],
-  });
+  const energy = useEnergyAvailable(planetId);
 
   const spendableResources = useMemo(() => {
     if (spendable) {
@@ -208,13 +189,7 @@ const ResourcesContainer = () => {
     }
   }, [collectible]);
 
-  const energyAvailable = useMemo(() => {
-    if (energy) {
-      return {
-        energy: numberWithCommas(Number(energy)),
-      };
-    }
-  }, [energy]);
+  const energyAvailable = Number(energy);
 
   return (
     <div>
@@ -246,7 +221,7 @@ const ResourcesContainer = () => {
         title="Energy"
         img={energyImg}
         iconImg={bolt}
-        available={energyAvailable?.energy}
+        available={energyAvailable}
       />
     </div>
   );

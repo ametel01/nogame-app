@@ -17,7 +17,7 @@ const SideBar = () => {
   return (
     <BodyContainer>
       <WalletHeader account={account} />
-      <LogoAndRankContainer account={account!} />
+      <LogoAndRankContainer />
       <ResourcesContainer />
       <UseCollectResources />
     </BodyContainer>

@@ -54,6 +54,12 @@ const StyledLogo = styled("img")`
   width: 600px;
 `;
 
+const TopRightButtonContainer = styled("div")`
+  position: absolute;
+  top: 20px; /* Adjust the top position as needed */
+  right: 20px; /* Adjust the right position as needed */
+`;
+
 interface AuthScreenProps {
   address?: string;
   loading: boolean;
@@ -118,7 +124,7 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
         countless emperors, each vying for the very essence of universal
         dominance.
       </SubTextBefore>
-      <div>{renderButton()}</div>
+      <TopRightButtonContainer>{renderButton()}</TopRightButtonContainer>
     </MainWrapper>
   );
 };

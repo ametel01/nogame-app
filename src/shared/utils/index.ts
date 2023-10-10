@@ -1,8 +1,8 @@
 import BigNumber from "bignumber.js";
 import { TechLevels } from "../types";
 
-export const dataToNumber = (value: string | number | BigNumber) =>
-  new BigNumber(value).toNumber();
+export const dataToNumber = (value: unknown[] | string | number | undefined) =>
+  new BigNumber(value as unknown as number).toNumber();
 
 export const calculEnoughResources = (
   {
@@ -10,7 +10,7 @@ export const calculEnoughResources = (
     quartz: requiredQuartz,
     tritium: requiredTritium,
   }: { steel: number; quartz: number; tritium: number },
-  available?: { steel: number; quartz: number; tritium: number },
+  available?: { steel: number; quartz: number; tritium: number }
 ) => {
   if (!available) return false;
   return (
@@ -38,7 +38,7 @@ export const weaponsRequirements = (labLevel: number | undefined) => {
 
 export const beamTechRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return labLevel
     ? labLevel >= 1 && techs
@@ -49,7 +49,7 @@ export const beamTechRequirements = (
 
 export const shieldRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return labLevel
     ? labLevel >= 6 && techs
@@ -60,7 +60,7 @@ export const shieldRequirements = (
 
 export const combustionRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return labLevel
     ? labLevel >= 1 && techs
@@ -71,7 +71,7 @@ export const combustionRequirements = (
 
 export const thrustRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return labLevel
     ? labLevel >= 2 && techs
@@ -82,7 +82,7 @@ export const thrustRequirements = (
 
 export const ionRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return labLevel
     ? labLevel >= 4 && techs
@@ -95,7 +95,7 @@ export const ionRequirements = (
 
 export const spacetimeRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return labLevel
     ? labLevel >= 7 && techs
@@ -106,7 +106,7 @@ export const spacetimeRequirements = (
 
 export const warpRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return labLevel
     ? labLevel >= 7 && techs
@@ -119,7 +119,7 @@ export const warpRequirements = (
 
 export const plasmaTechRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return labLevel
     ? labLevel >= 4 && techs
@@ -134,7 +134,7 @@ export const plasmaTechRequirements = (
 
 export const carrierRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 2 && techs
@@ -145,7 +145,7 @@ export const carrierRequirements = (
 
 export const celestiaRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 1 && techs
@@ -156,7 +156,7 @@ export const celestiaRequirements = (
 
 export const scraperRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 4 && techs
@@ -173,7 +173,7 @@ export const sparrowRequirements = (dockyardLevel: number | undefined) => {
 
 export const frigateRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 5 && techs
@@ -186,7 +186,7 @@ export const frigateRequirements = (
 
 export const armadeRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 7 && techs
@@ -201,7 +201,7 @@ export const blasterRequirements = (dockyardLevel: number | undefined) => {
 
 export const beamRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 1 && techs
@@ -214,7 +214,7 @@ export const beamRequirements = (
 
 export const astralRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 6 && techs
@@ -229,7 +229,7 @@ export const astralRequirements = (
 
 export const plasmaRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined,
+  techs: TechLevels | undefined
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 8 && techs

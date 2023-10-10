@@ -71,8 +71,8 @@ const StyledButton = styled(Button)({
   border: "1px solid #2E3A45",
   display: "flex",
   justifyContent: "center",
-  bgcolor: "#24343D",
-  color: "#E7ECEE",
+  bgcolor: "#007bff",
+  color: "#fff",
   "&:hover": {
     background: "#2E434C",
   },
@@ -87,6 +87,7 @@ export default function ConnectWallet() {
   return (
     <>
       <StyledButton
+        variant="contained"
         startIcon={<AccountBalanceWalletIcon />}
         onClick={toggleModal}
       >
@@ -97,7 +98,9 @@ export default function ConnectWallet() {
         onClose={toggleModal}
         aria-label="Connect Wallet Modal"
       >
-        <StyledBox sx={{ display: "flex", flexDirection: "column" }}>
+        <StyledBox
+          sx={{ display: "flex", flexDirection: "column", width: "30%" }}
+        >
           <HeaderDiv>
             Connect a Wallet
             <CloseStyledIcon onClick={handleClose} />

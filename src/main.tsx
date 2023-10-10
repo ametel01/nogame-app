@@ -13,5 +13,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <StarknetConfig autoConnect connectors={connectors}>
       <App />
     </StarknetConfig>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
