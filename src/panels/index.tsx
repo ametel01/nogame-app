@@ -1,5 +1,5 @@
 import { FC } from "react";
-
+import { useState } from "react";
 import { RowCentered } from "../components/ui/Row";
 import {
   ResourcesTabList,
@@ -11,7 +11,6 @@ import { ResearchIcon } from "../assets/uiIcons/lab";
 import { ResearchTabPanel } from "./ResearchTab";
 import { DockyardTabPanel } from "./DockyardTab";
 import { DefenceTabPanel } from "./DefencesTab";
-import { EmptyTabPanel } from "./EmptyTabPanel";
 import { CompoundsTabPanel } from "./CompoundsTab";
 import { useTokenOf } from "../hooks/useTokenOf";
 import { useSpendableResources } from "../hooks/ResourcesHooks";
@@ -30,11 +29,9 @@ import {
 } from "../hooks/CostsHooks";
 
 export const ResourcesSection: FC = () => {
+  const [activeTab, setActiveTab] = useState(0);
   const data = useTokenOf();
   const planetId = Number(data!.planetId);
-
-  // Check if planetIdData is defined and extract the first item (assuming it's the planetId)
-
   // Data Retrieval Hooks
   const compoundsLevels =
     planetId !== undefined ? useCompoundsLevels(planetId) : undefined;
@@ -44,6 +41,7 @@ export const ResourcesSection: FC = () => {
     planetId !== undefined ? useCompoundsUpgradeCost(planetId) : undefined;
   const energyCost =
     planetId !== undefined ? useEnergyCost(planetId) : undefined;
+  // console.log(energyCost);
   const techLevels =
     planetId !== undefined ? useTechsLevels(planetId) : undefined;
   const techCost =
@@ -59,54 +57,61 @@ export const ResourcesSection: FC = () => {
   return (
     <ResourcesTabs>
       <ResourcesTabList>
-        <ResourceTab>
+        <ResourceTab onClick={() => setActiveTab(0)}>
           <RowCentered gap={"8px"}>
             <CompoundsIcon /> Compounds
           </RowCentered>
         </ResourceTab>
-        <ResourceTab>
+        <ResourceTab onClick={() => setActiveTab(1)}>
           <RowCentered gap={"8px"}>
             <ResearchIcon /> Research Lab
           </RowCentered>
         </ResourceTab>
-        <ResourceTab>
+        <ResourceTab onClick={() => setActiveTab(2)}>
           <RowCentered gap={"8px"}>
             <ResearchIcon /> Dockyard
           </RowCentered>
         </ResourceTab>
-        <ResourceTab>
+        <ResourceTab onClick={() => setActiveTab(3)}>
           <RowCentered gap={"8px"}>
             <ResearchIcon /> Defences
           </RowCentered>
         </ResourceTab>
       </ResourcesTabList>
-      <CompoundsTabPanel
-        spendableResources={spendableResources!}
-        compoundsLevels={compoundsLevels!}
-        compoundsCostUpgrade={compoundsCost!}
-        energyRequired={energyCost!}
-      />
-      <ResearchTabPanel
-        spendableResources={spendableResources}
-        techLevels={techLevels}
-        techCostUpgrade={techCost}
-        labLevel={Number(compoundsLevels?.lab)}
-      />
-      <DockyardTabPanel
-        spendableResources={spendableResources}
-        shipsLevels={shipsLevels}
-        shipsCost={shipsCost}
-        dockyardLevel={Number(compoundsLevels?.dockyard)}
-        techLevels={techLevels}
-      />
-      <DefenceTabPanel
-        spendableResources={spendableResources}
-        defenceLevels={defencesLevels}
-        defenceCost={defencesCost}
-        dockyardLevel={Number(compoundsLevels?.dockyard)}
-        techLevels={techLevels}
-      />
-      <EmptyTabPanel />
+      {activeTab === 0 && (
+        <CompoundsTabPanel
+          spendableResources={spendableResources!}
+          compoundsLevels={compoundsLevels!}
+          compoundsCostUpgrade={compoundsCost!}
+          energyRequired={energyCost!}
+        />
+      )}
+      {activeTab === 1 && (
+        <ResearchTabPanel
+          spendableResources={spendableResources}
+          techLevels={techLevels}
+          techCostUpgrade={techCost}
+          labLevel={Number(compoundsLevels?.lab)}
+        />
+      )}
+      {activeTab === 2 && (
+        <DockyardTabPanel
+          spendableResources={spendableResources}
+          shipsLevels={shipsLevels}
+          shipsCost={shipsCost}
+          dockyardLevel={Number(compoundsLevels?.dockyard)}
+          techLevels={techLevels}
+        />
+      )}
+      {activeTab === 3 && (
+        <DefenceTabPanel
+          spendableResources={spendableResources}
+          defenceLevels={defencesLevels}
+          defenceCost={defencesCost}
+          dockyardLevel={Number(compoundsLevels?.dockyard)}
+          techLevels={techLevels}
+        />
+      )}
     </ResourcesTabs>
   );
 };

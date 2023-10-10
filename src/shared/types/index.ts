@@ -5,10 +5,10 @@ export interface Resources {
 }
 
 export type CompoundsEntities =
-  | "steelMine"
-  | "quartzMine"
-  | "tritiumMine"
-  | "energyPlant"
+  | "steel"
+  | "quartz"
+  | "tritium"
+  | "energy"
   | "dockyard"
   | "lab";
 export type ShipsEntities =
@@ -33,6 +33,9 @@ export type TechEntities =
   | "shield"
   | "weapons";
 
+export type EnergyEntities = "steel" | "quartz" | "tritium" | "null";
+
+export type EnergyCost = { [key in EnergyEntities]: number };
 export type CompoundsCostUpgrade = { [key in CompoundsEntities]: Resources };
 export type CompoundsLevels = { [key in CompoundsEntities]: number };
 
@@ -44,10 +47,3 @@ export type DefenceLevels = { [key in DefencesEntities]: number };
 
 export type TechCost = { [key in TechEntities]: Resources };
 export type TechLevels = { [key in TechEntities]: number };
-
-export interface EnergyCost {
-  steel: number;
-  quartz: number;
-  tritium: number;
-  null: number;
-}

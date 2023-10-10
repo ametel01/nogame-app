@@ -43,7 +43,7 @@ export const CompoundsTabPanel = ({
   spendableResources,
   compoundsLevels,
   compoundsCostUpgrade,
-  // energyRequired,
+  energyRequired,
   ...rest
 }: Props) => {
   const compoundsConfig: CompoundConfigType[] = [
@@ -52,7 +52,7 @@ export const CompoundsTabPanel = ({
       img: steelImg,
       title: "Steel Mine",
       functionCallName: "steel_mine",
-      compoundName: "steelMine",
+      compoundName: "steel",
       energyKey: "steel",
     },
     {
@@ -60,7 +60,7 @@ export const CompoundsTabPanel = ({
       img: quartzImg,
       title: "Quartz Mine",
       functionCallName: "quartz_mine",
-      compoundName: "quartzMine",
+      compoundName: "quartz",
       energyKey: "quartz",
     },
     {
@@ -68,7 +68,7 @@ export const CompoundsTabPanel = ({
       img: tritiumImg,
       title: "Tritium Mine",
       functionCallName: "tritium_mine",
-      compoundName: "tritiumMine",
+      compoundName: "tritium",
       energyKey: "tritium",
     },
     {
@@ -76,7 +76,7 @@ export const CompoundsTabPanel = ({
       img: energyImg,
       title: "Energy Plant",
       functionCallName: "energy_plant",
-      compoundName: "energyPlant",
+      compoundName: "energy",
       energyKey: "null",
     },
     {
@@ -97,6 +97,8 @@ export const CompoundsTabPanel = ({
     },
   ];
 
+  console.log(energyRequired);
+
   return (
     <StyledTabPanel {...rest}>
       {compoundsConfig.map((compound) => (
@@ -106,10 +108,13 @@ export const CompoundsTabPanel = ({
           img={compound.img}
           title={compound.title}
           functionCallName={compound.functionCallName}
-          level={compoundsLevels?.[compound.compoundName]}
+          level={Number(compoundsLevels?.[compound.compoundName])}
           costUpdate={compoundsCostUpgrade?.[compound.compoundName]}
-          energyRequired={0}
-          // energyRequired={energyRequired[compound.energyKey]}
+          energyRequired={
+            compound.energyKey === "null"
+              ? 0
+              : Number(energyRequired?.[compound.energyKey])
+          }
           hasEnoughResources={
             spendableResources &&
             compoundsCostUpgrade?.[compound.compoundName] &&
