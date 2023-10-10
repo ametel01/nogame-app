@@ -57,7 +57,7 @@ const DockyardBox = ({
       state: "valid",
       title: "Upgrade",
       callback: build,
-      color: "#295c28",
+      color: "#45A85A",
       icon: (
         <img
           src={plus}
@@ -134,7 +134,7 @@ const DockyardBox = ({
     : 0;
 
   return (
-    <Styled.Box customcolor={actualButtonState?.color ?? "grey"}>
+    <Styled.Box>
       <Styled.ImageContainer>
         <ImagePopover image={img} title={title} description={description} />
         <img

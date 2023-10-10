@@ -133,7 +133,7 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
     : 0;
   console.log(level);
   return (
-    <Styled.Box customcolor={actualButtonState?.color ?? "grey"}>
+    <Styled.Box>
       <Styled.ImageContainer>
         <ImagePopover image={img} title={title} description={description} />
         <img

@@ -8,7 +8,7 @@ import { UseCollectResources } from "../buttons/CollectResources";
 const BodyContainer = styled.div`
   flex: 1;
   height: 100%;
-  background-color: #192125;
+  background-color: #1a2025;
 `;
 
 const SideBar = () => {

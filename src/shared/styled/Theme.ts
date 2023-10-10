@@ -44,7 +44,7 @@ export const ThemedGlobalStyle = createGlobalStyle`
 html {
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #151A1E;
+  background-color: #1B1E2A;
   color: white;
 }
 `;

@@ -2,18 +2,17 @@ import { styled } from "@mui/system";
 import { Input } from "@mui/joy";
 import Column from "./Column";
 
-export const Box = styled("div")<{ customcolor: string }>(
-  ({ customcolor }) => ({
-    width: "100%",
-    maxHeight: "70px",
-    display: "flex",
-    marginBottom: "10px",
-    border: `1px solid rgba(${customcolor}, 0.5)`,
-    backgroundColor: "#151a1e",
-    borderRadius: "4px",
-    overflow: "hidden",
-  })
-);
+export const Box = styled("div")({
+  width: "100%",
+  maxHeight: "70px",
+  display: "flex",
+  flexDirection: "row",
+  marginBottom: "10px",
+  backgroundColor: "#1A2025",
+  borderRadius: "3px", // Retaining the hint of curvature
+  overflow: "hidden",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Adding a subtle shadow for depth
+});
 
 export const SubBox = styled("div")({
   width: "100%",

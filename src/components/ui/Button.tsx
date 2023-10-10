@@ -1,5 +1,21 @@
-import { createTheme } from "@mui/material/styles";
+// import { createTheme } from "@mui/material/styles";
 import { Button } from "@mui/material";
+import { styled } from "@mui/system";
+
+const StyledButton = styled(Button)(() => ({
+  borderRadius: 8,
+  fontWeight: 600,
+  fontSize: 14,
+  textTransform: "capitalize",
+  color: "white", // Changing the text color to white for better readability against cosmic colors
+  size: "large",
+  letterSpacing: "0.1em",
+  border: "1px solid #2E3A45",
+  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+  "&:hover": {
+    background: "#2E434C", // Darkened starry blue for hover state
+  },
+}));
 
 interface Props {
   callback?: () => void;
@@ -7,77 +23,41 @@ interface Props {
   noRequirements?: boolean;
 }
 
-export const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#6cbd6a",
-    },
-    warning: {
-      main: "#815042",
-    },
-    info: {
-      main: "#524c4c",
-    },
-  },
-});
-
-export function ButtonCollect(props: Props) {
-  return (
-    <Button
-      onClick={props.callback}
-      fullWidth={true}
-      sx={{
-        background: "#6cbd6a",
-        color: "black",
-        size: "large",
-      }}
-    >
-      Collect Resources
-    </Button>
-  );
-}
-
 export function ButtonUpgrade(props: Props) {
   return (
     <div>
       {!props.disabled && !props.noRequirements && (
-        <Button
+        <StyledButton
           onClick={props.callback}
           fullWidth={true}
           sx={{
-            background: "#45A85A",
-            color: "black",
-            size: "large",
+            background: "#4A63AA",
           }}
         >
           Upgrade
-        </Button>
+        </StyledButton>
       )}
       {!props?.disabled && props?.noRequirements && (
-        <Button
+        <StyledButton
           disabled
           fullWidth={true}
           sx={{
-            background: "#524c4c",
-            color: "white",
-            size: "large",
+            background: "#3B3F53",
           }}
         >
           No Requirements
-        </Button>
+        </StyledButton>
       )}
       {props.disabled && (
-        <Button
+        <StyledButton
           fullWidth={true}
           disabled
           sx={{
-            background: "#FFC107",
-            color: "black",
-            size: "large",
+            background: "#E67E51",
           }}
         >
           Needs Resources
-        </Button>
+        </StyledButton>
       )}
     </div>
   );
@@ -87,43 +67,39 @@ export function ButtonBuild(props: Props) {
   return (
     <div>
       {!props.disabled && !props.noRequirements && (
-        <Button
+        <StyledButton
           onClick={props.callback}
           fullWidth={true}
           sx={{
-            background: "#45A85A",
+            background: "#4A63AA",
             color: "black",
             size: "large",
           }}
         >
           Build
-        </Button>
+        </StyledButton>
       )}
       {!props?.disabled && props?.noRequirements && (
-        <Button
+        <StyledButton
           disabled
           fullWidth={true}
           sx={{
-            background: "#524c4c",
-            color: "black",
-            size: "large",
+            background: "#3B3F53",
           }}
         >
           No Requirements
-        </Button>
+        </StyledButton>
       )}
       {props.disabled && (
-        <Button
+        <StyledButton
           fullWidth={true}
           disabled
           sx={{
-            background: "#815042",
-            color: "black",
-            size: "large",
+            background: "#E67E51",
           }}
         >
           Needs Resources
-        </Button>
+        </StyledButton>
       )}
     </div>
   );

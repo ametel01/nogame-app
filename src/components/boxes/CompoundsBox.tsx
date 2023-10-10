@@ -1,23 +1,9 @@
 import React from "react";
-import styled from "@emotion/styled";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
 import { numberWithCommas } from "../../shared/utils";
 import { ButtonUpgrade } from "../ui/Button";
 import ImagePopover from "../modals";
 import * as Styled from "../../shared/styled/Box";
-
-const Box = styled.div`
-  width: 100%;
-  max-height: 70px;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 10px;
-  border: 2px solid ${(props) => props.color};
-  background-color: #151a1e;
-  border-radius: 4px;
-  overflow: hidden;
-`;
-
 interface CompoundsBoxProps {
   img: string;
   title: string;
@@ -66,7 +52,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   const isDisabled = currentButtonState === "noResource";
 
   return (
-    <Box color={buttonStates[currentButtonState].color ?? "grey"}>
+    <Styled.Box color={buttonStates[currentButtonState].color ?? "grey"}>
       <Styled.ImageContainer>
         <ImagePopover image={img} title={title} description={description} />
       </Styled.ImageContainer>
@@ -102,7 +88,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
           />
         </Styled.ButtonContainer>
       </Styled.SubBox>
-    </Box>
+    </Styled.Box>
   );
 };
 

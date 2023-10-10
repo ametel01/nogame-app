@@ -113,7 +113,7 @@ const ResearchBox = ({
   const isDisabled = actualButtonState?.state === "noResource";
 
   return (
-    <Styled.Box customcolor={actualButtonState?.color ?? "grey"}>
+    <Styled.Box>
       <Styled.ImageContainer>
         <ImagePopover image={img} title={title} description={description} />
       </Styled.ImageContainer>
