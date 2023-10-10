@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useAccount } from "@starknet-react/core";
 import WalletHeader from "./WalletHeader";
-import LogoAndRankContainer from "../auth/LogoutAndRankContainer";
+import LogoAndRankContainer from "./LogoutAndRankContainer";
 import ResourcesContainer from "./ResourcesContainer";
 import { UseCollectResources } from "../buttons/CollectResources";
 

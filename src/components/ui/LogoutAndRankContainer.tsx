@@ -26,14 +26,15 @@ const RankContainer = styled.div`
   width: 192px;
 `;
 
-export const RankLineContainer = styled.div`
+const RankLineContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center; // Vertically align content in the middle
   font-weight: 500;
 `;
 
-export const TitleContainer = styled.div`
+const TitleContainer = styled.div`
   font-weight: 500;
   line-height: 18px;
   letter-spacing: 0.02em;
@@ -43,7 +44,8 @@ export const TitleContainer = styled.div`
 
 const TrophyDiv = styled.div`
   display: flex;
-  alignitems: "center";
+  align-items: center; // Vertically align content in the middle
+  gap: 8px; // Gap between icon and title for better spacing
 `;
 
 const StyledImage = styled.img`

@@ -13,29 +13,33 @@ import ironImg from "../../assets/gameElements/resources/nogameiron.png";
 import quartzImg from "../../assets/gameElements/resources/nogamecrystal.png";
 import tritiumImg from "../../assets/gameElements/resources/nogamedeuterium.png";
 import energyImg from "../../assets/gameElements/resources/nogameenergy.png";
-import coins from "../../assets/uiIcons/Coins.svg";
-import gem from "../../assets/uiIcons/Gem.svg";
-import atom from "../../assets/uiIcons/Atom.svg";
-import bolt from "../../assets/uiIcons/Bolt.svg";
 import {
   useCollectibleResources,
   useEnergyAvailable,
   useSpendableResources,
 } from "../../hooks/ResourcesHooks";
 
-// Styled Components
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   padding: 4px 16px;
-  flex: none;
-  align-self: stretch;
   border-top: 2px solid #151a1e;
 `;
 
+const ImageAddressContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 50px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 const ImageStyle = styled.img`
-  max-width: 100%;
+  width: 30px;
   height: auto;
   object-fit: contain;
 `;
@@ -48,31 +52,24 @@ const TotalResourceText = styled.div`
 
 const TotalResourceType = styled.div`
   font-size: 10px;
-  padding-top: 10px;
-  padding-left: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
 `;
 
 const TotalResourceContainer = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const TotalResourceWrapper = styled.div`
   margin-left: 30px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ResourceAddress = styled.div`
   font-size: 12px;
-`;
-
-const ImageAddressContainer = styled.div`
-  min &:hover {
-    cursor: pointer;
-  }
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  min-width: 50px;
+  margin-top: 4px;
 `;
 
 interface Props {
@@ -80,12 +77,11 @@ interface Props {
   collectible?: string;
   available?: number;
   img: string;
-  iconImg: string;
   title: string;
   address?: string;
 }
 
-const Energy = ({ available, img, iconImg, title }: Props) => {
+const Energy = ({ available, img, title }: Props) => {
   const isNegative = Number(available) < 0;
   return (
     <Container>
@@ -97,7 +93,6 @@ const Energy = ({ available, img, iconImg, title }: Props) => {
       <TotalResourceWrapper>
         {title}
         <TotalResourceContainer>
-          <ImageStyle src={iconImg} alt="icon-resource" />
           <div>
             <TotalResourceType>available</TotalResourceType>
             <TotalResourceText
@@ -112,14 +107,7 @@ const Energy = ({ available, img, iconImg, title }: Props) => {
   );
 };
 
-const Resource = ({
-  spendable,
-  collectible,
-  img,
-  iconImg,
-  title,
-  address,
-}: Props) => {
+const Resource = ({ spendable, collectible, img, title, address }: Props) => {
   const [copied, setCopied] = useState(false);
   return (
     <Container>
@@ -145,7 +133,6 @@ const Resource = ({
       <TotalResourceWrapper>
         {title}
         <TotalResourceContainer>
-          <ImageStyle src={iconImg} alt="icon-resource" />
           <div>
             <TotalResourceType>Spendable</TotalResourceType>
             <TotalResourceText>{spendable}</TotalResourceText>
@@ -197,7 +184,6 @@ const ResourcesContainer = () => {
         title="Steel"
         address={STEELADDRESS}
         img={ironImg}
-        iconImg={coins}
         spendable={spendableResources?.steel}
         collectible={collectibleResources?.steel}
       />
@@ -205,7 +191,6 @@ const ResourcesContainer = () => {
         title="Quartz"
         address={QUARTZADDRESS}
         img={quartzImg}
-        iconImg={gem}
         spendable={spendableResources?.quartz}
         collectible={collectibleResources?.quartz}
       />
@@ -213,16 +198,10 @@ const ResourcesContainer = () => {
         title="Tritium"
         address={TRITIUMADDRESS}
         img={tritiumImg}
-        iconImg={atom}
         spendable={spendableResources?.tritium}
         collectible={collectibleResources?.tritium}
       />
-      <Energy
-        title="Energy"
-        img={energyImg}
-        iconImg={bolt}
-        available={energyAvailable}
-      />
+      <Energy title="Energy" img={energyImg} available={energyAvailable} />
     </div>
   );
 };

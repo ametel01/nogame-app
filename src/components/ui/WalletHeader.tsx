@@ -4,24 +4,23 @@ import astronaut from "../../assets/uiIcons/Astronaut.svg";
 const AstronautContainer = styled.div`
   display: flex;
   padding: 8px;
-  column-gap: 32px;
+  gap: 32px;
   align-items: center;
-  justify-content: left;
+  justify-content: flex-start; // More common than 'left'
   width: 100%;
   border-left: 2px solid #151a1e;
   font-weight: bold;
 
   img {
-    maxwidth: 100%;
+    max-width: 100%; // Corrected to 'max-width'
     height: auto;
-    objectfit: "contain";
+    object-fit: contain; // Corrected to 'object-fit'
   }
 `;
 
 const HeaderWalletContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  height: 44px;
+  padding: 12px 0; // Consider padding instead of height for flexibility
   border-bottom: 2px solid #151a1e;
 `;
 
