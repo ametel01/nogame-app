@@ -57,7 +57,6 @@ export const ResourcesSection: FC = () => {
     planetId !== undefined ? useDefencesLevels(planetId) : undefined;
   const defencesCost = useDefencesCost();
 
-  console.log(activeTab);
   return (
     <ResourcesTabs>
       <ResourcesTabList>

@@ -15,6 +15,7 @@ import { RowCentered } from "./Row";
 
 const IPFS_BASE_URL =
   "https://scarlet-biological-chipmunk-168.mypinata.cloud/ipfs";
+const METADATA_URL = `${IPFS_BASE_URL}/Qmd5j1gnUBtbfpHCMnWDE8HRHu1G3ghuXSxjKW2pzy3PAk`;
 const IMG_URL = `${IPFS_BASE_URL}/QmbmsALmobAaTKDLVmPyC1j1Z1nABn7MfNCNXbYvFMrx3m`;
 const IMG_MODULO = 17;
 
@@ -24,15 +25,17 @@ const PlanetImageWrapper = styled(Box)({
   justifyContent: "center",
   height: 250,
   width: 250,
-  borderRadius: 35,
+  borderRadius: 10,
   background: "#192125",
   overflow: "hidden",
+  boxShadow: "0 0 10px rgba(0,0,0,0.1)",
 });
 
 const MainContainer = styled(Box)({
   display: "flex",
   alignItems: "center",
   gap: 48,
+  justifyContent: "flex-start", // Align items to the left
 });
 
 const PlanetInfoContainer = styled(Box)({
@@ -46,6 +49,7 @@ const PlanetInfoRowStyled = styled(Box)({
   justifyContent: "space-between",
   gap: 16,
   width: "100%",
+  alignItems: "center",
 });
 
 const PlanetInfoKey = styled(Typography)({
@@ -61,7 +65,7 @@ const PlanetInfoValue = styled(Box)({
   display: "flex",
   alignItems: "center",
   gap: 8,
-  fontWeight: 400,
+  fontWeight: 500,
   fontSize: 14,
   lineHeight: "21px",
   letterSpacing: "0.02em",
@@ -87,7 +91,7 @@ const PlanetImage: FC = () => {
 
   useEffect(() => {
     if (address && !metadata) {
-      const url = `${IPFS_BASE_URL}/${planetId}.json`;
+      const url = `${METADATA_URL}/${planetId}.json`;
       axios
         .get(url)
         .then((result) => {

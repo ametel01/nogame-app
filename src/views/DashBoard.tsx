@@ -28,6 +28,7 @@ const MainContainer = styled.div`
 const SubBodyContainer = styled.section<{ border?: boolean }>`
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   justify-items: center;
   height: 100%;
   width: 100%;
