@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/system";
 import { useConnectors } from "@starknet-react/core";
+import argentIcon from "../../assets/logos/argent.svg";
 
 const StyledBox = styled(Box)({
   fontWeight: 800,
@@ -83,11 +84,10 @@ export default function ConnectWallet() {
   const toggleModal = () => setOpen((prevState) => !prevState);
   const handleClose = () => setOpen(false);
   const { connect, connectors } = useConnectors();
-
+  console.log(connectors[2].id);
   return (
     <>
       <StyledButton
-        variant="contained"
         startIcon={<AccountBalanceWalletIcon />}
         onClick={toggleModal}
       >
@@ -109,7 +109,12 @@ export default function ConnectWallet() {
             {connectors.map((connector) => (
               <StyledLi key={connector.id}>
                 <StyledButton size="large" onClick={() => connect(connector)}>
-                  <ConnectorIcon src={connector.icon} alt={connector.id} />
+                  {connector.id === "argentWebWallet" ? (
+                    <ConnectorIcon src={argentIcon} alt={connector.id} />
+                  ) : (
+                    <ConnectorIcon src={connector.icon} alt={connector.id} />
+                  )}
+                  {/* <ConnectorIcon src={connector.icon} alt={connector.id} /> */}
                   <ConnectorText>{connector.id}</ConnectorText>
                 </StyledButton>
               </StyledLi>

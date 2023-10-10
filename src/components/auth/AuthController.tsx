@@ -10,7 +10,7 @@ const AuthController = () => {
     useState<boolean>(true);
 
   useEffect(() => {
-    setTimeout(() => setWalletConnectLoading(false), 1000);
+    setTimeout(() => setWalletConnectLoading(false), 3500);
   }, []);
 
   const { planetId, isLoading } = useTokenOf();
