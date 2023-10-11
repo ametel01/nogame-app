@@ -2,8 +2,7 @@ import { ReactNode } from "react";
 import * as Styled from "../../shared/styled/Box";
 import { ButtonBuild } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
-import plus from "../../assets/uiIcons/Plus.svg";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import useBuild, { ComponentBuildType } from "../../hooks/useBuild";
 import { Input } from "@mui/joy";
 import ImagePopover from "../modals";
@@ -20,14 +19,6 @@ interface Props {
 }
 
 type ButtonState = "valid" | "noResource" | "noRequirements";
-
-interface ButtonArrayStates {
-  state: ButtonState;
-  title: string;
-  callback?: () => void;
-  color?: string;
-  icon: React.ReactNode;
-}
 
 const DockyardBox = ({
   img,
@@ -52,62 +43,9 @@ const DockyardBox = ({
     return "valid";
   }, [hasEnoughResources, requirementsMet]);
 
-  const statesButton: ButtonArrayStates[] = [
-    {
-      state: "valid",
-      title: "Upgrade",
-      callback: build,
-      color: "#45A85A",
-      icon: (
-        <img
-          src={plus}
-          alt="plus"
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
-        />
-      ),
-    },
-    {
-      state: "noResource",
-      title: "Need Resources",
-      color: "#b79c15",
-      icon: (
-        <img
-          src={plus}
-          alt="plus"
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
-        />
-      ),
-    },
-    {
-      state: "noRequirements",
-      title: "No Requirements",
-      color: "#524c4c",
-      icon: (
-        <img
-          src={plus}
-          alt="plus"
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
-        />
-      ),
-    },
-  ];
+  const hasRequirements = buttonState === "noRequirements";
 
-  const actualButtonState = statesButton.find(
-    (state) => state.state === buttonState
-  );
-
-  const hasRequirements = actualButtonState?.state === "noRequirements";
-
-  const isDisabled = actualButtonState?.state === "noResource";
+  const isDisabled = buttonState === "noResource";
 
   // Calculate the cost based on the quantity
   const adjustedSteel = costUpdate
