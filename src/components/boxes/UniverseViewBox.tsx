@@ -86,7 +86,7 @@ const UniverseViewBox = ({
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POINTS</Styled.ResourceTitle>
-            <Styled.NumberContainer>{points}</Styled.NumberContainer>
+            <Styled.NumberContainer>{Number(points)}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POSITION</Styled.ResourceTitle>

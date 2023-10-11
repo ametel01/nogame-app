@@ -49,6 +49,6 @@ export type TechCost = { [key in TechEntities]: Resources };
 export type TechLevels = { [key in TechEntities]: number };
 
 export type PositionObject = {
-  system: number | undefined;
-  orbit: number | undefined;
+  system: number;
+  orbit: number;
 };

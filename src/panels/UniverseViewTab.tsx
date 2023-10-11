@@ -8,33 +8,48 @@ import { useGetPositionSlotOccupant } from "../hooks/useGetPositionSlotOccupant"
 import { useOwnerOf } from "../hooks/useOwnerOf";
 import { useGetPlanetPoints } from "../hooks/useGetPlanetPoints";
 
-export const UniverseViewTabPanel = ({ ...rest }) => {
-  const planets_data = useGetPositionsArray();
-  const position_zero: PositionObject = { system: 0, orbit: 0 };
-  const position = planets_data ? planets_data[0] : position_zero;
+interface UniverseBoxItemProps {
+  position: PositionObject;
+}
 
-  // Always call the hook and handle the condition inside the hook or after the hook call.
+const UniverseBoxItem: React.FC<UniverseBoxItemProps> = ({ position }) => {
   const planetId = useGetPositionSlotOccupant(position.system, position.orbit);
   const points_data = useGetPlanetPoints(planetId);
   const points: number = points_data ? points_data : 0;
   const img = getPlanetImageUrl(planetId);
   const owner_data = useOwnerOf(planetId);
   const owner: string = owner_data ? owner_data.toString(16) : "";
-  console.log(points_data);
 
   const shortenedAddress = owner
     ? `${owner.substring(0, 4)}...${owner.substring(59)}`
     : "null";
-  console.log(shortenedAddress);
+  console.log(points);
+  return (
+    <UniverseViewBox
+      planetId={planetId}
+      img={img}
+      owner={shortenedAddress}
+      position={`${position.system}/${position.orbit}`}
+      points={points}
+    />
+  );
+};
+
+export const UniverseViewTabPanel = ({ ...rest }) => {
+  const planets_data = useGetPositionsArray() || [];
+
+  const sortedPlanetsData = planets_data.sort((a, b) => {
+    if (Number(a.system) === Number(b.system)) {
+      return Number(a.orbit) - Number(b.orbit); // If same system, compare by orbit
+    }
+    return Number(a.system) - Number(b.system); // Else, compare by system
+  });
+
   return (
     <StyledTabPanel {...rest}>
-      <UniverseViewBox
-        planetId={planetId}
-        img={img}
-        owner={shortenedAddress}
-        position={Number(position.system) + "/" + Number(position.orbit)}
-        points={Number(points)}
-      ></UniverseViewBox>
+      {sortedPlanetsData.map((position, index) => (
+        <UniverseBoxItem key={index} position={position} />
+      ))}
     </StyledTabPanel>
   );
 };
