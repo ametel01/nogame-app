@@ -101,8 +101,10 @@ interface Metadata {
     trait_type: string;
     value: string | number; // Adjust this based on actual data structure
   }[];
-  // ... add other properties as needed
 }
+
+export const getPlanetImageUrl = (imgId: number | undefined) =>
+  imgId ? `${IMG_URL}/${imgId}.png` : undefined;
 
 const PlanetImage: FC = () => {
   const { address } = useAccount();
@@ -111,7 +113,6 @@ const PlanetImage: FC = () => {
   const [metadata, setMetadata] = useState<Metadata | null>(null);
 
   const position = usePlanetPosition(planetId);
-  console.log(Number(position?.orbit));
 
   useEffect(() => {
     if (address && !metadata) {
@@ -136,16 +137,13 @@ const PlanetImage: FC = () => {
     metadata?.attributes.find((props: Props) => props.trait_type === name)
       ?.value || "-";
 
-  const getPlanetImageUrl = () =>
-    imgId ? `${IMG_URL}/${imgId}.png` : undefined;
-
   return (
     <>
       <PlanetImageWrapper>
         {imgId ? (
           <a href={`${IPFS_BASE_URL}/${planetId}.json`}>
             <img
-              src={getPlanetImageUrl()}
+              src={getPlanetImageUrl(imgId)}
               width={250}
               height={252}
               alt="planet"
