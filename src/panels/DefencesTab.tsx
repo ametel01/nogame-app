@@ -23,7 +23,6 @@ import {
   AstralDescription,
   PlasmaDescription,
 } from "../components/descriptions/DefencesPopover";
-import { ComponentBuildType } from "../hooks/useBuild";
 
 interface Props {
   spendableResources?: Resources;
@@ -88,7 +87,7 @@ export const DefenceTabPanel = ({
           description={defence.description}
           img={defence.img}
           title={defence.title}
-          functionCallName={defence.functionCallName as ComponentBuildType}
+          functionCallName={defence.functionCallName}
           level={Number(defence.level)}
           costUpdate={defence.cost}
           hasEnoughResources={

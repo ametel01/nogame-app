@@ -24,7 +24,6 @@ import carrierImg from "../assets/gameElements/ships/carrier.png";
 import sparrowImg from "../assets/gameElements/ships/sparrow.png";
 import scraperImg from "../assets/gameElements/ships/scraper.png";
 import celestiaImg from "../assets/gameElements/ships/celestia.png";
-import { ComponentBuildType } from "../hooks/useBuild";
 
 type ShipConfigType = {
   description: React.ReactNode;
@@ -82,7 +81,7 @@ export const DockyardTabPanel = ({
       title: "Sparrow",
       functionCallName: "sparrow",
       shipName: "sparrow",
-      requirements: sparrowRequirements(dockyardLevel),
+      requirements: sparrowRequirements(dockyardLevel, techLevels),
     },
     {
       description: <FrigateDescription />,
@@ -110,7 +109,7 @@ export const DockyardTabPanel = ({
           description={ship.description}
           img={ship.img}
           title={ship.title}
-          functionCallName={ship.functionCallName as ComponentBuildType}
+          functionCallName={ship.functionCallName}
           level={Number(shipsLevels?.[ship.shipName])}
           costUpdate={shipsCost?.[ship.shipName]}
           hasEnoughResources={

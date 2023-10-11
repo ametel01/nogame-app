@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Input } from "@mui/joy";
 import ImagePopover from "../modals";
 import { ButtonBuild } from "../ui/Button";
-import useBuild, { ComponentBuildType } from "../../hooks/useBuild";
+import useBuild from "../../hooks/useBuild";
 import { numberWithCommas } from "../../shared/utils";
 import plus from "../../assets/uiIcons/Plus.svg";
 import * as Styled from "../../shared/styled/Box";
@@ -10,7 +10,7 @@ import * as Styled from "../../shared/styled/Box";
 type DefencesBoxProps = {
   img: string;
   title: string;
-  functionCallName: ComponentBuildType; // Adjust the type here if necessary
+  functionCallName: string; // Adjust the type here if necessary
   level?: number;
   costUpdate?: { steel: number; quartz: number; tritium: number };
   hasEnoughResources?: boolean;

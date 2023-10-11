@@ -42,7 +42,7 @@ export const beamTechRequirements = (
 ) => {
   return labLevel
     ? labLevel >= 1 && techs
-      ? techs.energy >= 1
+      ? techs.energy >= 2
       : false
     : false;
 };
@@ -167,8 +167,15 @@ export const scraperRequirements = (
     : false;
 };
 
-export const sparrowRequirements = (dockyardLevel: number | undefined) => {
-  return dockyardLevel ? dockyardLevel >= 2 : false;
+export const sparrowRequirements = (
+  dockyardLevel: number | undefined,
+  techs: TechLevels | undefined
+) => {
+  return dockyardLevel
+    ? dockyardLevel >= 2 && techs
+      ? techs?.combustion >= 1
+      : false
+    : false;
 };
 
 export const frigateRequirements = (

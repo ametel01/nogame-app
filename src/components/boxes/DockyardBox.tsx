@@ -3,14 +3,14 @@ import * as Styled from "../../shared/styled/Box";
 import { ButtonBuild } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
 import { useMemo, useState } from "react";
-import useBuild, { ComponentBuildType } from "../../hooks/useBuild";
+import useBuild from "../../hooks/useBuild";
 import { Input } from "@mui/joy";
 import ImagePopover from "../modals";
 
 interface Props {
   img: string;
   title: string;
-  functionCallName: ComponentBuildType;
+  functionCallName: string;
   level?: number;
   costUpdate?: { steel: number; quartz: number; tritium: number };
   hasEnoughResources?: boolean;
