@@ -87,7 +87,7 @@ export default function ConnectWallet() {
   const toggleModal = () => setOpen((prevState) => !prevState);
   const handleClose = () => setOpen(false);
   const { connect, connectors } = useConnectors();
-  console.log(connectors[2].id);
+
   return (
     <>
       <StyledButton

@@ -3,15 +3,13 @@ import { useAccount } from "@starknet-react/core";
 import axios from "axios";
 
 import { ImageIcon } from "../icons/Image";
-import { PlanetIcon } from "../icons/Planet";
-import { ScaleIcon } from "../icons/Scale";
-import { TemperatureIcon } from "../icons/Temperature";
 import { dataToNumber, numberWithCommas } from "../../shared/utils";
 import { useTokenOf } from "../../hooks/useTokenOf";
 
 import { styled, Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import { RowCentered } from "./Row";
+import { usePlanetPosition } from "../../hooks/usePlanetPosition";
 
 const IPFS_BASE_URL =
   "https://scarlet-biological-chipmunk-168.mypinata.cloud/ipfs";
@@ -46,8 +44,8 @@ const PlanetInfoContainer = styled(Box)({
 
 const PlanetInfoRowStyled = styled(Box)({
   display: "flex",
-  justifyContent: "space-between",
-  gap: 16,
+  justifyContent: "flex-start", // This ensures content starts from the left
+  gap: "12px", // This will place the label closer to its value.
   width: "100%",
   alignItems: "center",
 });
@@ -59,16 +57,39 @@ const PlanetInfoKey = styled(Typography)({
   fontSize: 12,
   lineHeight: "16px",
   letterSpacing: "0.02em",
+  margin: 0, // Make sure no external spacing
+  padding: 0, // Make sure no internal spacing
+  display: "flex", // Make this a flex container
+  alignItems: "center", // Ensure its content is vertically centered
 });
 
 const PlanetInfoValue = styled(Box)({
   display: "flex",
-  alignItems: "center",
-  gap: 8,
+  alignItems: "center", // Ensure vertical centering
+  gap: "4px",
   fontWeight: 500,
   fontSize: 14,
   lineHeight: "21px",
   letterSpacing: "0.02em",
+  margin: 0, // Ensure no external spacing
+  padding: 0, // Ensure no internal spacing
+});
+
+const PlanetPositionGroup = styled(Box)({
+  marginTop: "32px", // Add spacing above the group
+});
+
+const PlanetPositionRowStyled = styled(Box)({
+  display: "flex",
+  justifyContent: "space-between",
+  gap: "8px", // Reduced from 16px or whatever it was previously to 8px.
+  width: "100%",
+  alignItems: "center",
+});
+
+const RadarTextStyle = styled(Box)({
+  fontFamily: "monospace", // Gives it a machine-like feel.
+  color: "#00FFC8", // Neon green color.
 });
 
 interface Props {
@@ -88,6 +109,9 @@ const PlanetImage: FC = () => {
   const data = useTokenOf();
   const planetId = Number(data.planetId);
   const [metadata, setMetadata] = useState<Metadata | null>(null);
+
+  const position = usePlanetPosition(planetId);
+  console.log(Number(position?.orbit));
 
   useEffect(() => {
     if (address && !metadata) {
@@ -133,23 +157,34 @@ const PlanetImage: FC = () => {
         )}
       </PlanetImageWrapper>
       <PlanetInfoContainer>
-        <PlanetInfoRow
-          label="Type"
-          icon={<PlanetIcon />}
-          value={findAttribute("type")}
-        />
+        <PlanetInfoRow label="Type" value={findAttribute("type")} />
         <PlanetInfoRow
           label="Diameter"
-          icon={<ScaleIcon />}
           value={`${numberWithCommas(
             dataToNumber(findAttribute("size")) * 10 ** 4
           )} km`}
         />
         <PlanetInfoRow
           label="Avg Temp"
-          icon={<TemperatureIcon />}
           value={`${findAttribute("temperature")} °C`}
         />
+        <PlanetPositionGroup>
+          <RadarTextStyle>
+            <PlanetInfoKey>PLANET POSITION</PlanetInfoKey>
+            <PlanetPositionRowStyled>
+              <PlanetInfoRow
+                label="System"
+                // icon={<PlanetIcon />}
+                value={Number(position?.system)}
+              />
+              <PlanetInfoRow
+                label="Orbit"
+                // icon={<PlanetIcon />}
+                value={Number(position?.orbit)}
+              />
+            </PlanetPositionRowStyled>
+          </RadarTextStyle>
+        </PlanetPositionGroup>
       </PlanetInfoContainer>
     </>
   );
@@ -157,7 +192,7 @@ const PlanetImage: FC = () => {
 
 const PlanetInfoRow: FC<{
   label: string;
-  icon: JSX.Element;
+  icon?: JSX.Element;
   value: string | number;
 }> = ({ label, icon, value }) => (
   <PlanetInfoRowStyled>
