@@ -3,13 +3,17 @@ import { GAMEADDRESS } from "../constants/addresses";
 import gameContract from "../constants/nogame.json";
 import { PositionObject } from "../shared/types";
 
-export function usePlanetPosition(planetId: number) {
+export function useGetPositionSlotOccupant(system: number, orbit: number) {
+  const position: PositionObject = {
+    system: Number(system),
+    orbit: Number(orbit),
+  };
   const { data } = useContractRead({
     address: GAMEADDRESS,
     abi: gameContract.abi,
-    functionName: "get_planet_position",
-    args: [planetId],
+    functionName: "get_position_slot_occupant",
+    args: [position],
   });
 
-  return data as unknown as PositionObject;
+  return data as unknown as number;
 }

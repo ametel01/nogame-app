@@ -72,7 +72,7 @@ export function ButtonBuild(props: Props) {
           fullWidth={true}
           sx={{
             background: "#4A63AA",
-            color: "black",
+            color: "white",
             size: "large",
           }}
         >
