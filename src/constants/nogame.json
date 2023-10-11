@@ -771,6 +771,17 @@
         },
         {
           "type": "function",
+          "name": "get_generated_planets_positions",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::array::Array::<nogame::libraries::types::PlanetPosition>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
           "name": "get_planet_position",
           "inputs": [
             {
