@@ -5,18 +5,6 @@ import styled from "@emotion/styled";
 
 const ImageContainer = styled.div`
   width: 70px;
-  img {
-    maxwidth: auto;
-    height: auto;
-  }
-`;
-
-const PopoverContent = styled(Typography)`
-  p: 3;
-  bgcolor: #192125;
-  color: white;
-  maxwidth: 500px;
-  display: inline-flex;
 `;
 
 interface PopoverProps {
@@ -25,11 +13,7 @@ interface PopoverProps {
   description: React.ReactNode;
 }
 
-export default function ImagePopover({
-  image,
-  title,
-  description,
-}: PopoverProps) {
+export default function ImagePopover(props: PopoverProps) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -44,19 +28,28 @@ export default function ImagePopover({
 
   return (
     <>
-      <div
+      <Typography
         aria-owns={open ? "mouse-over-popover" : undefined}
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
       >
         <ImageContainer>
-          <img src={image} alt={title} style={{ maxWidth: "70px" }} />
+          <img
+            src={props.image}
+            alt={props.title}
+            style={{
+              maxWidth: "100%",
+              height: "auto",
+            }}
+          />
         </ImageContainer>
-      </div>
+      </Typography>
       <Popover
         id="mouse-over-popover"
-        sx={{ pointerEvents: "none" }}
+        sx={{
+          pointerEvents: "none",
+        }}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -70,9 +63,18 @@ export default function ImagePopover({
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <PopoverContent>
-          <div>{description}</div>
-        </PopoverContent>
+        <Typography
+          sx={{
+            p: 3,
+            bgcolor: "#192125",
+            color: "white",
+            maxWidth: "500px",
+            display: "inline-flex",
+            // borderRadius: "10px",
+          }}
+        >
+          <div>{props.description}</div>
+        </Typography>
       </Popover>
     </>
   );
