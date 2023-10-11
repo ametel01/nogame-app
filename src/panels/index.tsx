@@ -6,6 +6,7 @@ import {
   Biotech,
   Rocket,
   Security,
+  Explore,
 } from "@mui/icons-material";
 import {
   ResourcesTabList,
@@ -32,6 +33,7 @@ import {
   useShipsCost,
   useTechsUpgradeCost,
 } from "../hooks/CostsHooks";
+import { UniverseViewTabPanel } from "./UniverseViewTab";
 
 export const ResourcesSection: FC = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -56,7 +58,6 @@ export const ResourcesSection: FC = () => {
   const defencesLevels =
     planetId !== undefined ? useDefencesLevels(planetId) : undefined;
   const defencesCost = useDefencesCost();
-
   return (
     <ResourcesTabs>
       <ResourcesTabList>
@@ -90,6 +91,14 @@ export const ResourcesSection: FC = () => {
         >
           <RowCentered gap={"8px"}>
             <Security /> Defences
+          </RowCentered>
+        </ResourceTab>
+        <ResourceTab
+          onClick={() => setActiveTab(4)}
+          active={activeTab === 4 ? true : false}
+        >
+          <RowCentered gap={"8px"}>
+            <Explore /> Universe
           </RowCentered>
         </ResourceTab>
       </ResourcesTabList>
@@ -127,6 +136,7 @@ export const ResourcesSection: FC = () => {
           techLevels={techLevels}
         />
       )}
+      {activeTab === 4 && <UniverseViewTabPanel />}
     </ResourcesTabs>
   );
 };
