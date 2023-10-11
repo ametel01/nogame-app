@@ -1,81 +1,83 @@
 import * as React from "react";
-import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import styled from "@emotion/styled";
+
+const theme = createTheme({
+  components: {
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "rgba(0, 0, 0, 0.85)",
+        },
+      },
+    },
+  },
+});
 
 const ImageContainer = styled.div`
   width: 70px;
+  cursor: pointer;
 `;
 
-interface PopoverProps {
+const StyledDialogTitle = styled(DialogTitle)`
+  background-color: #1b1e2a;
+  color: #81d3ff;
+`;
+
+const StyledDialogContent = styled(DialogContent)`
+  background-color: #1b1e2a;
+  color: #81d3ff;
+`;
+
+const StyledDialog = styled(Dialog)`
+  .MuiPaper-root {
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1b1e2a;
+  }
+`;
+
+interface ModalProps {
   image: string;
   title: string;
   description: React.ReactNode;
 }
 
-export default function ImagePopover(props: PopoverProps) {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+export default function ImageModal(props: ModalProps) {
+  const [open, setOpen] = React.useState(false);
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleModalOpen = () => {
+    setOpen(true);
   };
 
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
+  const handleModalClose = () => {
+    setOpen(false);
   };
-
-  const open = Boolean(anchorEl);
 
   return (
-    <>
-      <Typography
-        aria-owns={open ? "mouse-over-popover" : undefined}
-        aria-haspopup="true"
-        onMouseEnter={handlePopoverOpen}
-        onMouseLeave={handlePopoverClose}
-      >
-        <ImageContainer>
-          <img
-            src={props.image}
-            alt={props.title}
-            style={{
-              maxWidth: "100%",
-              height: "auto",
-            }}
-          />
-        </ImageContainer>
-      </Typography>
-      <Popover
-        id="mouse-over-popover"
-        sx={{
-          pointerEvents: "none",
-        }}
-        open={open}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        onClose={handlePopoverClose}
-        disableRestoreFocus
-      >
-        <Typography
-          sx={{
-            p: 3,
-            bgcolor: "#192125",
-            color: "white",
-            maxWidth: "500px",
-            display: "inline-flex",
-            // borderRadius: "10px",
+    <ThemeProvider theme={theme}>
+      <ImageContainer onClick={handleModalOpen}>
+        <img
+          src={props.image}
+          alt={props.title}
+          style={{
+            maxWidth: "100%",
+            height: "auto",
           }}
-        >
-          <div>{props.description}</div>
-        </Typography>
-      </Popover>
-    </>
+        />
+      </ImageContainer>
+      <StyledDialog
+        open={open}
+        onClose={handleModalClose}
+        maxWidth="sm"
+        fullWidth
+      >
+        <StyledDialogTitle>{props.title}</StyledDialogTitle>
+        <StyledDialogContent>{props.description}</StyledDialogContent>
+      </StyledDialog>
+    </ThemeProvider>
   );
 }
