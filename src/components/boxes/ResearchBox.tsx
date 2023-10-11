@@ -1,8 +1,8 @@
 import * as Styled from "../../shared/styled/Box";
 import { ButtonUpgrade } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
-import plus from "../../assets/uiIcons/Plus.svg";
-import React, { ReactNode, useMemo } from "react";
+// import plus from "../../assets/uiIcons/Plus.svg";
+import { ReactNode, useMemo } from "react";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
 import ImagePopover from "../modals";
 
@@ -18,14 +18,6 @@ interface Props {
 }
 
 type ButtonState = "valid" | "noResource" | "noRequirements";
-
-interface ButtonArrayStates {
-  state: ButtonState;
-  title: string;
-  callback?: () => void;
-  color?: string;
-  icon: React.ReactNode;
-}
 
 const ResearchBox = ({
   img,
@@ -55,62 +47,9 @@ const ResearchBox = ({
     return "valid";
   }, [hasEnoughResources, requirementsMet]);
 
-  const statesButton: ButtonArrayStates[] = [
-    {
-      state: "valid",
-      title: "Upgrade",
-      callback: upgrade,
-      color: "#295c28",
-      icon: (
-        <img
-          src={plus}
-          alt="plus"
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
-        />
-      ),
-    },
-    {
-      state: "noResource",
-      title: "Need Resources",
-      color: "#b79c15",
-      icon: (
-        <img
-          src={plus}
-          alt="plus"
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
-        />
-      ),
-    },
-    {
-      state: "noRequirements",
-      title: "No Requirements",
-      color: "#524c4c",
-      icon: (
-        <img
-          src={plus}
-          alt="plus"
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
-        />
-      ),
-    },
-  ];
+  const hasRequirements = buttonState === "noRequirements";
 
-  const actualButtonState = statesButton.find(
-    (state) => state.state === buttonState
-  );
-
-  const hasRequirements = actualButtonState?.state === "noRequirements";
-
-  const isDisabled = actualButtonState?.state === "noResource";
+  const isDisabled = buttonState === "noResource";
 
   return (
     <Styled.Box>
