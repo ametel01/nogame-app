@@ -7,23 +7,27 @@ import { getPlanetImageUrl } from "../components/ui/PlanetSection";
 import { useGetPositionSlotOccupant } from "../hooks/useGetPositionSlotOccupant";
 import { useOwnerOf } from "../hooks/useOwnerOf";
 import { useGetPlanetPoints } from "../hooks/useGetPlanetPoints";
+import { useAccount } from "@starknet-react/core";
 
 interface UniverseBoxItemProps {
   position: PositionObject;
 }
 
 const UniverseBoxItem: React.FC<UniverseBoxItemProps> = ({ position }) => {
+  const { address: address_data } = useAccount();
+  const address = address_data ? address_data : "";
+  console.log("address: ", address);
   const planetId = useGetPositionSlotOccupant(position.system, position.orbit);
   const points_data = useGetPlanetPoints(planetId);
   const points: number = points_data ? points_data : 0;
   const img = getPlanetImageUrl(planetId);
   const owner_data = useOwnerOf(planetId);
   const owner: string = owner_data ? owner_data.toString(16) : "";
+  console.log("owner ", owner);
 
   const shortenedAddress = owner
     ? `${owner.substring(0, 4)}...${owner.substring(59)}`
     : "null";
-  console.log(points);
   return (
     <UniverseViewBox
       planetId={planetId}
@@ -31,6 +35,7 @@ const UniverseBoxItem: React.FC<UniverseBoxItemProps> = ({ position }) => {
       owner={shortenedAddress}
       position={`${position.system}/${position.orbit}`}
       points={points}
+      highlighted={address === "0x" + owner} // Add this line
     />
   );
 };

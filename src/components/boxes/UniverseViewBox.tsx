@@ -48,6 +48,7 @@ interface Props {
   position?: string;
   debris?: { steel: number; quartz: number };
   points?: number;
+  highlighted: boolean;
 }
 
 const UniverseViewBox = ({
@@ -56,9 +57,15 @@ const UniverseViewBox = ({
   position,
   owner, //   functionCallName,
   points, //   debris,
+  highlighted,
 }: Props) => {
+  const boxStyle = highlighted
+    ? {
+        border: "2px solid #7FA0B3",
+      }
+    : {};
   return (
-    <Box>
+    <Box style={boxStyle}>
       <SubBox>
         <ImageContainer style={{ marginLeft: "32px", marginRight: "100px" }}>
           <img
