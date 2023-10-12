@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import useBuild from "../../hooks/useBuild";
 import { Input } from "@mui/joy";
 import ImagePopover from "../modals";
+import { Resources } from "../../shared/types";
 
 interface Props {
   img: string;
@@ -16,6 +17,7 @@ interface Props {
   hasEnoughResources?: boolean;
   requirementsMet?: boolean;
   description: ReactNode;
+  resourcesAvailable: Resources;
 }
 
 type ButtonState = "valid" | "noResource" | "noRequirements";
@@ -29,6 +31,7 @@ const DockyardBox = ({
   functionCallName,
   requirementsMet,
   description,
+  resourcesAvailable,
 }: Props) => {
   const [quantity, setQuantity] = useState(0);
   const { write: build } = useBuild(functionCallName, quantity);
@@ -52,17 +55,17 @@ const DockyardBox = ({
     ? quantity === 0
       ? Number(costUpdate.steel)
       : Number(costUpdate.steel) * quantity
-    : null;
+    : 0;
   const adjustedQuartz = costUpdate
     ? quantity === 0
       ? Number(costUpdate.quartz)
       : Number(costUpdate.quartz) * quantity
-    : null;
+    : 0;
   const adjustedTritium = costUpdate
     ? quantity === 0
       ? Number(costUpdate.tritium)
       : Number(costUpdate.tritium) * quantity
-    : null;
+    : 0;
 
   // Format the calculated costs to display with commas
   const steelDisplay = adjustedSteel ? numberWithCommas(adjustedSteel) : 0;
@@ -93,15 +96,40 @@ const DockyardBox = ({
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>STEEL</Styled.ResourceTitle>
-            <Styled.NumberContainer>{steelDisplay}</Styled.NumberContainer>
+            <Styled.NumberContainer
+              style={{
+                color:
+                  resourcesAvailable.steel < adjustedSteel ? "red" : "inherit",
+              }}
+            >
+              {steelDisplay}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>QUARTZ</Styled.ResourceTitle>
-            <Styled.NumberContainer>{quartzDisplay}</Styled.NumberContainer>
+            <Styled.NumberContainer
+              style={{
+                color:
+                  resourcesAvailable.quartz < adjustedQuartz
+                    ? "red"
+                    : "inherit",
+              }}
+            >
+              {quartzDisplay}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>TRITIUM</Styled.ResourceTitle>
-            <Styled.NumberContainer>{tritiumDisplay}</Styled.NumberContainer>
+            <Styled.NumberContainer
+              style={{
+                color:
+                  resourcesAvailable.tritium < adjustedTritium
+                    ? "red"
+                    : "inherit",
+              }}
+            >
+              {tritiumDisplay}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Input
             type="text"

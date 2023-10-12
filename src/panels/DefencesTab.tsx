@@ -96,6 +96,7 @@ export const DefenceTabPanel = ({
             calculEnoughResources(defence.cost, spendableResources)
           }
           requirementsMet={defence.requirements}
+          resourcesAvailable={spendableResources!}
         />
       ))}
     </StyledTabPanel>

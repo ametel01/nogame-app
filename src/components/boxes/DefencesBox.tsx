@@ -4,31 +4,24 @@ import ImagePopover from "../modals";
 import { ButtonBuild } from "../ui/Button";
 import useBuild from "../../hooks/useBuild";
 import { numberWithCommas } from "../../shared/utils";
-import plus from "../../assets/uiIcons/Plus.svg";
 import * as Styled from "../../shared/styled/Box";
+import { Resources } from "../../shared/types";
 
-type DefencesBoxProps = {
+type Props = {
   img: string;
   title: string;
-  functionCallName: string; // Adjust the type here if necessary
+  functionCallName: string;
   level?: number;
   costUpdate?: { steel: number; quartz: number; tritium: number };
   hasEnoughResources?: boolean;
   requirementsMet?: boolean;
   description: React.ReactNode;
+  resourcesAvailable: Resources;
 };
 
 type ButtonState = "valid" | "noResource" | "noRequirements";
 
-type ButtonArrayStates = {
-  state: ButtonState;
-  title: string;
-  callback?: () => void;
-  color?: string;
-  icon: React.ReactNode;
-};
-
-const DefencesBox: React.FC<DefencesBoxProps> = ({
+const DefencesBox = ({
   img,
   title,
   level,
@@ -37,7 +30,8 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
   functionCallName,
   requirementsMet,
   description,
-}) => {
+  resourcesAvailable,
+}: Props) => {
   const [quantity, setQuantity] = useState(0);
   const { write: build } = useBuild(functionCallName, quantity);
 
@@ -51,79 +45,26 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
     return "valid";
   }, [hasEnoughResources, requirementsMet]);
 
-  const statesButton: ButtonArrayStates[] = [
-    {
-      state: "valid",
-      title: "Upgrade",
-      callback: build,
-      color: "#295c28",
-      icon: (
-        <img
-          src={plus}
-          alt="plus"
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
-        />
-      ),
-    },
-    {
-      state: "noResource",
-      title: "Need Resources",
-      color: "#b79c15",
-      icon: (
-        <img
-          src={plus}
-          alt="plus"
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
-        />
-      ),
-    },
-    {
-      state: "noRequirements",
-      title: "No Requirements",
-      color: "#524c4c",
-      icon: (
-        <img
-          src={plus}
-          alt="plus"
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
-        />
-      ),
-    },
-  ];
+  const hasRequirements = buttonState === "noRequirements";
 
-  const actualButtonState = statesButton.find(
-    (state) => state.state === buttonState
-  );
-
-  const hasRequirements = actualButtonState?.state === "noRequirements";
-
-  const isDisabled = actualButtonState?.state === "noResource";
+  const isDisabled = buttonState === "noResource";
 
   // Calculate the cost based on the quantity
   const adjustedSteel = costUpdate
     ? quantity === 0
       ? Number(costUpdate.steel)
       : Number(costUpdate.steel) * quantity
-    : null;
+    : 0;
   const adjustedQuartz = costUpdate
     ? quantity === 0
       ? Number(costUpdate.quartz)
       : Number(costUpdate.quartz) * quantity
-    : null;
+    : 0;
   const adjustedTritium = costUpdate
     ? quantity === 0
       ? Number(costUpdate.tritium)
       : Number(costUpdate.tritium) * quantity
-    : null;
+    : 0;
 
   // Format the calculated costs to display with commas
   const steelDisplay = adjustedSteel ? numberWithCommas(adjustedSteel) : 0;
@@ -151,15 +92,40 @@ const DefencesBox: React.FC<DefencesBoxProps> = ({
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>STEEL</Styled.ResourceTitle>
-            <Styled.NumberContainer>{steelDisplay}</Styled.NumberContainer>
+            <Styled.NumberContainer
+              style={{
+                color:
+                  resourcesAvailable.steel < adjustedSteel ? "red" : "inherit",
+              }}
+            >
+              {steelDisplay}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>QUARTZ</Styled.ResourceTitle>
-            <Styled.NumberContainer>{quartzDisplay}</Styled.NumberContainer>
+            <Styled.NumberContainer
+              style={{
+                color:
+                  resourcesAvailable.quartz < adjustedQuartz
+                    ? "red"
+                    : "inherit",
+              }}
+            >
+              {quartzDisplay}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>TRITIUM</Styled.ResourceTitle>
-            <Styled.NumberContainer>{tritiumDisplay}</Styled.NumberContainer>
+            <Styled.NumberContainer
+              style={{
+                color:
+                  resourcesAvailable.tritium < adjustedTritium
+                    ? "red"
+                    : "inherit",
+              }}
+            >
+              {tritiumDisplay}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Input
             type="text"

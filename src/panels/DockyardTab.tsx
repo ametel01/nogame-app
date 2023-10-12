@@ -118,6 +118,7 @@ export const DockyardTabPanel = ({
             calculEnoughResources(shipsCost[ship.shipName], spendableResources)
           }
           requirementsMet={ship.requirements}
+          resourcesAvailable={spendableResources!}
         />
       ))}
     </StyledTabPanel>
