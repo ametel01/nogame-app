@@ -9,11 +9,10 @@ const AuthController = () => {
   const [walletConnectLoading, setWalletConnectLoading] =
     useState<boolean>(true);
 
+  const { planetId, isLoading } = useTokenOf();
   useEffect(() => {
     setTimeout(() => setWalletConnectLoading(false), 3500);
   }, []);
-
-  const { planetId, isLoading } = useTokenOf();
   const planetIdBN = Number(planetId);
   const hasGeneratedPlanets = planetIdBN > 0;
   const isOverallLoading = isLoading || walletConnectLoading;

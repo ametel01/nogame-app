@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import * as Styled from "../../shared/styled/Box";
+import { ButtonSendFleet } from "../buttons/ButtonSendFleet";
 import Debris from "../../assets/uiIcons/debris.svg";
 
 export const Box = styled("div")({
@@ -16,17 +17,6 @@ export const Box = styled("div")({
   borderRadius: "8px",
   overflow: "hidden",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-});
-
-export const SubBox = styled("div")({
-  flex: 1, // This will make sure SubBox takes up all available space between the images
-  display: "flex",
-  flexGrow: 1, // Allows it to expand
-  flexDirection: "row",
-  alignItems: "center",
-  height: "100%", // Make sure it stretches to fit the Box height
-  justifyContent: "flex-start", // Align the items to the start (left)
-  padding: "10px 10px", // Reducing the horizontal padding
 });
 
 export const ImageContainer = styled("div")({
@@ -64,22 +54,25 @@ const UniverseViewBox = ({
         border: "2px solid #7FA0B3",
       }
     : {};
+
+  const isButtonDisabled = highlighted;
+
   return (
     <Box style={boxStyle}>
-      <SubBox>
-        <ImageContainer style={{ marginLeft: "32px", marginRight: "100px" }}>
+      <Styled.SubBox>
+        <Styled.ImageContainer>
           <img
             src={img}
             alt={"Empty Position"}
             style={{
               borderRadius: "50%",
-              maxWidth: "100%",
+              maxWidth: "80%",
               height: "auto",
               objectFit: "cover",
               overflow: "hidden",
             }}
           />
-        </ImageContainer>
+        </Styled.ImageContainer>
         <Styled.InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle style={{ width: "150%" }}>
@@ -100,17 +93,23 @@ const UniverseViewBox = ({
             <Styled.NumberContainer>{position}</Styled.NumberContainer>
           </Styled.ResourceContainer>
         </Styled.InfoContainer>
-      </SubBox>
-      <ImageContainer>
-        <img
-          src={Debris}
-          alt={"Debris"}
-          style={{
-            maxWidth: "50%",
-            height: "auto",
-          }}
-        />
-      </ImageContainer>
+        <Styled.ButtonContainer
+          style={{ marginLeft: "60px", alignContent: "flex-end" }}
+        >
+          <ButtonSendFleet noRequirements={isButtonDisabled} />
+        </Styled.ButtonContainer>
+        <Styled.ImageContainer>
+          <img
+            src={Debris}
+            alt={"Debris"}
+            style={{
+              maxWidth: "50%",
+              height: "auto",
+              marginLeft: "20px",
+            }}
+          />
+        </Styled.ImageContainer>
+      </Styled.SubBox>
     </Box>
   );
 };

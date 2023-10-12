@@ -16,8 +16,8 @@ const StyledBox = styled(Box)({
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  backgroundColor: "#454D74", // Deep blue from the logo.
-  border: "1px solid #7FA0B3", // Light blue-grey for the border.
+  backgroundColor: "#1B1E2A",
+  border: "1px solid #0A0C16",
   borderRadius: 16,
   boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
   padding: "8px 32px",
@@ -28,13 +28,23 @@ const HeaderDiv = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  color: "#D0D3DA",
 });
 
 const CloseStyledIcon = styled(CloseIcon)({
   cursor: "pointer",
   padding: "0 8px",
   fontSize: "2em",
-  color: "#E13936", // Red as it's a close (important) action.
+  color: "#D0D3DA",
+  position: "absolute",
+  top: 8, // You can adjust this value as needed
+  right: 8, // You can adjust this value as needed
+  transition: "boxShadow 0.3s ease", // Smooth transition for the shadow on hover
+
+  "&:hover": {
+    boxShadow: "0px 0px 10px 3px rgba(0, 0, 0, 0.2)", // Circle shadow effect
+    borderRadius: "50%", // Ensures the shadow takes a circular form
+  },
 });
 
 const StyledUl = styled("ul")({
@@ -54,7 +64,7 @@ const ConnectorIcon = styled("img")({
 const ConnectorText = styled("span")({
   flexGrow: 1,
   textAlign: "center",
-  color: "#E7ECEE", // Neutral light color for consistent readability.
+  color: "#D0D3DA",
 });
 
 const DisclaimerText = styled("div")({
@@ -63,7 +73,7 @@ const DisclaimerText = styled("div")({
   width: "70%",
   margin: "20px auto",
   textAlign: "center",
-  color: "#7FA0B3", // Using light blue-grey for less important text.
+  color: "#D0D3DA",
 });
 
 const StyledButton = styled(Button)({
@@ -72,13 +82,13 @@ const StyledButton = styled(Button)({
   padding: "8px 32px",
   textTransform: "capitalize",
   letterSpacing: "0.1em",
-  border: "1px solid #7FA0B3",
+  backgroundColor: "#2A2D3A", // Slightly lighter background for the button
+  border: "1px solid #0F111A", // Darker border for definition
   display: "flex",
   justifyContent: "center",
-  backgroundColor: "#454D74", // Deep blue from the logo.
-  color: "#fff",
+  color: "#D0D3DA",
   "&:hover": {
-    background: "#363C5C", // A slightly darker shade of the deep blue for a subtle hover effect.
+    background: "#212530", // Slightly lighter than #1B1E2A for a subtle hover effect
   },
 });
 
@@ -102,7 +112,7 @@ export default function ConnectWallet() {
         aria-label="Connect Wallet Modal"
       >
         <StyledBox
-          sx={{ display: "flex", flexDirection: "column", width: "30%" }}
+          sx={{ display: "flex", flexDirection: "column", width: "35%" }}
         >
           <HeaderDiv>
             Connect a Wallet

@@ -1,16 +1,16 @@
 import { createGlobalStyle } from "styled-components";
 
 export const FixedGlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu');
 
 html, input, textarea, button {
-  font-family: 'Exo 2', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-display: fallback;
  }
 
  @supports (font-variation-settings: normal) {
   html, input, textarea, button {
-    font-family: 'Exo 2', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
    }
 }
 

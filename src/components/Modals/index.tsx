@@ -46,7 +46,7 @@ interface ModalProps {
   description: React.ReactNode;
 }
 
-export default function ImageModal(props: ModalProps) {
+export default function DescriptionModal(props: ModalProps) {
   const [open, setOpen] = React.useState(false);
 
   const handleModalOpen = () => {

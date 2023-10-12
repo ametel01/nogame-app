@@ -2,7 +2,7 @@ import React from "react";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
 import { numberWithCommas } from "../../shared/utils";
 import { ButtonUpgrade } from "../ui/Button";
-import ImagePopover from "../modals";
+import DescriptionModal from "../modals";
 import * as Styled from "../../shared/styled/Box";
 interface CompoundsBoxProps {
   img: string;
@@ -54,7 +54,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   return (
     <Styled.Box color={buttonStates[currentButtonState].color ?? "grey"}>
       <Styled.ImageContainer>
-        <ImagePopover image={img} title={title} description={description} />
+        <DescriptionModal image={img} title={title} description={description} />
       </Styled.ImageContainer>
       <Styled.SubBox>
         <Styled.Title>{title}</Styled.Title>

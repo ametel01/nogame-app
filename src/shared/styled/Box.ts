@@ -32,7 +32,7 @@ export const InfoContainer = styled("div")({
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
-  width: "50%",
+  width: "40%",
 });
 
 export const CustomInput = styled(Input)({
