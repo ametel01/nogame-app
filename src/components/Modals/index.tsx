@@ -75,7 +75,7 @@ export default function ImageModal(props: ModalProps) {
         maxWidth="sm"
         fullWidth
       >
-        <StyledDialogTitle>{props.title}</StyledDialogTitle>
+        <StyledDialogTitle variant="h4">{props.title}</StyledDialogTitle>
         <StyledDialogContent>{props.description}</StyledDialogContent>
       </StyledDialog>
     </ThemeProvider>

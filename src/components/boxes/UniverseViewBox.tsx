@@ -13,7 +13,7 @@ export const Box = styled("div")({
   flexDirection: "row",
   marginBottom: "10px",
   backgroundColor: "#1A2025",
-  borderRadius: "3px",
+  borderRadius: "8px",
   overflow: "hidden",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
 });

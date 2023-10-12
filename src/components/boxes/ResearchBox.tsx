@@ -1,10 +1,10 @@
 import * as Styled from "../../shared/styled/Box";
 import { ButtonUpgrade } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
-// import plus from "../../assets/uiIcons/Plus.svg";
 import { ReactNode, useMemo } from "react";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
 import ImagePopover from "../modals";
+import { TechLevels } from "../../shared/types";
 
 interface Props {
   img: string;
@@ -15,6 +15,7 @@ interface Props {
   hasEnoughResources?: boolean;
   requirementsMet?: boolean;
   description: ReactNode;
+  techs: TechLevels;
 }
 
 type ButtonState = "valid" | "noResource" | "noRequirements";

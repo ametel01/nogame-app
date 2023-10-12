@@ -113,7 +113,7 @@ export const ResearchTabPanel = ({
       description: <SpacetimeDescription />,
       img: spacetimeImg,
       title: "Spacetime Warp",
-      functionCallName: "spacetime_varp",
+      functionCallName: "spacetime_warp",
       techName: "spacetime",
       requirements: spacetimeRequirements(labLevel, techLevels),
     },
@@ -187,6 +187,7 @@ export const ResearchTabPanel = ({
             )
           }
           requirementsMet={research.requirements}
+          techs={techLevels!}
         />
       ))}
     </StyledTabPanel>

@@ -53,7 +53,7 @@ export const shieldRequirements = (
 ) => {
   return labLevel
     ? labLevel >= 6 && techs
-      ? techs.energy >= 6
+      ? techs.energy >= 3
       : false
     : false;
 };
@@ -125,7 +125,7 @@ export const plasmaTechRequirements = (
     ? labLevel >= 4 && techs
       ? techs.energy >= 8 && techs
         ? techs.beam >= 10 && techs
-          ? techs.spacetime >= 5
+          ? techs.ion >= 5
           : false
         : false
       : false
@@ -226,7 +226,7 @@ export const astralRequirements = (
   return dockyardLevel
     ? dockyardLevel >= 6 && techs
       ? techs.energy >= 6 && techs
-        ? techs.armour >= 3 && techs
+        ? techs.weapons >= 3 && techs
           ? techs.shield >= 1
           : false
         : false

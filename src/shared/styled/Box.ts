@@ -9,7 +9,7 @@ export const Box = styled("div")({
   flexDirection: "row",
   marginBottom: "10px",
   backgroundColor: "#1A2025",
-  borderRadius: "3px", // Retaining the hint of curvature
+  borderRadius: "8px", // Retaining the hint of curvature
   overflow: "hidden",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Adding a subtle shadow for depth
 });

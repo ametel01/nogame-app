@@ -89,7 +89,7 @@ const PlanetPositionRowStyled = styled(Box)({
 
 const RadarTextStyle = styled(Box)({
   fontFamily: "monospace", // Gives it a machine-like feel.
-  color: "#00FFC8", // Neon green color.
+  color: "#81d3ff", // Neon green color.
 });
 
 interface Props {
@@ -170,16 +170,8 @@ const PlanetImage: FC = () => {
           <RadarTextStyle>
             <PlanetInfoKey>PLANET POSITION</PlanetInfoKey>
             <PlanetPositionRowStyled>
-              <PlanetInfoRow
-                label="System"
-                // icon={<PlanetIcon />}
-                value={Number(position?.system)}
-              />
-              <PlanetInfoRow
-                label="Orbit"
-                // icon={<PlanetIcon />}
-                value={Number(position?.orbit)}
-              />
+              <PlanetInfoRow label="System" value={Number(position?.system)} />
+              <PlanetInfoRow label="Orbit" value={Number(position?.orbit)} />
             </PlanetPositionRowStyled>
           </RadarTextStyle>
         </PlanetPositionGroup>

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import SteelTable from "./tables/SteelTable";
 
 const Container = styled.div`
   width: 100%;
@@ -27,6 +28,7 @@ export function SteelMineDescription() {
           requires more energy. Steel is common and holds the lowest trade value
           compared to other resources due to its abundance.
         </TextBox>
+        <SteelTable />
       </Container>
     </>
   );

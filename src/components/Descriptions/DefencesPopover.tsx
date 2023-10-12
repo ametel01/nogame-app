@@ -121,7 +121,7 @@ export function PlasmaDescription() {
           <ul>
             <b>
               <li>Dockyard level 8</li>
-              <li>Plasma Engineering level 6</li>
+              <li>Plasma Engineering level 7</li>
             </b>
           </ul>
         </TextBox>

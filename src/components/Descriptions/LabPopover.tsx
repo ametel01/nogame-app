@@ -14,13 +14,6 @@ const TextBox = styled.p`
   // padding-left: 5px;
 `;
 
-// const FloatImage = styled.img`
-//     float: left; /* Change to 'right' to float the image to the right */
-//     margin: 10px;
-//     width: 200px; /* Adjust as needed */
-//     height: 200px; /* Adjust as needed */
-// `;
-
 export function ArmourDescription() {
   return (
     <>
@@ -53,13 +46,10 @@ export function CombustionDescription() {
           The Combustion Drive technology allows fabrication of spacecraft like
           Carrier vessels, Sparrow, and Scraper, boosting their Base Speed by
           10% per advancement level. Slower ships in a fleet benefit from
-          increased fuel efficiency due to this technology. At level 5 of the
-          Impulse Drive technology, Small Cargo ships' base speed doubles, and
-          they switch to Thrust Propulsion from Combustion Drive, automatically
-          enhancing speed and fuel efficiency parameters.
+          increased fuel efficiency due to this technology.
           <br />
           <br />
-          Requirements:
+          <h2>Requirements:</h2>
           <ul>
             <b>
               <li>Research Lab Level 1</li>
@@ -206,7 +196,7 @@ export function PlasmaDescription() {
               <li>Research Lab Level 4</li>
               <li>Beam Technology Level 10</li>
               <li>Energy Innovation Level 8</li>
-              <li>Ion Systems Level 8</li>
+              <li>Ion Systems Level 5</li>
             </b>
           </ul>
         </TextBox>
@@ -275,16 +265,17 @@ export function ThrustDescription() {
     <>
       <Container>
         <TextBox>
-          Thrust Propulsion technology, a sophisticated system integral to
-          spacecraft manufacturing, is crucial for the successful assembly of
-          specific classes of vessels, namely Sparrows and Frigates. This
-          innovative technology is designed to considerably enhance the
-          performance of the spacecraft it is incorporated into. In quantitative
-          terms, the application of Thrust Propulsion technology generates an
-          increment in the Base Speed of all spacecraft that are equipped with
-          it. More specifically, for each level of advancement in the Thrust
-          Propulsion technology, the Base Speed is boosted by a substantial
-          percentage - 20%
+          Thrust Propulsion technology is a sophisticated system essential to
+          spacecraft manufacturing and plays a pivotal role in the successful
+          assembly of specific classes of vessels, including Frigates and
+          Carriers. This cutting-edge technology is meticulously designed to
+          significantly augment the performance of spacecraft into which it is
+          integrated. Quantitatively, the adoption of Thrust Propulsion
+          technology yields an enhancement in the Base Speed of all spacecraft
+          outfitted with it. After level 4 is reached, Carriers are equipped
+          with thrust propulsion, doubling their base speed. For every
+          subsequent level of advancement in the Thrust Propulsion technology,
+          the Base Speed is further boosted by a noteworthy percentage of 20%.
           <br />
           <br />
           Requirements:
@@ -306,12 +297,11 @@ export function WarpDescription() {
       <Container>
         <TextBox>
           The Warp Drive is an innovative technology crucial to the construction
-          of Armades structures, providing capabilities not possible through
-          conventional means. It also has a substantial impact on vessel
-          propulsion systems. Ships equipped with this technology experience a
-          30% increase in Base Speed for each level of proficiency in the Warp
-          Drive, leading to a significant and cumulative boost in efficiency and
-          speed of movement.
+          of Armades, providing capabilities not possible through conventional
+          means. It also has a substantial impact on vessel propulsion systems.
+          Ships equipped with this technology experience a 30% increase in Base
+          Speed for each level of proficiency in the Warp Drive, leading to a
+          significant and cumulative boost in efficiency and speed of movement.
           <br />
           <br />
           Requirements:
