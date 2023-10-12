@@ -9,10 +9,10 @@ import {
   Explore,
 } from "@mui/icons-material";
 import {
-  ResourcesTabList,
-  ResourcesTabs,
   ResourceTab,
-} from "../components/popups/ResourcesSection/styleds";
+  ResourcesTabs,
+  ResourcesTabList,
+} from "../shared/styled/Tabs";
 import { ResearchTabPanel } from "./ResearchTab";
 import { DockyardTabPanel } from "./DockyardTab";
 import { DefenceTabPanel } from "./DefencesTab";
