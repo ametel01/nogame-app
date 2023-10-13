@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import * as Styled from "../../shared/styled/Box";
 import { CircularProgress } from "@mui/material";
 import { BlurOnOutlined } from "@mui/icons-material";
-import { useStarkName } from "@starknet-react/core";
+// import { useStarkName } from "@starknet-react/core";
 import { ButtonSendFleet } from "../buttons/ButtonSendFleet";
 import { DefenceLevels, Resources, ShipsLevels } from "../../shared/types";
 import PlanetModal from "../modals/PlanetOverview";
@@ -53,7 +53,7 @@ interface Props {
 
 const UniverseViewBox = ({
   planetId,
-  address,
+  // address,
   img,
   position,
   owner,
@@ -73,8 +73,7 @@ const UniverseViewBox = ({
   const isButtonDisabled = highlighted;
   const debrisField = useGetDebrisField(planetId);
   // TODO: implement StarkName once on mainnet
-  const { data } = useStarkName({ address });
-  console.log(data);
+  // const { data } = useStarkName({ address });
 
   return (
     <Box style={boxStyle}>

@@ -11,7 +11,7 @@ const AuthController = () => {
 
   const { planetId, isLoading } = useTokenOf();
   useEffect(() => {
-    setTimeout(() => setWalletConnectLoading(false), 3500);
+    setTimeout(() => setWalletConnectLoading(false), 3000);
   }, []);
   const planetIdBN = Number(planetId);
   const hasGeneratedPlanets = planetIdBN > 0;

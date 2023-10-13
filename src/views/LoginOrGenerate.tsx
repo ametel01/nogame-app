@@ -91,10 +91,10 @@ type ConnectWalletViewProps = Omit<
   "generatePlanet" | "hasGeneratedPlanets"
 >;
 
-type GeneratePlanetViewProps = Omit<
-  AuthScreenProps,
-  "walletConnectLoading" | "hasGeneratedPlanets"
->;
+// type GeneratePlanetViewProps = Omit<
+//   AuthScreenProps,
+//   "walletConnectLoading" | "hasGeneratedPlanets"
+// >;
 
 const AuthScreen = ({
   address,
@@ -102,8 +102,10 @@ const AuthScreen = ({
   walletConnectLoading,
   hasGeneratedPlanets = false,
 }: AuthScreenProps) => {
+  console.log(walletConnectLoading);
+  console.log(hasGeneratedPlanets);
   if (address && !hasGeneratedPlanets) {
-    return <GeneratePlanetView address={address} loading={loading} />;
+    return <GeneratePlanetView />;
   }
 
   return (
@@ -148,13 +150,12 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
   );
 };
 
-const GeneratePlanetView: FC<GeneratePlanetViewProps> = () => {
+const GeneratePlanetView = () => {
   return (
     <GeneratePlanetWrapper>
       <MainWrapper>
         <RowCentered>
           <img src={ufoLogo} alt="UFO for lift off" width={128} height={128} />{" "}
-          {/* Increased the width and height */}
         </RowCentered>
         <SubText>
           In the intricate dance of the cosmos, are we not poised for ascension?
