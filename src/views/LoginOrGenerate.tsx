@@ -1,9 +1,8 @@
 import { styled } from "@mui/system";
 import { FC } from "react";
-
+import CircularProgress from "@mui/material/CircularProgress";
 import NoGameLogo from "../assets/logos/NoGameLogo.png";
 import ufoLogo from "../assets/uiIcons/UFO.svg";
-import { Button } from "@mui/base";
 import { ColumnCenter } from "../shared/styled/Column";
 import { RowCentered } from "../components/ui/Row";
 import ConnectWalletButton from "../components/auth/ConnectWallet";
@@ -123,7 +122,7 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
   const renderButton = () => {
     if (!address) {
       return walletConnectLoading ? (
-        <Button disabled>Loading...</Button>
+        <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
       ) : (
         <ConnectWalletButton />
       );
