@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import * as Styled from "../../shared/styled/Box";
 import { ButtonSendFleet } from "../buttons/ButtonSendFleet";
-import Debris from "../../assets/uiIcons/debris.svg";
+import { BlurOnOutlined } from "@mui/icons-material";
 
 export const Box = styled("div")({
   justifyContent: "space-between",
@@ -93,22 +93,10 @@ const UniverseViewBox = ({
             <Styled.NumberContainer>{position}</Styled.NumberContainer>
           </Styled.ResourceContainer>
         </Styled.InfoContainer>
-        <Styled.ButtonContainer
-          style={{ marginLeft: "60px", alignContent: "flex-end" }}
-        >
+        <BlurOnOutlined />
+        <Styled.ButtonContainer>
           <ButtonSendFleet noRequirements={isButtonDisabled} />
         </Styled.ButtonContainer>
-        <Styled.ImageContainer>
-          <img
-            src={Debris}
-            alt={"Debris"}
-            style={{
-              maxWidth: "50%",
-              height: "auto",
-              marginLeft: "20px",
-            }}
-          />
-        </Styled.ImageContainer>
       </Styled.SubBox>
     </Box>
   );
