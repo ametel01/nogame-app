@@ -14,7 +14,7 @@ import { usePlanetPosition } from "../../hooks/usePlanetPosition";
 const IPFS_BASE_URL =
   "https://scarlet-biological-chipmunk-168.mypinata.cloud/ipfs";
 const METADATA_URL = `${IPFS_BASE_URL}/Qmd5j1gnUBtbfpHCMnWDE8HRHu1G3ghuXSxjKW2pzy3PAk`;
-const IMG_URL = `${IPFS_BASE_URL}/QmbmsALmobAaTKDLVmPyC1j1Z1nABn7MfNCNXbYvFMrx3m`;
+const IMG_URL = `${IPFS_BASE_URL}/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ`;
 const IMG_MODULO = 17;
 
 const PlanetImageWrapper = styled(Box)({
