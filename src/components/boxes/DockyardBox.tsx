@@ -5,7 +5,7 @@ import { numberWithCommas } from "../../shared/utils";
 import { useMemo, useState } from "react";
 import useBuild from "../../hooks/useBuild";
 import { Input } from "@mui/joy";
-import ImagePopover from "../modals";
+import ImagePopover from "../modals/Description";
 import { Resources } from "../../shared/types";
 
 interface Props {

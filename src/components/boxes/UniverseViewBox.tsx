@@ -2,6 +2,9 @@ import styled from "@emotion/styled";
 import * as Styled from "../../shared/styled/Box";
 import { ButtonSendFleet } from "../buttons/ButtonSendFleet";
 import { BlurOnOutlined } from "@mui/icons-material";
+import { DefenceLevels, Resources, ShipsLevels } from "../../shared/types";
+import PlanetModal from "../modals/PlanetOverview";
+import { CircularProgress } from "@mui/material";
 
 export const Box = styled("div")({
   justifyContent: "space-between",
@@ -39,6 +42,10 @@ interface Props {
   debris?: { steel: number; quartz: number };
   points?: number;
   highlighted: boolean;
+  spendable?: Resources;
+  collectible?: Resources;
+  fleet?: ShipsLevels;
+  defences?: DefenceLevels;
 }
 
 const UniverseViewBox = ({
@@ -48,10 +55,14 @@ const UniverseViewBox = ({
   owner, //   functionCallName,
   points, //   debris,
   highlighted,
+  spendable,
+  collectible,
+  fleet,
+  defences,
 }: Props) => {
   const boxStyle = highlighted
     ? {
-        border: "2px solid #7FA0B3",
+        border: "1px solid #E67E51",
       }
     : {};
 
@@ -59,20 +70,21 @@ const UniverseViewBox = ({
 
   return (
     <Box style={boxStyle}>
-      <Styled.SubBox>
-        <Styled.ImageContainer>
-          <img
-            src={img}
-            alt={"Empty Position"}
-            style={{
-              borderRadius: "50%",
-              maxWidth: "80%",
-              height: "auto",
-              objectFit: "cover",
-              overflow: "hidden",
-            }}
+      <Styled.ImageContainer>
+        {img ? ( //&& spendable && collectible && fleet && defences ? (
+          <PlanetModal
+            planetId={planetId!}
+            image={img}
+            spendable={spendable}
+            collectible={collectible}
+            fleet={fleet}
+            defences={defences}
           />
-        </Styled.ImageContainer>
+        ) : (
+          <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
+        )}
+      </Styled.ImageContainer>
+      <Styled.SubBox>
         <Styled.InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle style={{ width: "150%" }}>

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Input } from "@mui/joy";
-import ImagePopover from "../modals";
+import ImagePopover from "../modals/Description";
 import { ButtonBuild } from "../ui/Button";
 import useBuild from "../../hooks/useBuild";
 import { numberWithCommas } from "../../shared/utils";

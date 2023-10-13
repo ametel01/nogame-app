@@ -3,7 +3,7 @@ import { ButtonUpgrade } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
 import { ReactNode, useMemo } from "react";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
-import ImagePopover from "../modals";
+import ImagePopover from "../modals/Description";
 import { TechLevels } from "../../shared/types";
 
 interface Props {

@@ -2,7 +2,7 @@ import React from "react";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
 import { numberWithCommas } from "../../shared/utils";
 import { ButtonUpgrade } from "../ui/Button";
-import DescriptionModal from "../modals";
+import DescriptionModal from "../modals/Description";
 import * as Styled from "../../shared/styled/Box";
 interface CompoundsBoxProps {
   img: string;
