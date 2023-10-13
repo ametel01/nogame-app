@@ -141,7 +141,7 @@ const PlanetImage: FC = () => {
     <>
       <PlanetImageWrapper>
         {imgId ? (
-          <a href={`${IPFS_BASE_URL}/${planetId}.json`}>
+          <a href={`${IMG_URL}/${planetId}.json`}>
             <img
               src={getPlanetImageUrl(imgId)}
               width={250}

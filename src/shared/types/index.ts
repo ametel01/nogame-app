@@ -52,3 +52,8 @@ export type PositionObject = {
   system: number;
   orbit: number;
 };
+
+export type DebrisField = {
+  steel: number;
+  quartz: number;
+};

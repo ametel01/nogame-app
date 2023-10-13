@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import * as Styled from "../../shared/styled/Box";
-import { ButtonSendFleet } from "../buttons/ButtonSendFleet";
+import { CircularProgress } from "@mui/material";
 import { BlurOnOutlined } from "@mui/icons-material";
+import { useStarkName } from "@starknet-react/core";
+import { ButtonSendFleet } from "../buttons/ButtonSendFleet";
 import { DefenceLevels, Resources, ShipsLevels } from "../../shared/types";
 import PlanetModal from "../modals/PlanetOverview";
-import { CircularProgress } from "@mui/material";
+import { useGetDebrisField } from "../../hooks/useGetDebrisField";
 
 export const Box = styled("div")({
   justifyContent: "space-between",
@@ -35,6 +37,7 @@ export const ImageContainer = styled("div")({
 
 interface Props {
   planetId: number | undefined;
+  address: string;
   img: string | undefined;
   owner?: string;
   functionCallName?: string;
@@ -50,10 +53,11 @@ interface Props {
 
 const UniverseViewBox = ({
   planetId,
+  address,
   img,
   position,
-  owner, //   functionCallName,
-  points, //   debris,
+  owner,
+  points,
   highlighted,
   spendable,
   collectible,
@@ -67,11 +71,15 @@ const UniverseViewBox = ({
     : {};
 
   const isButtonDisabled = highlighted;
+  const debrisField = useGetDebrisField(planetId);
+  // TODO: implement StarkName once on mainnet
+  const { data } = useStarkName({ address });
+  console.log(data);
 
   return (
     <Box style={boxStyle}>
       <Styled.ImageContainer>
-        {img ? ( //&& spendable && collectible && fleet && defences ? (
+        {img ? (
           <PlanetModal
             planetId={planetId!}
             image={img}
@@ -85,16 +93,24 @@ const UniverseViewBox = ({
         )}
       </Styled.ImageContainer>
       <Styled.SubBox>
+        <Styled.Title>
+          <Styled.ResourceTitle>PLAYER</Styled.ResourceTitle>
+          <Styled.NumberContainer>{`0x${owner}`}</Styled.NumberContainer>
+        </Styled.Title>
         <Styled.InfoContainer>
+          <>
+            {debrisField &&
+            (debrisField.steel > 0 || debrisField.quartz > 0) ? (
+              <BlurOnOutlined />
+            ) : (
+              <BlurOnOutlined />
+            )}
+          </>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle style={{ width: "150%" }}>
-              PLANET ID
+              LAST ONLINE
             </Styled.ResourceTitle>
-            <Styled.NumberContainer>{Number(planetId)}</Styled.NumberContainer>
-          </Styled.ResourceContainer>
-          <Styled.ResourceContainer>
-            <Styled.ResourceTitle>PLAYER</Styled.ResourceTitle>
-            <Styled.NumberContainer>{`0x${owner}`}</Styled.NumberContainer>
+            <Styled.NumberContainer>Oct 13</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POINTS</Styled.ResourceTitle>
@@ -105,7 +121,6 @@ const UniverseViewBox = ({
             <Styled.NumberContainer>{position}</Styled.NumberContainer>
           </Styled.ResourceContainer>
         </Styled.InfoContainer>
-        <BlurOnOutlined />
         <Styled.ButtonContainer>
           <ButtonSendFleet noRequirements={isButtonDisabled} />
         </Styled.ButtonContainer>

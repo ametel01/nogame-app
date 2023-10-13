@@ -21,36 +21,29 @@ interface UniverseBoxItemProps {
 const UniverseBoxItem = ({ position }: UniverseBoxItemProps) => {
   const { address: address_data } = useAccount();
   const address = address_data ? address_data : "";
+
   const planetId = useGetPositionSlotOccupant(position.system, position.orbit);
+
   const points_data = useGetPlanetPoints(planetId);
   const points: number = points_data ? points_data : 0;
+
   const img = getPlanetImageUrl(planetId);
+
   const owner_data = useOwnerOf(planetId);
   const owner: string = owner_data ? owner_data.toString(16) : "";
-  // const spendableResources =
-  //   planetId !== undefined ? useSpendableResources(targetPlanet) : undefined;
-  // console.log(spendableResources);
-  // const collectibleResources =
-  //   planetId !== undefined ? useCollectibleResources(targetPlanet) : undefined;
-  // const shipsLevels =
-  //   planetId !== undefined ? useShipsLevels(targetPlanet) : undefined;
-  // const defencesLevels =
-  //   planetId !== undefined ? useDefencesLevels(targetPlanet) : undefined;
+
   const shortenedAddress = owner
     ? `${owner.substring(0, 4)}...${owner.substring(59)}`
     : "null";
   return (
     <UniverseViewBox
       planetId={planetId}
+      address={address}
       img={img}
       owner={shortenedAddress}
       position={`${position.system}/${position.orbit}`}
       points={points}
       highlighted={address === "0x" + owner}
-      // spendable={spendableResources}
-      // collectible={collectibleResources}
-      // fleet={shipsLevels}
-      // defences={defencesLevels}
     />
   );
 };
