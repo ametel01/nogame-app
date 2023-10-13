@@ -3,10 +3,10 @@ import Button from "@mui/material/Button";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
+import { MailLock } from "@mui/icons-material";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/system";
 import { useConnectors } from "@starknet-react/core";
-import argentIcon from "../../assets/logos/argent.svg";
 
 const StyledBox = styled(Box)({
   fontWeight: 800,
@@ -20,7 +20,7 @@ const StyledBox = styled(Box)({
   border: "1px solid #0A0C16",
   borderRadius: 16,
   boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
-  padding: "8px 32px",
+  padding: "24px 12px",
   display: "grid",
 });
 
@@ -29,6 +29,7 @@ const HeaderDiv = styled("div")({
   justifyContent: "space-between",
   alignItems: "center",
   color: "#D0D3DA",
+  marginBottom: "12px",
 });
 
 const CloseStyledIcon = styled(CloseIcon)({
@@ -71,7 +72,7 @@ const DisclaimerText = styled("div")({
   fontSize: "12px",
   fontWeight: "400",
   width: "70%",
-  margin: "20px auto",
+  margin: "2px auto",
   textAlign: "center",
   color: "#D0D3DA",
 });
@@ -123,12 +124,16 @@ export default function ConnectWallet() {
               <StyledLi key={connector.id}>
                 <StyledButton size="large" onClick={() => connect(connector)}>
                   {connector.id === "argentWebWallet" ? (
-                    <ConnectorIcon src={argentIcon} alt={connector.id} />
+                    <>
+                      <MailLock />
+                      <ConnectorText>Argent Web Wallet</ConnectorText>
+                    </>
                   ) : (
-                    <ConnectorIcon src={connector.icon} alt={connector.id} />
+                    <>
+                      <ConnectorIcon src={connector.icon} alt={connector.id} />
+                      <ConnectorText>{connector.id}</ConnectorText>
+                    </>
                   )}
-                  {/* <ConnectorIcon src={connector.icon} alt={connector.id} /> */}
-                  <ConnectorText>{connector.id}</ConnectorText>
                 </StyledButton>
               </StyledLi>
             ))}
