@@ -17,7 +17,7 @@ const HeaderWrapper = styled(AppBar)({
 });
 
 const StyledToolbar = styled(Toolbar)({
-  height: "24px !important",
+  height: "24px",
   padding: "0px 16px", // Reduced vertical padding
   minHeight: "8px", // Optional: set a specific minimum height
 });
@@ -27,7 +27,7 @@ const StyledButton = styled(Button)({
 });
 
 const StyledButtonWithMargin = styled(StyledButton)({
-  marginRight: "8px", // Spacing between the StyledButtons
+  margin: "16px", // Spacing between the StyledButtons
 });
 
 const Spacer = styled("div")({
@@ -37,6 +37,7 @@ const Spacer = styled("div")({
 const StyledLink = styled("a")({
   color: "inherit", // ensures the link inherits the color from its parent (white in this case)
   textDecoration: "none", // removes the default underline from the link
+  margin: "8px",
 });
 
 const Header = () => {

@@ -30,7 +30,7 @@ const StyledBox = styled(Box)({
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  backgroundColor: "#1B1E2A",
+  backgroundColor: "#1a2025",
   border: "1px solid #0A0C16",
   borderRadius: 16,
   boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
@@ -89,7 +89,7 @@ const StyledLi = styled("li")({
   margin: "4px",
   display: "flex", // Enable flexbox layout
   alignItems: "center", // Center items vertically in the flex container
-  backgroundColor: "#2C2F3A", // Slightly lighter color than the main background
+  backgroundColor: "#222930", // Slightly lighter color than the main background
 });
 
 const StyledImageBox = styled("div")<{ imgSrc: string }>`
@@ -99,6 +99,7 @@ const StyledImageBox = styled("div")<{ imgSrc: string }>`
   background-size: cover;
   background-position: center;
   margin-right: 16px; // Added this line to add space
+  border-radius: "8px";
 `;
 
 const Text = styled("span")({
@@ -115,7 +116,7 @@ const FlexContainer = styled("div")({
   margin: "8px 4px", // Top and bottom margin 12px, Left and right margin 8px
   padding: "8px 16px", // Top and bottom padding 8px, Left and right padding 16px
   borderRadius: "8px", // Round the corners
-  backgroundColor: "#2A2D3A", // Lighter color than the main background
+  backgroundColor: "#222930", // Lighter color than the main background
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
 });
 

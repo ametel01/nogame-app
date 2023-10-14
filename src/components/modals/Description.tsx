@@ -24,12 +24,12 @@ const ImageContainer = styled.div`
 
 const StyledDialogTitle = styled(DialogTitle)`
   background-color: #1a2025;
-  color: #81d3ff;
+  color: #d0d3da;
 `;
 
 const StyledDialogContent = styled(DialogContent)`
   background-color: #1a2025;
-  color: #81d3ff;
+  color: #d0d3da;
 `;
 
 const StyledDialog = styled(Dialog)`
@@ -46,7 +46,11 @@ interface ModalProps {
   description: React.ReactNode;
 }
 
-export default function DescriptionModal(props: ModalProps) {
+export default function DescriptionModal({
+  image,
+  title,
+  description,
+}: ModalProps) {
   const [open, setOpen] = React.useState(false);
 
   const handleModalOpen = () => {
@@ -61,8 +65,8 @@ export default function DescriptionModal(props: ModalProps) {
     <ThemeProvider theme={theme}>
       <ImageContainer onClick={handleModalOpen}>
         <img
-          src={props.image}
-          alt={props.title}
+          src={image}
+          alt={title}
           style={{
             maxWidth: "100%",
             height: "auto",
@@ -75,8 +79,8 @@ export default function DescriptionModal(props: ModalProps) {
         maxWidth="sm"
         fullWidth
       >
-        <StyledDialogTitle variant="h4">{props.title}</StyledDialogTitle>
-        <StyledDialogContent>{props.description}</StyledDialogContent>
+        <StyledDialogTitle variant="h4">{title}</StyledDialogTitle>
+        <StyledDialogContent>{description}</StyledDialogContent>
       </StyledDialog>
     </ThemeProvider>
   );

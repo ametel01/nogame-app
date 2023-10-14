@@ -3,6 +3,7 @@ import { useTokenOf } from "../../hooks/useTokenOf";
 import AuthScreen from "../../views/LoginOrGenerate";
 import Dashboard from "../../views/DashBoard";
 import { useAccount } from "@starknet-react/core";
+import Header from "../ui/Header";
 
 const AuthController = () => {
   const { address } = useAccount();
@@ -29,7 +30,13 @@ const AuthController = () => {
     };
     return <AuthScreen {...authProps} />;
   }
-  return <Dashboard />;
+
+  return (
+    <>
+      <Header />
+      <Dashboard />
+    </>
+  );
 };
 
 export default AuthController;

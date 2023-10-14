@@ -97,8 +97,6 @@ const AuthScreen = ({
   walletConnectLoading,
   hasGeneratedPlanets = false,
 }: AuthScreenProps) => {
-  console.log(walletConnectLoading);
-  console.log(hasGeneratedPlanets);
   if (address && !hasGeneratedPlanets) {
     return <GeneratePlanetView />;
   }
