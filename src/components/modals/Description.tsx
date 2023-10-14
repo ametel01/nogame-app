@@ -23,12 +23,12 @@ const ImageContainer = styled.div`
 `;
 
 const StyledDialogTitle = styled(DialogTitle)`
-  background-color: #1b1e2a;
+  background-color: #1a2025;
   color: #81d3ff;
 `;
 
 const StyledDialogContent = styled(DialogContent)`
-  background-color: #1b1e2a;
+  background-color: #1a2025;
   color: #81d3ff;
 `;
 
@@ -36,7 +36,7 @@ const StyledDialog = styled(Dialog)`
   .MuiPaper-root {
     border-radius: 8px;
     overflow: hidden;
-    background-color: #1b1e2a;
+    background-color: #1a2025;
   }
 `;
 

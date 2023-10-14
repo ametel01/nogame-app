@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 
 const StyledButton = styled(Button)(() => ({
   borderRadius: 8,
-  fontWeight: 600,
+  fontWeight: 500,
   fontSize: 14,
   textTransform: "capitalize",
   color: "white", // Changing the text color to white for better readability against cosmic colors

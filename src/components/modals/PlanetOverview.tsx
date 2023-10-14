@@ -35,7 +35,7 @@ const StyledDialogContent = styled(DialogContent)`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 20px 20px;
-  background-color: #1b1e2a;
+  background-color: #1a2025;
   color: #81d3ff;
 `;
 
@@ -43,12 +43,12 @@ const StyledDialog = styled(Dialog)`
   .MuiPaper-root {
     border-radius: 8px;
     overflow: hidden;
-    background-color: #1b1e2a;
+    background-color: #1a2025;
   }
 `;
 
 const StyledDialogTitle = styled(DialogTitle)`
-  background-color: #1b1e2a;
+  background-color: #1a2025;
   color: #81d3ff;
 `;
 

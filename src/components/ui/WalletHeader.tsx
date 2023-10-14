@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import astronaut from "../../assets/uiIcons/Astronaut.svg";
+import { Person2 } from "@mui/icons-material";
 
 const AstronautContainer = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const WalletHeader = ({ account }: WalletHeaderProps) => {
   return (
     <HeaderWalletContainer>
       <AstronautContainer>
-        <img src={astronaut} alt="astronaut" />
+        <Person2 />
         {shortenedAddress}
       </AstronautContainer>
     </HeaderWalletContainer>

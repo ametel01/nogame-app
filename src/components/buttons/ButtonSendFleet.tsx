@@ -5,12 +5,27 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import { Input } from "@mui/joy";
+import armadeImg from "../../assets/gameElements/ships/armade.png";
+import frigateImg from "../../assets/gameElements/ships/frigate.png";
+import carrierImg from "../../assets/gameElements/ships/carrier.png";
+import sparrowImg from "../../assets/gameElements/ships/sparrow.png";
+import scraperImg from "../../assets/gameElements/ships/scraper.png";
 // import * as Styled from "../../shared/styled/Box";
 
+type ShipName = "Carrier" | "Scraper" | "Sparrow" | "Frigate" | "Armade";
+
+const shipImageMapping: Record<ShipName, string> = {
+  Carrier: carrierImg,
+  Scraper: scraperImg,
+  Sparrow: sparrowImg,
+  Frigate: frigateImg,
+  Armade: armadeImg,
+};
+
 const StyledBox = styled(Box)({
-  fontWeight: 800,
+  fontWeight: 500,
   fontSize: 20,
-  color: "#E7ECEE", // This is a good neutral light color. Keeping it.
+  color: "#E7ECEE",
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -19,13 +34,15 @@ const StyledBox = styled(Box)({
   border: "1px solid #0A0C16",
   borderRadius: 16,
   boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
-  padding: "8px 32px",
-  display: "grid",
+  padding: "16px 32px", // Added top and bottom padding of 16px, keeping left and right padding at 32px
+  display: "flex",
+  flexDirection: "column", // Moved from inline to here
+  width: "45%", // Moved from inline to here
 });
 
 const StyledButton = styled(Button)(() => ({
   borderRadius: 8,
-  fontWeight: 600,
+  fontWeight: 500,
   fontSize: 14,
   textTransform: "capitalize",
   color: "white", // Changing the text color to white for better readability against cosmic colors
@@ -69,20 +86,43 @@ const StyledUl = styled("ul")({
 
 const StyledLi = styled("li")({
   listStyleType: "none",
-  margin: "8px",
+  margin: "4px",
+  display: "flex", // Enable flexbox layout
+  alignItems: "center", // Center items vertically in the flex container
+  backgroundColor: "#2C2F3A", // Slightly lighter color than the main background
 });
+
+const StyledImageBox = styled("div")<{ imgSrc: string }>`
+  width: 40px;
+  height: 40px;
+  background-image: url(${(props) => props.imgSrc});
+  background-size: cover;
+  background-position: center;
+  margin-right: 16px; // Added this line to add space
+`;
 
 const Text = styled("span")({
   flexGrow: 1,
   textAlign: "center",
   color: "#D0D3DA",
+  fontSize: "16px", // Reduced from implicit or default value
 });
 
 const FlexContainer = styled("div")({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  margin: "8px",
+  margin: "8px 4px", // Top and bottom margin 12px, Left and right margin 8px
+  padding: "8px 16px", // Top and bottom padding 8px, Left and right padding 16px
+  borderRadius: "8px", // Round the corners
+  backgroundColor: "#2A2D3A", // Lighter color than the main background
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+});
+
+const InputButtonContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  gap: "8px", // You can adjust this to control spacing
 });
 
 interface Props {
@@ -120,9 +160,7 @@ export function ButtonSendFleet(props: Props) {
             Send Fleet
           </StyledButton>
           <Modal open={isModalOpen} onClose={handleClose}>
-            <StyledBox
-              sx={{ display: "flex", flexDirection: "column", width: "45%" }}
-            >
+            <StyledBox>
               <HeaderDiv>
                 Select Ships
                 <CloseStyledIcon onClick={handleClose} />
@@ -131,23 +169,28 @@ export function ButtonSendFleet(props: Props) {
                 {ships.map((ship) => (
                   <FlexContainer>
                     <StyledLi key={ship}>
+                      <StyledImageBox
+                        imgSrc={shipImageMapping[ship as ShipName] || ""}
+                      />
                       <Text>{ship}</Text>
                     </StyledLi>
-                    <Input
-                      type="text"
-                      value={quantities[ship] || 0}
-                      onChange={(e) => {
-                        const value =
-                          e.target.value === ""
-                            ? 0
-                            : parseInt(e.target.value, 10);
-                        setQuantities({ ...quantities, [ship]: value });
-                      }}
-                      size="sm"
-                      color="neutral"
-                      variant="soft"
-                      style={{ width: "80px" }}
-                    />
+                    <InputButtonContainer>
+                      <Input
+                        type="text"
+                        value={quantities[ship] || 0}
+                        onChange={(e) => {
+                          const value =
+                            e.target.value === ""
+                              ? 0
+                              : parseInt(e.target.value, 10);
+                          setQuantities({ ...quantities, [ship]: value });
+                        }}
+                        size="sm"
+                        color="neutral"
+                        variant="soft"
+                        style={{ width: "80px" }}
+                      />
+                    </InputButtonContainer>
                   </FlexContainer>
                 ))}
               </StyledUl>

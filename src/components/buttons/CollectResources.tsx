@@ -21,7 +21,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   borderRadius: 8,
   padding: theme.spacing(1, 2),
   fontSize: 14,
-  fontWeight: 600,
+  fontWeight: 500,
   textTransform: "capitalize",
   background: "#4A63AA",
   color: "white",

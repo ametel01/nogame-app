@@ -65,17 +65,12 @@ const PriceText = styled("div")`
   font-size: 20px;
   text-align: center;
   letter-spacing: 0.02em;
-  background-color: rgba(
-    34,
-    36,
-    45,
-    0.8
-  ); // Slightly transparent dark background
-  padding: 8px 16px; // Padding to give it some space
-  border-radius: 8px; // Rounded borders
-  font-family: "Courier New", Courier, monospace; // Monospace font for the techy feel
-  white-space: nowrap; // To prevent wrapping of text
-  overflow: hidden; // In case we want to add scrolling effect later
+  background-color: rgba(34, 36, 45, 0.8);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: "Courier New", Courier, monospace;
+  white-space: nowrap;
+  overflow: hidden;
   opacity: 0.9;
 `;
 
