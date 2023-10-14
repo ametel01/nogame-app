@@ -84,46 +84,27 @@ const StyledUl = styled("ul")({
   flexGrow: 1,
 });
 
-const StyledLi = styled("li")({
-  listStyleType: "none",
-  margin: "4px",
-  display: "flex", // Enable flexbox layout
-  alignItems: "center", // Center items vertically in the flex container
-  backgroundColor: "#222930", // Slightly lighter color than the main background
-});
-
-const StyledImageBox = styled("div")<{ imgSrc: string }>`
-  width: 40px;
-  height: 40px;
-  background-image: url(${(props) => props.imgSrc});
-  background-size: cover;
-  background-position: center;
-  margin-right: 16px; // Added this line to add space
-  border-radius: "8px";
-`;
-
 const Text = styled("span")({
   flexGrow: 1,
   textAlign: "center",
   color: "#D0D3DA",
-  fontSize: "16px", // Reduced from implicit or default value
+  fontSize: "16px",
 });
 
 const FlexContainer = styled("div")({
+  border: "red solid",
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  margin: "8px 4px", // Top and bottom margin 12px, Left and right margin 8px
-  padding: "8px 16px", // Top and bottom padding 8px, Left and right padding 16px
-  borderRadius: "8px", // Round the corners
-  backgroundColor: "#222930", // Lighter color than the main background
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  borderRadius: "8px",
+  backgroundColor: "#222930",
+  // boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
 });
 
 const InputButtonContainer = styled("div")({
   display: "flex",
   alignItems: "center",
-  gap: "8px", // You can adjust this to control spacing
+  gap: "8px",
 });
 
 interface Props {
@@ -166,35 +147,65 @@ export function ButtonSendFleet(props: Props) {
                 Select Ships
                 <CloseStyledIcon onClick={handleClose} />
               </HeaderDiv>
-              <StyledUl>
-                {ships.map((ship) => (
-                  <FlexContainer>
-                    <StyledLi key={ship}>
-                      <StyledImageBox
-                        imgSrc={shipImageMapping[ship as ShipName] || ""}
-                      />
-                      <Text>{ship}</Text>
-                    </StyledLi>
-                    <InputButtonContainer>
-                      <Input
-                        type="text"
-                        value={quantities[ship] || 0}
-                        onChange={(e) => {
-                          const value =
-                            e.target.value === ""
-                              ? 0
-                              : parseInt(e.target.value, 10);
-                          setQuantities({ ...quantities, [ship]: value });
+              <FlexContainer
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                {/* Left Column */}
+                <div style={{ flexGrow: 1 }}>
+                  <StyledUl>
+                    {ships.map((ship) => (
+                      <FlexContainer
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
                         }}
-                        size="sm"
-                        color="neutral"
-                        variant="soft"
-                        style={{ width: "80px" }}
-                      />
-                    </InputButtonContainer>
-                  </FlexContainer>
-                ))}
-              </StyledUl>
+                      >
+                        <img
+                          src={shipImageMapping[ship as ShipName] || ""}
+                          alt={ship}
+                          style={{
+                            width: "40px",
+                            height: "40px",
+                            marginRight: "8px",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            borderRadius: "8px",
+                          }}
+                        />
+                        <Text style={{ margin: "0px" }}>{ship}</Text>
+                        <InputButtonContainer>
+                          <Input
+                            type="text"
+                            value={quantities[ship] || 0}
+                            onChange={(e) => {
+                              const value =
+                                e.target.value === ""
+                                  ? 0
+                                  : parseInt(e.target.value, 10);
+                              setQuantities({ ...quantities, [ship]: value });
+                            }}
+                            size="sm"
+                            color="neutral"
+                            variant="soft"
+                            style={{ width: "80px" }}
+                          />
+                        </InputButtonContainer>
+                      </FlexContainer>
+                    ))}
+                  </StyledUl>
+                </div>
+                {/* Right Column */}
+                <div style={{ marginLeft: "16px" }}>
+                  <div>Travel time:</div>
+                  <div>Time arrival:</div>
+                  <div>Fuel consumption:</div>
+                  <div>Total number of ships:</div>
+                </div>
+              </FlexContainer>
+              <Button>Send Fleet</Button>
             </StyledBox>
           </Modal>
         </>
