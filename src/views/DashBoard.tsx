@@ -37,7 +37,7 @@ const SubBodyContainer = styled.section<{ border?: boolean }>`
   ${({ border }) =>
     border &&
     css`
-      border-top: 2px solid black;
+      border-top: 1px solid #151a1e;
     `}
 `;
 
