@@ -74,6 +74,9 @@ const Header = () => {
 
         <Spacer />
         <StyledButtonWithMargin variant="text" size="small">
+          Resources Market
+        </StyledButtonWithMargin>
+        <StyledButtonWithMargin variant="text" size="small">
           Battle Reports
         </StyledButtonWithMargin>
         <StyledButton variant="text" size="small">

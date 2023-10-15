@@ -9,10 +9,10 @@ import { numberWithCommas } from "../../shared/utils";
 import { useTokenOf } from "../../hooks/useTokenOf";
 
 // Asset imports
-import ironImg from "../../assets/gameElements/resources/nogameiron.png";
-import quartzImg from "../../assets/gameElements/resources/nogamecrystal.png";
-import tritiumImg from "../../assets/gameElements/resources/nogamedeuterium.png";
-import energyImg from "../../assets/gameElements/resources/nogameenergy.png";
+import ironImg from "../../assets/gameElements/resources/steel-1.png";
+import quartzImg from "../../assets/gameElements/resources/quartz-2.png";
+import tritiumImg from "../../assets/gameElements/resources/tritium-1.png";
+import energyImg from "../../assets/gameElements/resources/energy-2.png";
 import {
   useCollectibleResources,
   useEnergyAvailable,
@@ -39,7 +39,7 @@ const ImageAddressContainer = styled.div`
 `;
 
 const ImageStyle = styled.img`
-  width: 30px;
+  width: 50px;
   height: auto;
   object-fit: contain;
 `;

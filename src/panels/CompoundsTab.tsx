@@ -1,10 +1,10 @@
 import { StyledTabPanel } from "./styleds";
-import steelImg from "../assets/gameElements/compounds/steel-mine.png";
-import quartzImg from "../assets/gameElements/compounds/quartz-mine.png";
-import tritiumImg from "../assets/gameElements/compounds/tritium-mine.png";
-import energyImg from "../assets/gameElements/compounds/energy-plant.png";
-import labImg from "../assets/gameElements/compounds/lab.png";
-import dockyardImg from "../assets/gameElements/compounds/dockyard.png";
+import steelImg from "../assets/gameElements/compounds/steel-mine-1-v2.png";
+import quartzImg from "../assets/gameElements/compounds/quartz-mine-2-v2.png";
+import tritiumImg from "../assets/gameElements/compounds/tritium-v2-2.png";
+import energyImg from "../assets/gameElements/compounds/energy-plant-v2-2.png";
+import labImg from "../assets/gameElements/compounds/research-lab-v2-1.png";
+import dockyardImg from "../assets/gameElements/compounds/dockyard-v2-1.png";
 import {
   CompoundsCostUpgrade,
   CompoundsLevels,

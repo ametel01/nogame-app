@@ -18,17 +18,17 @@ import {
 } from "../shared/utils";
 
 import armourImg from "../assets/gameElements/techs/armour.png";
-import beamImg from "../assets/gameElements/techs/laser.png";
+import beamImg from "../assets/gameElements/techs/beam-2.png";
 import ionImg from "../assets/gameElements/techs/ion.png";
-import plasmaImg from "../assets/gameElements/techs/plasma.png";
-import spacetimeImg from "../assets/gameElements/techs/spacetime.png";
+import plasmaImg from "../assets/gameElements/techs/plasma-v2.1.png";
+import spacetimeImg from "../assets/gameElements/techs/spacetime-v2-1.png";
 import warpEnginImg from "../assets/gameElements/techs/warp.png";
 import combustionImg from "../assets/gameElements/techs/combustion.png";
 import thrustImg from "../assets/gameElements/techs/thrust.png";
 import weaponsImg from "../assets/gameElements/techs/weapons.png";
-import computerImg from "../assets/gameElements/techs/computer.png";
+import computerImg from "../assets/gameElements/techs/computer-v2.png";
 import shieldImg from "../assets/gameElements/techs/shield.png";
-import energyImg from "../assets/gameElements/techs/energy.png";
+import energyImg from "../assets/gameElements/techs/energy-v2.png";
 
 import {
   ArmourDescription,
