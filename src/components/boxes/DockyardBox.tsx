@@ -81,17 +81,17 @@ const DockyardBox = ({
         <img
           src={img}
           alt={title}
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
+          // style={{
+          //   maxWidth: "100%",
+          //   height: "auto",
+          // }}
         />
       </Styled.ImageContainer>
       <Styled.SubBox>
         <Styled.Title>{title}</Styled.Title>
         <Styled.InfoContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>AVAILABLE</Styled.ResourceTitle>
+            <Styled.ResourceTitle>READY</Styled.ResourceTitle>
             <Styled.NumberContainer>{level}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
@@ -131,21 +131,23 @@ const DockyardBox = ({
               {tritiumDisplay}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
-          <Input
-            type="text"
-            value={quantity}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setQuantity(0);
-              } else {
-                setQuantity(parseInt(e.target.value, 10));
-              }
-            }}
-            size="sm"
-            color="neutral"
-            variant="soft"
-            style={{ width: "80px" }}
-          />
+          <Styled.ResourceContainer>
+            <Input
+              type="text"
+              value={quantity}
+              onChange={(e) => {
+                if (e.target.value === "") {
+                  setQuantity(0);
+                } else {
+                  setQuantity(parseInt(e.target.value, 10));
+                }
+              }}
+              size="sm"
+              color="neutral"
+              variant="soft"
+              style={{ width: "80px" }}
+            />
+          </Styled.ResourceContainer>
         </Styled.InfoContainer>
         <Styled.ButtonContainer>
           <ButtonBuild

@@ -61,7 +61,7 @@ const ResearchBox = ({
         <Styled.Title>{title}</Styled.Title>
         <Styled.InfoContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>LEVEL</Styled.ResourceTitle>
+            <Styled.ResourceTitle>STAGE</Styled.ResourceTitle>
             <Styled.NumberContainer>{level}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>

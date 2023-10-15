@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { useContractRead } from "@starknet-react/core";
 import nogameLogo from "../../assets/logos/NoGameLogo.png";
 import { numberWithCommas } from "../../shared/utils";
-import { SportsScore } from "@mui/icons-material";
 import { GAMEADDRESS } from "../../constants/addresses";
 import game from "../../constants/nogame.json";
 import { useTokenOf } from "../../hooks/useTokenOf";
@@ -77,7 +76,6 @@ const LogoAndRankContainer = () => {
       <RankContainer>
         <RankLineContainer>
           <TrophyDiv>
-            <SportsScore />
             <TitleContainer>Score</TitleContainer>
           </TrophyDiv>
           {Number(score)}

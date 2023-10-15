@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const FixedGlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet');
 
 html, input, textarea, button {
   font-family: 'Ubuntu', sans-serif;
@@ -10,12 +10,14 @@ html, input, textarea, button {
 
  @supports (font-variation-settings: normal) {
   html, input, textarea, button {
-    font-family: 'Ubuntu', sans-serif;
+    // font-family: 'Orbitron', sans-serif;
    }
 }
 
 html,
 body {
+  font-family: 'Orbitron', sans-serif;
+  // letter-spacing: 0.04em;
   margin: 0;
   padding: 0;
 }

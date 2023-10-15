@@ -19,12 +19,13 @@ export const SubBox = styled("div")({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  justifyContent: "space-between",
+  justifyContent: "space-evenly",
   padding: "10px",
 });
 
 export const Title = styled("div")({
   width: "130px",
+  justifyContent: "flex-start",
 });
 
 export const InfoContainer = styled("div")({
@@ -71,6 +72,7 @@ export const NumberContainer = styled("div")({
 export const ButtonContainer = styled("div")({
   maxWidth: "300px",
   minWidth: "195px",
+  paddingLeft: "3%",
   "&:hover": {
     filter: "brightness(0.75)",
   },

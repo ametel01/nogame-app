@@ -37,7 +37,7 @@ const StyledBox = styled(Box)({
   padding: "16px 32px",
   display: "flex",
   flexDirection: "column",
-  width: "45%",
+  width: "50%",
 });
 
 const CloseStyledIcon = styled(CloseIcon)({
@@ -188,9 +188,13 @@ export function ButtonSendFleet(props: Props) {
                           }}
                         >
                           {ship} (
-                          {Number(
-                            props.ownFleet[ship as keyof typeof props.ownFleet]
-                          )}
+                          <span style={{ color: "#81d3ff" }}>
+                            {Number(
+                              props.ownFleet[
+                                ship as keyof typeof props.ownFleet
+                              ]
+                            )}
+                          </span>
                           )
                         </Text>
                         <InputButtonContainer>

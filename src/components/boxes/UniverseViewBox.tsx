@@ -9,7 +9,7 @@ import PlanetModal from "../modals/PlanetOverview";
 import { useGetDebrisField } from "../../hooks/useGetDebrisField";
 
 export const Box = styled("div")({
-  justifyContent: "space-between",
+  justifyContent: "space-evenly",
   alignItems: "center", // Ensures vertically center aligned
   padding: "0 5px", // Reduce horizontal padding slightly
   width: "100%",
@@ -93,21 +93,20 @@ const UniverseViewBox = ({
         )}
       </Styled.ImageContainer>
       <Styled.SubBox>
+        <>
+          {debrisField && (debrisField.steel > 0 || debrisField.quartz > 0) ? (
+            <BlurOnOutlined />
+          ) : (
+            <BlurOnOutlined />
+          )}
+        </>
         <Styled.Title>
           <Styled.ResourceTitle>PLAYER</Styled.ResourceTitle>
           <Styled.NumberContainer>{`0x${owner}`}</Styled.NumberContainer>
         </Styled.Title>
         <Styled.InfoContainer>
-          <>
-            {debrisField &&
-            (debrisField.steel > 0 || debrisField.quartz > 0) ? (
-              <BlurOnOutlined />
-            ) : (
-              <BlurOnOutlined />
-            )}
-          </>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle style={{ width: "150%" }}>
+            <Styled.ResourceTitle style={{ width: "200%" }}>
               LAST ONLINE
             </Styled.ResourceTitle>
             <Styled.NumberContainer>Oct 13</Styled.NumberContainer>
