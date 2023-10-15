@@ -15,7 +15,7 @@ export function useCompoundsUpgradeCost(planetId: number | undefined) {
     address: GAMEADDRESS,
     abi: game.abi,
     functionName: "get_compounds_upgrade_cost",
-    args: [planetId],
+    args: [planetId!],
   });
   return data as unknown as CompoundsCostUpgrade;
 }
@@ -25,7 +25,7 @@ export function useTechsUpgradeCost(planetId: number | undefined) {
     address: GAMEADDRESS,
     abi: game.abi,
     functionName: "get_techs_upgrade_cost",
-    args: [planetId],
+    args: [planetId!],
   });
   return data as unknown as TechCost;
 }
@@ -55,7 +55,7 @@ export function useEnergyCost(planetId: number | undefined) {
     address: GAMEADDRESS,
     abi: game.abi,
     functionName: "get_energy_for_upgrade",
-    args: [planetId],
+    args: [planetId!],
   });
   return data as unknown as EnergyCost;
 }

@@ -29,7 +29,11 @@ export const GeneratePlanet = () => {
     entrypoint: "generate_planet",
     calldata: [],
   };
-  const { write, isLoading } = useContractWrite({ calls: [tx] });
+  const { isLoading } = useContractWrite({ calls: [tx] });
+
+  const handleGenerate = () => {
+    useContractWrite({ calls: [tx] });
+  };
 
   return (
     <Box position="relative" display="inline-flex">
@@ -47,7 +51,7 @@ export const GeneratePlanet = () => {
       )}
       <StyledButton
         variant="contained"
-        onClick={() => write()}
+        onClick={handleGenerate}
         startIcon={<RocketLaunchIcon />}
         disabled={isLoading} // disable the button when loading
       >

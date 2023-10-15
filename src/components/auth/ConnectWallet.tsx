@@ -3,10 +3,11 @@ import Button from "@mui/material/Button";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
-import { MailLock } from "@mui/icons-material";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/system";
-import { useConnectors } from "@starknet-react/core";
+import { useConnect } from "@starknet-react/core";
+import argent from "../../assets/uiIcons/argent.png";
+import braavos from "../../assets/uiIcons/braavos.png";
 
 const StyledBox = styled(Box)({
   fontWeight: 800,
@@ -66,6 +67,7 @@ const ConnectorText = styled("span")({
   flexGrow: 1,
   textAlign: "center",
   color: "#D0D3DA",
+  fontWeight: "600",
 });
 
 const DisclaimerText = styled("div")({
@@ -97,7 +99,7 @@ export default function ConnectWallet() {
   const [open, setOpen] = React.useState(false);
   const toggleModal = () => setOpen((prevState) => !prevState);
   const handleClose = () => setOpen(false);
-  const { connect, connectors } = useConnectors();
+  const { connect, connectors } = useConnect();
 
   return (
     <>
@@ -122,16 +124,24 @@ export default function ConnectWallet() {
           <StyledUl>
             {connectors.map((connector) => (
               <StyledLi key={connector.id}>
-                <StyledButton size="large" onClick={() => connect(connector)}>
-                  {connector.id === "argentWebWallet" ? (
+                <StyledButton
+                  size="large"
+                  onClick={() => connect({ connector })}
+                >
+                  {connector.id === "argentX" ? (
                     <>
-                      <MailLock />
-                      <ConnectorText>Argent Web Wallet</ConnectorText>
+                      <ConnectorIcon src={argent} alt="argent" />
+                      <ConnectorText>Argent X</ConnectorText>
                     </>
                   ) : (
                     <>
-                      <ConnectorIcon src={connector.icon} alt={connector.id} />
-                      <ConnectorText>{connector.id}</ConnectorText>
+                      <ConnectorIcon src={braavos} alt="braavos" />
+                      <ConnectorText>Braavos</ConnectorText>
+                      {/* <ConnectorIcon
+                        src={connector.icon.light}
+                        alt={connector.id}
+                      />
+                      <ConnectorText>{connector.id}</ConnectorText> */}
                     </>
                   )}
                 </StyledButton>

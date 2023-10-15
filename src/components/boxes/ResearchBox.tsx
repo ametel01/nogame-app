@@ -3,7 +3,7 @@ import * as Styled from "../../shared/styled/Box";
 import { ButtonUpgrade } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
 import { ReactNode, useMemo } from "react";
-import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
+import useUpgrade from "../../hooks/useUpgrade";
 import ImagePopover from "../modals/Description";
 import { TechLevels } from "../../shared/types";
 
@@ -35,9 +35,7 @@ const ResearchBox = ({
   requirementsMet,
   description,
 }: Props) => {
-  const { write: upgrade } = useUpgrade(
-    functionCallName as ComponentUpgradeType
-  );
+  const { submitTx: upgrade } = useUpgrade(functionCallName);
 
   const steel = costUpdate ? numberWithCommas(costUpdate.steel) : null;
   const quartz = costUpdate ? numberWithCommas(costUpdate.quartz) : null;

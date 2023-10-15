@@ -1,4 +1,5 @@
 {
+  "typeRoots": ["./global.d.ts", "./node_modules/@types"],
   "compilerOptions": {
     "declaration": true,
     "target": "ESNext",

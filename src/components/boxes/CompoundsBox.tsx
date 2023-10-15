@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
+import useUpgrade from "../../hooks/useUpgrade";
 import { numberWithCommas } from "../../shared/utils";
 import { ButtonUpgrade } from "../ui/Button";
 import DescriptionModal from "../modals/Description";
@@ -20,7 +20,7 @@ interface CompoundsBoxProps {
     tritium: number;
   };
   energyRequired: number;
-  functionCallName: ComponentUpgradeType; // Assuming this is a string, you might need to adjust if it's another type
+  functionCallName: string; // Assuming this is a string, you might need to adjust if it's another type
   description: React.ReactNode;
 }
 
@@ -34,7 +34,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   functionCallName,
   description,
 }) => {
-  const { write: upgrade } = useUpgrade(functionCallName);
+  const { submitTx: upgrade } = useUpgrade(functionCallName);
 
   const steel = costUpdate && numberWithCommas(costUpdate.steel);
   const quartz = costUpdate && numberWithCommas(costUpdate.quartz);

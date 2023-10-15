@@ -24,7 +24,7 @@ export function useTechsLevels(planetId: number | undefined): TechLevels {
     address: GAMEADDRESS,
     abi: game.abi,
     functionName: "get_techs_levels",
-    args: [planetId],
+    args: [planetId!],
   });
   return data as unknown as TechLevels;
 }
@@ -34,7 +34,7 @@ export function useShipsLevels(planetId: number | undefined): ShipsLevels {
     address: GAMEADDRESS,
     abi: game.abi,
     functionName: "get_ships_levels",
-    args: [planetId],
+    args: [planetId!],
   });
   return data as unknown as ShipsLevels;
 }
@@ -44,7 +44,7 @@ export function useDefencesLevels(planetId: number | undefined): DefenceLevels {
     address: GAMEADDRESS,
     abi: game.abi,
     functionName: "get_defences_levels",
-    args: [planetId],
+    args: [planetId!],
   });
   return data as unknown as DefenceLevels;
 }

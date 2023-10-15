@@ -77,7 +77,7 @@ interface Props {
 }
 
 export const UniverseViewTabPanel = ({ ...rest }: Props) => {
-  const planets_data = useGetPositionsArray() || [];
+  const planets_data: PositionObject[] = useGetPositionsArray() || [];
 
   const sortedPlanetsData = planets_data.sort((a, b) => {
     if (Number(a.system) === Number(b.system)) {

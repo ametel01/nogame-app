@@ -1,9 +1,8 @@
-import { useAccount, useConnectors } from "@starknet-react/core";
+import { useAccount, useConnect } from "@starknet-react/core";
 import { useMemo } from "react";
 
 function WalletConnected() {
   const { address } = useAccount();
-  const { disconnect } = useConnectors();
 
   const shortenedAddress = useMemo(() => {
     if (!address) return "";
@@ -13,20 +12,20 @@ function WalletConnected() {
   return (
     <div>
       <span>Connected: {shortenedAddress}</span>
-      <button onClick={disconnect}>Disconnect</button>
+      {/* <button onClick={disconnect}>Disconnect</button> */}
     </div>
   );
 }
 
 function ConnectWallet() {
-  const { connectors, connect } = useConnectors();
+  const { connectors } = useConnect();
 
   return (
     <div>
       <span>Choose a wallet:</span>
       {connectors.map((connector) => {
         return (
-          <button key={connector.id} onClick={() => connect(connector)}>
+          <button key={connector.id} onClick={() => connector.connect}>
             {connector.id}
           </button>
         );

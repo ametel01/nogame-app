@@ -21,13 +21,12 @@ import {
   SteelMineDescription,
   TritiumMineDescription,
 } from "../components/descriptions/CompoundsPopover";
-import { ComponentUpgradeType } from "../hooks/useUpgrade";
 
 type CompoundConfigType = {
   description: React.ReactNode;
   img: string;
   title: string;
-  functionCallName: ComponentUpgradeType;
+  functionCallName: string;
   compoundName: keyof CompoundsLevels;
   energyKey: keyof EnergyCost;
 };

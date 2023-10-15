@@ -38,7 +38,8 @@ const DefencesBox = ({
   resourcesAvailable,
 }: Props) => {
   const [quantity, setQuantity] = useState(0);
-  const { write: build } = useBuild(functionCallName, quantity);
+
+  const { submitTx: build } = useBuild(functionCallName, quantity);
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {

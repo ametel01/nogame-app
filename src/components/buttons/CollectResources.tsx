@@ -23,7 +23,11 @@ export function UseCollectResources() {
     entrypoint: "collect_resources",
     calldata: [],
   };
-  const { write, isLoading, status } = useContractWrite({ calls: [tx] });
+  const { isLoading, status } = useContractWrite({ calls: [tx] });
+
+  const handleCollect = () => {
+    useContractWrite({ calls: [tx] });
+  };
 
   return (
     <>
@@ -34,7 +38,7 @@ export function UseCollectResources() {
         <StyledButton
           fullWidth
           style={{ margin: "4px", background: "#4A63AA" }}
-          onClick={() => write()}
+          onClick={handleCollect}
           variant="contained"
         >
           Collect Resources
