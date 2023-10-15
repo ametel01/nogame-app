@@ -13,6 +13,7 @@ import { useGetPositionSlotOccupant } from "../hooks/useGetPositionSlotOccupant"
 import { useOwnerOf } from "../hooks/useOwnerOf";
 import { useGetPlanetPoints } from "../hooks/useGetPlanetPoints";
 import { useAccount } from "@starknet-react/core";
+import { useShipsLevels } from "../hooks/LevelsHooks";
 
 interface UniverseBoxItemProps {
   position: PositionObject;
@@ -23,6 +24,17 @@ const UniverseBoxItem = ({ position }: UniverseBoxItemProps) => {
   const address = address_data ? address_data : "";
 
   const planetId = useGetPositionSlotOccupant(position.system, position.orbit);
+  const ownFleetData = useShipsLevels(Number(planetId));
+  const ownFleet: ShipsLevels = ownFleetData
+    ? ownFleetData
+    : {
+        carrier: 0,
+        scraper: 0,
+        sparrow: 0,
+        frigate: 0,
+        armade: 0,
+        celestia: 0,
+      };
 
   const points_data = useGetPlanetPoints(planetId);
   const points: number = points_data ? points_data : 0;
@@ -31,6 +43,11 @@ const UniverseBoxItem = ({ position }: UniverseBoxItemProps) => {
 
   const owner_data = useOwnerOf(planetId);
   const owner: string = owner_data ? owner_data.toString(16) : "";
+
+  const formattedPosition = `${String(position.system).padStart(
+    2,
+    "0"
+  )} / ${String(position.orbit).padStart(2, "0")}`;
 
   const shortenedAddress = owner
     ? `${owner.substring(0, 4)}...${owner.substring(59)}`
@@ -41,9 +58,10 @@ const UniverseBoxItem = ({ position }: UniverseBoxItemProps) => {
       address={address}
       img={img}
       owner={shortenedAddress}
-      position={`${position.system}/${position.orbit}`}
+      position={formattedPosition}
       points={points}
       highlighted={address === "0x" + owner}
+      ownFleet={ownFleet}
     />
   );
 };

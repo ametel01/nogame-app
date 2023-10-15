@@ -49,6 +49,7 @@ interface Props {
   collectible?: Resources;
   fleet?: ShipsLevels;
   defences?: DefenceLevels;
+  ownFleet?: ShipsLevels;
 }
 
 const UniverseViewBox = ({
@@ -63,6 +64,7 @@ const UniverseViewBox = ({
   collectible,
   fleet,
   defences,
+  ownFleet,
 }: Props) => {
   const boxStyle = highlighted
     ? {
@@ -121,7 +123,11 @@ const UniverseViewBox = ({
           </Styled.ResourceContainer>
         </Styled.InfoContainer>
         <Styled.ButtonContainer>
-          <ButtonSendFleet noRequirements={isButtonDisabled} />
+          <ButtonSendFleet
+            noRequirements={isButtonDisabled}
+            destination={position!}
+            ownFleet={ownFleet!}
+          />
         </Styled.ButtonContainer>
       </Styled.SubBox>
     </Box>
