@@ -19,7 +19,7 @@ export const SubBox = styled("div")({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  justifyContent: "space-evenly",
+  justifyContent: "space-between",
   padding: "10px",
 });
 
@@ -33,7 +33,7 @@ export const InfoContainer = styled("div")({
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
-  width: "40%",
+  // width: "45%",
 });
 
 export const CustomInput = styled(Input)({
@@ -46,7 +46,7 @@ export const ImageContainer = styled("div")({
 });
 
 export const ResourceContainer = styled(Column)({
-  width: "50px",
+  minWidth: "50px",
   textAlign: "left",
   gap: "3px",
 });
@@ -62,6 +62,7 @@ export const ResourceTitle = styled("div")({
 
 export const NumberContainer = styled("div")({
   display: "flex",
+  width: "100%",
   justifyContent: "flex-start",
   gap: "4px",
   alignItems: "center",

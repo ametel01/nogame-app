@@ -1,9 +1,14 @@
 import React from "react";
+import styled from "@emotion/styled";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
 import { numberWithCommas } from "../../shared/utils";
 import { ButtonUpgrade } from "../ui/Button";
 import DescriptionModal from "../modals/Description";
 import * as Styled from "../../shared/styled/Box";
+
+const InfoContainer = styled(Styled.InfoContainer)({
+  width: "55%",
+});
 interface CompoundsBoxProps {
   img: string;
   title: string;
@@ -58,7 +63,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
       </Styled.ImageContainer>
       <Styled.SubBox>
         <Styled.Title>{title}</Styled.Title>
-        <Styled.InfoContainer>
+        <InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>STAGE</Styled.ResourceTitle>
             <Styled.NumberContainer>{level}</Styled.NumberContainer>
@@ -79,7 +84,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
             <Styled.ResourceTitle>ENERGY</Styled.ResourceTitle>
             <Styled.NumberContainer>- {energy}</Styled.NumberContainer>
           </Styled.ResourceContainer>
-        </Styled.InfoContainer>
+        </InfoContainer>
         <Styled.ButtonContainer>
           <ButtonUpgrade
             callback={upgrade}

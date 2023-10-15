@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import styled from "@emotion/styled";
 import { Input } from "@mui/joy";
 import ImagePopover from "../modals/Description";
 import { ButtonBuild } from "../ui/Button";
@@ -6,6 +7,10 @@ import useBuild from "../../hooks/useBuild";
 import { numberWithCommas } from "../../shared/utils";
 import * as Styled from "../../shared/styled/Box";
 import { Resources } from "../../shared/types";
+
+const InfoContainer = styled(Styled.InfoContainer)({
+  width: "45%",
+});
 
 type Props = {
   img: string;
@@ -85,7 +90,7 @@ const DefencesBox = ({
       </Styled.ImageContainer>
       <Styled.SubBox>
         <Styled.Title>{title}</Styled.Title>
-        <Styled.InfoContainer>
+        <InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>READY</Styled.ResourceTitle>
             <Styled.NumberContainer>{level}</Styled.NumberContainer>
@@ -127,24 +132,24 @@ const DefencesBox = ({
               {tritiumDisplay}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
-          <Styled.ResourceContainer>
-            <Input
-              type="text"
-              value={quantity}
-              onChange={(e) => {
-                if (e.target.value === "") {
-                  setQuantity(0);
-                } else {
-                  setQuantity(parseInt(e.target.value, 10));
-                }
-              }}
-              size="sm"
-              color="neutral"
-              variant="soft"
-              style={{ width: "80px" }}
-            />
-          </Styled.ResourceContainer>
-        </Styled.InfoContainer>
+        </InfoContainer>
+        <Styled.ResourceContainer>
+          <Input
+            type="text"
+            value={quantity}
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setQuantity(0);
+              } else {
+                setQuantity(parseInt(e.target.value, 10));
+              }
+            }}
+            size="sm"
+            color="neutral"
+            variant="soft"
+            style={{ width: "80px" }}
+          />
+        </Styled.ResourceContainer>
         <Styled.ButtonContainer>
           <ButtonBuild
             callback={build}

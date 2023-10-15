@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import * as Styled from "../../shared/styled/Box";
 import { ButtonUpgrade } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
@@ -5,6 +6,10 @@ import { ReactNode, useMemo } from "react";
 import useUpgrade, { ComponentUpgradeType } from "../../hooks/useUpgrade";
 import ImagePopover from "../modals/Description";
 import { TechLevels } from "../../shared/types";
+
+const InfoContainer = styled(Styled.InfoContainer)({
+  width: "55%",
+});
 
 interface Props {
   img: string;
@@ -59,7 +64,7 @@ const ResearchBox = ({
       </Styled.ImageContainer>
       <Styled.SubBox>
         <Styled.Title>{title}</Styled.Title>
-        <Styled.InfoContainer>
+        <InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>STAGE</Styled.ResourceTitle>
             <Styled.NumberContainer>{level}</Styled.NumberContainer>
@@ -76,7 +81,7 @@ const ResearchBox = ({
             <Styled.ResourceTitle>TRITIUM</Styled.ResourceTitle>
             <Styled.NumberContainer>{tritium}</Styled.NumberContainer>
           </Styled.ResourceContainer>
-        </Styled.InfoContainer>
+        </InfoContainer>
         <Styled.ButtonContainer>
           <ButtonUpgrade
             callback={upgrade}

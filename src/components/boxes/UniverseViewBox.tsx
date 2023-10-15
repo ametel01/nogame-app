@@ -7,6 +7,11 @@ import { ButtonSendFleet } from "../buttons/ButtonSendFleet";
 import { DefenceLevels, Resources, ShipsLevels } from "../../shared/types";
 import PlanetModal from "../modals/PlanetOverview";
 import { useGetDebrisField } from "../../hooks/useGetDebrisField";
+import { numberWithCommas } from "../../shared/utils";
+
+const InfoContainer = styled(Styled.InfoContainer)({
+  width: "45%",
+});
 
 export const Box = styled("div")({
   justifyContent: "space-evenly",
@@ -104,7 +109,7 @@ const UniverseViewBox = ({
           <Styled.ResourceTitle>PLAYER</Styled.ResourceTitle>
           <Styled.NumberContainer>{`0x${owner}`}</Styled.NumberContainer>
         </Styled.Title>
-        <Styled.InfoContainer>
+        <InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle style={{ width: "200%" }}>
               LAST ONLINE
@@ -113,13 +118,15 @@ const UniverseViewBox = ({
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POINTS</Styled.ResourceTitle>
-            <Styled.NumberContainer>{Number(points)}</Styled.NumberContainer>
+            <Styled.NumberContainer>
+              {numberWithCommas(Number(points))}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POSITION</Styled.ResourceTitle>
             <Styled.NumberContainer>{position}</Styled.NumberContainer>
           </Styled.ResourceContainer>
-        </Styled.InfoContainer>
+        </InfoContainer>
         <Styled.ButtonContainer>
           <ButtonSendFleet
             noRequirements={isButtonDisabled}
