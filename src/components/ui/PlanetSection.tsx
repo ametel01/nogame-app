@@ -89,7 +89,7 @@ const PlanetPositionRowStyled = styled(Box)({
 
 const RadarTextStyle = styled(Box)({
   fontFamily: "monospace", // Gives it a machine-like feel.
-  color: "#81d3ff", // Neon green color.
+  color: "#81d3ff",
 });
 
 interface Props {

@@ -37,6 +37,7 @@ const StyledDialog = styled(Dialog)`
     border-radius: 8px;
     overflow: hidden;
     background-color: #1a2025;
+    border: "1px solid #2E3A45";
   }
 `;
 

@@ -1,8 +1,9 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import CircularProgress from "@mui/material/CircularProgress";
 import { GAMEADDRESS } from "../../constants/addresses";
 import { useContractWrite } from "@starknet-react/core";
+import { StyledButton } from "../../shared/styled/Button";
 
 const StyledBox = styled(Box)(() => ({
   position: "relative",
@@ -14,23 +15,6 @@ const StyledBox = styled(Box)(() => ({
 const StyleCircProgress = styled(CircularProgress)(() => ({
   position: "absolute",
   zIndex: 1, // ensure it's above the button
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  margin: "4px",
-  borderRadius: 8,
-  padding: theme.spacing(1, 2),
-  fontSize: 14,
-  fontWeight: 500,
-  textTransform: "capitalize",
-  background: "#4A63AA",
-  color: "white",
-  letterSpacing: "0.1em",
-  border: "1px solid #2E3A45",
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-  "&:hover": {
-    background: "#2E434C",
-  },
 }));
 
 export function UseCollectResources() {
@@ -47,7 +31,12 @@ export function UseCollectResources() {
         {(isLoading || (status !== "success" && status !== "idle")) && (
           <StyleCircProgress size={24} />
         )}
-        <StyledButton fullWidth onClick={() => write()} variant="contained">
+        <StyledButton
+          fullWidth
+          style={{ margin: "4px", background: "#4A63AA" }}
+          onClick={() => write()}
+          variant="contained"
+        >
           Collect Resources
         </StyledButton>
       </StyledBox>
