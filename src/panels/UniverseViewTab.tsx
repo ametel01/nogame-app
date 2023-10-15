@@ -14,6 +14,7 @@ import { useOwnerOf } from "../hooks/useOwnerOf";
 import { useGetPlanetPoints } from "../hooks/useGetPlanetPoints";
 import { useAccount } from "@starknet-react/core";
 import { useShipsLevels } from "../hooks/LevelsHooks";
+import { useTokenOf } from "../hooks/useTokenOf";
 
 interface UniverseBoxItemProps {
   position: PositionObject;
@@ -24,7 +25,9 @@ const UniverseBoxItem = ({ position }: UniverseBoxItemProps) => {
   const address = address_data ? address_data : "";
 
   const planetId = useGetPositionSlotOccupant(position.system, position.orbit);
-  const ownFleetData = useShipsLevels(Number(planetId));
+
+  const { planetId: ownPlanetId } = useTokenOf();
+  const ownFleetData = useShipsLevels(Number(ownPlanetId));
   const ownFleet: ShipsLevels = ownFleetData
     ? ownFleetData
     : {
@@ -55,7 +58,7 @@ const UniverseBoxItem = ({ position }: UniverseBoxItemProps) => {
   return (
     <UniverseViewBox
       planetId={planetId}
-      address={address}
+      // address={address}
       img={img}
       owner={shortenedAddress}
       position={formattedPosition}

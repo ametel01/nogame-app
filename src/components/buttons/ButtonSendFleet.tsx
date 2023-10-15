@@ -37,7 +37,7 @@ const StyledBox = styled(Box)({
   padding: "16px 32px",
   display: "flex",
   flexDirection: "column",
-  width: "55%",
+  width: "45%",
 });
 
 const CloseStyledIcon = styled(CloseIcon)({
@@ -100,8 +100,12 @@ interface Props {
 
 export function ButtonSendFleet(props: Props) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
-  const totalShips = Object.values(quantities).reduce(
-    (acc, val) => acc + val,
+  const totalShips = Object.entries(quantities).reduce(
+    (acc, [ship, quantity]) => {
+      return quantity <= props.ownFleet[ship as keyof typeof props.ownFleet]
+        ? acc + quantity
+        : acc;
+    },
     0
   );
 
@@ -117,6 +121,11 @@ export function ButtonSendFleet(props: Props) {
   };
 
   const ships = ["carrier", "scraper", "sparrow", "frigate", "armade"];
+
+  const isAnyShipOverLimit = ships.some(
+    (ship) =>
+      quantities[ship] > props.ownFleet[ship as keyof typeof props.ownFleet]
+  );
 
   return (
     <div>
@@ -169,15 +178,21 @@ export function ButtonSendFleet(props: Props) {
                           style={{
                             marginRight: "32px",
                             textTransform: "capitalize",
+                            color:
+                              quantities[ship] >
+                              props.ownFleet[
+                                ship as keyof typeof props.ownFleet
+                              ]
+                                ? "red"
+                                : "#D0D3DA",
                           }}
                         >
                           {ship} (
-                          {/* {Number(
+                          {Number(
                             props.ownFleet[ship as keyof typeof props.ownFleet]
-                          )} */}
+                          )}
                           )
                         </Text>
-                        <div>{Number(props.ownFleet.armade)}</div>
                         <InputButtonContainer>
                           <Input
                             type="text"
@@ -257,7 +272,13 @@ export function ButtonSendFleet(props: Props) {
                   its trajectory.
                 </Text>
               </FlexContainer>
-              <StyledButton fullWidth style={{ background: "#4A63AA" }}>
+              <StyledButton
+                fullWidth
+                style={{
+                  background: isAnyShipOverLimit ? "#3B3F53" : "#4A63AA",
+                }}
+                disabled={isAnyShipOverLimit}
+              >
                 Send Fleet
               </StyledButton>
             </StyledBox>

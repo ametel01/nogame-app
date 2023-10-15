@@ -37,7 +37,7 @@ export const ImageContainer = styled("div")({
 
 interface Props {
   planetId: number | undefined;
-  address: string;
+  // address: string;
   img: string | undefined;
   owner?: string;
   functionCallName?: string;
@@ -54,7 +54,6 @@ interface Props {
 
 const UniverseViewBox = ({
   planetId,
-  // address,
   img,
   position,
   owner,

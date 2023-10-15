@@ -116,7 +116,7 @@ export default function ConnectWallet() {
           sx={{ display: "flex", flexDirection: "column", width: "35%" }}
         >
           <HeaderDiv>
-            Connect a Wallet
+            CONNECT A WALLET
             <CloseStyledIcon onClick={handleClose} />
           </HeaderDiv>
           <StyledUl>
