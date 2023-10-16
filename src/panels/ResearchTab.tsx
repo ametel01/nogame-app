@@ -17,17 +17,17 @@ import {
   weaponsRequirements,
 } from "../shared/utils";
 
-import armourImg from "../assets/gameElements/techs/armour.png";
+import armourImg from "../assets/gameElements/techs/armour-v2.png";
 import beamImg from "../assets/gameElements/techs/beam-2.png";
-import ionImg from "../assets/gameElements/techs/ion.png";
+import ionImg from "../assets/gameElements/techs/ion-v2.png";
 import plasmaImg from "../assets/gameElements/techs/plasma-v2.1.png";
 import spacetimeImg from "../assets/gameElements/techs/spacetime-v2-1.png";
-import warpEnginImg from "../assets/gameElements/techs/warp.png";
-import combustionImg from "../assets/gameElements/techs/combustion.png";
-import thrustImg from "../assets/gameElements/techs/thrust.png";
-import weaponsImg from "../assets/gameElements/techs/weapons.png";
+import warpEnginImg from "../assets/gameElements/techs/warp-v2.png";
+import combustionImg from "../assets/gameElements/techs/combustion-v2.png";
+import thrustImg from "../assets/gameElements/techs/thrust-v2-2.png";
+import weaponsImg from "../assets/gameElements/techs/weapons-v2-2.png";
 import computerImg from "../assets/gameElements/techs/computer-v2.png";
-import shieldImg from "../assets/gameElements/techs/shield.png";
+import shieldImg from "../assets/gameElements/techs/shield-v2.png";
 import energyImg from "../assets/gameElements/techs/energy-v2.png";
 
 import {
