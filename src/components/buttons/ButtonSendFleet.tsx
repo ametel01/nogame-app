@@ -109,7 +109,6 @@ export function ButtonSendFleet(props: Props) {
     0
   );
 
-  console.log(Number(props.ownFleet.armade));
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {

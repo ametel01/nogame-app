@@ -8,7 +8,6 @@ export const AppWrapper = styled.div`
 `;
 
 function App() {
-  console.log("App");
   return (
     <>
       <StarknetProvider>
