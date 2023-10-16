@@ -57,3 +57,16 @@ export type DebrisField = {
   steel: number;
   quartz: number;
 };
+
+export type Fleet = {
+  carrier: number;
+  scraper: number;
+  sparrow: number;
+  frigate: number;
+  armade: number;
+};
+
+export type Position = {
+  system: number;
+  orbit: number;
+};

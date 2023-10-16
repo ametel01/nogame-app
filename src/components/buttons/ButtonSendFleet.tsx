@@ -5,13 +5,15 @@ import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import { Input } from "@mui/joy";
 import WarningIcon from "@mui/icons-material/Warning";
-import armadeImg from "../../assets/gameElements/ships/armade.png";
-import frigateImg from "../../assets/gameElements/ships/frigate.png";
-import carrierImg from "../../assets/gameElements/ships/carrier.png";
-import sparrowImg from "../../assets/gameElements/ships/sparrow.png";
-import scraperImg from "../../assets/gameElements/ships/scraper.png";
+import armadeImg from "../../assets/gameElements/ships/armade-v2.png";
+import frigateImg from "../../assets/gameElements/ships/frigate-v2-1.png";
+import carrierImg from "../../assets/gameElements/ships/carrier-v2-1.png";
+import sparrowImg from "../../assets/gameElements/ships/sparrow-v2.png";
+import scraperImg from "../../assets/gameElements/ships/scraper-v2-1.png";
 import { StyledButton } from "../../shared/styled/Button";
 import { ShipsLevels } from "../../shared/types";
+import useSendFleet from "../../hooks/useSendFleet";
+import { Fleet, Position } from "../../shared/types";
 
 type ShipName = "carrier" | "scraper" | "sparrow" | "frigate" | "armade";
 
@@ -98,11 +100,16 @@ interface Props {
   ownFleet: ShipsLevels;
 }
 
-export function ButtonSendFleet(props: Props) {
+export function ButtonSendFleet({
+  disabled,
+  noRequirements,
+  destination,
+  ownFleet,
+}: Props) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const totalShips = Object.entries(quantities).reduce(
     (acc, [ship, quantity]) => {
-      return quantity <= props.ownFleet[ship as keyof typeof props.ownFleet]
+      return quantity <= ownFleet[ship as keyof typeof ownFleet]
         ? acc + quantity
         : acc;
     },
@@ -119,16 +126,44 @@ export function ButtonSendFleet(props: Props) {
     setIsModalOpen(false);
   };
 
+  const destinationArray = destination.split("/");
+
+  // const args: SendFleetProps = {
+  //   carrier: quantities.carrier || 0,
+  //   scraper: quantities.scraper || 0,
+  //   sparrow: quantities.sparrow || 0,
+  //   frigate: quantities.frigate || 0,
+  //   armade: quantities.armade || 0,
+  //   system: Number(destinationArray[0]),
+  //   orbit: Number(destinationArray[1]),
+  // };
+
+  const fleet: Fleet = {
+    carrier: quantities.carrier || 0,
+    scraper: quantities.scraper || 0,
+    sparrow: quantities.sparrow || 0,
+    frigate: quantities.frigate || 0,
+    armade: quantities.armade || 0,
+  };
+
+  const position: Position = {
+    system: Number(destinationArray[0]),
+    orbit: Number(destinationArray[1]),
+  };
+
+  // console.log(args);
+
+  const { submitTx } = useSendFleet(fleet, position);
+
   const ships = ["carrier", "scraper", "sparrow", "frigate", "armade"];
 
   const isAnyShipOverLimit = ships.some(
-    (ship) =>
-      quantities[ship] > props.ownFleet[ship as keyof typeof props.ownFleet]
+    (ship) => quantities[ship] > ownFleet[ship as keyof typeof ownFleet]
   );
 
   return (
     <div>
-      {!props.disabled && !props.noRequirements && (
+      {!disabled && !noRequirements && (
         <>
           <StyledButton
             onClick={handleButtonClick}
@@ -179,20 +214,14 @@ export function ButtonSendFleet(props: Props) {
                             textTransform: "capitalize",
                             color:
                               quantities[ship] >
-                              props.ownFleet[
-                                ship as keyof typeof props.ownFleet
-                              ]
+                              ownFleet[ship as keyof typeof ownFleet]
                                 ? "red"
                                 : "#D0D3DA",
                           }}
                         >
                           {ship} (
                           <span style={{ color: "#81d3ff" }}>
-                            {Number(
-                              props.ownFleet[
-                                ship as keyof typeof props.ownFleet
-                              ]
-                            )}
+                            {Number(ownFleet[ship as keyof typeof ownFleet])}
                           </span>
                           )
                         </Text>
@@ -234,7 +263,7 @@ export function ButtonSendFleet(props: Props) {
                   >
                     Destination:{" "}
                     <span style={{ color: "#81d3ff", marginLeft: "16px" }}>
-                      {props.destination}
+                      {destination}
                     </span>
                   </div>
                   <div
@@ -276,6 +305,7 @@ export function ButtonSendFleet(props: Props) {
                 </Text>
               </FlexContainer>
               <StyledButton
+                onClick={submitTx}
                 fullWidth
                 style={{
                   background: isAnyShipOverLimit ? "#3B3F53" : "#4A63AA",
@@ -288,7 +318,7 @@ export function ButtonSendFleet(props: Props) {
           </Modal>
         </>
       )}
-      {!props?.disabled && props?.noRequirements && (
+      {!disabled && noRequirements && (
         <StyledButton
           disabled
           fullWidth={true}
@@ -299,7 +329,7 @@ export function ButtonSendFleet(props: Props) {
           Own Planet
         </StyledButton>
       )}
-      {props.disabled && (
+      {disabled && (
         <StyledButton
           fullWidth={true}
           disabled
