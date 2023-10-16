@@ -1,9 +1,13 @@
+import { useCallback } from "react";
 import { Box, Button } from "@mui/material";
 import styled from "@emotion/styled";
 import CircularProgress from "@mui/material/CircularProgress";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { useContractWrite } from "@starknet-react/core";
 import { GAMEADDRESS } from "../../constants/addresses";
+import game from "../../constants/nogame.json";
+import { useContract } from "@starknet-react/core";
+import { useTransactionManager } from "../../hooks/useTransactionManager";
 
 const StyledButton = styled(Button)({
   width: "100%",
@@ -24,16 +28,20 @@ const StyledButton = styled(Button)({
 });
 
 export const GeneratePlanet = () => {
-  const tx = {
-    contractAddress: GAMEADDRESS,
-    entrypoint: "generate_planet",
-    calldata: [],
-  };
-  const { isLoading } = useContractWrite({ calls: [tx] });
+  const { contract } = useContract({
+    abi: game.abi,
+    address: GAMEADDRESS,
+  });
+  const { writeAsync, isLoading } = useContractWrite({
+    calls: [contract?.populateTransaction["collect_resources"]!()],
+  });
 
-  const handleGenerate = () => {
-    useContractWrite({ calls: [tx] });
-  };
+  const { add } = useTransactionManager();
+
+  const submitTx = useCallback(async () => {
+    const tx = await writeAsync({});
+    add(tx.transaction_hash);
+  }, [writeAsync]);
 
   return (
     <Box position="relative" display="inline-flex">
@@ -51,7 +59,7 @@ export const GeneratePlanet = () => {
       )}
       <StyledButton
         variant="contained"
-        onClick={handleGenerate}
+        onClick={submitTx}
         startIcon={<RocketLaunchIcon />}
         disabled={isLoading} // disable the button when loading
       >

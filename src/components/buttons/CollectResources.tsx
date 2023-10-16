@@ -1,9 +1,13 @@
+import { useCallback } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import CircularProgress from "@mui/material/CircularProgress";
 import { GAMEADDRESS } from "../../constants/addresses";
+import game from "../../constants/nogame.json";
 import { useContractWrite } from "@starknet-react/core";
 import { StyledButton } from "../../shared/styled/Button";
+import { useContract } from "@starknet-react/core";
+import { useTransactionManager } from "../../hooks/useTransactionManager";
 
 const StyledBox = styled(Box)(() => ({
   position: "relative",
@@ -18,16 +22,20 @@ const StyleCircProgress = styled(CircularProgress)(() => ({
 }));
 
 export function UseCollectResources() {
-  const tx = {
-    contractAddress: GAMEADDRESS,
-    entrypoint: "collect_resources",
-    calldata: [],
-  };
-  const { isLoading, status } = useContractWrite({ calls: [tx] });
+  const { contract } = useContract({
+    abi: game.abi,
+    address: GAMEADDRESS,
+  });
+  const { writeAsync, isLoading } = useContractWrite({
+    calls: [contract?.populateTransaction["collect_resources"]!()],
+  });
 
-  const handleCollect = () => {
-    useContractWrite({ calls: [tx] });
-  };
+  const { add } = useTransactionManager();
+
+  const submitTx = useCallback(async () => {
+    const tx = await writeAsync({});
+    add(tx.transaction_hash);
+  }, [writeAsync]);
 
   return (
     <>
@@ -38,7 +46,7 @@ export function UseCollectResources() {
         <StyledButton
           fullWidth
           style={{ margin: "4px", background: "#4A63AA" }}
-          onClick={handleCollect}
+          onClick={submitTx}
           variant="contained"
         >
           Collect Resources
