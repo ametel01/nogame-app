@@ -39,7 +39,7 @@ const DefencesBox = ({
 }: Props) => {
   const [quantity, setQuantity] = useState(0);
 
-  const { submitTx: build } = useBuild(functionCallName, quantity);
+  const { hashes, submitTx: build } = useBuild(functionCallName, quantity);
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {
@@ -153,7 +153,9 @@ const DefencesBox = ({
         </Styled.ResourceContainer>
         <Styled.ButtonContainer>
           <ButtonBuild
+            name={`Building ${quantity} ${title}`}
             callback={build}
+            hashes={hashes}
             disabled={isDisabled}
             noRequirements={hasRequirements}
           />

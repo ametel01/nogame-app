@@ -11,11 +11,32 @@ import { Typography } from "@mui/material";
 import { RowCentered } from "./Row";
 import { usePlanetPosition } from "../../hooks/usePlanetPosition";
 
-const IPFS_BASE_URL =
-  "https://scarlet-biological-chipmunk-168.mypinata.cloud/ipfs";
+//pink-capable-snake-964.mypinata.cloud/ipfs/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ/
+const IPFS_BASE_URL = "https://pink-capable-snake-964.mypinata.cloud/ipfs";
 const METADATA_URL = `${IPFS_BASE_URL}/Qmd5j1gnUBtbfpHCMnWDE8HRHu1G3ghuXSxjKW2pzy3PAk`;
 const IMG_URL = `${IPFS_BASE_URL}/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ`;
 const IMG_MODULO = 17;
+
+const DebugRowCentered = styled(RowCentered)`
+  border: 1px solid red;
+  justify-content: flex-start;
+`;
+
+const FleetMovementsContainer = styled(Box)({
+  gap: 6,
+  color: "white",
+  width: 252, // adjust as needed
+});
+
+const FleetMovements: FC = () => {
+  // Add your logic and JSX elements here.
+  return (
+    <FleetMovementsContainer>
+      <div>Own Fleets</div>
+      <div>Hostile Fleets</div>
+    </FleetMovementsContainer>
+  );
+};
 
 const PlanetImageWrapper = styled(Box)({
   display: "flex",
@@ -33,7 +54,7 @@ const MainContainer = styled(Box)({
   display: "flex",
   alignItems: "center",
   gap: 48,
-  justifyContent: "flex-start", // Align items to the left
+  justifyContent: "flex-start",
 });
 
 const PlanetInfoContainer = styled(Box)({
@@ -195,9 +216,10 @@ const PlanetInfoRow: FC<{
 );
 
 export const PlanetSection: FC = () => (
-  <RowCentered>
+  <DebugRowCentered>
     <MainContainer>
       <PlanetImage />
+      <FleetMovements />
     </MainContainer>
-  </RowCentered>
+  </DebugRowCentered>
 );

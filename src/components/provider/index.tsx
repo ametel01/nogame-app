@@ -1,17 +1,22 @@
 import { goerli } from "@starknet-react/chains";
 import {
   StarknetConfig,
-  publicProvider,
+  // publicProvider,
   // alchemyProvider,
+  infuraProvider,
   argent,
   braavos,
 } from "@starknet-react/core";
 
-// const apiKey = import.meta.env.ALCHEMY_APY_KEY as string;
-
+// const alchemyKey = import.meta.env.VITE_ALCHEMY_APY_KEY;
+const infuraKey = import.meta.env.VITE_INFURA_APY_KEY;
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const chains = [goerli];
-  const providers = [publicProvider()];
+  const providers = [
+    infuraProvider({ apiKey: infuraKey }),
+    // alchemyProvider({ apiKey: alchemyKey }),
+    // publicProvider(),
+  ];
   const connectors = [argent(), braavos()];
 
   return (

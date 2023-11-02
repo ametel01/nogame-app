@@ -1,16 +1,35 @@
+import { useState } from "react";
 import { StyledButton } from "../../shared/styled/Button";
+import { TransactionStatus } from "./TransactionStatus";
 interface Props {
-  callback?: () => void;
+  name: string;
+  callback: () => void;
+  hashes: string[];
   disabled?: boolean;
   noRequirements?: boolean;
 }
 
-export function ButtonUpgrade(props: Props) {
+export function ButtonUpgrade({
+  name,
+  callback,
+  hashes,
+  disabled,
+  noRequirements,
+}: Props) {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleOnClick = () => {
+    callback();
+    setIsClicked(true);
+  };
+
+  console.log(hashes);
+
   return (
     <div>
-      {!props.disabled && !props.noRequirements && (
+      {!disabled && !noRequirements && (
         <StyledButton
-          onClick={props.callback}
+          onClick={handleOnClick}
           fullWidth={true}
           sx={{
             background: "#4A63AA",
@@ -19,7 +38,14 @@ export function ButtonUpgrade(props: Props) {
           Upgrade
         </StyledButton>
       )}
-      {!props?.disabled && props?.noRequirements && (
+      {isClicked ? (
+        hashes.map((hash) => (
+          <TransactionStatus name={name} key={hash} hash={hash} />
+        ))
+      ) : (
+        <></>
+      )}
+      {!disabled && noRequirements && (
         <StyledButton
           disabled
           fullWidth={true}
@@ -30,7 +56,7 @@ export function ButtonUpgrade(props: Props) {
           No Requirements
         </StyledButton>
       )}
-      {props.disabled && (
+      {disabled && (
         <StyledButton
           fullWidth={true}
           disabled

@@ -2,11 +2,12 @@ import { styled } from "@mui/system";
 import { FC } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import NoGameLogo from "../assets/logos/NoGameLogo.png";
-import ufoLogo from "../assets/uiIcons/UFO.svg";
+import roundLogo from "../assets/logos/round-logo.png";
 import { ColumnCenter } from "../shared/styled/Column";
 import { RowCentered } from "../components/ui/Row";
 import ConnectWalletButton from "../components/auth/ConnectWallet";
 import { GeneratePlanet } from "../components/buttons/GeneratePlanet";
+import { useGetPlanetPrice } from "../hooks/useGetPlanetPrice";
 
 const MainWrapper = styled(ColumnCenter)`
   height: 80vh;
@@ -29,19 +30,6 @@ const SubTextBefore = styled("div")`
   margin-y: 80px;
 `;
 
-const SubText = styled("div")`
-  color: #ffffff;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 42px;
-  text-align: center;
-  letter-spacing: 0.02em;
-  padding: 0 15px 16px;
-  width: 50%;
-  opacity: 0.5;
-  margin: 0; // Reset the margin
-`;
-
 const GeneratePlanetWrapper = styled("div")`
   display: flex;
   flex-direction: row;
@@ -60,7 +48,7 @@ const TopRightButtonContainer = styled("div")`
 `;
 
 const PriceText = styled("div")`
-  color: #ecd9a0; // A golden color for the ticker text
+  color: white; // A golden color for the ticker text
   font-weight: 500;
   font-size: 20px;
   text-align: center;
@@ -85,11 +73,6 @@ type ConnectWalletViewProps = Omit<
   AuthScreenProps,
   "generatePlanet" | "hasGeneratedPlanets"
 >;
-
-// type GeneratePlanetViewProps = Omit<
-//   AuthScreenProps,
-//   "walletConnectLoading" | "hasGeneratedPlanets"
-// >;
 
 const AuthScreen = ({
   address,
@@ -144,17 +127,34 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
 };
 
 const GeneratePlanetView = () => {
+  const price = useGetPlanetPrice();
+
+  if (price === undefined) {
+    return <CircularProgress />; // Or any other loading indicator.
+  }
+
   return (
     <GeneratePlanetWrapper>
       <MainWrapper>
         <RowCentered>
-          <img src={ufoLogo} alt="UFO for lift off" width={128} height={128} />{" "}
+          <img
+            src={roundLogo}
+            alt="UFO for lift off"
+            width={300}
+            height={300}
+          />{" "}
         </RowCentered>
-        <SubText>
-          In the intricate dance of the cosmos, are we not poised for ascension?
-        </SubText>
-        <PriceText>Latest NFT price: 0.021 ETH</PriceText>
-        <GeneratePlanet />
+
+        <PriceText>
+          Current NFT price:{" "}
+          {price !== undefined ? (
+            (Number(price) / 10 ** 18).toFixed(6)
+          ) : (
+            <CircularProgress size={24} />
+          )}{" "}
+          ETH
+        </PriceText>
+        <GeneratePlanet price={price} />
       </MainWrapper>
     </GeneratePlanetWrapper>
   );

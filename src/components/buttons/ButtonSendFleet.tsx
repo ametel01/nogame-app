@@ -5,11 +5,11 @@ import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import { Input } from "@mui/joy";
 import WarningIcon from "@mui/icons-material/Warning";
-import armadeImg from "../../assets/gameElements/ships/armade-v2.png";
-import frigateImg from "../../assets/gameElements/ships/frigate-v2-1.png";
-import carrierImg from "../../assets/gameElements/ships/carrier-v2-1.png";
-import sparrowImg from "../../assets/gameElements/ships/sparrow-v2.png";
-import scraperImg from "../../assets/gameElements/ships/scraper-v2-1.png";
+import armadeImg from "../../assets/gameElements/ships/armade.png";
+import frigateImg from "../../assets/gameElements/ships/frigate.png";
+import carrierImg from "../../assets/gameElements/ships/carrier.png";
+import sparrowImg from "../../assets/gameElements/ships/sparrow.png";
+import scraperImg from "../../assets/gameElements/ships/scraper.png";
 import { StyledButton } from "../../shared/styled/Button";
 import { ShipsLevels } from "../../shared/types";
 import useSendFleet from "../../hooks/useSendFleet";
@@ -25,7 +25,7 @@ const shipImageMapping: Record<ShipName, string> = {
   armade: armadeImg,
 };
 
-const StyledBox = styled(Box)({
+export const StyledBox = styled(Box)({
   fontWeight: 400,
   fontSize: 20,
   color: "#E7ECEE",
@@ -42,7 +42,7 @@ const StyledBox = styled(Box)({
   width: "50%",
 });
 
-const CloseStyledIcon = styled(CloseIcon)({
+export const CloseStyledIcon = styled(CloseIcon)({
   cursor: "pointer",
   padding: "0 8px",
   fontSize: "2em",
@@ -58,7 +58,7 @@ const CloseStyledIcon = styled(CloseIcon)({
   },
 });
 
-const HeaderDiv = styled("div")({
+export const HeaderDiv = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
@@ -128,16 +128,6 @@ export function ButtonSendFleet({
 
   const destinationArray = destination.split("/");
 
-  // const args: SendFleetProps = {
-  //   carrier: quantities.carrier || 0,
-  //   scraper: quantities.scraper || 0,
-  //   sparrow: quantities.sparrow || 0,
-  //   frigate: quantities.frigate || 0,
-  //   armade: quantities.armade || 0,
-  //   system: Number(destinationArray[0]),
-  //   orbit: Number(destinationArray[1]),
-  // };
-
   const fleet: Fleet = {
     carrier: quantities.carrier || 0,
     scraper: quantities.scraper || 0,
@@ -151,9 +141,7 @@ export function ButtonSendFleet({
     orbit: Number(destinationArray[1]),
   };
 
-  // console.log(args);
-
-  const { submitTx } = useSendFleet(fleet, position);
+  const { submitTx } = useSendFleet(fleet, position, false);
 
   const ships = ["carrier", "scraper", "sparrow", "frigate", "armade"];
 

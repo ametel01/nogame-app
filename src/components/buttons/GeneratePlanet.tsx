@@ -2,38 +2,73 @@ import { useCallback } from "react";
 import { Box, Button } from "@mui/material";
 import styled from "@emotion/styled";
 import CircularProgress from "@mui/material/CircularProgress";
-import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { useContractWrite } from "@starknet-react/core";
-import { GAMEADDRESS } from "../../constants/addresses";
+import { GAMEADDRESS, ETH_ADDRESS } from "../../constants/addresses";
 import game from "../../constants/nogame.json";
+import erc20 from "../../constants/erc20.json";
 import { useContract } from "@starknet-react/core";
 import { useTransactionManager } from "../../hooks/useTransactionManager";
 
+// Keyframe for glowing effect
+import { keyframes } from "@emotion/react";
+
+const rhythmicGlow = keyframes`
+  0% {
+    boxShadow: 0 0 5px 1px white;
+  }
+  50% {
+    boxShadow: 0 0 25px 5px white;
+  }
+  100% {
+    boxShadow: 0 0 5px 1px white;
+  }
+`;
+
 const StyledButton = styled(Button)({
-  width: "100%",
-  borderRadius: 8,
-  padding: "16px 64px",
+  width: "120%",
+  height: "60px",
+  borderRadius: 10,
+  padding: "12px 40px",
+  fontSize: "1.2em",
   textTransform: "capitalize",
-  fontSize: "24px",
-  fontWeight: "bold",
   letterSpacing: "0.15em",
-  border: "1px solid #7FA0B3", // Using the light blue-grey for the border.
+  backgroundColor: "#0D4980", // yellow color from the image
+  border: "1px solid #0F111A",
   display: "flex",
   justifyContent: "center",
-  background: "linear-gradient(90deg, #1B1E2A 0%, #454D74 50%, #363C5C 100%)", // Gradient using the main background, deep blue, and a darker shade.
-  color: "#ECD9A0", // Keeping the golden star-like color for the text.
+  color: "white",
+  boxShadow: "0 0 10px 3px white",
+  animation: `${rhythmicGlow} 1.5s infinite`,
   "&:hover": {
-    background: "linear-gradient(90deg, #111427 0%, #36405A 50%, #2B2E3C 100%)", // Slightly darkened versions for hover.
+    background: "#09345d", // slightly darker shade of yellow for hover
+    boxShadow: "0 0 30px 10px white",
   },
 });
 
-export const GeneratePlanet = () => {
-  const { contract } = useContract({
+interface Props {
+  price: number;
+}
+
+interface Props {
+  price: number;
+}
+
+export const GeneratePlanet = ({ price }: Props) => {
+  const { contract: nogame } = useContract({
     abi: game.abi,
     address: GAMEADDRESS,
   });
+
+  const { contract: eth } = useContract({
+    abi: erc20.abi,
+    address: ETH_ADDRESS,
+  });
+
   const { writeAsync, isLoading } = useContractWrite({
-    calls: [contract?.populateTransaction["collect_resources"]!()],
+    calls: [
+      eth?.populateTransaction["approve"]!(GAMEADDRESS, Number(price)),
+      nogame?.populateTransaction["generate_planet"]!(),
+    ],
   });
 
   const { add } = useTransactionManager();
@@ -52,17 +87,12 @@ export const GeneratePlanet = () => {
             position: "absolute",
             top: "50%",
             left: "50%",
-            marginTop: "-12px", // half the size
-            marginLeft: "-12px", // half the size
+            marginTop: "-12px",
+            marginLeft: "-12px",
           }}
         />
       )}
-      <StyledButton
-        variant="contained"
-        onClick={submitTx}
-        startIcon={<RocketLaunchIcon />}
-        disabled={isLoading} // disable the button when loading
-      >
+      <StyledButton variant="contained" onClick={submitTx} disabled={isLoading}>
         Mint Planet
       </StyledButton>
     </Box>

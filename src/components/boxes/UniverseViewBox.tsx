@@ -99,9 +99,7 @@ const UniverseViewBox = ({
       </Styled.ImageContainer>
       <Styled.SubBox>
         <>
-          {debrisField && (debrisField.steel > 0 || debrisField.quartz > 0) ? (
-            <BlurOnOutlined />
-          ) : (
+          {debrisField && (debrisField.steel > 0 || debrisField.quartz > 0) && (
             <BlurOnOutlined />
           )}
         </>

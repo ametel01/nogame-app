@@ -14,12 +14,12 @@ export default function useUpgrade(unitName: string) {
     calls: [contract?.populateTransaction[`${unitName}_upgrade`]!()],
   });
 
-  const { add } = useTransactionManager();
+  const { hashes, add } = useTransactionManager();
 
   const submitTx = useCallback(async () => {
     const tx = await writeAsync({});
     add(tx.transaction_hash);
   }, [writeAsync]);
 
-  return { submitTx, isLoading };
+  return { submitTx, isLoading, hashes };
 }

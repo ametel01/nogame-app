@@ -34,7 +34,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   functionCallName,
   description,
 }) => {
-  const { submitTx: upgrade } = useUpgrade(functionCallName);
+  const { hashes, submitTx: upgrade } = useUpgrade(functionCallName);
 
   const steel = costUpdate && numberWithCommas(costUpdate.steel);
   const quartz = costUpdate && numberWithCommas(costUpdate.quartz);
@@ -87,7 +87,9 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
         </InfoContainer>
         <Styled.ButtonContainer>
           <ButtonUpgrade
+            name={`Upgrading ${title}`}
             callback={upgrade}
+            hashes={hashes}
             disabled={isDisabled}
             noRequirements={false}
           />

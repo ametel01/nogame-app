@@ -6,13 +6,19 @@ import { GAMEADDRESS } from "../constants/addresses";
 import game from "../constants/nogame.json";
 import { Fleet, Position } from "../shared/types";
 
-export default function useSendFleet(fleet: Fleet, position: Position) {
+export default function useSendFleet(
+  fleet: Fleet,
+  position: Position,
+  isDebris: boolean
+) {
   const { contract } = useContract({
     abi: game.abi,
     address: GAMEADDRESS,
   });
   const { writeAsync, isLoading } = useContractWrite({
-    calls: [contract?.populateTransaction["send_fleet"]!(fleet, position)],
+    calls: [
+      contract?.populateTransaction["send_fleet"]!(fleet, position, isDebris),
+    ],
   });
 
   const { add } = useTransactionManager();

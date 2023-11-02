@@ -5,16 +5,6 @@ import { useTransactionManager } from "./useTransactionManager";
 import { GAMEADDRESS } from "../constants/addresses";
 import game from "../constants/nogame.json";
 
-// export default function useBuild(unitName: string, quantity: number) {
-//   const tx = {
-//     contractAddress: GAMEADDRESS,
-//     entrypoint: `${unitName}_build`,
-//     calldata: [quantity],
-//   };
-//   const { write, isLoading } = useContractWrite({ calls: [tx] });
-//   return { write, isLoading };
-// }
-
 export default function useBuild(unitName: string, quantity: number) {
   const { contract } = useContract({
     abi: game.abi,
@@ -24,12 +14,12 @@ export default function useBuild(unitName: string, quantity: number) {
     calls: [contract?.populateTransaction[`${unitName}_build`]!(quantity)],
   });
 
-  const { add } = useTransactionManager();
+  const { hashes, add } = useTransactionManager();
 
   const submitTx = useCallback(async () => {
     const tx = await writeAsync({});
     add(tx.transaction_hash);
   }, [writeAsync]);
 
-  return { submitTx, isLoading };
+  return { submitTx, isLoading, hashes };
 }
