@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { StyledButton } from "../../shared/styled/Button";
 import { TransactionStatus } from "./TransactionStatus";
+import { InvokeFunctionResponse } from "starknet";
 interface Props {
   name: string;
   callback: () => void;
-  hashes: string[];
+  tx: InvokeFunctionResponse | undefined;
   disabled?: boolean;
   noRequirements?: boolean;
 }
@@ -12,7 +13,7 @@ interface Props {
 export function ButtonUpgrade({
   name,
   callback,
-  hashes,
+  tx,
   disabled,
   noRequirements,
 }: Props) {
@@ -23,7 +24,7 @@ export function ButtonUpgrade({
     setIsClicked(true);
   };
 
-  console.log(hashes);
+  console.log(tx);
 
   return (
     <div>
@@ -38,13 +39,7 @@ export function ButtonUpgrade({
           Upgrade
         </StyledButton>
       )}
-      {isClicked ? (
-        hashes.map((hash) => (
-          <TransactionStatus name={name} key={hash} hash={hash} />
-        ))
-      ) : (
-        <></>
-      )}
+      {isClicked ? <TransactionStatus name={name} tx={tx} /> : <></>}
       {!disabled && noRequirements && (
         <StyledButton
           disabled
@@ -71,12 +66,25 @@ export function ButtonUpgrade({
   );
 }
 
-export function ButtonBuild(props: Props) {
+export function ButtonBuild({
+  name,
+  callback,
+  tx,
+  disabled,
+  noRequirements,
+}: Props) {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleOnClick = () => {
+    callback();
+    setIsClicked(true);
+  };
+
   return (
     <div>
-      {!props.disabled && !props.noRequirements && (
+      {!disabled && !noRequirements && (
         <StyledButton
-          onClick={props.callback}
+          onClick={handleOnClick}
           fullWidth={true}
           sx={{
             background: "#4A63AA",
@@ -87,7 +95,8 @@ export function ButtonBuild(props: Props) {
           Build
         </StyledButton>
       )}
-      {!props?.disabled && props?.noRequirements && (
+      {isClicked ? <TransactionStatus name={name} tx={tx} /> : <></>}
+      {!disabled && noRequirements && (
         <StyledButton
           disabled
           fullWidth={true}
@@ -98,7 +107,7 @@ export function ButtonBuild(props: Props) {
           No Requirements
         </StyledButton>
       )}
-      {props.disabled && (
+      {disabled && (
         <StyledButton
           fullWidth={true}
           disabled

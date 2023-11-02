@@ -40,7 +40,7 @@ const DockyardBox = ({
 }: Props) => {
   const [quantity, setQuantity] = useState(0);
 
-  const { hashes, submitTx: build } = useBuild(functionCallName, quantity);
+  const { tx, submitTx: build } = useBuild(functionCallName, quantity);
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {
@@ -159,7 +159,7 @@ const DockyardBox = ({
           <ButtonBuild
             name={`Building ${quantity} ${title}`}
             callback={build}
-            hashes={hashes}
+            tx={tx}
             disabled={isDisabled}
             noRequirements={hasRequirements}
           />

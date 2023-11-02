@@ -10,16 +10,20 @@ export default function useBuild(unitName: string, quantity: number) {
     abi: game.abi,
     address: GAMEADDRESS,
   });
-  const { writeAsync, isLoading } = useContractWrite({
+  const {
+    writeAsync,
+    isLoading,
+    data: tx,
+  } = useContractWrite({
     calls: [contract?.populateTransaction[`${unitName}_build`]!(quantity)],
   });
 
-  const { hashes, add } = useTransactionManager();
+  const { add } = useTransactionManager();
 
   const submitTx = useCallback(async () => {
     const tx = await writeAsync({});
     add(tx.transaction_hash);
   }, [writeAsync]);
 
-  return { submitTx, isLoading, hashes };
+  return { submitTx, isLoading, tx };
 }

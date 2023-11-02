@@ -35,7 +35,7 @@ const ResearchBox = ({
   requirementsMet,
   description,
 }: Props) => {
-  const { hashes, submitTx: upgrade } = useUpgrade(functionCallName);
+  const { tx, submitTx: upgrade } = useUpgrade(functionCallName);
 
   const steel = costUpdate ? numberWithCommas(costUpdate.steel) : null;
   const quartz = costUpdate ? numberWithCommas(costUpdate.quartz) : null;
@@ -84,7 +84,7 @@ const ResearchBox = ({
           <ButtonUpgrade
             name={`Upgrading ${title}`}
             callback={upgrade}
-            hashes={hashes}
+            tx={tx}
             disabled={isDisabled}
             noRequirements={hasRequirements}
           />

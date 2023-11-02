@@ -1,35 +1,35 @@
 import { useEffect, useState } from "react";
 import { useWaitForTransaction } from "@starknet-react/core";
 import Modal from "@mui/material/Modal";
-// import CircularProgress from "@mui/material/CircularProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import {
-  StyledBox,
-  HeaderDiv,
-  CloseStyledIcon,
-} from "../buttons/ButtonSendFleet";
+import { StyledBox, HeaderDiv } from "../buttons/ButtonSendFleet";
+import { InvokeFunctionResponse } from "starknet";
 
 interface Props {
   name: string;
-  hash: string;
+  tx: InvokeFunctionResponse | undefined;
 }
 
-export function TransactionStatus({ name, hash }: Props) {
+export function TransactionStatus({ name, tx }: Props) {
   const [showModal, setShowModal] = useState(false);
 
-  const { isSuccess } = useWaitForTransaction({
-    hash,
+  const { isSuccess, isLoading } = useWaitForTransaction({
+    hash: tx?.transaction_hash,
     watch: true,
     retry: true,
+    refetchInterval: 2000,
   });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isLoading) {
       setShowModal(true);
+    }
+    if (isSuccess) {
       const timer = setTimeout(() => {
         handleModalClose();
         // Here, add any additional logic to reset the transaction state if possible
-      }, 3000);
+      }, 4000);
       return () => clearTimeout(timer); // Clear the timer if the component unmounts
     }
   }, [isSuccess]);
@@ -38,39 +38,55 @@ export function TransactionStatus({ name, hash }: Props) {
     setShowModal(false);
   };
 
-  //   const loadingBody = (
-  //     <StyledBox>
-  //       <HeaderDiv>
-  //         {name}
-  //         <CloseStyledIcon onClick={handleModalClose} />
-  //       </HeaderDiv>
-  //       <CircularProgress size={32} />
-  //     </StyledBox>
-  //   );
+  const loadingBody = (
+    <div style={{ margin: "10px", padding: "10px" }}>
+      <StyledBox style={{ width: "fit-content" }}>
+        <HeaderDiv>{name}</HeaderDiv>
+        <div
+          style={{ display: "flex", justifyContent: "center", margin: "30px" }}
+        >
+          <CircularProgress size={32} />
+        </div>
+      </StyledBox>
+    </div>
+  );
 
   const successBody = (
-    <StyledBox>
-      <HeaderDiv
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100px",
-        }}
-      >
-        {name} successfull!
-        <CloseStyledIcon onClick={handleModalClose} />
-      </HeaderDiv>
-      <CheckCircleIcon />
-    </StyledBox>
+    <div style={{ margin: "10px", padding: "10px" }}>
+      <StyledBox style={{ width: "fit-content" }}>
+        <HeaderDiv>{name} successful!</HeaderDiv>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100px",
+            margin: "10px",
+          }}
+        >
+          <CheckCircleIcon
+            style={{
+              fontSize: "64px",
+              color: "green",
+            }}
+          />
+        </div>
+      </StyledBox>
+    </div>
   );
 
   return (
     <>
       {showModal ? (
-        <Modal open={showModal} onClose={handleModalClose}>
-          {successBody}
-        </Modal>
+        isLoading ? (
+          <Modal open={showModal} onClose={handleModalClose}>
+            {loadingBody}
+          </Modal>
+        ) : (
+          <Modal open={showModal} onClose={handleModalClose}>
+            {successBody}
+          </Modal>
+        )
       ) : (
         <></>
       )}

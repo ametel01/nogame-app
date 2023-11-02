@@ -10,16 +10,20 @@ export default function useUpgrade(unitName: string) {
     abi: game.abi,
     address: GAMEADDRESS,
   });
-  const { writeAsync, isLoading } = useContractWrite({
+  const {
+    data: tx,
+    writeAsync,
+    isLoading,
+  } = useContractWrite({
     calls: [contract?.populateTransaction[`${unitName}_upgrade`]!()],
   });
 
-  const { hashes, add } = useTransactionManager();
+  const { add } = useTransactionManager();
 
   const submitTx = useCallback(async () => {
     const tx = await writeAsync({});
     add(tx.transaction_hash);
   }, [writeAsync]);
 
-  return { submitTx, isLoading, hashes };
+  return { submitTx, isLoading, tx };
 }
