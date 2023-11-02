@@ -18,6 +18,10 @@ import {
   useEnergyAvailable,
   useSpendableResources,
 } from "../../hooks/ResourcesHooks";
+import {
+  useGetCelestiaAvailable,
+  useGetCelestiaProduction,
+} from "../../hooks/EnergyHooks";
 
 const Container = styled.div`
   display: flex;
@@ -79,9 +83,10 @@ interface Props {
   img: string;
   title: string;
   address?: string;
+  fromCelestia?: number;
 }
 
-const Energy = ({ available, img, title }: Props) => {
+const Energy = ({ available, img, title, fromCelestia }: Props) => {
   const isNegative = Number(available) < 0;
   return (
     <Container>
@@ -89,17 +94,20 @@ const Energy = ({ available, img, title }: Props) => {
         <div style={{ width: "30px" }}>
           <ImageStyle src={img} alt="resource" />
         </div>
+        <ResourceAddress>0x0000...000</ResourceAddress>
       </ImageAddressContainer>
       <TotalResourceWrapper>
         {title}
         <TotalResourceContainer>
           <div>
-            <TotalResourceType>available</TotalResourceType>
+            <TotalResourceType>Net Available</TotalResourceType>
             <TotalResourceText
               style={{ color: isNegative ? "red" : "#81d3ff" }}
             >
               {available}
             </TotalResourceText>
+            <TotalResourceType>From Celestia</TotalResourceType>
+            <TotalResourceText>{fromCelestia}</TotalResourceText>
           </div>
         </TotalResourceContainer>
       </TotalResourceWrapper>
@@ -155,6 +163,11 @@ const ResourcesContainer = () => {
     planetId != undefined ? useCollectibleResources(planetId) : undefined;
 
   const energy = useEnergyAvailable(planetId);
+  const celestia =
+    planetId != undefined ? useGetCelestiaAvailable(planetId) : undefined;
+  const celestiaProduction =
+    planetId != undefined ? useGetCelestiaProduction(planetId) : undefined;
+  const energyFromCelestia = Number(celestia) * Number(celestiaProduction);
 
   const spendableResources = useMemo(() => {
     if (spendable) {
@@ -201,7 +214,12 @@ const ResourcesContainer = () => {
         spendable={spendableResources?.tritium}
         collectible={collectibleResources?.tritium}
       />
-      <Energy title="Energy" img={energyImg} available={energyAvailable} />
+      <Energy
+        title="Energy"
+        img={energyImg}
+        available={energyAvailable}
+        fromCelestia={energyFromCelestia}
+      />
     </div>
   );
 };
