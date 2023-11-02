@@ -34,6 +34,10 @@ import {
   useTechsUpgradeCost,
 } from "../hooks/CostsHooks";
 import { UniverseViewTabPanel } from "./UniverseViewTab";
+import {
+  useGetCelestiaAvailable,
+  useGetEnergyGainAfterUpgrade,
+} from "../hooks/EnergyHooks";
 
 export const ResourcesSection: FC = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -57,6 +61,10 @@ export const ResourcesSection: FC = () => {
   const shipsCost = useShipsCost();
   const defencesLevels =
     planetId !== undefined ? useDefencesLevels(planetId) : undefined;
+  const celestiaAvailable =
+    planetId !== undefined ? useGetCelestiaAvailable(planetId) : undefined;
+  const energyGain =
+    planetId !== undefined ? useGetEnergyGainAfterUpgrade(planetId) : undefined;
   const defencesCost = useDefencesCost();
   return (
     <ResourcesTabs>
@@ -108,6 +116,7 @@ export const ResourcesSection: FC = () => {
           compoundsLevels={compoundsLevels!}
           compoundsCostUpgrade={compoundsCost!}
           energyRequired={energyCost!}
+          energyGain={energyGain!}
         />
       )}
       {activeTab === 1 && (
@@ -125,6 +134,7 @@ export const ResourcesSection: FC = () => {
           shipsCost={shipsCost}
           dockyardLevel={Number(compoundsLevels?.dockyard)}
           techLevels={techLevels}
+          celestia={celestiaAvailable}
         />
       )}
       {activeTab === 3 && (

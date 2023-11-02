@@ -40,6 +40,7 @@ interface Props {
   shipsCost?: ShipsCost;
   dockyardLevel?: number;
   techLevels?: TechLevels;
+  celestia?: number;
 }
 
 export const DockyardTabPanel = ({
@@ -48,6 +49,7 @@ export const DockyardTabPanel = ({
   shipsCost,
   dockyardLevel,
   techLevels,
+  celestia,
   ...rest
 }: Props) => {
   const shipsConfig: ShipConfigType[] = [
@@ -110,7 +112,11 @@ export const DockyardTabPanel = ({
           img={ship.img}
           title={ship.title}
           functionCallName={ship.functionCallName}
-          level={Number(shipsLevels?.[ship.shipName])}
+          level={
+            ship.title === "Celestia"
+              ? Number(celestia)
+              : Number(shipsLevels?.[ship.shipName])
+          }
           costUpdate={shipsCost?.[ship.shipName]}
           hasEnoughResources={
             spendableResources &&

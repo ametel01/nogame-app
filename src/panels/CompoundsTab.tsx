@@ -36,6 +36,7 @@ interface Props {
   compoundsLevels: CompoundsLevels;
   compoundsCostUpgrade: CompoundsCostUpgrade;
   energyRequired: EnergyCost;
+  energyGain: number;
 }
 
 export const CompoundsTabPanel = ({
@@ -43,6 +44,7 @@ export const CompoundsTabPanel = ({
   compoundsLevels,
   compoundsCostUpgrade,
   energyRequired,
+  energyGain,
   ...rest
 }: Props) => {
   const compoundsConfig: CompoundConfigType[] = [
@@ -76,7 +78,7 @@ export const CompoundsTabPanel = ({
       title: "Energy Plant",
       functionCallName: "energy_plant",
       compoundName: "energy",
-      energyKey: "null",
+      energyKey: "energy",
     },
     {
       description: <LabDescription />,
@@ -110,7 +112,9 @@ export const CompoundsTabPanel = ({
           energyRequired={
             compound.energyKey === "null"
               ? 0
-              : Number(energyRequired?.[compound.energyKey])
+              : compound.energyKey === "energy"
+              ? Number(energyGain)
+              : Number(-energyRequired?.[compound.energyKey])
           }
           hasEnoughResources={
             spendableResources &&

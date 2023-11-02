@@ -82,7 +82,9 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>ENERGY</Styled.ResourceTitle>
-            <Styled.NumberContainer>- {energy}</Styled.NumberContainer>
+            <Styled.NumberContainer>
+              {Number(energy) > 0 ? `+${energy}` : energy}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
         </InfoContainer>
         <Styled.ButtonContainer>

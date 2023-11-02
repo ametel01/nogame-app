@@ -33,7 +33,13 @@ export type TechEntities =
   | "shield"
   | "weapons";
 
-export type EnergyEntities = "steel" | "quartz" | "tritium" | "null";
+export type EnergyEntities =
+  | "steel"
+  | "quartz"
+  | "tritium"
+  | "energy"
+  | "celestia"
+  | "null";
 
 export type EnergyCost = { [key in EnergyEntities]: number };
 export type CompoundsCostUpgrade = { [key in CompoundsEntities]: Resources };
