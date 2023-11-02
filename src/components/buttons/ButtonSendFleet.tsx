@@ -288,8 +288,8 @@ export function ButtonSendFleet({
                 <WarningIcon sx={{ color: "#E67E51" }} />
                 <Text style={{ marginLeft: "8px", color: "#E67E51" }}>
                   Attention! You are initiating a galactic assault. The target
-                  star system will receive an alert that your starfleet is on
-                  its trajectory.
+                  planet will receive an alert that your starfleet is on its
+                  trajectory.
                 </Text>
               </FlexContainer>
               <StyledButton

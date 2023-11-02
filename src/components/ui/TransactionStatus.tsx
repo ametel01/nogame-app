@@ -40,8 +40,10 @@ export function TransactionStatus({ name, tx }: Props) {
 
   const loadingBody = (
     <div style={{ margin: "10px", padding: "10px" }}>
-      <StyledBox style={{ width: "fit-content" }}>
-        <HeaderDiv>{name}</HeaderDiv>
+      <StyledBox style={{ width: "40%" }}>
+        <HeaderDiv style={{ display: "flex", justifyContent: "center" }}>
+          {name}
+        </HeaderDiv>
         <div
           style={{ display: "flex", justifyContent: "center", margin: "30px" }}
         >
@@ -52,9 +54,16 @@ export function TransactionStatus({ name, tx }: Props) {
   );
 
   const successBody = (
-    <div style={{ margin: "10px", padding: "10px" }}>
-      <StyledBox style={{ width: "fit-content" }}>
-        <HeaderDiv>{name} successful!</HeaderDiv>
+    <div
+      style={{
+        margin: "10px",
+        padding: "10px",
+      }}
+    >
+      <StyledBox style={{ width: "40%" }}>
+        <HeaderDiv style={{ display: "flex", justifyContent: "center" }}>
+          {name} successful!
+        </HeaderDiv>
         <div
           style={{
             display: "flex",
