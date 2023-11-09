@@ -1,5 +1,4 @@
 import UniverseViewBox from "../components/boxes/UniverseViewBox";
-// import tempPlanet from "../assets/gameElements/planets/2.png";
 import { StyledTabPanel } from "./styleds";
 import { useGetPositionsArray } from "../hooks/useGetPositionsArray";
 import {
@@ -14,19 +13,24 @@ import { useOwnerOf } from "../hooks/useOwnerOf";
 import { useGetPlanetPoints } from "../hooks/useGetPlanetPoints";
 import { useAccount } from "@starknet-react/core";
 import { useShipsLevels } from "../hooks/LevelsHooks";
-import { useTokenOf } from "../hooks/useTokenOf";
+import { useGetIsNoobProtected } from "../hooks/FleetHooks";
 
 interface UniverseBoxItemProps {
+  ownPlanetId: number;
   position: PositionObject;
 }
 
-const UniverseBoxItem = ({ position }: UniverseBoxItemProps) => {
+const UniverseBoxItem = ({ ownPlanetId, position }: UniverseBoxItemProps) => {
   const { address: address_data } = useAccount();
   const address = address_data ? address_data : "";
 
   const planetId = useGetPositionSlotOccupant(position.system, position.orbit);
 
-  const { planetId: ownPlanetId } = useTokenOf();
+  const isNoobProtected = useGetIsNoobProtected(
+    Number(ownPlanetId),
+    Number(planetId)
+  );
+
   const ownFleetData = useShipsLevels(Number(ownPlanetId));
   const ownFleet: ShipsLevels = ownFleetData
     ? ownFleetData
@@ -55,6 +59,7 @@ const UniverseBoxItem = ({ position }: UniverseBoxItemProps) => {
   const shortenedAddress = owner
     ? `${owner.substring(0, 4)}...${owner.substring(59)}`
     : "null";
+
   return (
     <UniverseViewBox
       planetId={planetId}
@@ -65,18 +70,23 @@ const UniverseBoxItem = ({ position }: UniverseBoxItemProps) => {
       points={points}
       highlighted={address === "0x" + owner}
       ownFleet={ownFleet}
+      isNoobProtected={isNoobProtected}
     />
   );
 };
 
-interface Props {
+interface UniverseViewTabPanelProps {
   spendable?: Resources;
   collectible?: Resources;
   fleet?: ShipsLevels;
   defences?: DefenceLevels;
+  ownPlanetId: number;
 }
 
-export const UniverseViewTabPanel = ({ ...rest }: Props) => {
+export const UniverseViewTabPanel = ({
+  ownPlanetId,
+  ...rest
+}: UniverseViewTabPanelProps) => {
   const planets_data: PositionObject[] = useGetPositionsArray() || [];
 
   const sortedPlanetsData = planets_data.sort((a, b) => {
@@ -89,7 +99,11 @@ export const UniverseViewTabPanel = ({ ...rest }: Props) => {
   return (
     <StyledTabPanel {...rest}>
       {sortedPlanetsData.map((position, index) => (
-        <UniverseBoxItem key={index} position={position} />
+        <UniverseBoxItem
+          ownPlanetId={ownPlanetId}
+          key={index}
+          position={position}
+        />
       ))}
     </StyledTabPanel>
   );

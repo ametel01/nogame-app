@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { TechLevels } from "../types";
+import { PositionObject, TechLevels } from "../types";
 
 export const dataToNumber = (value: unknown[] | string | number | undefined) =>
   new BigNumber(value as unknown as number).toNumber();
@@ -247,3 +247,22 @@ export const plasmaRequirements = (
 
 export const numberWithCommas = (num: number) =>
   num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+export function convertTechLevelsToNumbers(techLevels: TechLevels): {
+  [K in keyof TechLevels]: number;
+} {
+  const converted = {} as { [K in keyof TechLevels]: number };
+  for (const [key, value] of Object.entries(techLevels)) {
+    converted[key as keyof TechLevels] = Number(value);
+  }
+  return converted;
+}
+
+export function convertPositionToNumbers(
+  position: PositionObject
+): PositionObject {
+  return {
+    system: Number(position.system),
+    orbit: Number(position.orbit),
+  };
+}

@@ -12,7 +12,7 @@ import sparrowImg from "../../assets/gameElements/ships/sparrow.png";
 import scraperImg from "../../assets/gameElements/ships/scraper.png";
 import { StyledButton } from "../../shared/styled/Button";
 import { ShipsLevels } from "../../shared/types";
-import useSendFleet from "../../hooks/useSendFleet";
+import useSendFleet from "../../hooks/writeHooks/useSendFleet";
 import { Fleet, Position } from "../../shared/types";
 
 type ShipName = "carrier" | "scraper" | "sparrow" | "frigate" | "armade";
@@ -96,13 +96,15 @@ interface Props {
   callback?: () => void;
   disabled?: boolean;
   noRequirements?: boolean;
+  isNoobProtected?: boolean;
   destination: string;
   ownFleet: ShipsLevels;
 }
 
-export function ButtonSendFleet({
+export function ButtonAttackPlanet({
   disabled,
   noRequirements,
+  isNoobProtected,
   destination,
   ownFleet,
 }: Props) {
@@ -151,7 +153,7 @@ export function ButtonSendFleet({
 
   return (
     <div>
-      {!disabled && !noRequirements && (
+      {!disabled && !noRequirements && !isNoobProtected && (
         <>
           <StyledButton
             onClick={handleButtonClick}
@@ -317,7 +319,7 @@ export function ButtonSendFleet({
           Own Planet
         </StyledButton>
       )}
-      {disabled && (
+      {isNoobProtected && (
         <StyledButton
           fullWidth={true}
           disabled

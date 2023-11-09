@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import * as Styled from "../../shared/styled/Box";
 import { ButtonUpgrade } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
 import { ReactNode, useMemo } from "react";
-import useUpgrade from "../../hooks/useUpgrade";
+import useUpgrade from "../../hooks/writeHooks/useUpgrade";
 import ImagePopover from "../modals/Description";
 import { TechLevels } from "../../shared/types";
 

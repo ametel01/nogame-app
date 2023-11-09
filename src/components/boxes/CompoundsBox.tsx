@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "@emotion/styled";
-import useUpgrade from "../../hooks/useUpgrade";
+import styled from "styled-components";
+import useUpgrade from "../../hooks/writeHooks/useUpgrade";
 import { numberWithCommas } from "../../shared/utils";
 import { ButtonUpgrade } from "../ui/Button";
 import DescriptionModal from "../modals/Description";

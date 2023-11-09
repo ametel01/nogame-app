@@ -76,3 +76,18 @@ export type Position = {
   system: number;
   orbit: number;
 };
+
+export type Mission = {
+  time_start: number;
+  destination: number;
+  time_arrival: number;
+  fleet: Fleet;
+  is_debris: boolean;
+};
+
+export type HostileMission = {
+  origin: number;
+  id_at_origin: number;
+  time_arrival: number;
+  number_of_ships: number;
+};

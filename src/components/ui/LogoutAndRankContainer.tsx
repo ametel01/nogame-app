@@ -1,11 +1,10 @@
 import { useMemo } from "react";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import { useContractRead } from "@starknet-react/core";
 import nogameLogo from "../../assets/logos/NoGameLogo.png";
-import { numberWithCommas } from "../../shared/utils";
+// import { numberWithCommas } from "../../shared/utils";
 import { GAMEADDRESS } from "../../constants/addresses";
 import game from "../../constants/nogame.json";
-import { useTokenOf } from "../../hooks/useTokenOf";
 
 const LogoContainer = styled.div`
   display: flex;
@@ -54,27 +53,28 @@ const StyledImage = styled.img`
   objectfit: contain;
 `;
 
-const LogoAndRankContainer = () => {
-  const data = useTokenOf();
-  const planetId = Number(data.planetId);
+interface Props {
+  planetId: number;
+}
 
+const LogoAndRankContainer = ({ planetId }: Props) => {
   const { data: points } = useContractRead({
     address: GAMEADDRESS,
     abi: game.abi,
     functionName: "get_planet_points",
-    args: [planetId],
+    args: [Number(planetId)],
     watch: false,
   });
 
   const score = useMemo(() => {
-    return points ? numberWithCommas(Number(points)) : "";
+    return points ? Number(points) : "";
   }, [points]);
 
   return (
     <LogoContainer>
       <StyledImage src={nogameLogo} alt="NoGame Logo" />
       <RankContainer>
-        <RankLineContainer>
+        <RankLineContainer style={{ fontFamily: "monospace" }}>
           <TrophyDiv>
             <TitleContainer>Score</TitleContainer>
           </TrophyDiv>

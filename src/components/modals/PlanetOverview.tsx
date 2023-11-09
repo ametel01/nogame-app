@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import { CircularProgress } from "@mui/material";
 import { DefenceLevels, Resources, ShipsLevels } from "../../shared/types";
 import {

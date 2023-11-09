@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import SideBar from "../components/ui/SideBar";
 import { PlanetSection } from "../components/ui/PlanetSection";
 import { ResourcesSection } from "../panels";
-import { css } from "@emotion/react";
 
 const GameContainer = styled.div`
   display: grid;
@@ -33,24 +32,22 @@ const SubBodyContainer = styled.section<{ border?: boolean }>`
   height: 100%;
   width: 100%;
   background-color: #151a1e;
-
-  ${({ border }) =>
-    border &&
-    css`
-      border-top: 1px solid #151a1e;
-    `}
 `;
 
-export default function Dashboard() {
+interface Props {
+  planetId: number;
+}
+
+export default function Dashboard({ planetId }: Props) {
   return (
     <MainContainer>
-      <SideBar />
+      <SideBar planetId={planetId} />
       <GameContainer>
         <SubBodyContainer>
-          <PlanetSection />
+          <PlanetSection planetId={planetId} />
         </SubBodyContainer>
         <SubBodyContainer>
-          <ResourcesSection />
+          <ResourcesSection planetId={planetId} />
         </SubBodyContainer>
       </GameContainer>
     </MainContainer>

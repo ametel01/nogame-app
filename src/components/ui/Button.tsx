@@ -24,8 +24,6 @@ export function ButtonUpgrade({
     setIsClicked(true);
   };
 
-  console.log(tx);
-
   return (
     <div>
       {!disabled && !noRequirements && (

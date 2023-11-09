@@ -1,13 +1,12 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import * as Styled from "../../shared/styled/Box";
 import { CircularProgress } from "@mui/material";
-import { BlurOnOutlined } from "@mui/icons-material";
 // import { useStarkName } from "@starknet-react/core";
-import { ButtonSendFleet } from "../buttons/ButtonSendFleet";
+import { ButtonAttackPlanet } from "../buttons/ButtonAttackPlanet";
 import { DefenceLevels, Resources, ShipsLevels } from "../../shared/types";
 import PlanetModal from "../modals/PlanetOverview";
-import { useGetDebrisField } from "../../hooks/useGetDebrisField";
 import { numberWithCommas } from "../../shared/utils";
+import { DebrisFieldView } from "../ui/DebrisFieldView";
 
 const InfoContainer = styled(Styled.InfoContainer)({
   width: "45%",
@@ -41,7 +40,7 @@ export const ImageContainer = styled("div")({
 });
 
 interface Props {
-  planetId: number | undefined;
+  planetId: number;
   // address: string;
   img: string | undefined;
   owner?: string;
@@ -55,6 +54,7 @@ interface Props {
   fleet?: ShipsLevels;
   defences?: DefenceLevels;
   ownFleet?: ShipsLevels;
+  isNoobProtected?: boolean;
 }
 
 const UniverseViewBox = ({
@@ -69,6 +69,7 @@ const UniverseViewBox = ({
   fleet,
   defences,
   ownFleet,
+  isNoobProtected,
 }: Props) => {
   const boxStyle = highlighted
     ? {
@@ -77,9 +78,7 @@ const UniverseViewBox = ({
     : {};
 
   const isButtonDisabled = highlighted;
-  const debrisField = useGetDebrisField(planetId);
   // TODO: implement StarkName once on mainnet
-  // const { data } = useStarkName({ address });
 
   return (
     <Box style={boxStyle}>
@@ -98,11 +97,6 @@ const UniverseViewBox = ({
         )}
       </Styled.ImageContainer>
       <Styled.SubBox>
-        <>
-          {debrisField && (debrisField.steel > 0 || debrisField.quartz > 0) && (
-            <BlurOnOutlined />
-          )}
-        </>
         <Styled.Title>
           <Styled.ResourceTitle>PLAYER</Styled.ResourceTitle>
           <Styled.NumberContainer>{`0x${owner}`}</Styled.NumberContainer>
@@ -125,9 +119,15 @@ const UniverseViewBox = ({
             <Styled.NumberContainer>{position}</Styled.NumberContainer>
           </Styled.ResourceContainer>
         </InfoContainer>
+        <DebrisFieldView
+          planetId={Number(planetId)}
+          position={position!}
+          ownFleet={ownFleet!}
+        />
         <Styled.ButtonContainer>
-          <ButtonSendFleet
+          <ButtonAttackPlanet
             noRequirements={isButtonDisabled}
+            isNoobProtected={isNoobProtected}
             destination={position!}
             ownFleet={ownFleet!}
           />

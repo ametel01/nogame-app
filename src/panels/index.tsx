@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { useState } from "react";
 import { RowCentered } from "../components/ui/Row";
 import {
@@ -18,7 +17,6 @@ import { DockyardTabPanel } from "./DockyardTab";
 import { DefenceTabPanel } from "./DefencesTab";
 
 import { CompoundsTabPanel } from "./CompoundsTab";
-import { useTokenOf } from "../hooks/useTokenOf";
 import { useSpendableResources } from "../hooks/ResourcesHooks";
 import {
   useCompoundsLevels,
@@ -39,10 +37,12 @@ import {
   useGetEnergyGainAfterUpgrade,
 } from "../hooks/EnergyHooks";
 
-export const ResourcesSection: FC = () => {
+interface ResourcesSectionArgs {
+  planetId: number;
+}
+
+export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   const [activeTab, setActiveTab] = useState(0);
-  const data = useTokenOf();
-  const planetId = Number(data!.planetId);
   // Data Retrieval Hooks
   const compoundsLevels =
     planetId !== undefined ? useCompoundsLevels(planetId) : undefined;
@@ -146,7 +146,7 @@ export const ResourcesSection: FC = () => {
           techLevels={techLevels}
         />
       )}
-      {activeTab === 4 && <UniverseViewTabPanel />}
+      {activeTab === 4 && <UniverseViewTabPanel ownPlanetId={planetId} />}
     </ResourcesTabs>
   );
 };

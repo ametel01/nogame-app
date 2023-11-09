@@ -4,12 +4,12 @@ import axios from "axios";
 
 import { ImageIcon } from "../icons/Image";
 import { dataToNumber, numberWithCommas } from "../../shared/utils";
-import { useTokenOf } from "../../hooks/useTokenOf";
 
 import { styled, Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import { RowCentered } from "./Row";
 import { usePlanetPosition } from "../../hooks/usePlanetPosition";
+import { HostileMissions } from "./HostileMissions";
 
 //pink-capable-snake-964.mypinata.cloud/ipfs/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ/
 const IPFS_BASE_URL = "https://pink-capable-snake-964.mypinata.cloud/ipfs";
@@ -18,25 +18,10 @@ const IMG_URL = `${IPFS_BASE_URL}/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ
 const IMG_MODULO = 17;
 
 const DebugRowCentered = styled(RowCentered)`
-  border: 1px solid red;
-  justify-content: flex-start;
+  // border: 1px solid red;
+  padding: 30px;
+  // justify-content: flex-start;
 `;
-
-const FleetMovementsContainer = styled(Box)({
-  gap: 6,
-  color: "white",
-  width: 252, // adjust as needed
-});
-
-const FleetMovements: FC = () => {
-  // Add your logic and JSX elements here.
-  return (
-    <FleetMovementsContainer>
-      <div>Own Fleets</div>
-      <div>Hostile Fleets</div>
-    </FleetMovementsContainer>
-  );
-};
 
 const PlanetImageWrapper = styled(Box)({
   display: "flex",
@@ -54,7 +39,7 @@ const MainContainer = styled(Box)({
   display: "flex",
   alignItems: "center",
   gap: 48,
-  justifyContent: "flex-start",
+  // justifyContent: "flex-start",
 });
 
 const PlanetInfoContainer = styled(Box)({
@@ -64,6 +49,7 @@ const PlanetInfoContainer = styled(Box)({
 });
 
 const PlanetInfoRowStyled = styled(Box)({
+  fontFamily: "monospace",
   display: "flex",
   justifyContent: "flex-start", // This ensures content starts from the left
   gap: "12px", // This will place the label closer to its value.
@@ -127,10 +113,12 @@ interface Metadata {
 export const getPlanetImageUrl = (imgId: number | undefined) =>
   imgId ? `${IMG_URL}/${imgId}.png` : undefined;
 
-const PlanetImage: FC = () => {
+interface PlanetImageArgs {
+  planetId: number;
+}
+
+const PlanetImage = ({ planetId }: PlanetImageArgs) => {
   const { address } = useAccount();
-  const data = useTokenOf();
-  const planetId = Number(data.planetId);
   const [metadata, setMetadata] = useState<Metadata | null>(null);
 
   const position = usePlanetPosition(planetId);
@@ -197,6 +185,7 @@ const PlanetImage: FC = () => {
           </RadarTextStyle>
         </PlanetPositionGroup>
       </PlanetInfoContainer>
+      <HostileMissions planetId={planetId} />
     </>
   );
 };
@@ -215,11 +204,14 @@ const PlanetInfoRow: FC<{
   </PlanetInfoRowStyled>
 );
 
-export const PlanetSection: FC = () => (
+interface PlanetSectionArgs {
+  planetId: number;
+}
+
+export const PlanetSection = ({ planetId }: PlanetSectionArgs) => (
   <DebugRowCentered>
     <MainContainer>
-      <PlanetImage />
-      <FleetMovements />
+      <PlanetImage planetId={planetId} />
     </MainContainer>
   </DebugRowCentered>
 );

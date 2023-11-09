@@ -61,12 +61,13 @@ export const ResourceTitle = styled("div")({
 });
 
 export const NumberContainer = styled("div")({
+  fontFamily: "monospace",
   display: "flex",
   width: "100%",
   justifyContent: "flex-start",
   gap: "4px",
   alignItems: "center",
-  fontSize: "14px",
+  fontSize: "16px",
   lineHeight: "18.2px",
 });
 

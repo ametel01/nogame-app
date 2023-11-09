@@ -7,6 +7,7 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import ForumIcon from "@mui/icons-material/Forum";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import { FleetMovements } from "./FleetMovements";
 
 const HeaderWrapper = styled(AppBar)({
   backgroundColor: "#1a2025",
@@ -40,7 +41,11 @@ const StyledLink = styled("a")({
   margin: "8px",
 });
 
-const Header = () => {
+interface Props {
+  planetId: number;
+}
+
+const Header = ({ planetId }: Props) => {
   return (
     <HeaderWrapper position="static">
       <StyledToolbar style={{ minHeight: "48px", padding: "0px 16px" }}>
@@ -73,6 +78,7 @@ const Header = () => {
         </StyledLink>
 
         <Spacer />
+        <FleetMovements planetId={planetId} />
         <StyledButtonWithMargin variant="text" size="small">
           Resources Market
         </StyledButtonWithMargin>

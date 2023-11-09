@@ -1,13 +1,12 @@
 import { useMemo, useState } from "react";
-import styled from "@emotion/styled";
+import Tooltip from "@mui/material/Tooltip";
+import styled from "styled-components";
 import {
   QUARTZADDRESS,
   STEELADDRESS,
   TRITIUMADDRESS,
 } from "../../constants/addresses";
 import { numberWithCommas } from "../../shared/utils";
-import { useTokenOf } from "../../hooks/useTokenOf";
-
 // Asset imports
 import ironImg from "../../assets/gameElements/resources/steel-1.png";
 import quartzImg from "../../assets/gameElements/resources/quartz-2.png";
@@ -49,7 +48,7 @@ const ImageStyle = styled.img`
 `;
 
 const TotalResourceText = styled.div`
-  color: #81d3ff;
+  color: #58a6ff;
   font-weight: 500;
   margin-left: 10px;
 `;
@@ -71,11 +70,6 @@ const TotalResourceWrapper = styled.div`
   flex-direction: column;
 `;
 
-const ResourceAddress = styled.div`
-  font-size: 12px;
-  margin-top: 4px;
-`;
-
 interface Props {
   spendable?: string;
   collectible?: string;
@@ -87,25 +81,19 @@ interface Props {
 }
 
 const Energy = ({ available, img, title, fromCelestia }: Props) => {
-  const isNegative = Number(available) < 0;
   return (
     <Container>
       <ImageAddressContainer>
         <div style={{ width: "30px" }}>
           <ImageStyle src={img} alt="resource" />
         </div>
-        <ResourceAddress>0x0000...000</ResourceAddress>
       </ImageAddressContainer>
       <TotalResourceWrapper>
         {title}
         <TotalResourceContainer>
           <div>
             <TotalResourceType>Net Available</TotalResourceType>
-            <TotalResourceText
-              style={{ color: isNegative ? "red" : "#81d3ff" }}
-            >
-              {available}
-            </TotalResourceText>
+            <TotalResourceText>{available}</TotalResourceText>
             <TotalResourceType>From Celestia</TotalResourceType>
             <TotalResourceText>{fromCelestia}</TotalResourceText>
           </div>
@@ -119,25 +107,21 @@ const Resource = ({ spendable, collectible, img, title, address }: Props) => {
   const [copied, setCopied] = useState(false);
   return (
     <Container>
-      <ImageAddressContainer
-        onClick={() => {
-          if (address) {
-            const blob = new Blob([address], { type: "text/plain" });
-            const item = new ClipboardItem({ "text/plain": blob });
-            navigator.clipboard.write([item]).then(() => setCopied(true));
-          }
-        }}
-      >
-        <div style={{ width: "30px" }}>
-          <ImageStyle src={img} alt="resource" />
-        </div>
-        {address && !copied && (
-          <ResourceAddress>{`${address.substring(0, 6)}...${address.slice(
-            -4
-          )}`}</ResourceAddress>
-        )}
-        {copied && <ResourceAddress>Copied</ResourceAddress>}
-      </ImageAddressContainer>
+      <Tooltip title={copied ? "Copied" : "Copy Token Address"} arrow>
+        <ImageAddressContainer
+          onClick={() => {
+            if (address) {
+              const blob = new Blob([address], { type: "text/plain" });
+              const item = new ClipboardItem({ "text/plain": blob });
+              navigator.clipboard.write([item]).then(() => setCopied(true));
+            }
+          }}
+        >
+          <div style={{ width: "30px" }}>
+            <ImageStyle src={img} alt="resource" />
+          </div>
+        </ImageAddressContainer>
+      </Tooltip>
       <TotalResourceWrapper>
         {title}
         <TotalResourceContainer>
@@ -153,9 +137,11 @@ const Resource = ({ spendable, collectible, img, title, address }: Props) => {
   );
 };
 
-const ResourcesContainer = () => {
-  const data = useTokenOf();
-  const planetId = Number(data.planetId);
+interface ResourceContainerArgs {
+  planetId: number;
+}
+
+const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
   const spendable =
     planetId !== undefined ? useSpendableResources(planetId) : undefined;
 
@@ -217,8 +203,8 @@ const ResourcesContainer = () => {
       <Energy
         title="Energy"
         img={energyImg}
-        available={energyAvailable}
-        fromCelestia={energyFromCelestia}
+        available={Number(energyAvailable)}
+        fromCelestia={Number(energyFromCelestia)}
       />
     </div>
   );

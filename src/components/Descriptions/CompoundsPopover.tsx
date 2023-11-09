@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import SteelTable from "./tables/SteelTable";
 
 const Container = styled.div`

@@ -1,7 +1,8 @@
 import { useCallback } from "react";
 import { Box, Button } from "@mui/material";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import CircularProgress from "@mui/material/CircularProgress";
+import { TransactionStatus } from "../ui/TransactionStatus";
 import { useContractWrite } from "@starknet-react/core";
 import { GAMEADDRESS, ETH_ADDRESS } from "../../constants/addresses";
 import game from "../../constants/nogame.json";
@@ -64,7 +65,11 @@ export const GeneratePlanet = ({ price }: Props) => {
     address: ETH_ADDRESS,
   });
 
-  const { writeAsync, isLoading } = useContractWrite({
+  const {
+    writeAsync,
+    isLoading,
+    data: tx,
+  } = useContractWrite({
     calls: [
       eth?.populateTransaction["approve"]!(GAMEADDRESS, Number(price)),
       nogame?.populateTransaction["generate_planet"]!(),
@@ -95,6 +100,7 @@ export const GeneratePlanet = ({ price }: Props) => {
       <StyledButton variant="contained" onClick={submitTx} disabled={isLoading}>
         Mint Planet
       </StyledButton>
+      <TransactionStatus name="Generating Planet" tx={tx} />
     </Box>
   );
 };

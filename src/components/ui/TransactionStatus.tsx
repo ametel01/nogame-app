@@ -3,7 +3,7 @@ import { useWaitForTransaction } from "@starknet-react/core";
 import Modal from "@mui/material/Modal";
 import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { StyledBox, HeaderDiv } from "../buttons/ButtonSendFleet";
+import { StyledBox, HeaderDiv } from "../buttons/ButtonAttackPlanet";
 import { InvokeFunctionResponse } from "starknet";
 
 interface Props {

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import { useAccount } from "@starknet-react/core";
 import WalletHeader from "./WalletHeader";
 import LogoAndRankContainer from "./LogoutAndRankContainer";
@@ -11,14 +11,18 @@ const BodyContainer = styled.div`
   background-color: #1a2025;
 `;
 
-const SideBar = () => {
+interface Props {
+  planetId: number;
+}
+
+const SideBar = ({ planetId }: Props) => {
   const { address: account } = useAccount();
 
   return (
     <BodyContainer>
       <WalletHeader account={account} />
-      <LogoAndRankContainer />
-      <ResourcesContainer />
+      <LogoAndRankContainer planetId={planetId} />
+      <ResourcesContainer planetId={planetId} />
       <UseCollectResources />
     </BodyContainer>
   );

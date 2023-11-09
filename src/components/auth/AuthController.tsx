@@ -7,34 +7,42 @@ import Header from "../ui/Header";
 
 const AuthController = () => {
   const { address } = useAccount();
-  const [walletConnectLoading, setWalletConnectLoading] =
-    useState<boolean>(true);
+  const [walletConnectLoading, setWalletConnectLoading] = useState(true);
 
-  const { planetId, isLoading } = useTokenOf();
+  // useTokenOf should handle `undefined` address internally
+  // by perhaps returning { planetId: undefined, isLoading: true } initially
+  const { planetId, isLoading: isTokenOfLoading } = useTokenOf(address);
+
   useEffect(() => {
-    setTimeout(() => setWalletConnectLoading(false), 3000);
+    if (address) {
+      setWalletConnectLoading(false);
+    }
+  }, [address]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setWalletConnectLoading(false);
+    }, 3000);
+    return () => clearTimeout(timeoutId);
   }, []);
-  const planetIdBN = Number(planetId);
-  const hasGeneratedPlanets = planetIdBN > 0;
-  const isOverallLoading = isLoading || walletConnectLoading;
+
+  const hasGeneratedPlanets = planetId > 0;
+  const isOverallLoading = isTokenOfLoading || walletConnectLoading;
 
   const shouldRenderAuthScreen =
     !address || !hasGeneratedPlanets || isOverallLoading;
 
-  if (shouldRenderAuthScreen) {
-    const authProps = {
-      address,
-      walletConnectLoading,
-      loading: isOverallLoading,
-      hasGeneratedPlanets,
-    };
-    return <AuthScreen {...authProps} />;
-  }
-
-  return (
+  return shouldRenderAuthScreen ? (
+    <AuthScreen
+      address={address}
+      walletConnectLoading={walletConnectLoading}
+      loading={isOverallLoading}
+      hasGeneratedPlanets={hasGeneratedPlanets}
+    />
+  ) : (
     <>
-      <Header />
-      <Dashboard />
+      <Header planetId={Number(planetId)} />
+      <Dashboard planetId={Number(planetId)} />
     </>
   );
 };

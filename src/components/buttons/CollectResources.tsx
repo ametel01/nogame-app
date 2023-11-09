@@ -1,7 +1,7 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
-import CircularProgress from "@mui/material/CircularProgress";
+import { TransactionStatus } from "../ui/TransactionStatus";
 import { GAMEADDRESS } from "../../constants/addresses";
 import game from "../../constants/nogame.json";
 import { useContractWrite } from "@starknet-react/core";
@@ -16,42 +16,46 @@ const StyledBox = styled(Box)(() => ({
   alignItems: "center", // center vertically
 }));
 
-const StyleCircProgress = styled(CircularProgress)(() => ({
-  position: "absolute",
-  zIndex: 1, // ensure it's above the button
-}));
-
 export function UseCollectResources() {
+  const [isClicked, setIsClicked] = useState(false);
+
   const { contract } = useContract({
     abi: game.abi,
     address: GAMEADDRESS,
   });
-  const { writeAsync, isLoading } = useContractWrite({
+  const { writeAsync, data: tx } = useContractWrite({
     calls: [contract?.populateTransaction["collect_resources"]!()],
   });
 
   const { add } = useTransactionManager();
 
   const submitTx = useCallback(async () => {
-    const tx = await writeAsync({});
+    const tx = await writeAsync();
     add(tx.transaction_hash);
   }, [writeAsync]);
+
+  const handleOnClick = () => {
+    submitTx();
+    setIsClicked(true);
+  };
 
   return (
     <>
       <StyledBox>
-        {(isLoading || (status !== "success" && status !== "idle")) && (
-          <StyleCircProgress size={24} />
-        )}
         <StyledButton
           fullWidth
           style={{ margin: "4px", background: "#4A63AA" }}
-          onClick={submitTx}
+          onClick={handleOnClick}
           variant="contained"
         >
           Collect Resources
         </StyledButton>
       </StyledBox>
+      {isClicked ? (
+        <TransactionStatus name="Collect Resources" tx={tx} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

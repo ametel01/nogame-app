@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
 
 const Row = styled.div<{
   align?: "flex-start" | "center" | "flex-end";
