@@ -5,8 +5,15 @@ import { CircularProgress } from "@mui/material";
 import { ButtonAttackPlanet } from "../buttons/ButtonAttackPlanet";
 import { DefenceLevels, Resources, ShipsLevels } from "../../shared/types";
 import PlanetModal from "../modals/PlanetOverview";
-import { numberWithCommas } from "../../shared/utils";
+import {
+  convertPositionToNumbers,
+  convertTechLevelsToNumbers,
+  numberWithCommas,
+} from "../../shared/utils";
 import { DebrisFieldView } from "../ui/DebrisFieldView";
+import { useTechsLevels } from "../../hooks/LevelsHooks";
+import { usePlanetPosition } from "../../hooks/usePlanetPosition";
+import { useMemo } from "react";
 
 const InfoContainer = styled(Styled.InfoContainer)({
   width: "45%",
@@ -80,6 +87,20 @@ const UniverseViewBox = ({
   const isButtonDisabled = highlighted;
   // TODO: implement StarkName once on mainnet
 
+  const techs = useTechsLevels(Number(planetId));
+  const ownPlanetPosition = usePlanetPosition(Number(planetId));
+
+  // Derived states or memoized values should handle the conditional logic
+  const techsNumberised = useMemo(() => {
+    return techs ? convertTechLevelsToNumbers(techs) : undefined;
+  }, [techs]);
+
+  const ownPositionNumberised = useMemo(() => {
+    return ownPlanetPosition
+      ? convertPositionToNumbers(ownPlanetPosition)
+      : undefined;
+  }, [ownPlanetPosition]);
+
   return (
     <Box style={boxStyle}>
       <Styled.ImageContainer>
@@ -120,9 +141,11 @@ const UniverseViewBox = ({
           </Styled.ResourceContainer>
         </InfoContainer>
         <DebrisFieldView
-          planetId={Number(planetId)}
+          planetId={planetId}
           position={position!}
           ownFleet={ownFleet!}
+          techs={techsNumberised!}
+          ownPosition={ownPositionNumberised!}
         />
         <Styled.ButtonContainer>
           <ButtonAttackPlanet
@@ -130,6 +153,8 @@ const UniverseViewBox = ({
             isNoobProtected={isNoobProtected}
             destination={position!}
             ownFleet={ownFleet!}
+            techs={techsNumberised!}
+            ownPosition={ownPositionNumberised!}
           />
         </Styled.ButtonContainer>
       </Styled.SubBox>

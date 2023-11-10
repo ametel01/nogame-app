@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const FixedGlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet');
+// @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet');
 
 html, input, textarea, button {
   font-family: 'Ubuntu', sans-serif;

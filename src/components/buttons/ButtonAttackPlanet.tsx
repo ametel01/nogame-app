@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled } from "@mui/system";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -11,9 +11,13 @@ import carrierImg from "../../assets/gameElements/ships/carrier.png";
 import sparrowImg from "../../assets/gameElements/ships/sparrow.png";
 import scraperImg from "../../assets/gameElements/ships/scraper.png";
 import { StyledButton } from "../../shared/styled/Button";
-import { ShipsLevels } from "../../shared/types";
+import { ShipsLevels, TechLevels } from "../../shared/types";
 import useSendFleet from "../../hooks/writeHooks/useSendFleet";
 import { Fleet, Position } from "../../shared/types";
+import {
+  useGetFuelConsumption,
+  useGetTravelTime,
+} from "../../hooks/FleetHooks";
 
 type ShipName = "carrier" | "scraper" | "sparrow" | "frigate" | "armade";
 
@@ -39,7 +43,7 @@ export const StyledBox = styled(Box)({
   padding: "16px 32px",
   display: "flex",
   flexDirection: "column",
-  width: "50%",
+  width: "45%",
 });
 
 export const CloseStyledIcon = styled(CloseIcon)({
@@ -99,6 +103,8 @@ interface Props {
   isNoobProtected?: boolean;
   destination: string;
   ownFleet: ShipsLevels;
+  techs: TechLevels;
+  ownPosition: Position;
 }
 
 export function ButtonAttackPlanet({
@@ -107,6 +113,8 @@ export function ButtonAttackPlanet({
   isNoobProtected,
   destination,
   ownFleet,
+  techs,
+  ownPosition,
 }: Props) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const totalShips = Object.entries(quantities).reduce(
@@ -130,6 +138,11 @@ export function ButtonAttackPlanet({
 
   const destinationArray = destination.split("/");
 
+  const position: Position = {
+    system: Number(destinationArray[0]),
+    orbit: Number(destinationArray[1]),
+  };
+
   const fleet: Fleet = {
     carrier: quantities.carrier || 0,
     scraper: quantities.scraper || 0,
@@ -138,10 +151,10 @@ export function ButtonAttackPlanet({
     armade: quantities.armade || 0,
   };
 
-  const position: Position = {
-    system: Number(destinationArray[0]),
-    orbit: Number(destinationArray[1]),
-  };
+  // Now we call the hooks unconditionally
+  const travelTime = useGetTravelTime(ownPosition, position, fleet, techs);
+
+  const fuelConsumption = useGetFuelConsumption(ownPosition, position, fleet);
 
   const { submitTx } = useSendFleet(fleet, position, false);
 
@@ -150,6 +163,16 @@ export function ButtonAttackPlanet({
   const isAnyShipOverLimit = ships.some(
     (ship) => quantities[ship] > ownFleet[ship as keyof typeof ownFleet]
   );
+
+  const [timeOfArrival, setTimeOfArrival] = useState<Date | null>(null);
+
+  useEffect(() => {
+    if (travelTime !== undefined) {
+      const arrival = new Date();
+      arrival.setSeconds(arrival.getSeconds() + Number(travelTime));
+      setTimeOfArrival(arrival);
+    }
+  }, [travelTime]);
 
   return (
     <div>
@@ -180,6 +203,7 @@ export function ButtonAttackPlanet({
                   <StyledUl>
                     {ships.map((ship) => (
                       <FlexContainer
+                        key={ship} // unique key prop based on the ship name
                         style={{
                           flexDirection: "row",
                           alignItems: "center",
@@ -263,13 +287,24 @@ export function ButtonAttackPlanet({
                       color: "#D0D3DA",
                     }}
                   >
-                    Travel time:
+                    Travel time:{" "}
+                    <span style={{ color: "#81d3ff", marginLeft: "16px" }}>
+                      {travelTime ? Number(travelTime) : null}
+                    </span>
                   </div>
                   <div style={{ marginBottom: "32px", color: "#D0D3DA" }}>
-                    Time arrival:
+                    Time arrival:{" "}
+                    <span style={{ color: "#81d3ff" }}>
+                      {timeOfArrival
+                        ? timeOfArrival.toLocaleTimeString()
+                        : null}
+                    </span>
                   </div>
                   <div style={{ marginBottom: "32px", color: "#D0D3DA" }}>
-                    Fuel consumption:
+                    Fuel consumption:{" "}
+                    <span style={{ color: "#81d3ff", marginLeft: "16px" }}>
+                      {fuelConsumption ? Number(fuelConsumption) : null}
+                    </span>
                   </div>
                   <div style={{ marginBottom: "32px", color: "#D0D3DA" }}>
                     Total number of ships:{" "}

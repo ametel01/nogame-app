@@ -7,18 +7,12 @@ import { Input } from "@mui/joy";
 import scraperImg from "../../assets/gameElements/ships/scraper.png";
 import { StyledButton } from "../../shared/styled/Button";
 import useSendFleet from "../../hooks/writeHooks/useSendFleet";
-import { Fleet, Position, ShipsLevels } from "../../shared/types";
-import { useTechsLevels } from "../../hooks/LevelsHooks";
+import { Fleet, Position, ShipsLevels, TechLevels } from "../../shared/types";
 import {
   useGetFuelConsumption,
   useGetTravelTime,
 } from "../../hooks/FleetHooks";
-import { usePlanetPosition } from "../../hooks/usePlanetPosition";
-import {
-  convertPositionToNumbers,
-  convertTechLevelsToNumbers,
-  numberWithCommas,
-} from "../../shared/utils";
+import { numberWithCommas } from "../../shared/utils";
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -113,16 +107,18 @@ const TravelDetailColumn = styled("div")({
 
 interface Props {
   onClose: () => void;
-  playerPlanetId: number;
   position: string;
   ownFleet: ShipsLevels;
+  techs: TechLevels;
+  ownPosition: Position;
 }
 
 export function ButtonCollectDebris({
-  playerPlanetId,
+  onClose,
   position: positionString,
   ownFleet,
-  onClose,
+  techs,
+  ownPosition,
 }: Props) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [isModalOpen] = useState(true);
@@ -154,27 +150,9 @@ export function ButtonCollectDebris({
     armade: 0,
   };
 
-  const techs = useTechsLevels(playerPlanetId);
-  const techsNumberised = techs ? convertTechLevelsToNumbers(techs) : undefined;
+  const travelTime = useGetTravelTime(ownPosition, position, fleet, techs);
 
-  const ownPlanetPosition = usePlanetPosition(playerPlanetId);
-  const ownPositionNumberised = ownPlanetPosition
-    ? convertPositionToNumbers(ownPlanetPosition)
-    : undefined;
-
-  const travelTime =
-    techsNumberised && ownPositionNumberised
-      ? useGetTravelTime(
-          ownPositionNumberised,
-          position,
-          fleet,
-          techsNumberised
-        )
-      : undefined;
-
-  const fuelConsumption = ownPositionNumberised
-    ? useGetFuelConsumption(ownPositionNumberised, position, fleet)
-    : undefined;
+  const fuelConsumption = useGetFuelConsumption(ownPosition, position, fleet);
 
   const { submitTx } = useSendFleet(fleet, position, true);
 
@@ -278,7 +256,7 @@ export function ButtonCollectDebris({
               <div style={{ color: "#D0D3DA" }}>
                 Tritium consumption:{" "}
                 <span style={{ color: "#81d3ff" }}>
-                  {Number(fuelConsumption)}
+                  {fuelConsumption ? Number(fuelConsumption) : null}
                 </span>
               </div>
               <div style={{ color: "#D0D3DA" }}>

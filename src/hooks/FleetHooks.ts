@@ -67,7 +67,7 @@ export function useGetFuelConsumption(
   origin: Position,
   destination: Position,
   fleet: Fleet
-): number {
+): number | undefined {
   const { data } = useContractRead({
     address: GAMEADDRESS,
     abi: game.abi,

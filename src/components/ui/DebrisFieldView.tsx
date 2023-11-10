@@ -4,16 +4,29 @@ import { useGetDebrisField } from "../../hooks/useGetDebrisField";
 import CircularProgress from "@mui/material/CircularProgress";
 import { numberWithCommas } from "../../shared/utils";
 import { ButtonCollectDebris } from "../buttons/ButtonCollectDebris";
-import { DebrisField, ShipsLevels } from "../../shared/types";
+import {
+  DebrisField,
+  ShipsLevels,
+  TechLevels,
+  Position,
+} from "../../shared/types";
 import React from "react";
 
 interface Props {
   planetId?: number;
   position?: string;
   ownFleet?: ShipsLevels;
+  techs: TechLevels;
+  ownPosition: Position;
 }
 
-export function DebrisFieldView({ planetId, position, ownFleet }: Props) {
+export function DebrisFieldView({
+  planetId,
+  position,
+  ownFleet,
+  techs,
+  ownPosition,
+}: Props) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const handleOpenModal = () => {
@@ -78,10 +91,11 @@ export function DebrisFieldView({ planetId, position, ownFleet }: Props) {
             aria-describedby="collect-debris-modal-description"
           >
             <ButtonCollectDebris
-              playerPlanetId={Number(planetId)}
               onClose={handleCloseModal}
               position={position!}
               ownFleet={ownFleet!}
+              techs={techs}
+              ownPosition={ownPosition}
             />
           </Modal>
         </>
