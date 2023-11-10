@@ -73,11 +73,11 @@ const TotalResourceWrapper = styled.div`
 interface Props {
   spendable?: string;
   collectible?: string;
-  available?: number;
+  available?: string;
   img: string;
   title: string;
   address?: string;
-  fromCelestia?: number;
+  fromCelestia?: string;
 }
 
 const Energy = ({ available, img, title, fromCelestia }: Props) => {
@@ -93,9 +93,9 @@ const Energy = ({ available, img, title, fromCelestia }: Props) => {
         <TotalResourceContainer>
           <div>
             <TotalResourceType>Net Available</TotalResourceType>
-            <TotalResourceText>{available}</TotalResourceText>
+            <TotalResourceText>{String(available)}</TotalResourceText>
             <TotalResourceType>From Celestia</TotalResourceType>
-            <TotalResourceText>{fromCelestia}</TotalResourceText>
+            <TotalResourceText>{String(fromCelestia)}</TotalResourceText>
           </div>
         </TotalResourceContainer>
       </TotalResourceWrapper>
@@ -127,9 +127,9 @@ const Resource = ({ spendable, collectible, img, title, address }: Props) => {
         <TotalResourceContainer>
           <div>
             <TotalResourceType>Spendable</TotalResourceType>
-            <TotalResourceText>{spendable}</TotalResourceText>
+            <TotalResourceText>{String(spendable)}</TotalResourceText>
             <TotalResourceType>Collectible</TotalResourceType>
-            <TotalResourceText>{collectible}</TotalResourceText>
+            <TotalResourceText>{String(collectible)}</TotalResourceText>
           </div>
         </TotalResourceContainer>
       </TotalResourceWrapper>
@@ -203,8 +203,8 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
       <Energy
         title="Energy"
         img={energyImg}
-        available={Number(energyAvailable)}
-        fromCelestia={Number(energyFromCelestia)}
+        available={String(energyAvailable)}
+        fromCelestia={String(energyFromCelestia)}
       />
     </div>
   );

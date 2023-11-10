@@ -12,7 +12,6 @@ import {
   useGetFuelConsumption,
   useGetTravelTime,
 } from "../../hooks/FleetHooks";
-import { numberWithCommas } from "../../shared/utils";
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -205,7 +204,7 @@ export function ButtonCollectDebris({
                       color: totalShips > ownFleet.scraper ? "red" : "#81d3ff",
                     }}
                   >
-                    {availableScrapers}
+                    {String(availableScrapers)}
                   </span>
                   )
                 </Text>
@@ -241,7 +240,7 @@ export function ButtonCollectDebris({
               <div style={{ color: "#D0D3DA" }}>
                 Travel time:{" "}
                 <span style={{ color: "#81d3ff" }}>
-                  {travelTime ? Number(travelTime) : null}
+                  {travelTime ? String(travelTime) : null}
                 </span>
               </div>
               <div style={{ color: "#D0D3DA" }}>
@@ -256,17 +255,17 @@ export function ButtonCollectDebris({
               <div style={{ color: "#D0D3DA" }}>
                 Tritium consumption:{" "}
                 <span style={{ color: "#81d3ff" }}>
-                  {fuelConsumption ? Number(fuelConsumption) : null}
+                  {fuelConsumption ? String(fuelConsumption) : null}
                 </span>
               </div>
               <div style={{ color: "#D0D3DA" }}>
                 Total number of ships:{" "}
-                <span style={{ color: "#81d3ff" }}>{totalShips}</span>
+                <span style={{ color: "#81d3ff" }}>{String(totalShips)}</span>
               </div>
               <div style={{ color: "#D0D3DA" }}>
                 Cargo Capacity:{" "}
                 <span style={{ color: "#81d3ff" }}>
-                  {numberWithCommas(totalShips * 15000)}
+                  {String(totalShips * 15000)}
                 </span>
               </div>
             </TravelDetailColumn>

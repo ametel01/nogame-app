@@ -98,7 +98,7 @@ const DockyardBox = ({
         <InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>READY</Styled.ResourceTitle>
-            <Styled.NumberContainer>{level}</Styled.NumberContainer>
+            <Styled.NumberContainer>{String(level)}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>STEEL</Styled.ResourceTitle>

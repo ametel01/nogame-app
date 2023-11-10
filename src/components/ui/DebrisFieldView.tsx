@@ -2,7 +2,6 @@ import { Tooltip, Box, IconButton, Modal } from "@mui/material";
 import DebrisIcon from "../../assets/uiIcons/debris.svg";
 import { useGetDebrisField } from "../../hooks/useGetDebrisField";
 import CircularProgress from "@mui/material/CircularProgress";
-import { numberWithCommas } from "../../shared/utils";
 import { ButtonCollectDebris } from "../buttons/ButtonCollectDebris";
 import {
   DebrisField,
@@ -68,10 +67,8 @@ export function DebrisFieldView({
           <Tooltip
             title={
               <>
-                <div>Steel</div>
-                <div>Quartz</div>
-                <div>Steel: {numberWithCommas(Number(debris.steel))}</div>
-                <div>Quartz: {numberWithCommas(Number(debris.quartz))}</div>
+                <div>Steel: {String(debris.steel)}</div>
+                <div>Quartz: {String(debris.quartz)}</div>
               </>
             }
             arrow

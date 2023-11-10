@@ -66,24 +66,24 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
         <InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>STAGE</Styled.ResourceTitle>
-            <Styled.NumberContainer>{level}</Styled.NumberContainer>
+            <Styled.NumberContainer>{String(level)}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>STEEL</Styled.ResourceTitle>
-            <Styled.NumberContainer>{steel}</Styled.NumberContainer>
+            <Styled.NumberContainer>{String(steel)}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>QUARTZ</Styled.ResourceTitle>
-            <Styled.NumberContainer>{quartz}</Styled.NumberContainer>
+            <Styled.NumberContainer>{String(quartz)}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>TRITIUM</Styled.ResourceTitle>
-            <Styled.NumberContainer>{tritium}</Styled.NumberContainer>
+            <Styled.NumberContainer>{String(tritium)}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>ENERGY</Styled.ResourceTitle>
             <Styled.NumberContainer>
-              {Number(energy) > 0 ? `+${energy}` : energy}
+              {Number(energy) > 0 ? `+${energy}` : String(energy)}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
         </InfoContainer>

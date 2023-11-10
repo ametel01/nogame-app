@@ -20,7 +20,7 @@ export const ResourcesTabList = styled(TabList)`
 `;
 
 interface ResourceTabProps {
-  active: boolean;
+  active: string;
 }
 
 export const ResourceTab = styled(Tab)<ResourceTabProps>`
@@ -38,7 +38,7 @@ export const ResourceTab = styled(Tab)<ResourceTabProps>`
   padding: 16px;
   cursor: pointer;
   border-radius: 4px 4px 0px 0px;
-  opacity: ${(props) => (props.active ? 1.0 : 0.3)};
+  opacity: ${(props) => (props.active == "true" ? 1.0 : 0.3)};
 `;
 
 export const StyledTabPanel = styled(TabPanel)`
