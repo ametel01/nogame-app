@@ -94,7 +94,7 @@ const PlanetPositionRowStyled = styled(Box)({
 });
 
 const RadarTextStyle = styled(Box)({
-  color: "#0F0",
+  color: "#98fb98",
 });
 
 interface Props {

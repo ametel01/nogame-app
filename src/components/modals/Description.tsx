@@ -24,12 +24,10 @@ const ImageContainer = styled.div`
 
 const StyledDialogTitle = styled(DialogTitle)`
   background-color: #1a2025;
-  color: #d0d3da;
 `;
 
 const StyledDialogContent = styled(DialogContent)`
   background-color: #1a2025;
-  color: #d0d3da;
 `;
 
 const StyledDialog = styled(Dialog)`

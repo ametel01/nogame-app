@@ -35,7 +35,6 @@ const StyledDialogContent = styled(DialogContent)`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 20px 20px;
-  color: #d0d3da;
 `;
 
 const StyledDialog = styled(Dialog)`
@@ -48,7 +47,6 @@ const StyledDialog = styled(Dialog)`
 
 const StyledDialogTitle = styled(DialogTitle)`
   background-color: #1a2025;
-  color: #d0d3da;
 `;
 
 interface Props {

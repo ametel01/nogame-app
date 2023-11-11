@@ -82,7 +82,7 @@ const UniverseViewBox = ({
 }: Props) => {
   const boxStyle = highlighted
     ? {
-        border: "1px solid #E67E51",
+        border: "1px solid #F8F8FF",
       }
     : {};
 

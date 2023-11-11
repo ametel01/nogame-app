@@ -29,7 +29,6 @@ const HeaderDiv = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  color: "#D0D3DA",
   marginBottom: "12px",
 });
 
@@ -37,7 +36,6 @@ const CloseStyledIcon = styled(CloseIcon)({
   cursor: "pointer",
   padding: "0 8px",
   fontSize: "2em",
-  color: "#D0D3DA",
   position: "absolute",
   top: 8, // You can adjust this value as needed
   right: 8, // You can adjust this value as needed
@@ -66,7 +64,6 @@ const ConnectorIcon = styled("img")({
 const ConnectorText = styled("span")({
   flexGrow: 1,
   textAlign: "center",
-  color: "#D0D3DA",
   fontWeight: "600",
 });
 
@@ -76,7 +73,6 @@ const DisclaimerText = styled("div")({
   width: "70%",
   margin: "2px auto",
   textAlign: "center",
-  color: "#D0D3DA",
 });
 
 const StyledButton = styled(Button)({
@@ -89,7 +85,6 @@ const StyledButton = styled(Button)({
   border: "1px solid #0F111A", // Darker border for definition
   display: "flex",
   justifyContent: "center",
-  color: "#D0D3DA",
   "&:hover": {
     background: "#212530", // Slightly lighter than #1B1E2A for a subtle hover effect
   },

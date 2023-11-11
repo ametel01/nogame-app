@@ -54,7 +54,6 @@ export const CloseStyledIcon = styled(CloseIcon)({
   cursor: "pointer",
   padding: "0 8px",
   fontSize: "2em",
-  color: "#D0D3DA",
   position: "absolute",
   top: 8, // You can adjust this value as needed
   right: 8, // You can adjust this value as needed
@@ -70,7 +69,6 @@ export const HeaderDiv = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  color: "#D0D3DA",
 });
 
 const StyledUl = styled("ul")({
@@ -81,7 +79,6 @@ const StyledUl = styled("ul")({
 const Text = styled("span")({
   flexGrow: 1,
   textAlign: "center",
-  color: "#D0D3DA",
   fontSize: "16px",
 });
 
@@ -121,7 +118,6 @@ const TravelInfoContainer = styled("div")({
 
 const TravelInfoRow = styled("div")({
   marginBottom: "24px",
-  color: "#D0D3DA",
 });
 
 const TravelInfoData = styled("span")({
@@ -266,7 +262,7 @@ export function ButtonAttackPlanet({
                               quantities[ship] >
                               ownFleet[ship as keyof typeof ownFleet]
                                 ? "red"
-                                : "#D0D3DA",
+                                : "#F8F8FF",
                           }}
                         >
                           {ship} (

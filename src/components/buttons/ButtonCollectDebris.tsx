@@ -47,7 +47,6 @@ export const CloseStyledIcon = styled(CloseIcon)({
   cursor: "pointer",
   padding: "0 8px",
   fontSize: "2em",
-  color: "#D0D3DA",
   position: "absolute",
   top: 8, // You can adjust this value as needed
   right: 8, // You can adjust this value as needed
@@ -64,7 +63,6 @@ export const HeaderDiv = styled("div")({
   justifyContent: "space-between",
   alignSelf: "center",
   alignItems: "center",
-  color: "#D0D3DA",
   marginBottom: "16px",
 });
 
@@ -85,7 +83,7 @@ const Text = styled("span")<TextProps>(({ totalShips, ownFleet }) => ({
   fontSize: "16px",
   marginRight: "32px",
   textTransform: "capitalize",
-  color: totalShips > ownFleet.scraper ? "red" : "#D0D3DA",
+  color: totalShips > ownFleet.scraper ? "red" : "#F8F8FF",
 }));
 
 const FlexContainer = styled("div")({
@@ -124,7 +122,7 @@ const TravelDetailColumn = styled("div")({
 });
 
 const TravelInfoName = styled("div")({
-  color: "#D0D3DA",
+  color: "#F8F8FF",
 });
 
 const TravelInfoValue = styled("span")({
@@ -224,7 +222,7 @@ export function ButtonCollectDebris({
                   scraper (
                   <span
                     style={{
-                      color: totalShips > ownFleet.scraper ? "red" : "#D0D3DA",
+                      color: totalShips > ownFleet.scraper ? "red" : "#F8F8FF",
                     }}
                   >
                     {String(availableScrapers)}

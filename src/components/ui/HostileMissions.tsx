@@ -57,8 +57,7 @@ const Row = styled(Box)({
 });
 
 const Cell = styled(Typography)(() => ({
-  color: "#0F0",
-  opacity: "0.5",
+  color: "#CC5500",
 }));
 
 const getTimeDifference = (arrivalTime: number) => {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FixedGlobalStyle, ThemedGlobalStyle } from "./shared/styled/Theme";
+import { GlobalStyle } from "./shared/styled/Theme";
 import AuthController from "./components/auth/AuthController";
 import { StarknetProvider } from "./components/provider";
 
@@ -11,8 +11,7 @@ function App() {
   return (
     <>
       <StarknetProvider>
-        <FixedGlobalStyle />
-        <ThemedGlobalStyle />
+        <GlobalStyle />
         <AppWrapper>
           <AuthController />
         </AppWrapper>

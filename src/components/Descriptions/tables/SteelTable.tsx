@@ -12,7 +12,7 @@ import {
 import styled from "styled-components";
 
 const StyledTableCell = styled(TableCell)`
-  color: #d0d3da;
+  color: #f8f8ff;
 `;
 
 export function SteelTable() {
@@ -170,7 +170,7 @@ export function SteelTable() {
     <Box my={2}>
       <Typography
         variant="h6"
-        style={{ color: "#d0d3da", marginBottom: "8px" }}
+        style={{ color: "#F8F8FF", marginBottom: "8px" }}
       >
         Resource Stat Table
       </Typography>
