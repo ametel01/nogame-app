@@ -63,12 +63,12 @@ const UniverseBoxItem = ({ ownPlanetId, position }: UniverseBoxItemProps) => {
   return (
     <UniverseViewBox
       planetId={planetId}
-      // address={address}
       img={img}
       owner={shortenedAddress}
       position={formattedPosition}
       points={points}
       highlighted={address === "0x" + owner}
+      ownPlanetId={ownPlanetId}
       ownFleet={ownFleet}
       isNoobProtected={isNoobProtected}
     />

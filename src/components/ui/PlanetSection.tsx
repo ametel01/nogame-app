@@ -49,7 +49,6 @@ const PlanetInfoContainer = styled(Box)({
 });
 
 const PlanetInfoRowStyled = styled(Box)({
-  fontFamily: "monospace",
   display: "flex",
   justifyContent: "flex-start", // This ensures content starts from the left
   gap: "12px", // This will place the label closer to its value.
@@ -95,8 +94,7 @@ const PlanetPositionRowStyled = styled(Box)({
 });
 
 const RadarTextStyle = styled(Box)({
-  fontFamily: "monospace", // Gives it a machine-like feel.
-  color: "#81d3ff",
+  color: "#0F0",
 });
 
 interface Props {

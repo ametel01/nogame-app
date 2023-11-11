@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import styled from "styled-components";
+import { Typography } from "@mui/material";
 import { useContractRead } from "@starknet-react/core";
 import nogameLogo from "../../assets/logos/NoGameLogo.png";
 // import { numberWithCommas } from "../../shared/utils";
@@ -32,13 +33,13 @@ const RankLineContainer = styled.div`
   font-weight: 500;
 `;
 
-const TitleContainer = styled.div`
-  font-weight: 500;
-  line-height: 18px;
-  letter-spacing: 0.02em;
-  color: grey;
-  margin-left: 4px;
-`;
+const TitleContainer = styled(Typography)({
+  fontWeight: 500,
+  lineHeight: "18px",
+  letterSpacing: "0.02em",
+  color: "grey",
+  marginLeft: "4px",
+});
 
 const TrophyDiv = styled.div`
   display: flex;
@@ -74,7 +75,7 @@ const LogoAndRankContainer = ({ planetId }: Props) => {
     <LogoContainer>
       <StyledImage src={nogameLogo} alt="NoGame Logo" />
       <RankContainer>
-        <RankLineContainer style={{ fontFamily: "monospace" }}>
+        <RankLineContainer>
           <TrophyDiv>
             <TitleContainer>Score</TitleContainer>
           </TrophyDiv>

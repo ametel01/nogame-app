@@ -15,9 +15,13 @@ import { ShipsLevels, TechLevels } from "../../shared/types";
 import useSendFleet from "../../hooks/writeHooks/useSendFleet";
 import { Fleet, Position } from "../../shared/types";
 import {
-  useGetFuelConsumption,
-  useGetTravelTime,
-} from "../../hooks/FleetHooks";
+  calculateTotalCargoCapacity,
+  getDistance,
+  getFleetSpeed,
+  getFlightTime,
+  getFuelConsumption,
+} from "../../shared/utils/FleeUtils";
+import { convertSecondsToTime } from "../../shared/utils";
 
 type ShipName = "carrier" | "scraper" | "sparrow" | "frigate" | "armade";
 
@@ -88,12 +92,51 @@ const FlexContainer = styled("div")({
   borderRadius: "8px",
   gap: "4px",
   margin: "8px",
+  flexDirection: "row",
+});
+
+const WarningContainer = styled("div")({
+  display: "flex",
+  borderRadius: "8px",
+  gap: "4px",
+  // margin: "8px",
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: "16px",
+  marginBottom: "32px",
 });
 
 const InputButtonContainer = styled("div")({
   display: "flex",
   alignItems: "center",
   gap: "4px",
+});
+
+const TravelInfoContainer = styled("div")({
+  alignSelf: "flex-start",
+  marginTop: "32px",
+  marginLeft: "20px",
+  fontSize: "16px",
+});
+
+const TravelInfoRow = styled("div")({
+  marginBottom: "24px",
+  color: "#D0D3DA",
+});
+
+const TravelInfoData = styled("span")({
+  color: "#98fb98",
+  marginLeft: "16px",
+});
+
+const ShipImage = styled("img")({
+  width: "40px",
+  height: "40px",
+  margin: "0 4px",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  borderRadius: "8px",
+  marginRight: "8px",
 });
 
 interface Props {
@@ -104,7 +147,7 @@ interface Props {
   destination: string;
   ownFleet: ShipsLevels;
   techs: TechLevels;
-  ownPosition: Position;
+  ownPosition?: Position;
 }
 
 export function ButtonAttackPlanet({
@@ -117,6 +160,10 @@ export function ButtonAttackPlanet({
   ownPosition,
 }: Props) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const [travelTime, setTravelTime] = useState(0);
+  const [fuelConsumption, setFuelConsumption] = useState(0);
+  const [cargoCapacity, setCargoCapacity] = useState(0);
+
   const totalShips = Object.entries(quantities).reduce(
     (acc, [ship, quantity]) => {
       return quantity <= ownFleet[ship as keyof typeof ownFleet]
@@ -151,10 +198,14 @@ export function ButtonAttackPlanet({
     armade: quantities.armade || 0,
   };
 
-  // Now we call the hooks unconditionally
-  const travelTime = useGetTravelTime(ownPosition, position, fleet, techs);
+  const distance = ownPosition ? getDistance(ownPosition, position) : 0;
 
-  const fuelConsumption = useGetFuelConsumption(ownPosition, position, fleet);
+  useEffect(() => {
+    const speed: number = getFleetSpeed(fleet, techs);
+    setTravelTime(getFlightTime(speed, distance));
+    setFuelConsumption(getFuelConsumption(fleet, distance));
+    setCargoCapacity(calculateTotalCargoCapacity(fleet));
+  }, [fleet, ownPosition]);
 
   const { submitTx } = useSendFleet(fleet, position, false);
 
@@ -202,25 +253,10 @@ export function ButtonAttackPlanet({
                 <div>
                   <StyledUl>
                     {ships.map((ship) => (
-                      <FlexContainer
-                        key={ship} // unique key prop based on the ship name
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                        }}
-                      >
-                        <img
+                      <FlexContainer key={ship}>
+                        <ShipImage
                           src={shipImageMapping[ship as ShipName] || ""}
                           alt={ship}
-                          style={{
-                            width: "40px",
-                            height: "40px",
-                            margin: "0 4px",
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                            borderRadius: "8px",
-                            marginRight: "8px",
-                          }}
                         />
                         <Text
                           style={{
@@ -234,8 +270,20 @@ export function ButtonAttackPlanet({
                           }}
                         >
                           {ship} (
-                          <span style={{ color: "#81d3ff" }}>
-                            {Number(ownFleet[ship as keyof typeof ownFleet])}
+                          <span
+                            style={{
+                              color:
+                                Number(
+                                  ownFleet[ship as keyof typeof ownFleet]
+                                ) -
+                                  (quantities[ship] || 0) <
+                                0
+                                  ? "red"
+                                  : "#98fb98",
+                            }}
+                          >
+                            {Number(ownFleet[ship as keyof typeof ownFleet]) -
+                              (quantities[ship] || 0)}
                           </span>
                           )
                         </Text>
@@ -261,74 +309,46 @@ export function ButtonAttackPlanet({
                   </StyledUl>
                 </div>
                 {/* Right Column */}
-                <div
-                  style={{
-                    alignSelf: "flex-start",
-                    marginLeft: "20px",
-                    fontSize: "16px",
-                  }}
-                >
-                  <div
-                    style={{
-                      marginTop: "32px",
-                      marginBottom: "32px",
-                      color: "#D0D3DA",
-                    }}
-                  >
-                    Destination:{" "}
-                    <span style={{ color: "#81d3ff", marginLeft: "16px" }}>
-                      {destination}
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      marginTop: "28px",
-                      marginBottom: "32px",
-                      color: "#D0D3DA",
-                    }}
-                  >
+                <TravelInfoContainer>
+                  <TravelInfoRow>
+                    Destination: <TravelInfoData>{destination}</TravelInfoData>
+                  </TravelInfoRow>
+                  <TravelInfoRow>
                     Travel time:{" "}
-                    <span style={{ color: "#81d3ff", marginLeft: "16px" }}>
-                      {travelTime ? Number(travelTime) : null}
-                    </span>
-                  </div>
-                  <div style={{ marginBottom: "32px", color: "#D0D3DA" }}>
+                    <TravelInfoData>
+                      {convertSecondsToTime(travelTime)}
+                    </TravelInfoData>
+                  </TravelInfoRow>
+                  <TravelInfoRow>
                     Time arrival:{" "}
-                    <span style={{ color: "#81d3ff" }}>
+                    <TravelInfoData>
                       {timeOfArrival
                         ? timeOfArrival.toLocaleTimeString()
                         : null}
-                    </span>
-                  </div>
-                  <div style={{ marginBottom: "32px", color: "#D0D3DA" }}>
+                    </TravelInfoData>
+                  </TravelInfoRow>
+                  <TravelInfoRow>
                     Fuel consumption:{" "}
-                    <span style={{ color: "#81d3ff", marginLeft: "16px" }}>
-                      {fuelConsumption ? Number(fuelConsumption) : null}
-                    </span>
-                  </div>
-                  <div style={{ marginBottom: "32px", color: "#D0D3DA" }}>
+                    <TravelInfoData>{fuelConsumption}</TravelInfoData>
+                  </TravelInfoRow>
+                  <TravelInfoRow>
                     Total number of ships:{" "}
-                    <span style={{ color: "#81d3ff", marginLeft: "16px" }}>
-                      {totalShips}
-                    </span>
-                  </div>
-                </div>
+                    <TravelInfoData>{totalShips}</TravelInfoData>
+                  </TravelInfoRow>
+                  <TravelInfoRow>
+                    Cargo capacity:{" "}
+                    <TravelInfoData>{cargoCapacity}</TravelInfoData>
+                  </TravelInfoRow>
+                </TravelInfoContainer>
               </FlexContainer>
-              <FlexContainer
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginTop: "16px",
-                  marginBottom: "32px",
-                }}
-              >
+              <WarningContainer>
                 <WarningIcon sx={{ color: "#E67E51" }} />
                 <Text style={{ marginLeft: "8px", color: "#E67E51" }}>
                   Attention! You are initiating a galactic assault. The target
                   planet will receive an alert that your starfleet is on its
                   trajectory.
                 </Text>
-              </FlexContainer>
+              </WarningContainer>
               <StyledButton
                 onClick={submitTx}
                 fullWidth

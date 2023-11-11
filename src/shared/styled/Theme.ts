@@ -1,23 +1,21 @@
 import { createGlobalStyle } from "styled-components";
 
 export const FixedGlobalStyle = createGlobalStyle`
-// @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet');
 
 html, input, textarea, button {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Share Tech Mono', sans-serif;
   font-display: fallback;
  }
 
  @supports (font-variation-settings: normal) {
   html, input, textarea, button {
-    // font-family: 'Orbitron', sans-serif;
+    font-family: 'Share Tech Mono', sans-serif;
    }
 }
 
 html,
 body {
-  font-family: 'Orbitron', sans-serif;
-  // letter-spacing: 0.04em;
+  font-family: 'Share Tech Mono', sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -32,7 +30,7 @@ button {
 }
 
 html {
-  font-size: 16px;
+  font-size: 17px;
   font-variant: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -57,7 +57,8 @@ const Row = styled(Box)({
 });
 
 const Cell = styled(Typography)(() => ({
-  color: "#58a6ff", // Assuming a highlight color from the image
+  color: "#0F0",
+  opacity: "0.5",
 }));
 
 const getTimeDifference = (arrivalTime: number) => {

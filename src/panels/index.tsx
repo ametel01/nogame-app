@@ -48,6 +48,7 @@ import {
   DefenceCost,
   DefenceLevels,
 } from "../shared/types";
+import { Typography } from "@mui/material";
 
 interface ResourcesSectionArgs {
   planetId: number;
@@ -76,7 +77,8 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
           active={activeTab === 1 ? "true" : "false"}
         >
           <RowCentered gap={"8px"}>
-            <PrecisionManufacturing /> Compounds
+            <PrecisionManufacturing />
+            <Typography>Compounds</Typography>
           </RowCentered>
         </ResourceTab>
         <ResourceTab
@@ -84,7 +86,8 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
           active={activeTab === 2 ? "true" : "false"}
         >
           <RowCentered gap={"8px"}>
-            <Biotech /> Research Lab
+            <Biotech />
+            <Typography>Research Lab</Typography>
           </RowCentered>
         </ResourceTab>
         <ResourceTab
@@ -92,7 +95,8 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
           active={activeTab === 3 ? "true" : "false"}
         >
           <RowCentered gap={"8px"}>
-            <Rocket /> Dockyard
+            <Rocket />
+            <Typography>Dockyard</Typography>
           </RowCentered>
         </ResourceTab>
         <ResourceTab
@@ -100,7 +104,8 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
           active={activeTab === 4 ? "true" : "false"}
         >
           <RowCentered gap={"8px"}>
-            <Security /> Defences
+            <Security />
+            <Typography>Defences</Typography>
           </RowCentered>
         </ResourceTab>
         <ResourceTab
@@ -108,7 +113,8 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
           active={activeTab === 5 ? "true" : "false"}
         >
           <RowCentered gap={"8px"}>
-            <Explore /> Universe
+            <Explore />
+            <Typography>Universe</Typography>
           </RowCentered>
         </ResourceTab>
       </ResourcesTabList>

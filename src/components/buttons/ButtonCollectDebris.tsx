@@ -9,9 +9,13 @@ import { StyledButton } from "../../shared/styled/Button";
 import useSendFleet from "../../hooks/writeHooks/useSendFleet";
 import { Fleet, Position, ShipsLevels, TechLevels } from "../../shared/types";
 import {
-  useGetFuelConsumption,
-  useGetTravelTime,
-} from "../../hooks/FleetHooks";
+  SCRAPER,
+  getDistance,
+  getFleetSpeed,
+  getFlightTime,
+  getFuelConsumption,
+} from "../../shared/utils/FleeUtils";
+import { convertSecondsToTime } from "../../shared/utils";
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -70,12 +74,19 @@ const StyledUl = styled("ul")({
   width: "100%", // Ensuring ul takes full width for consistency
 });
 
-const Text = styled("span")({
+interface TextProps {
+  totalShips: number;
+  ownFleet: { scraper: number; [key: string]: number };
+}
+
+const Text = styled("span")<TextProps>(({ totalShips, ownFleet }) => ({
   flexGrow: 1,
   textAlign: "center",
-  color: "#D0D3DA",
   fontSize: "16px",
-});
+  marginRight: "32px",
+  textTransform: "capitalize",
+  color: totalShips > ownFleet.scraper ? "red" : "#D0D3DA",
+}));
 
 const FlexContainer = styled("div")({
   display: "flex",
@@ -93,6 +104,14 @@ const InputButtonContainer = styled("div")({
   gap: "4px",
 });
 
+const TravelInfoContainer = styled("div")({
+  display: "flex",
+  flexDirection: "row",
+  gap: "20px",
+  alignItems: "flex-start",
+  width: "100%",
+});
+
 const TravelDetailColumn = styled("div")({
   display: "flex",
   flexDirection: "column",
@@ -102,6 +121,24 @@ const TravelDetailColumn = styled("div")({
   fontSize: "16px",
   marginBottom: "48px",
   flex: "1 1 auto",
+});
+
+const TravelInfoName = styled("div")({
+  color: "#D0D3DA",
+});
+
+const TravelInfoValue = styled("span")({
+  color: "#98fb98",
+});
+
+const ShipImage = styled("img")({
+  width: "40px",
+  height: "40px",
+  margin: "0 4px",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  borderRadius: "8px",
+  marginRight: "8px",
 });
 
 interface Props {
@@ -120,15 +157,15 @@ export function ButtonCollectDebris({
   ownPosition,
 }: Props) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const [travelTime, setTravelTime] = useState(0);
+  const [fuelConsumption, setFuelConsumption] = useState(0);
   const [isModalOpen] = useState(true);
   const totalShips = quantities.scraper || 0;
 
   const handleInputChange = (e: { target: { value: string } }) => {
     const inputValue =
       e.target.value === "" ? 0 : Math.max(0, parseInt(e.target.value, 10));
-    if (inputValue <= ownFleet.scraper) {
-      setQuantities({ scraper: inputValue });
-    }
+    setQuantities({ scraper: inputValue });
   };
 
   // Calculate the available scrapers after considering the input value
@@ -149,9 +186,13 @@ export function ButtonCollectDebris({
     armade: 0,
   };
 
-  const travelTime = useGetTravelTime(ownPosition, position, fleet, techs);
+  const distance = ownPosition ? getDistance(ownPosition, position) : 0;
 
-  const fuelConsumption = useGetFuelConsumption(ownPosition, position, fleet);
+  useEffect(() => {
+    const speed: number = getFleetSpeed(fleet, techs);
+    setTravelTime(getFlightTime(speed, distance));
+    setFuelConsumption(getFuelConsumption(fleet, distance));
+  }, [fleet]);
 
   const { submitTx } = useSendFleet(fleet, position, true);
 
@@ -178,30 +219,12 @@ export function ButtonCollectDebris({
           <div>
             <StyledUl>
               <FlexContainer>
-                <img
-                  src={scraperImg}
-                  alt="scraper"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    margin: "0 4px",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    borderRadius: "8px",
-                    marginRight: "8px",
-                  }}
-                />
-                <Text
-                  style={{
-                    marginRight: "32px",
-                    textTransform: "capitalize",
-                    color: totalShips > ownFleet.scraper ? "red" : "#D0D3DA",
-                  }}
-                >
+                <ShipImage src={scraperImg} alt="scraper" />
+                <Text totalShips={totalShips} ownFleet={ownFleet}>
                   scraper (
                   <span
                     style={{
-                      color: totalShips > ownFleet.scraper ? "red" : "#81d3ff",
+                      color: totalShips > ownFleet.scraper ? "red" : "#D0D3DA",
                     }}
                   >
                     {String(availableScrapers)}
@@ -222,54 +245,41 @@ export function ButtonCollectDebris({
               </FlexContainer>
             </StyledUl>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "20px",
-              alignItems: "flex-start",
-              width: "100%",
-            }}
-          >
+          <TravelInfoContainer>
             <TravelDetailColumn>
-              {/* 3 items on the left */}
-              <div style={{ color: "#D0D3DA" }}>
-                Destination:{" "}
-                <span style={{ color: "#81d3ff" }}>{positionString}</span>
-              </div>
-              <div style={{ color: "#D0D3DA" }}>
+              <TravelInfoName>
+                Destination: <TravelInfoValue>{positionString}</TravelInfoValue>
+              </TravelInfoName>
+              <TravelInfoName>
                 Travel time:{" "}
-                <span style={{ color: "#81d3ff" }}>
-                  {travelTime ? String(travelTime) : null}
-                </span>
-              </div>
-              <div style={{ color: "#D0D3DA" }}>
+                <TravelInfoValue>
+                  {convertSecondsToTime(travelTime)}
+                </TravelInfoValue>
+              </TravelInfoName>
+              <TravelInfoName>
                 Time arrival:{" "}
-                <span style={{ color: "#81d3ff" }}>
+                <TravelInfoValue>
                   {timeOfArrival ? timeOfArrival.toLocaleTimeString() : null}
-                </span>
-              </div>
+                </TravelInfoValue>
+              </TravelInfoName>
             </TravelDetailColumn>
             <TravelDetailColumn>
-              {/* 2 items on the right */}
-              <div style={{ color: "#D0D3DA" }}>
+              <TravelInfoName>
                 Tritium consumption:{" "}
-                <span style={{ color: "#81d3ff" }}>
-                  {fuelConsumption ? String(fuelConsumption) : null}
-                </span>
-              </div>
-              <div style={{ color: "#D0D3DA" }}>
+                <TravelInfoValue>{fuelConsumption}</TravelInfoValue>
+              </TravelInfoName>
+              <TravelInfoName>
                 Total number of ships:{" "}
-                <span style={{ color: "#81d3ff" }}>{String(totalShips)}</span>
-              </div>
-              <div style={{ color: "#D0D3DA" }}>
+                <TravelInfoValue>{String(totalShips)}</TravelInfoValue>
+              </TravelInfoName>
+              <TravelInfoName>
                 Cargo Capacity:{" "}
-                <span style={{ color: "#81d3ff" }}>
-                  {String(totalShips * 15000)}
-                </span>
-              </div>
+                <TravelInfoValue>
+                  {String(totalShips * SCRAPER.cargo)}
+                </TravelInfoValue>
+              </TravelInfoName>
             </TravelDetailColumn>
-          </div>
+          </TravelInfoContainer>
         </Container>
         <StyledButton
           onClick={submitTx}

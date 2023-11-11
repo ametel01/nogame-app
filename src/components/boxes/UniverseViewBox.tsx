@@ -60,6 +60,7 @@ interface Props {
   collectible?: Resources;
   fleet?: ShipsLevels;
   defences?: DefenceLevels;
+  ownPlanetId: number;
   ownFleet?: ShipsLevels;
   isNoobProtected?: boolean;
 }
@@ -75,6 +76,7 @@ const UniverseViewBox = ({
   collectible,
   fleet,
   defences,
+  ownPlanetId,
   ownFleet,
   isNoobProtected,
 }: Props) => {
@@ -86,9 +88,8 @@ const UniverseViewBox = ({
 
   const isButtonDisabled = highlighted;
   // TODO: implement StarkName once on mainnet
-
-  const techs = useTechsLevels(Number(planetId));
-  const ownPlanetPosition = usePlanetPosition(Number(planetId));
+  const techs = useTechsLevels(Number(ownPlanetId));
+  const ownPlanetPosition = usePlanetPosition(Number(ownPlanetId));
 
   // Derived states or memoized values should handle the conditional logic
   const techsNumberised = useMemo(() => {
@@ -120,24 +121,30 @@ const UniverseViewBox = ({
       <Styled.SubBox>
         <Styled.Title>
           <Styled.ResourceTitle>PLAYER</Styled.ResourceTitle>
-          <Styled.NumberContainer>{`0x${owner}`}</Styled.NumberContainer>
+          <Styled.NumberContainer
+            style={{ fontSize: "14px" }}
+          >{`0x${owner}`}</Styled.NumberContainer>
         </Styled.Title>
         <InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle style={{ width: "200%" }}>
               LAST ONLINE
             </Styled.ResourceTitle>
-            <Styled.NumberContainer>Oct 13</Styled.NumberContainer>
+            <Styled.NumberContainer style={{ fontSize: "14px" }}>
+              Oct 13
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POINTS</Styled.ResourceTitle>
-            <Styled.NumberContainer>
+            <Styled.NumberContainer style={{ fontSize: "14px" }}>
               {numberWithCommas(Number(points))}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POSITION</Styled.ResourceTitle>
-            <Styled.NumberContainer>{position}</Styled.NumberContainer>
+            <Styled.NumberContainer style={{ fontSize: "14px" }}>
+              {position}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
         </InfoContainer>
         <DebrisFieldView

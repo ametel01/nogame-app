@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import styled from "styled-components";
+import { Typography } from "@mui/material";
 import {
   QUARTZADDRESS,
   STEELADDRESS,
@@ -33,7 +34,7 @@ const ImageAddressContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 50px;
+  width: 50px;
   cursor: pointer;
 
   &:hover {
@@ -47,21 +48,29 @@ const ImageStyle = styled.img`
   object-fit: contain;
 `;
 
+const ResourceName = styled(Typography)({
+  textTransform: "uppercase",
+  opacity: 0.5,
+  fontWeight: 700,
+  lineHeight: "16px",
+  letterSpacing: "0.02em",
+  margin: 0, // Make sure no external spacing
+  padding: 0, // Make sure no internal spacing
+
+  width: "64px",
+});
+
 const TotalResourceText = styled.div`
-  color: #58a6ff;
+  color: #98fb98;
   font-weight: 500;
   margin-left: 10px;
-`;
-
-const TotalResourceType = styled.div`
-  font-size: 10px;
-  margin-top: 10px;
-  margin-left: 10px;
+  padding-bottom: 6px;
 `;
 
 const TotalResourceContainer = styled.div`
   display: flex;
   align-items: center;
+  padding: 8px;
 `;
 
 const TotalResourceWrapper = styled.div`
@@ -83,18 +92,25 @@ interface Props {
 const Energy = ({ available, img, title, fromCelestia }: Props) => {
   return (
     <Container>
-      <ImageAddressContainer>
-        <div style={{ width: "30px" }}>
-          <ImageStyle src={img} alt="resource" />
+      <Tooltip
+        title={"Energy must always be positive to avoid loosing production"}
+        arrow
+      >
+        <div>
+          <ResourceName style={{ fontSize: "16px" }}>{title}</ResourceName>
+          <ImageAddressContainer>
+            <div style={{ width: "30px" }}>
+              <ImageStyle src={img} alt="resource" />
+            </div>
+          </ImageAddressContainer>
         </div>
-      </ImageAddressContainer>
+      </Tooltip>
       <TotalResourceWrapper>
-        {title}
         <TotalResourceContainer>
           <div>
-            <TotalResourceType>Net Available</TotalResourceType>
+            <ResourceName style={{ fontSize: "10px" }}>Available</ResourceName>
             <TotalResourceText>{String(available)}</TotalResourceText>
-            <TotalResourceType>From Celestia</TotalResourceType>
+            <ResourceName style={{ fontSize: "10px" }}>Celestia</ResourceName>
             <TotalResourceText>{String(fromCelestia)}</TotalResourceText>
           </div>
         </TotalResourceContainer>
@@ -108,27 +124,32 @@ const Resource = ({ spendable, collectible, img, title, address }: Props) => {
   return (
     <Container>
       <Tooltip title={copied ? "Copied" : "Copy Token Address"} arrow>
-        <ImageAddressContainer
-          onClick={() => {
-            if (address) {
-              const blob = new Blob([address], { type: "text/plain" });
-              const item = new ClipboardItem({ "text/plain": blob });
-              navigator.clipboard.write([item]).then(() => setCopied(true));
-            }
-          }}
-        >
-          <div style={{ width: "30px" }}>
-            <ImageStyle src={img} alt="resource" />
-          </div>
-        </ImageAddressContainer>
+        <div>
+          <ResourceName style={{ fontSize: "16px" }}>{title}</ResourceName>
+          <ImageAddressContainer
+            onClick={() => {
+              if (address) {
+                const blob = new Blob([address], { type: "text/plain" });
+                const item = new ClipboardItem({ "text/plain": blob });
+                navigator.clipboard.write([item]).then(() => setCopied(true));
+              }
+            }}
+          >
+            <div style={{ width: "30px" }}>
+              <ImageStyle src={img} alt="resource" />
+            </div>
+          </ImageAddressContainer>
+        </div>
       </Tooltip>
       <TotalResourceWrapper>
-        {title}
+        {/* <ResourceName style={{ fontSize: "16px" }}>{title}</ResourceName> */}
         <TotalResourceContainer>
           <div>
-            <TotalResourceType>Spendable</TotalResourceType>
+            <ResourceName style={{ fontSize: "10px" }}>Spendable</ResourceName>
             <TotalResourceText>{String(spendable)}</TotalResourceText>
-            <TotalResourceType>Collectible</TotalResourceType>
+            <ResourceName style={{ fontSize: "10px" }}>
+              Collectible
+            </ResourceName>
             <TotalResourceText>{String(collectible)}</TotalResourceText>
           </div>
         </TotalResourceContainer>

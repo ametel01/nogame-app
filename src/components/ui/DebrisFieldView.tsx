@@ -87,13 +87,15 @@ export function DebrisFieldView({
             aria-labelledby="collect-debris-modal"
             aria-describedby="collect-debris-modal-description"
           >
-            <ButtonCollectDebris
-              onClose={handleCloseModal}
-              position={position!}
-              ownFleet={ownFleet!}
-              techs={techs}
-              ownPosition={ownPosition}
-            />
+            <div>
+              <ButtonCollectDebris
+                onClose={handleCloseModal}
+                position={position!}
+                ownFleet={ownFleet!}
+                techs={techs}
+                ownPosition={ownPosition}
+              />
+            </div>
           </Modal>
         </>
       ) : (

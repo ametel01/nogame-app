@@ -1,7 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import WebFont from "webfontloader";
 import { StarknetProvider } from "./components/provider";
 import App from "./App";
+
+// Load Orbitron font
+WebFont.load({
+  google: {
+    families: ["Share Tech Mono:400,500,600,700"],
+  },
+});
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

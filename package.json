@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apibara/protocol": "^0.4.8",
+    "@apibara/starknet": "^0.3.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.12",
@@ -21,7 +23,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "starknet": "^5.19.5",
-    "styled-components": "^6.0.8"
+    "styled-components": "^6.0.8",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@mui/icons-material": "^5.14.12",
@@ -29,6 +32,7 @@
     "@types/node": "^20.8.6",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/webfontloader": "^1.6.37",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "@vitejs/plugin-react": "^3.1.0",

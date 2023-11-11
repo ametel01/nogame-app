@@ -22,7 +22,12 @@ const FleetMovementsContainer = styled(Box)({
 
 export const FixedLengthText = styled("div")({
   flex: 1,
-  fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+  padding: "0 10px",
+});
+
+export const MissionText = styled("div")({
+  flex: 1,
+  color: "#FFA500",
   padding: "0 10px",
 });
 
@@ -136,18 +141,12 @@ export const FleetMovements = ({ planetId }: Props) => {
                 alignItems: "center",
               }}
             >
-              <FixedLengthText style={{ color: "#81d3ff" }}>
-                {index + 1}
-              </FixedLengthText>
-              <FixedLengthText style={{ color: "#81d3ff" }}>
-                {Number(mission.destination)}
-              </FixedLengthText>
-              <FixedLengthText style={{ color: "#81d3ff" }}>
+              <MissionText>{index + 1}</MissionText>
+              <MissionText>{String(mission.destination)}</MissionText>
+              <MissionText>
                 {mission.is_debris ? "Debris Collection" : "Attack Mission"}
-              </FixedLengthText>
-              <FixedLengthText style={{ color: "#81d3ff" }}>
-                {countdowns[index]}
-              </FixedLengthText>
+              </MissionText>
+              <MissionText>{countdowns[index]}</MissionText>
               <Box sx={{ display: "flex", gap: "10px" }}>
                 <StyledButton
                   sx={{
