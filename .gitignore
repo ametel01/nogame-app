@@ -25,3 +25,5 @@ stats.html
 *.sw?
 
 .env
+
+indexer/prod-ca-2021.pem
