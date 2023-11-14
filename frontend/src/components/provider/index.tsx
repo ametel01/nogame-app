@@ -8,6 +8,7 @@ import {
 
 // const alchemyKey = import.meta.env.VITE_ALCHEMY_APY_KEY;
 const infuraKey = import.meta.env.VITE_INFURA_APY_KEY;
+
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const chains = [goerli];
   // const providers = [
