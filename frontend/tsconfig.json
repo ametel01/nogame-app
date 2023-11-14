@@ -1,24 +1,24 @@
 {
-  "typeRoots": ["./global.d.ts", "./node_modules/@types"],
   "compilerOptions": {
-    "allowImportingTsExtensions": true,
     "declaration": true,
     "target": "ESNext",
-    "useDefineForClassFields": true,
-    "lib": ["es2022", "es6", "DOM", "DOM.Iterable", "ESNext"],
+    "lib": ["es2022", "DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "Node16",
-    "moduleResolution": "Node16",
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "tests"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src",
+    "tests",
+    "./global.d.ts"
+  ]
 }
