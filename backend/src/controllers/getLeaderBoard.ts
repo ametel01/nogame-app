@@ -5,7 +5,6 @@ import fetchLeaderBoard from "../services/fetchLeaderBoard";
 export const getLeaderBoard = async (req: Request, res: Response) => {
   try {
     const data = await fetchLeaderBoard();
-    console.log("Leaderboard data:", data);
     res.json(data);
   } catch (error) {
     console.error("Error fetching leaderboard:", error);

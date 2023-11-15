@@ -13,7 +13,6 @@ export const getBattleReports = async (req: Request, res: Response) => {
 
   try {
     const data = await fetchBattleReportsForPlanet(planetId);
-    console.log("Battle Reports data:", data);
     res.json(data);
   } catch (error) {
     console.error("Error fetching battle reports:", error);

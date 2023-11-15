@@ -10,11 +10,6 @@ export const fetchBattleReportsForPlanet = async (planetId: number) => {
     return null;
   }
 
-  if (data && data.length === 0) {
-    console.log("No battle reports found for planet_id:", planetId);
-    return [];
-  }
-
   return data;
 };
 
