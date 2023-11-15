@@ -20,7 +20,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-items: center;
-  border: 2px solid black;
+  border: 2px solid #151a1e;
   align-items: stretch;
 `;
 
