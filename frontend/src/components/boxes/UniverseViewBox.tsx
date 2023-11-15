@@ -72,10 +72,6 @@ const UniverseViewBox = ({
   owner,
   points,
   highlighted,
-  spendable,
-  collectible,
-  fleet,
-  defences,
   ownPlanetId,
   ownFleet,
   isNoobProtected,
@@ -109,10 +105,7 @@ const UniverseViewBox = ({
           <PlanetModal
             planetId={planetId!}
             image={img}
-            spendable={spendable}
-            collectible={collectible}
-            fleet={fleet}
-            defences={defences}
+            position={position ? position : ""}
           />
         ) : (
           <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />

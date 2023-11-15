@@ -26,7 +26,8 @@ const TitleContainer = styled(Box)({
 const Title = styled(Typography)({
   fontWeight: "bold",
   textAlign: "center",
-  flexGrow: 1, // Takes up available space
+  flexGrow: 1,
+  opacity: 0.5,
 });
 
 const blinkAnimation = keyframes`

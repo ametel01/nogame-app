@@ -1,34 +1,37 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const LeaderboardTable = styled.table`
+const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   text-align: left;
 `;
 
-const LeaderboardHeader = styled.th`
+const Header = styled.th`
   background-color: #1a2025;
   color: white;
   padding: 10px;
   opacity: 0.5;
 `;
 
-type LeaderboardRowProps = {
+type RowProps = {
   isHighlighted: boolean;
 };
 
-// Use the type in your styled component with the correct syntax
-const LeaderboardRow = styled.tr<LeaderboardRowProps>`
+const Row = styled.tr<RowProps>`
   background-color: ${(props) =>
     props.isHighlighted ? "#32414B" : "transparent"};
   color: #98fb98;
 `;
 
-const LeaderboardData = styled.td`
+const Data = styled.td`
   padding: 10px;
   color: "#98fb98";
+`;
+
+const Wrapper = styled.div`
+  padding: 20px;
 `;
 
 type FetchData = {
@@ -36,9 +39,6 @@ type FetchData = {
   account: string;
   net_amount: number;
 };
-const LeaderboardWrapper = styled.div`
-  padding: 20px;
-`;
 
 interface Props {
   planetId: number;
@@ -78,43 +78,40 @@ const LeadearBoardTech = ({ planetId }: Props) => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  console.log(isLoading);
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
-    <LeaderboardWrapper>
-      <LeaderboardTable>
+    <Wrapper>
+      <Table>
         <thead>
           <tr>
-            <LeaderboardHeader>Rank</LeaderboardHeader>
-            <LeaderboardHeader>Player</LeaderboardHeader>
-            <LeaderboardHeader>Planet</LeaderboardHeader>
-            <LeaderboardHeader>Points</LeaderboardHeader>
+            <Header>Rank</Header>
+            <Header>Player</Header>
+            <Header>Planet</Header>
+            <Header>Points</Header>
           </tr>
         </thead>
         <tbody>
           {leaderboard.map((entry: FetchData, index: number) => (
-            <LeaderboardRow
+            <Row
               key={entry.planet_id}
               isHighlighted={entry.planet_id === Number(planetId)}
             >
-              <LeaderboardData>{index + 1}</LeaderboardData>
-              <LeaderboardData>
+              <Data>{index + 1}</Data>
+              <Data>
                 {entry.account.substring(0, 6)}...
                 {entry.account.substring(entry.account.length - 4)}
-              </LeaderboardData>
-              <LeaderboardData>{entry.planet_id}</LeaderboardData>
-              <LeaderboardData>
-                {Math.round(entry.net_amount / 1000)}
-              </LeaderboardData>
-            </LeaderboardRow>
+              </Data>
+              <Data>{entry.planet_id}</Data>
+              <Data>{Math.round(entry.net_amount / 1000)}</Data>
+            </Row>
           ))}
         </tbody>
-      </LeaderboardTable>
-    </LeaderboardWrapper>
+      </Table>
+    </Wrapper>
   );
 };
 

@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { useAccount } from "@starknet-react/core";
 import { useTokenOf } from "../hooks/useTokenOf";
 
-const LeaderboardPageWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   height: 100vh; // Adjust the height as needed
 `;
@@ -18,17 +18,31 @@ const Column = styled.div`
   padding: 20px;
 `;
 
-const LeaderboardSection = styled.section`
-  background-color: #1a2025;
+const Section = styled.section`
+  background: #1a2025; // Single color background to match your color requirement
+  color: #c5c6c7; // A slightly brighter text color for better contrast against the dark background
   margin-bottom: 20px;
   padding: 20px;
-  border-radius: 8px;
-  boxshadow: "0 4px 8px rgba(0, 0, 0, 0.1)";
+  border-radius: 10px; // Sleek, modern border radius
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); // Soft box shadow for depth without a blue hue
+  border: 1px solid #2a3038; // Slick border that is just slightly lighter than the background
+  overflow: hidden; // Ensures content does not spill out, maintaining a clean look
+  transition: all 0.2s ease-in-out; // Smooth transition for potential hover effects
+
+  // Typography
+  font-family: "Orbitron", sans-serif; // Retaining the sci-fi theme
+
+  // Since this is a passive element, we keep the hover effect subtle or you can remove it if not needed
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    transform: translateY(-2px); // Slight raise to give a hovering effect
+  }
 `;
 
 const Title = styled.h2`
   text-align: center;
   margin-bottom: 20px;
+  opacity: 0.5;
 `;
 
 const GeneralLeaderboardPage = () => {
@@ -42,26 +56,26 @@ const GeneralLeaderboardPage = () => {
   return (
     <>
       <Header planetId={planetId} />
-      <LeaderboardPageWrapper>
+      <Wrapper>
         <Column>
-          <LeaderboardSection>
+          <Section>
             <Title>Main Leaderboard</Title>
             <MainLeaderboard />
-          </LeaderboardSection>
+          </Section>
         </Column>
         <Column>
-          <LeaderboardSection>
+          <Section>
             <Title>Tech Leaderboard</Title>
             <TechLeaderboard />
-          </LeaderboardSection>
+          </Section>
         </Column>
         <Column>
-          <LeaderboardSection>
+          <Section>
             <Title>Fleet Leaderboard</Title>
             <FleetLeaderboard />
-          </LeaderboardSection>
+          </Section>
         </Column>
-      </LeaderboardPageWrapper>
+      </Wrapper>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useAccount } from "@starknet-react/core";
 import axios from "axios";
 
@@ -14,8 +14,8 @@ import { HostileMissions } from "./HostileMissions";
 //pink-capable-snake-964.mypinata.cloud/ipfs/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ/
 const IPFS_BASE_URL = "https://pink-capable-snake-964.mypinata.cloud/ipfs";
 const METADATA_URL = `${IPFS_BASE_URL}/Qmd5j1gnUBtbfpHCMnWDE8HRHu1G3ghuXSxjKW2pzy3PAk`;
-const IMG_URL = `${IPFS_BASE_URL}/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ`;
-const IMG_MODULO = 17;
+const IMG_URL = `${IPFS_BASE_URL}/QmYuu69m6ArmGq18QjC6UpqFgevFZXooupAyaxKd9XfDpW`;
+// const IMG_MODULO = 10;
 
 const DebugRowCentered = styled(RowCentered)`
   // border: 1px solid red;
@@ -23,16 +23,48 @@ const DebugRowCentered = styled(RowCentered)`
   // justify-content: flex-start;
 `;
 
+// const PlanetImageWrapper = styled(Box)({
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+//   height: 250,
+//   width: 250,
+//   borderRadius: 10,
+//   background: "#192125",
+//   overflow: "hidden",
+//   boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+// });
+
 const PlanetImageWrapper = styled(Box)({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  height: 250,
-  width: 250,
-  borderRadius: 10,
-  background: "#192125",
+  height: "250px", // Reduced size
+  width: "250px", // Keeping the width and height the same for a circle
+  borderRadius: "8%", // Circular shape to match the planet
+  background: "linear-gradient(135deg, #1b2735 0%, #090a0f 100%)", // Space-like gradient
   overflow: "hidden",
-  boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+  boxShadow: "0 2px 4px rgba(0,0,0,0.25), inset 0 0 5px rgba(255,255,255,0.2)", // Slightly reduced shadow for smaller size
+  position: "relative", // Needed for pseudo-element positioning
+  "&:before": {
+    // Creates a pseudo-element for extra styling
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background:
+      "radial-gradient(circle at center, rgba(255,255,255,0.25) 0%, transparent 50%)", // Adjusted glow effect for size
+    borderRadius: "inherit", // Inherits the parent's border radius
+  },
+  "& img": {
+    // Directly style the img element within the wrapper
+    display: "block", // Remove any inline behavior
+    maxWidth: "100%", // Full width of the wrapper
+    height: "auto", // Auto-height for aspect ratio
+    borderRadius: "inherit", // Inherits the parent's border radius
+  },
 });
 
 const MainContainer = styled(Box)({
@@ -134,11 +166,13 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
     }
   }, [planetId, metadata, address]);
 
-  const imgId = useMemo(
-    () =>
-      planetId !== undefined ? dataToNumber(planetId) % IMG_MODULO : undefined,
-    [planetId]
-  );
+  const imgId = Number(position?.orbit);
+
+  // const imgId = useMemo(
+  //   () =>
+  //     planetId !== undefined ? dataToNumber(planetId) % IMG_MODULO : undefined,
+  //   [planetId]
+  // );
 
   const findAttribute = (name: string) =>
     metadata?.attributes.find((props: Props) => props.trait_type === name)
