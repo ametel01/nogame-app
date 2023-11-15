@@ -7,7 +7,6 @@ import {
 import { styled, Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
-import { StyledButton } from "../../shared/styled/Button";
 import * as Styled from "../../shared/styled/Box";
 
 const FleetMovementsContainer = styled(Box)({
@@ -29,6 +28,12 @@ export const MissionText = styled("div")({
   flex: 1,
   color: "#FFA500",
   padding: "0 10px",
+});
+
+const StyledButton = styled(Button)({
+  margin: "16px",
+  marginLeft: "0px",
+  color: "white", // Spacing between the StyledButtons
 });
 
 interface Props {
@@ -98,7 +103,13 @@ export const FleetMovements = ({ planetId }: Props) => {
 
   return (
     <div>
-      <Button onClick={() => toggleDrawer(true)}>Fleet Movements</Button>
+      <StyledButton
+        variant="text"
+        size="small"
+        onClick={() => toggleDrawer(true)}
+      >
+        Fleet Movements
+      </StyledButton>
       <Drawer anchor="top" open={isOpen} onClose={() => toggleDrawer(false)}>
         <FleetMovementsContainer>
           <Box

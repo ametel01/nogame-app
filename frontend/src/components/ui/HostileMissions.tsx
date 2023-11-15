@@ -7,9 +7,10 @@ import WarningIcon from "@mui/icons-material/Warning";
 
 // Styled components
 const Container = styled(Box)(({ theme }) => ({
-  backgroundColor: "#0d1117", // Assuming a dark theme from the image
+  backgroundColor: "#1a2025", // Assuming a dark theme from the image
   color: "white",
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: "8px",
+  boxshadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   padding: theme.spacing(2),
   marginBottom: theme.spacing(2),
 }));
@@ -57,7 +58,8 @@ const Row = styled(Box)({
 });
 
 const Cell = styled(Typography)(() => ({
-  color: "#CC5500",
+  opacity: 0.5,
+  color: "#98fb98",
 }));
 
 const getTimeDifference = (arrivalTime: number) => {
@@ -86,29 +88,31 @@ export const HostileMissions = ({ planetId }: Props) => {
     : [];
 
   return (
-    <Container>
-      <TitleContainer>
-        {hostileMissions && hostileMissions.length > 0 && <StyledWarningIcon />}
-        <Title variant="h6">Hostile Missions</Title>
-      </TitleContainer>
-      <HeaderRow>
-        <Cell>Origin</Cell>
-        <Cell>Time to Arrival</Cell>
-        <Cell>Number of Ships</Cell>
-      </HeaderRow>
+    <>
       {hostileMissions === undefined ? (
         <CircularProgress />
-      ) : hostileMissions.length === 0 ? (
-        <Typography>No Hostile Missions</Typography>
-      ) : (
+      ) : hostileMissions.length === 0 ? null : (
         hostileMissions.map((mission) => (
-          <Row key={mission.id_at_origin}>
-            <Cell>{Number(mission.origin)}</Cell>
-            <Cell>{getTimeDifference(Number(mission.time_arrival))}</Cell>
-            <Cell>{Number(mission.number_of_ships)}</Cell>
-          </Row>
+          <Container>
+            <TitleContainer>
+              {hostileMissions && hostileMissions.length > 0 && (
+                <StyledWarningIcon />
+              )}
+              <Title variant="h6">Hostile Missions</Title>
+            </TitleContainer>
+            <HeaderRow>
+              <Cell>Origin</Cell>
+              <Cell>Time to Arrival</Cell>
+              <Cell>Number of Ships</Cell>
+            </HeaderRow>
+            <Row key={mission.id_at_origin}>
+              <Cell>{Number(mission.origin)}</Cell>
+              <Cell>{getTimeDifference(Number(mission.time_arrival))}</Cell>
+              <Cell>{Number(mission.number_of_ships)}</Cell>
+            </Row>
+          </Container>
         ))
       )}
-    </Container>
+    </>
   );
 };

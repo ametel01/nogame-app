@@ -48,8 +48,8 @@ const UniverseBoxItem = ({ ownPlanetId, position }: UniverseBoxItemProps) => {
 
   const img = getPlanetImageUrl(planetId);
 
-  const owner_data = useOwnerOf(planetId);
-  const owner: string = owner_data ? owner_data.toString(16) : "";
+  const { data } = useOwnerOf(planetId);
+  const owner: string = data ? data.toString(16) : "";
 
   const formattedPosition = `${String(position.system).padStart(
     2,

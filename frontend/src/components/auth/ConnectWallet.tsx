@@ -6,11 +6,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/system";
 import { useConnect } from "@starknet-react/core";
-import argent from "../../assets/uiIcons/argent.png";
-import braavos from "../../assets/uiIcons/braavos.png";
+import argentIcon from "../../assets/uiIcons/argent.png";
+import braavosIcon from "../../assets/uiIcons/braavos.png";
+import { argent, braavos } from "@starknet-react/core";
 
 const StyledBox = styled(Box)({
-  fontWeight: 800,
+  fontWeight: 600,
   fontSize: 20,
   color: "#E7ECEE", // This is a good neutral light color. Keeping it.
   position: "absolute",
@@ -22,7 +23,10 @@ const StyledBox = styled(Box)({
   borderRadius: 16,
   boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
   padding: "24px 12px",
-  display: "grid",
+  // display: "grid",
+  display: "flex",
+  flexDirection: "column",
+  width: "30%",
 });
 
 const HeaderDiv = styled("div")({
@@ -64,7 +68,7 @@ const ConnectorIcon = styled("img")({
 const ConnectorText = styled("span")({
   flexGrow: 1,
   textAlign: "center",
-  fontWeight: "600",
+  fontWeight: "500",
 });
 
 const DisclaimerText = styled("div")({
@@ -84,6 +88,7 @@ const StyledButton = styled(Button)({
   backgroundColor: "#2A2D3A", // Slightly lighter background for the button
   border: "1px solid #0F111A", // Darker border for definition
   display: "flex",
+  color: "white",
   justifyContent: "center",
   "&:hover": {
     background: "#212530", // Slightly lighter than #1B1E2A for a subtle hover effect
@@ -94,7 +99,8 @@ export default function ConnectWallet() {
   const [open, setOpen] = React.useState(false);
   const toggleModal = () => setOpen((prevState) => !prevState);
   const handleClose = () => setOpen(false);
-  const { connect, connectors } = useConnect();
+  const { connect } = useConnect();
+  const connectors = [argent(), braavos()];
 
   return (
     <>
@@ -109,9 +115,7 @@ export default function ConnectWallet() {
         onClose={toggleModal}
         aria-label="Connect Wallet Modal"
       >
-        <StyledBox
-          sx={{ display: "flex", flexDirection: "column", width: "35%" }}
-        >
+        <StyledBox>
           <HeaderDiv>
             CONNECT A WALLET
             <CloseStyledIcon onClick={handleClose} />
@@ -125,13 +129,13 @@ export default function ConnectWallet() {
                 >
                   {connector.id === "argentX" ? (
                     <>
-                      <ConnectorIcon src={argent} alt="argent" />
-                      <ConnectorText>Argent X</ConnectorText>
+                      <ConnectorIcon src={argentIcon} alt="argent" />
+                      <ConnectorText>{connector.name}</ConnectorText>
                     </>
                   ) : (
                     <>
-                      <ConnectorIcon src={braavos} alt="braavos" />
-                      <ConnectorText>Braavos</ConnectorText>
+                      <ConnectorIcon src={braavosIcon} alt="braavos" />
+                      <ConnectorText>{connector.name}</ConnectorText>
                       {/* <ConnectorIcon
                         src={connector.icon.light}
                         alt={connector.id}
