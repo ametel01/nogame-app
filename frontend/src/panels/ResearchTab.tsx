@@ -112,7 +112,7 @@ export const ResearchTabPanel = ({
     {
       description: <SpacetimeDescription />,
       img: spacetimeImg,
-      title: "Spacetime Warp",
+      title: "Spacetime Technology",
       functionCallName: "spacetime_warp",
       techName: "spacetime",
       requirements: spacetimeRequirements(labLevel, techLevels),

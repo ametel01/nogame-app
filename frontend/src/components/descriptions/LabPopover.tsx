@@ -1,344 +1,238 @@
+import React from "react";
 import styled from "styled-components";
+import Box from "@mui/material/Box";
 
-const Container = styled.div`
-  width: 100%;
-  text-align: justify;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+// Styled components
+
+export const StyledBox = styled(Box)({
+  fontWeight: 400,
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  backgroundColor: "#1a2025",
+  borderRadius: 16,
+  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
+  padding: "16px 16px",
+  display: "flex",
+  flexDirection: "column",
+  width: "35%",
+});
+
+const HeaderDiv = styled("div")`
+  font-size: 20px;
 `;
 
-const TextBox = styled.p`
-  font-size: 15px;
-  // padding-left: 5px;
+const Container = styled("div")`
+  padding: 20px;
+  border-radius: 8px;
 `;
 
-export function ArmourDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          Armour Innovation is vital for expanding an empire, increasing fleet
-          and defense hull durability by 10%. Using Steel, the universe's most
-          abundant resource, reserves can easily be gathered to enhance this
-          technology further. Since only metal is needed for research, excess
-          can be specifically used to boost further advancement in this area.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <li>
-              <b>Research Lab Level 2</b>
-            </li>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
+const TextBox = styled("div")`
+  font-size: 16px;
+  line-height: 1.5;
+`;
+
+const Requirements = styled("ul")({
+  color: "#98fb98",
+});
+
+// Component props
+interface DescriptionComponentProps {
+  title: string;
+  description: string;
+  requirements: React.ReactNode;
 }
 
-export function CombustionDescription() {
+// Description component
+const DescriptionComponent = ({
+  title,
+  description,
+  requirements,
+}: DescriptionComponentProps) => {
   return (
-    <>
+    <StyledBox>
+      <HeaderDiv>{title}</HeaderDiv>
       <Container>
         <TextBox>
-          The Combustion Drive technology allows fabrication of spacecraft like
-          Carrier vessels, Sparrow, and Scraper, boosting their Base Speed by
-          10% per advancement level. Slower ships in a fleet benefit from
-          increased fuel efficiency due to this technology.
+          {description}
           <br />
           <br />
-          <h2>Requirements:</h2>
-          <ul>
-            <b>
-              <li>Research Lab Level 1</li>
-              <li>Energy Innovation Level 1</li>
-            </b>
-          </ul>
+          <div>Requirements:</div>
+          <Requirements>{requirements}</Requirements>
         </TextBox>
       </Container>
-    </>
+    </StyledBox>
   );
-}
+};
 
-export function ComputerDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          Digital systems focus on enhancing computational abilities through the
-          development of more powerful and efficient systems, increasing
-          processing power and speed. These improvements allow for more complex
-          calculations and faster task execution, raising the maximum number of
-          controllable fleets with each advancement. Specifically, the number of
-          fleet slots equals the level of digital systems plus one, leading to
-          increased raiding activities and resource acquisition, thus maximizing
-          resource capture.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Research Lab Level 1</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
+// Usage of DescriptionComponent for different purposes
+export const ArmourDescription = () => (
+  <DescriptionComponent
+    title="Armour Technology"
+    description="Armour Innovation increases fleet and defense hull durability by 10%."
+    requirements={
+      <li>
+        <div>Research Lab Level 2</div>
+      </li>
+    }
+  />
+);
+export const CombustionDescription = () => (
+  <DescriptionComponent
+    title="Combustion Drive"
+    description="Each level increases the base speed of Carrier, Sparrow, and Scraper by 10%"
+    requirements={
+      <>
+        <li>Research Lab Level 1</li>
+        <li>Energy Innovation Level 1</li>
+      </>
+    }
+  />
+);
+export const ComputerDescription = () => (
+  <DescriptionComponent
+    title="Digital Systems"
+    description="Increases the fleet slots by 1 for each level. Specifically, the number of
+    fleet slots equals the level of digital systems plus one"
+    requirements={
+      <>
+        <li>Research Lab Level 1</li>
+      </>
+    }
+  />
+);
+export const EnergyDescription = () => (
+  <DescriptionComponent
+    title="Energy Innovation"
+    description="Each upgrade in Energy
+    Innovation leads to new research opportunities, enabling the
+    development of advanced ships and defenses."
+    requirements={
+      <>
+        <li>Research Lab Level 1</li>
+      </>
+    }
+  />
+);
+export const BeamDescription = () => (
+  <DescriptionComponent
+    title="Beam Technology"
+    description="This technology is an essential prerequisite for the
+    progression into ion and plasma-based weaponry systems. The utility of
+    Beam Technology research exhibits a saturation point at Level 12."
+    requirements={
+      <>
+        <li>Research Lab Level 1</li>
+        <li>Energy Innovation Level 1</li>
+      </>
+    }
+  />
+);
+export const IonDescription = () => (
+  <DescriptionComponent
+    title="Ion Systems"
+    description="This technology aids in developing weapon systems. Successful integration leads to advancements like
+    deploying Frigate-class vessels and initiating Plasma Engineering
+    research"
+    requirements={
+      <>
+        <li>Research Lab Level 4</li>
+        <li>Beam Technology Level 5</li>
+        <li>Energy Innovation Level 4</li>
+      </>
+    }
+  />
+);
 
-export function EnergyDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          Energy Innovation focuses on enhancing energy distribution methods, a
-          vital step for advancing technologies, defensive infrastructures, and
-          specific buildings. As various sectors progressed, the existing energy
-          distribution technology was found lacking for specialized research
-          projects, necessitating improvements. Each upgrade in Energy
-          Innovation leads to new research opportunities, enabling the
-          development of advanced ships and defenses. Therefore, Energy
-          Innovation's progression is directly tied to the sophistication of an
-          entity's technology and defensive capabilities.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Research Lab Level 1</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
+export const PlasmaDescription = () => (
+  <DescriptionComponent
+    title="Plasma Engineering"
+    description="Used for heavy weaponry development. Upon collision with a target, plasma is capable of
+    causing substantial structural damage."
+    requirements={
+      <>
+        <li>Research Lab Level 4</li>
+        <li>Beam Technology Level 10</li>
+        <li>Energy Innovation Level 8</li>
+        <li>Ion Systems Level 5</li>
+      </>
+    }
+  />
+);
 
-export function BeamDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          Beam Technology, a critical component of scientific investigation,
-          facilitates the development of laser-based weapon systems, which are
-          commonly integrated into defensive structures and various classes of
-          vessels. This technology is an essential prerequisite for the
-          progression into ion and plasma-based weaponry systems. The utility of
-          Beam Technology research exhibits a saturation point at Level 12,
-          beyond which no further enhancements to defensive capabilities are
-          observed. However, continuation of research beyond this level can
-          contribute to the accumulation of research points, thereby improving
-          the research ranking, but with no corresponding increase in defensive
-          benefits.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Research Lab Level 1</li>
-              <li>Energy Innovation Level 1</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
+export const ShieldDescription = () => (
+  <DescriptionComponent
+    title="Shields Technology"
+    description="Advancements in this domain increment shield
+    efficiency by a factor equivalent to 10% of the intrinsic baseline
+    value for each subsequent level of development."
+    requirements={
+      <>
+        <li>Research Lab Level 6</li>
+        <li>Energy Innovation Level 3</li>
+      </>
+    }
+  />
+);
 
-export function IonDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          Ion Systems focus on studying ion concentration processes, forming a
-          concentrated ion beam with destructive potential. This technology aids
-          in developing weapon systems, enhancing an empire by unlocking
-          elements like defensive turrets, more research opportunities, and
-          extra ship classes. Successful integration leads to advancements like
-          deploying Frigate-class vessels and initiating Plasma Engineering
-          research.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Research Lab Level 4</li>
-              <li>Beam Technology Level 5</li>
-              <li>Energy Innovation Level 4</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
+export const SpacetimeDescription = () => (
+  <DescriptionComponent
+    title="Spacetime Technology"
+    description=" With enough
+    advancement in Spacetime Warp Technology, Hyperspatial Propulsion 
+    becomes more than just a theoretical concept, allowing for the development of the Warp Drive"
+    requirements={
+      <>
+        <li>Research Lab Level 7</li>
+        <li>Energy Innovation Level 5</li>
+        <li>Shield Technology Level 5</li>
+      </>
+    }
+  />
+);
 
-export function PlasmaDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          An advanced evolution of ion technology has been achieved, which
-          facilitates the acceleration not of ions, but rather of high-energy
-          plasma. Upon collision with a target, this plasma is capable of
-          causing substantial structural damage. Additionally, through this
-          technological progression, our research team has discerned a
-          methodology to significantly enhance the extraction process of steel
-          and quartz materials.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Research Lab Level 4</li>
-              <li>Beam Technology Level 10</li>
-              <li>Energy Innovation Level 8</li>
-              <li>Ion Systems Level 5</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
+export const ThrustDescription = () => (
+  <DescriptionComponent
+    title="Thrust Propulsion"
+    description="After level 4 is reached, Carriers are equipped
+    with thrust propulsion, doubling their base speed. For every
+    subsequent level of advancement in the Thrust Propulsion technology,
+    the Base Speed is further boosted by a noteworthy percentage of 20%."
+    requirements={
+      <>
+        <li>Research Lab Level 2</li>
+        <li>Energy Innovation Level 1</li>
+      </>
+    }
+  />
+);
 
-export function ShieldDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          The field of shielding technology encompasses the investigation of
-          innovative methods for energy provision to increase shield efficiency
-          and robustness. Advancements in this domain increment shield
-          efficiency by a factor equivalent to 10% of the intrinsic baseline
-          value for each subsequent level of development.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Research Lab Level 6</li>
-              <li>Energy Innovation Level 3</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
+export const WarpDescription = () => (
+  <DescriptionComponent
+    title="Warp Drive"
+    description="Ships equipped with this technology (Armades) experience a 30% increase in Base
+    Speed for each level of proficiency in the Warp Drive"
+    requirements={
+      <>
+        <li>Research Lab Level 7</li>
+        <li>Energy Innovation Level 5</li>
+        <li>Shield Tech 5</li>
+        <li>Spacetime Warp Level 3</li>
+      </>
+    }
+  />
+);
 
-export function SpacetimeDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          Hypothetically, hyperspatial navigation relies on the idea of a
-          simultaneous, coexisting reality plane. When the hyperspatial
-          propulsion system is activated, the interstellar vehicle moves into
-          this alternate dimension, allowing for the quick traversal of vast
-          distances compared to conventional spacetime. Once the spacecraft
-          reaches the matching coordinate in the hyperspatial realm to its
-          intended location in normal space, it re-materializes. With enough
-          advancement in Spacetime Warp Technology, Hyperspatial Propulsion
-          becomes more than just a theoretical concept.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Research Lab Level 7</li>
-              <li>Energy Innovation Level 5</li>
-              <li>Shield Technology Level 5</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
-
-export function ThrustDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          Thrust Propulsion technology is a sophisticated system essential to
-          spacecraft manufacturing and plays a pivotal role in the successful
-          assembly of specific classes of vessels, including Frigates and
-          Carriers. This cutting-edge technology is meticulously designed to
-          significantly augment the performance of spacecraft into which it is
-          integrated. Quantitatively, the adoption of Thrust Propulsion
-          technology yields an enhancement in the Base Speed of all spacecraft
-          outfitted with it. After level 4 is reached, Carriers are equipped
-          with thrust propulsion, doubling their base speed. For every
-          subsequent level of advancement in the Thrust Propulsion technology,
-          the Base Speed is further boosted by a noteworthy percentage of 20%.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Research Lab Level 2</li>
-              <li>Energy Innovation Level 1</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
-
-export function WarpDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          The Warp Drive is an innovative technology crucial to the construction
-          of Armades, providing capabilities not possible through conventional
-          means. It also has a substantial impact on vessel propulsion systems.
-          Ships equipped with this technology experience a 30% increase in Base
-          Speed for each level of proficiency in the Warp Drive, leading to a
-          significant and cumulative boost in efficiency and speed of movement.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Research Lab Level 7</li>
-              <li>Energy Innovation Level 5</li>
-              <li>Shield Tech 5</li>
-              <li>Spacetime Warp Level 3</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
-
-export function WeaponsDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          In combat readiness, advancements in weapons development are vital,
-          enhancing the strength of naval vessels and defenses by 10% per level
-          of progression over the initial system strength. This increase in
-          armament capabilities is directly measurable, reflecting in the
-          offensive and defensive performance metrics.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Research Lab Level 4</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
+export const WeaponsDescription = () => (
+  <DescriptionComponent
+    title="Weapons Technology"
+    description="Allowes the development of advanced ships and defences. Each levele advancement
+    yealds a 10% increase in weapons power"
+    requirements={
+      <>
+        <li>Research Lab Level 4</li>
+      </>
+    }
+  />
+);

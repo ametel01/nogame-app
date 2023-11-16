@@ -1,128 +1,188 @@
+import React, { useState } from "react";
 import styled from "styled-components";
-import SteelTable from "./tables/SteelTable";
+import { Input } from "@mui/joy";
+import CompoundsFormulas from "../../shared/utils/Formulas";
+import Box from "@mui/material/Box";
 
-const Container = styled.div`
-  width: 100%;
-  text-align: justify;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-`;
+export const StyledBox = styled(Box)({
+  fontWeight: 400,
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  backgroundColor: "#1a2025",
+  borderRadius: 16,
+  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
+  padding: "16px 32px",
+  display: "flex",
+  flexDirection: "column",
+  width: "25%",
+});
 
-const TextBox = styled.p`
-  font-size: 15px;
-  // padding-left: 5px;
-`;
+const HeaderDiv = styled("div")({
+  fontSize: 20,
+  marginBottom: "16px",
+  borderBottom: "1px solid",
+});
+
+const TravelInfoRow = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: "16px",
+});
+
+const TravelInfoData = styled("span")({
+  color: "#98fb98",
+});
+
+const Label = styled("span")({
+  // Styling for the label
+});
+
+type Cost = {
+  steel: number;
+  quartz: number;
+  tritium: number;
+};
+
+function useMineInformation(
+  level: number,
+  costFunc: (arg0: number) => Cost,
+  productionFunc?: (arg0: number) => number,
+  consumptionFunc?: (arg0: number) => number
+) {
+  const production = productionFunc ? productionFunc(level) : undefined;
+  const cost = costFunc(level);
+  const consumption = consumptionFunc ? consumptionFunc(level) : undefined;
+
+  return { production, cost, consumption };
+}
+
+interface DescriptionProps {
+  title: string;
+  costFunc: (arg0: number) => Cost;
+  productionFunc?: (arg0: number) => number;
+  consumptionFunc?: (arg0: number) => number;
+}
+
+function CompoundDescription({
+  title,
+  productionFunc,
+  costFunc,
+  consumptionFunc,
+}: DescriptionProps) {
+  const [level, setLevel] = useState(1);
+  const { production, cost, consumption } = useMineInformation(
+    level,
+    costFunc,
+    productionFunc,
+    consumptionFunc
+  );
+
+  return (
+    <div>
+      <StyledBox>
+        <HeaderDiv>{title} Stats</HeaderDiv>
+        <TravelInfoRow>
+          <Label>Level:</Label>
+          <Input
+            type="number"
+            value={level}
+            onChange={(e) => setLevel(Number(e.target.value))}
+            // size="small"
+            color="neutral"
+            variant="soft"
+            style={{ width: "80px" }}
+          />
+        </TravelInfoRow>
+        <TravelInfoRow>
+          <Label>Cost Steel:</Label>
+          <TravelInfoData>{cost!.steel}</TravelInfoData>
+        </TravelInfoRow>
+        <TravelInfoRow>
+          <Label>Cost Quartz:</Label>
+          <TravelInfoData>{cost!.quartz}</TravelInfoData>
+        </TravelInfoRow>
+        {cost!.tritium != 0 ? (
+          <TravelInfoRow>
+            <Label>Cost Tritium:</Label>
+            <TravelInfoData>{cost!.tritium}</TravelInfoData>
+          </TravelInfoRow>
+        ) : null}
+        {productionFunc && (
+          <TravelInfoRow>
+            <Label>Hourly Production:</Label>
+            <TravelInfoData>{production}</TravelInfoData>
+          </TravelInfoRow>
+        )}
+        {consumptionFunc && (
+          <TravelInfoRow>
+            <Label>Energy Consumption:</Label>
+            <TravelInfoData>{consumption}</TravelInfoData>
+          </TravelInfoRow>
+        )}
+      </StyledBox>
+    </div>
+  );
+}
 
 export function SteelMineDescription() {
   return (
-    <>
-      <Container>
-        {/* <FloatImage src={steelImg.src} /> */}
-        <TextBox>
-          Steel is a crucial resource for building and maintaining your Empire
-          in the game. Its production increases with the depth of mining,
-          driving applications like constructing structures, spacecraft,
-          defenses, and conducting research. Note, however, that deeper mining
-          requires more energy. Steel is common and holds the lowest trade value
-          compared to other resources due to its abundance.
-        </TextBox>
-        <SteelTable />
-      </Container>
-    </>
+    <CompoundDescription
+      title="Steel Mine"
+      productionFunc={CompoundsFormulas.steelProduction}
+      costFunc={CompoundsFormulas.steelCost}
+      consumptionFunc={CompoundsFormulas.steelConsumption}
+    />
   );
 }
 
 export function QuartzMineDescription() {
   return (
-    <>
-      <Container>
-        <TextBox>
-          Quartz mines extract Quartz, a key resource used in electronic circuit
-          creation and specific alloy formation. Quartz mining consumes around
-          1.5 times more energy than steel mining, making it more valuable. It's
-          heavily used in ship and building construction. The particular type of
-          Quartz needed for spaceship building is rarer and typically found
-          deeper, mirroring steel's depth-specific availability. Hence, deeper
-          mines yield more Quartz, especially types vital for advanced uses like
-          spaceship construction.
-        </TextBox>
-      </Container>
-    </>
+    <CompoundDescription
+      title="Quartz Mine"
+      productionFunc={CompoundsFormulas.quartzProduction}
+      costFunc={CompoundsFormulas.quartzCost}
+      consumptionFunc={CompoundsFormulas.quartzConsumption}
+    />
   );
 }
 
 export function TritiumMineDescription() {
   return (
-    <>
-      <Container>
-        <TextBox>
-          Tritium, a stable hydrogen isotope, is naturally found in oceanic
-          colonies, with approximately one Tritium atom per 6500 hydrogen atoms.
-          This equals roughly 0.015% of all water atoms or 0.030% on a weight
-          basis. Tritium extraction and processing are conducted by specialized
-          synthesizers using engineered centrifuges to separate Tritium from
-          water. Upgrades to these machines can enhance Tritium processing
-          capacity. Tritium's uses are broad. It powers sensor phalanx scans,
-          visualizes galaxies, fuels spacecraft, and facilitates specific
-          research upgrades.
-        </TextBox>
-      </Container>
-    </>
+    <CompoundDescription
+      title="Tritium Mine"
+      productionFunc={CompoundsFormulas.tritiumProduction}
+      costFunc={CompoundsFormulas.tritiumCost}
+      consumptionFunc={CompoundsFormulas.tritiumConsumption}
+    />
   );
 }
 
-export function EnergyMineDescription() {
+export function EnergyPlantDescription() {
   return (
-    <>
-      <Container>
-        <TextBox>
-          Large-scale solar arrays power mining and deuterium synthesis,
-          expanding in surface area with each upgrade. This growth directly
-          boosts energy output, resulting in a proportional increase in
-          planetary electrical grid distribution, thereby enhancing the overall
-          energy supply for the planet's operational demands.
-        </TextBox>
-      </Container>
-    </>
+    <CompoundDescription
+      title="Energy Plant"
+      productionFunc={CompoundsFormulas.energyProduction}
+      costFunc={CompoundsFormulas.energyCost}
+    />
   );
 }
 
 export function LabDescription() {
   return (
-    <>
-      <Container>
-        <TextBox>
-          Research Labs are vital to an empire, generating and refining
-          technological assets. They explore new technologies and enhance
-          existing ones. Upgrades to these facilities increase research
-          capabilities, providing access to advanced innovations. Quick research
-          is achieved by deploying scientific personnel to colonies when a
-          Research Lab level is completed. This ensures prompt research and
-          development, and aids in the swift integration of new technologies
-          across the empire.
-        </TextBox>
-      </Container>
-    </>
+    <CompoundDescription
+      title="Research Lab"
+      costFunc={CompoundsFormulas.labCost}
+    />
   );
 }
-
 export function DockyardDescription() {
   return (
-    <>
-      <Container>
-        <TextBox>
-          The planetary dockyard manufactures space assets like various
-          spacecraft and defensive systems, including exploratory vessels, cargo
-          carriers, and military ships. This involves design, procurement,
-          assembly, integration, and testing. Additionally, the dockyard
-          develops defenses such as anti-spacecraft weapons and shield
-          generators, following a similar production process. Managed by experts
-          for efficiency and safety, the dockyard is essential for the
-          civilization's space and defense capabilities.
-        </TextBox>
-      </Container>
-    </>
+    <CompoundDescription
+      title="Dockyard"
+      costFunc={CompoundsFormulas.dockyardCost}
+    />
   );
 }

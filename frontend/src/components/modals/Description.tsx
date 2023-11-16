@@ -1,42 +1,19 @@
 import * as React from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import styled from "styled-components";
+import Modal from "@mui/material/Modal";
 
-const theme = createTheme({
-  components: {
-    MuiBackdrop: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "rgba(0, 0, 0, 0.85)",
-        },
-      },
-    },
-  },
-});
+import styled from "styled-components";
 
 const ImageContainer = styled.div`
   width: 70px;
   cursor: pointer;
 `;
 
-const StyledDialogTitle = styled(DialogTitle)`
-  background-color: #1a2025;
-`;
-
-const StyledDialogContent = styled(DialogContent)`
-  background-color: #1a2025;
-`;
-
-const StyledDialog = styled(Dialog)`
-  .MuiPaper-root {
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #1a2025;
-    border: "1px solid #2E3A45";
-  }
+const StyledDialogContent = styled("div")`
+  color: #f8f8ff;
+  display: grid;
+  grid-template-columns: 1fr 1fr; // Two columns for the main content
+  gap: 20px;
+  padding: 20px; // Padding inside the dialog content
 `;
 
 interface ModalProps {
@@ -50,19 +27,19 @@ export default function DescriptionModal({
   title,
   description,
 }: ModalProps) {
-  const [open, setOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-  const handleModalOpen = () => {
-    setOpen(true);
+  const handleClose = () => {
+    setIsModalOpen(false);
   };
 
-  const handleModalClose = () => {
-    setOpen(false);
+  const handleButtonClick = () => {
+    setIsModalOpen(true);
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <ImageContainer onClick={handleModalOpen}>
+    <>
+      <ImageContainer onClick={handleButtonClick}>
         <img
           src={image}
           alt={title}
@@ -72,15 +49,9 @@ export default function DescriptionModal({
           }}
         />
       </ImageContainer>
-      <StyledDialog
-        open={open}
-        onClose={handleModalClose}
-        maxWidth="sm"
-        fullWidth
-      >
-        <StyledDialogTitle variant="h4">{title}</StyledDialogTitle>
+      <Modal open={isModalOpen} onClose={handleClose}>
         <StyledDialogContent>{description}</StyledDialogContent>
-      </StyledDialog>
-    </ThemeProvider>
+      </Modal>
+    </>
   );
 }

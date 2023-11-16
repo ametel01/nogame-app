@@ -14,12 +14,12 @@ import {
 import { calculEnoughResources } from "../shared/utils";
 import CompoundsBox from "../components/boxes/CompoundsBox";
 import {
-  DockyardDescription,
-  EnergyMineDescription,
-  LabDescription,
+  EnergyPlantDescription,
   QuartzMineDescription,
   SteelMineDescription,
   TritiumMineDescription,
+  LabDescription,
+  DockyardDescription,
 } from "../components/descriptions/CompoundsPopover";
 
 type CompoundConfigType = {
@@ -73,7 +73,7 @@ export const CompoundsTabPanel = ({
       energyKey: "tritium",
     },
     {
-      description: <EnergyMineDescription />,
+      description: <EnergyPlantDescription />,
       img: energyImg,
       title: "Energy Plant",
       functionCallName: "energy_plant",

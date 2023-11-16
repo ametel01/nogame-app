@@ -31,7 +31,7 @@ export const StyledBox = styled(Box)({
 });
 
 const StyledDialogContent = styled(DialogContent)`
-  color: #e7ecee;
+  color: #f8f8ff;
   display: grid;
   grid-template-columns: 1fr 1fr; // Two columns for the main content
   gap: 20px;
