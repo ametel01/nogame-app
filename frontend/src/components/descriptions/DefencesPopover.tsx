@@ -1,131 +1,160 @@
+import React from "react";
 import styled from "styled-components";
+import Box from "@mui/material/Box";
+import { DefencesStats } from "../../constants/Stats";
 
-const Container = styled.div`
-  width: 100%;
-  text-align: justify;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+// Styled components
+
+export const StyledBox = styled(Box)({
+  fontWeight: 400,
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  backgroundColor: "#1a2025",
+  borderRadius: 16,
+  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
+  padding: "16px 16px",
+  display: "flex",
+  flexDirection: "column",
+  width: "35%",
+});
+
+const HeaderDiv = styled("div")`
+  font-size: 20px;
 `;
 
-const TextBox = styled.p`
-  font-size: 15px;
-  // padding-left: 5px;
+const Container = styled("div")`
+  padding: 20px;
+  // border-radius: 8px;
 `;
 
-// const FloatImage = styled.img`
-//     float: left; /* Change to 'right' to float the image to the right */
-//     margin: 10px;
-//     width: 200px; /* Adjust as needed */
-//     height: 200px; /* Adjust as needed */
-// `;
+const TextBox = styled("div")`
+  font-size: 16px;
+  line-height: 1.5;
+`;
 
-export function BlasterDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          Blasters are your initial defense, firing conventional warhead
-          missiles at enemy targets from ground-based facilities. Being
-          inexpensive to build and requiring no research, they're perfect for
-          warding off raids, though less effective against larger-scale attacks.
-          As you advance in constructing more potent defense systems, these
-          Blasters act as simple buffers, letting your more powerful weapons
-          cause greater damage for extended periods.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Dockyard level 1</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // Two columns
+  grid-auto-rows: minmax(32px, auto); // Row height
+  gap: 4px; // Reduced space between grid items
+`;
+
+const InfoRow = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const InfoData = styled("span")({
+  color: "#98fb98",
+});
+
+const Label = styled("span")({});
+
+const Requirements = styled("ul")({
+  color: "#98fb98",
+});
+
+// Component props
+interface DescriptionComponentProps {
+  title: string;
+  description: React.ReactNode;
+  requirements: React.ReactNode;
 }
 
-export function BeamDescription() {
+const DescriptionComponent = ({
+  title,
+  description,
+  requirements,
+}: DescriptionComponentProps) => {
   return (
-    <>
+    <StyledBox>
+      <HeaderDiv>{title}</HeaderDiv>
       <Container>
         <TextBox>
-          Your initial line of defense, more balanced than the Blaster. With an
-          enhanced alloy composition, it employs denser, more potent beams, and
-          an upgraded onboard targeting system for superior precision and
-          strength.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Dockyar level 2</li>
-              <li>Energy Innovation level 2</li>
-              <li>Beam Technology level 3</li>
-            </b>
-          </ul>
+          {description}
+          <div style={{ marginTop: "8px" }}>Requirements:</div>
+          <Requirements>{requirements}</Requirements>
         </TextBox>
       </Container>
-    </>
+    </StyledBox>
   );
+};
+
+interface StatsProps {
+  hull: number;
+  shield: number;
+  weapon: number;
 }
 
-export function AstralDescription() {
+const StatsComponent = ({ hull, shield, weapon }: StatsProps) => {
   return (
-    <>
-      <Container>
-        <TextBox>
-          Once regarded as outdated amid thermonuclear and energy technology,
-          projectile weapons have regained prominence thanks to advancements in
-          the very energy technology that had aged them. The Astral Launcher, a
-          grand particle accelerator, epitomizes this revival. Launching
-          extremely heavy missiles with enormous electromagnetic force, it
-          creates muzzle velocities that ignite the surrounding dirt and
-          produces a sonic boom. Modern armor and shields often fail against
-          this mighty force, and targets may be fully penetrated by a missile's
-          power. Defence structures deactivate when too badly damaged.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Dockyard level 6</li>
-              <li>Energy Innovation level 6</li>
-              <li>Weapons Development level 3</li>
-              <li>Shield Technology level 1</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
+    <GridContainer>
+      <InfoRow>
+        <Label>Base Hull: </Label>
+        <InfoData>{hull}</InfoData>
+      </InfoRow>
+      <InfoRow>
+        <Label>Base Shield: </Label>
+        <InfoData>{shield}</InfoData>
+      </InfoRow>
+      <InfoRow>
+        <Label>Base Weapon: </Label>
+        <InfoData>{weapon}</InfoData>
+      </InfoRow>
+    </GridContainer>
   );
-}
+};
 
-export function PlasmaDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          The Plasma Projector, one of the most advanced defense weapons, is
-          your first basic line of defense. Using a nuclear reactor fuel cell,
-          it superheats and compresses gases to create a plasma sphere. This
-          sphere is then launched by an electromagnetic accelerator at
-          incredible speed. Upon targeting and firing, the plasma sphere streaks
-          towards its target, causing instant destruction upon impact. Its
-          bluish appearance is as impressive as its lethal efficiency.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Dockyard level 8</li>
-              <li>Plasma Engineering level 7</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
+export const BlasterDescription = () => (
+  <DescriptionComponent
+    title="Blaster"
+    description={StatsComponent(DefencesStats.blaster)}
+    requirements={
+      <>
+        <li>Dockyard level 1</li>
+      </>
+    }
+  />
+);
+export const BeamDescription = () => (
+  <DescriptionComponent
+    title="Beam"
+    description={StatsComponent(DefencesStats.beam)}
+    requirements={
+      <>
+        <li>Dockyar level 2</li>
+        <li>Energy Innovation level 2</li>
+        <li>Beam Technology level 3</li>
+      </>
+    }
+  />
+);
+export const AstralDescription = () => (
+  <DescriptionComponent
+    title="Astral Launcher"
+    description={StatsComponent(DefencesStats.astral)}
+    requirements={
+      <>
+        <li>Dockyard level 6</li>
+        <li>Energy Innovation level 6</li>
+        <li>Weapons Development level 3</li>
+        <li>Shield Technology level 1</li>
+      </>
+    }
+  />
+);
+export const PlasmaDescription = () => (
+  <DescriptionComponent
+    title="Plasma Projector"
+    description={StatsComponent(DefencesStats.plasma)}
+    requirements={
+      <>
+        <li>Dockyard level 8</li>
+        <li>Plasma Engineering level 7</li>
+      </>
+    }
+  />
+);

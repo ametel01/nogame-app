@@ -1,178 +1,217 @@
+import React from "react";
 import styled from "styled-components";
+import Box from "@mui/material/Box";
+import { DefencesStats, ShipsStats } from "../../constants/Stats";
 
-const Container = styled.div`
-  width: 100%;
-  text-align: justify;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+// Styled components
+
+export const StyledBox = styled(Box)({
+  fontWeight: 400,
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  backgroundColor: "#1a2025",
+  borderRadius: 16,
+  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
+  padding: "16px 16px",
+  display: "flex",
+  flexDirection: "column",
+  width: "35%",
+});
+
+const HeaderDiv = styled("div")`
+  font-size: 20px;
 `;
 
-const TextBox = styled.p`
-  font-size: 15px;
-  // padding-left: 5px;
+const Container = styled("div")`
+  padding: 20px;
+  // border-radius: 8px;
 `;
 
-// const FloatImage = styled.img`
-//     float: left; /* Change to 'right' to float the image to the right */
-//     margin: 10px;
-//     width: 200px; /* Adjust as needed */
-//     height: 200px; /* Adjust as needed */
-// `;
+const TextBox = styled("div")`
+  font-size: 16px;
+  line-height: 1.5;
+`;
 
-export function CarrierDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          Enhancing on-board weaponry improves a transporter's freighting
-          capacity but doesn't prepare it for combat. Therefore, it should only
-          enter battle zones when accompanied by combat-ready ships, ensuring
-          protection and support while fulfilling its logistical role.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Dockyard level 2</li>
-              <li>Combustion Drive level 2</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // Two columns
+  grid-auto-rows: minmax(32px, auto); // Row height
+  gap: 4px; // Reduced space between grid items
+`;
+
+const InfoRow = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const InfoData = styled("span")({
+  color: "#98fb98",
+});
+
+const Label = styled("span")({});
+
+const Requirements = styled("ul")({
+  color: "#98fb98",
+});
+
+// Component props
+interface DescriptionComponentProps {
+  title: string;
+  description: React.ReactNode;
+  requirements: React.ReactNode;
 }
 
-export function CelestiaDescription() {
+const DescriptionComponent = ({
+  title,
+  description,
+  requirements,
+}: DescriptionComponentProps) => {
   return (
-    <>
+    <StyledBox>
+      <HeaderDiv>{title}</HeaderDiv>
       <Container>
         <TextBox>
-          Scientists developed celestias in geosynchronous orbit to transmit
-          electrical energy to colonies. These celestias capture solar energy
-          and relay it to ground stations using advanced lasers. While they
-          offer a cost-effective energy solution, they are vulnerable in battle.
-          Every unit produced adds 15 energy units.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Dockyar level 1</li>
-              <li>Combustion Drive level 1</li>
-            </b>
-          </ul>
+          {description}
+          <div style={{ marginTop: "8px" }}>Requirements:</div>
+          <Requirements>{requirements}</Requirements>
         </TextBox>
       </Container>
-    </>
+    </StyledBox>
   );
+};
+
+interface StatsProps {
+  cargo?: number;
+  speed?: number;
+  consumption?: number;
+  hull: number;
+  shield: number;
+  weapon: number;
 }
 
-export function ScraperDescription() {
+const StatsComponent = ({
+  cargo,
+  speed,
+  consumption,
+  hull,
+  shield,
+  weapon,
+}: StatsProps) => {
   return (
-    <>
-      <Container>
-        <TextBox>
-          Space combat led to thousands of ships lost in debris fields,
-          unreachable by normal cargo ships. However, new shield technologies
-          enabled the creation of Scrapers, a class of ships similar to
-          Carriers. They safely salvaged the previously lost resources from the
-          debris, making retrieval efficient and risk-free.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Dockyard level 4</li>
-              <li>Combusiton drive level 6</li>
-              <li>Shield Technology level 2</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
+    <GridContainer>
+      {cargo ? (
+        <>
+          <InfoRow>
+            <Label>Cargo Capacity:</Label>
+            <InfoData>{cargo}</InfoData>
+          </InfoRow>
+        </>
+      ) : null}
+      {speed ? (
+        <>
+          <InfoRow>
+            <Label>Base Speed: </Label>
+            <InfoData>{speed}</InfoData>
+          </InfoRow>
+        </>
+      ) : null}
+      {consumption ? (
+        <>
+          <InfoRow>
+            <Label>Consumption: </Label>
+            <InfoData>{consumption}</InfoData>
+          </InfoRow>
+        </>
+      ) : null}
+      <InfoRow>
+        <Label>Base Hull: </Label>
+        <InfoData>{hull}</InfoData>
+      </InfoRow>
+      <InfoRow>
+        <Label>Base Shield: </Label>
+        <InfoData>{shield}</InfoData>
+      </InfoRow>
+      <InfoRow>
+        <Label>Base Weapon: </Label>
+        <InfoData>{weapon}</InfoData>
+      </InfoRow>
+    </GridContainer>
   );
-}
+};
 
-export function SparrowDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          All emperors will build the light fighter as their first fighting
-          ship. Agile yet vulnerable when alone, these ships become a
-          significant threat to any empire when amassed in large numbers. They
-          are typically deployed to accompany carriers shipments to hostile
-          planets with limited defenses.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Dockyard level 2</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
-
-export function FrigateDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          Frigates, with armor nearly five times thicker than that of the
-          sparrow and more than double the firepower of existing combat ships,
-          once dominated the universe due to their unmatched speeds. For almost
-          a hundred years, they were unrivaled. However, their supremacy ended
-          with the invention of the Astral Launcher and Plasma Projectors.
-          Though still utilized against sparrows groups, frigates no longer hold
-          the predominant position they once did.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Dockyard level 5</li>
-              <li>Ion Systems level 2</li>
-              <li>Thrust Drive level 4</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
-
-export function ArmadeDescription() {
-  return (
-    <>
-      <Container>
-        <TextBox>
-          When the frigates began losing ground to growing defense structures
-          and suffered unacceptable levels of ship loss, a decision was made to
-          create a vessel that could confront these defenses with minimal
-          casualties. This led to the development of the Armade, a ship
-          engineered to endure the most substantial battles. Equipped with large
-          cargo spaces, heavy cannons, and a high warp drive speed, the Armade
-          was designed to meet these challenges head-on. Once completed, it
-          became the essential component of every raiding Emperor's fleet,
-          symbolizing both strength and innovation.
-          <br />
-          <br />
-          Requirements:
-          <ul>
-            <b>
-              <li>Dockyard level 7</li>
-              <li>Warp Drive level 4</li>
-            </b>
-          </ul>
-        </TextBox>
-      </Container>
-    </>
-  );
-}
+export const CarrierDescription = () => (
+  <DescriptionComponent
+    title="Carrier"
+    description={StatsComponent(ShipsStats.carrier)}
+    requirements={
+      <>
+        <li>Dockyard level 2</li>
+        <li>Combustion Drive level 2</li>
+      </>
+    }
+  />
+);
+export const CelestiaDescription = () => (
+  <DescriptionComponent
+    title="Celestia"
+    description={StatsComponent(DefencesStats.celestia)}
+    requirements={
+      <>
+        <li>Dockyar level 1</li>
+        <li>Combustion Drive level 1</li>
+      </>
+    }
+  />
+);
+export const ScraperDescription = () => (
+  <DescriptionComponent
+    title="Scraper"
+    description={StatsComponent(ShipsStats.scraper)}
+    requirements={
+      <>
+        <li>Dockyard level 4</li>
+        <li>Combusiton drive level 6</li>
+        <li>Shield Technology level 2</li>
+      </>
+    }
+  />
+);
+export const SparrowDescription = () => (
+  <DescriptionComponent
+    title="Sparrow"
+    description={StatsComponent(ShipsStats.sparrow)}
+    requirements={
+      <>
+        <li>Dockyard level 2</li>
+      </>
+    }
+  />
+);
+export const FrigateDescription = () => (
+  <DescriptionComponent
+    title="Frigate"
+    description={StatsComponent(ShipsStats.frigate)}
+    requirements={
+      <>
+        <li>Dockyard level 5</li>
+        <li>Ion Systems level 2</li>
+        <li>Thrust Drive level 4</li>
+      </>
+    }
+  />
+);
+export const ArmadeDescription = () => (
+  <DescriptionComponent
+    title="Armade"
+    description={StatsComponent(ShipsStats.armade)}
+    requirements={
+      <>
+        <li>Dockyard level 7</li>
+        <li>Warp Drive level 4</li>
+      </>
+    }
+  />
+);

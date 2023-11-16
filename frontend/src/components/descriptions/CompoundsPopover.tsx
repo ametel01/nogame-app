@@ -25,20 +25,18 @@ const HeaderDiv = styled("div")({
   borderBottom: "1px solid",
 });
 
-const TravelInfoRow = styled("div")({
+const InfoRow = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
   marginBottom: "16px",
 });
 
-const TravelInfoData = styled("span")({
+const InfoData = styled("span")({
   color: "#98fb98",
 });
 
-const Label = styled("span")({
-  // Styling for the label
-});
+const Label = styled("span")({});
 
 type Cost = {
   steel: number;
@@ -84,7 +82,7 @@ function CompoundDescription({
     <div>
       <StyledBox>
         <HeaderDiv>{title} Stats</HeaderDiv>
-        <TravelInfoRow>
+        <InfoRow>
           <Label>Level:</Label>
           <Input
             type="number"
@@ -95,32 +93,32 @@ function CompoundDescription({
             variant="soft"
             style={{ width: "80px" }}
           />
-        </TravelInfoRow>
-        <TravelInfoRow>
+        </InfoRow>
+        <InfoRow>
           <Label>Cost Steel:</Label>
-          <TravelInfoData>{cost!.steel}</TravelInfoData>
-        </TravelInfoRow>
-        <TravelInfoRow>
+          <InfoData>{cost!.steel}</InfoData>
+        </InfoRow>
+        <InfoRow>
           <Label>Cost Quartz:</Label>
-          <TravelInfoData>{cost!.quartz}</TravelInfoData>
-        </TravelInfoRow>
+          <InfoData>{cost!.quartz}</InfoData>
+        </InfoRow>
         {cost!.tritium != 0 ? (
-          <TravelInfoRow>
+          <InfoRow>
             <Label>Cost Tritium:</Label>
-            <TravelInfoData>{cost!.tritium}</TravelInfoData>
-          </TravelInfoRow>
+            <InfoData>{cost!.tritium}</InfoData>
+          </InfoRow>
         ) : null}
         {productionFunc && (
-          <TravelInfoRow>
+          <InfoRow>
             <Label>Hourly Production:</Label>
-            <TravelInfoData>{production}</TravelInfoData>
-          </TravelInfoRow>
+            <InfoData>{production}</InfoData>
+          </InfoRow>
         )}
         {consumptionFunc && (
-          <TravelInfoRow>
+          <InfoRow>
             <Label>Energy Consumption:</Label>
-            <TravelInfoData>{consumption}</TravelInfoData>
-          </TravelInfoRow>
+            <InfoData>{consumption}</InfoData>
+          </InfoRow>
         )}
       </StyledBox>
     </div>
