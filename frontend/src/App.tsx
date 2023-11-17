@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { GlobalStyle } from "./shared/styled/Theme";
 import AuthController from "./components/auth/AuthController";
 import GeneralLeaderboardPage from "./pages/GeneralLeaderBoardPage";
+import BattleReportsPage from "./pages/BattleReportsPage";
 import { StarknetProvider } from "./components/provider";
 
 export const AppWrapper = styled.div`
@@ -22,6 +23,10 @@ function App() {
               <Route
                 path="/leaderboard"
                 element={<GeneralLeaderboardPage />}
+              ></Route>
+              <Route
+                path="/battlereports"
+                element={<BattleReportsPage />}
               ></Route>
             </Routes>
           </AppWrapper>

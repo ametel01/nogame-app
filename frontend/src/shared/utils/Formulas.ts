@@ -62,16 +62,16 @@ const CompoundsFormulas = {
   },
 
   labCost(level: number) {
-    const steel = Math.round(200 * Math.pow(2, level));
-    const quartz = Math.round(400 * Math.pow(2, level));
-    const tritium = Math.round(200 * Math.pow(2, level));
+    const steel = Math.round(200 * Math.pow(2, level - 1));
+    const quartz = Math.round(400 * Math.pow(2, level - 1));
+    const tritium = Math.round(200 * Math.pow(2, level - 1));
     return { steel, quartz, tritium };
   },
 
   dockyardCost(level: number) {
-    const steel = Math.round(200 * Math.pow(2, level));
-    const quartz = Math.round(400 * Math.pow(2, level));
-    const tritium = Math.round(200 * Math.pow(2, level));
+    const steel = Math.round(400 * Math.pow(2, level - 1));
+    const quartz = Math.round(200 * Math.pow(2, level - 1));
+    const tritium = Math.round(100 * Math.pow(2, level - 1));
     return { steel, quartz, tritium };
   },
 

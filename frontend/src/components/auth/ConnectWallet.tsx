@@ -5,10 +5,9 @@ import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/system";
-import { useConnect } from "@starknet-react/core";
+import { useConnect, Connector } from "@starknet-react/core";
 import argentIcon from "../../assets/uiIcons/argent.png";
 import braavosIcon from "../../assets/uiIcons/braavos.png";
-import { argent, braavos } from "@starknet-react/core";
 
 const StyledBox = styled(Box)({
   fontWeight: 600,
@@ -99,8 +98,12 @@ export default function ConnectWallet() {
   const [open, setOpen] = React.useState(false);
   const toggleModal = () => setOpen((prevState) => !prevState);
   const handleClose = () => setOpen(false);
-  const { connect } = useConnect();
-  const connectors = [argent(), braavos()];
+  const { connect, connectors } = useConnect();
+
+  const handleConnect = (connector: Connector) => {
+    console.log("Connecting with:", connector.id);
+    connect({ connector });
+  };
 
   return (
     <>
@@ -125,7 +128,7 @@ export default function ConnectWallet() {
               <StyledLi key={connector.id}>
                 <StyledButton
                   size="large"
-                  onClick={() => connect({ connector })}
+                  onClick={() => handleConnect(connector)}
                 >
                   {connector.id === "argentX" ? (
                     <>

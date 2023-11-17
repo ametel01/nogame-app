@@ -1,23 +1,42 @@
 import React, { useState, useEffect } from "react";
-import {
-  useAttackPlanet,
-  // useCollectDebris,
-  useGetActiveMissions,
-} from "../../hooks/FleetHooks";
-import { styled, Box } from "@mui/system";
+import { useAttackPlanet, useGetActiveMissions } from "../../hooks/FleetHooks";
+import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
-import Drawer from "@mui/material/Drawer";
-import * as Styled from "../../shared/styled/Box";
+import Modal from "@mui/material/Modal"; // Import Modal
+import styled from "styled-components";
 
-const FleetMovementsContainer = styled(Box)({
+export const StyledBox = styled(Box)({
+  fontWeight: 400,
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  backgroundColor: "#1a2025",
+  borderRadius: 16,
+  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
+  padding: "16px 32px",
   display: "flex",
   flexDirection: "column",
-  gap: "6px",
-  color: "white",
-  padding: "10px",
-  backgroundColor: "#151a1e",
-  width: "calc(100% - 20px)",
+  width: "65%",
 });
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); // Five columns
+  gap: 10px;
+`;
+
+const GridRow = styled.div`
+  border: 1px solid red;
+  display: contents; // This ensures each child takes up a cell in the grid
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center; // Aligns buttons to the center of the cell vertically
+  justify-content: space-between; // Aligns buttons to the start of the cell horizontally
+`;
 
 export const FixedLengthText = styled("div")({
   flex: 1,
@@ -25,9 +44,9 @@ export const FixedLengthText = styled("div")({
 });
 
 export const MissionText = styled("div")({
-  flex: 1,
-  color: "#FFA500",
-  padding: "0 10px",
+  color: "#98fb98",
+  padding: "10px",
+  // marginBottom: "0px",
 });
 
 const StyledButton = styled(Button)({
@@ -97,7 +116,7 @@ export const FleetMovements = ({ planetId }: Props) => {
     return `${hours}h ${minutes}m ${seconds}s`;
   };
 
-  const toggleDrawer = (open: boolean | ((prevState: boolean) => boolean)) => {
+  const toggleModal = (open: boolean) => {
     setIsOpen(open);
   };
 
@@ -106,29 +125,18 @@ export const FleetMovements = ({ planetId }: Props) => {
       <StyledButton
         variant="text"
         size="small"
-        onClick={() => toggleDrawer(true)}
+        onClick={() => toggleModal(true)}
       >
         Fleet Movements
       </StyledButton>
-      <Drawer anchor="top" open={isOpen} onClose={() => toggleDrawer(false)}>
-        <FleetMovementsContainer>
-          <Box
-            sx={{
-              textAlign: "center",
-              fontWeight: "bold",
-              mb: 2,
-              fontSize: "24px ",
-            }}
-          >
-            Active Missions
-          </Box>
-          <Styled.SubBox
-            sx={{
-              padding: 1,
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+      <Modal
+        open={isOpen}
+        onClose={() => toggleModal(false)}
+        aria-labelledby="fleet-movements-modal-title"
+        aria-describedby="fleet-movements-modal-description"
+      >
+        <StyledBox>
+          <GridContainer>
             <FixedLengthText>
               <strong>Mission ID</strong>
             </FixedLengthText>
@@ -141,45 +149,33 @@ export const FleetMovements = ({ planetId }: Props) => {
             <FixedLengthText>
               <strong>Time to Arrival</strong>
             </FixedLengthText>
-            <FixedLengthText></FixedLengthText>{" "}
-            {/* Placeholder for the button column */}
-          </Styled.SubBox>
-          {missions?.map((mission, index) => (
-            <Styled.Box
-              key={index}
-              sx={{
-                padding: 1,
-                alignItems: "center",
-              }}
-            >
-              <MissionText>{index + 1}</MissionText>
-              <MissionText>{String(mission.destination)}</MissionText>
-              <MissionText>
-                {mission.is_debris ? "Debris Collection" : "Attack Mission"}
-              </MissionText>
-              <MissionText>{countdowns[index]}</MissionText>
-              <Box sx={{ display: "flex", gap: "10px" }}>
-                <StyledButton
-                  sx={{
-                    background: "#E67E51",
-                  }}
-                >
-                  Recall Fleet
-                </StyledButton>
-                <StyledButton
-                  onClick={() => handleAttackClick(index)}
-                  sx={{
-                    background: "#4A63AA",
-                  }}
-                  disabled={Number(mission.time_arrival) * 1000 >= Date.now()}
-                >
-                  {mission.is_debris ? "Collect Debris" : "Launch Attack"}
-                </StyledButton>
-              </Box>
-            </Styled.Box>
-          ))}
-        </FleetMovementsContainer>
-      </Drawer>
+            <div></div> {/* Placeholder for the button column */}
+            {missions?.map((mission, index) => (
+              <GridRow key={index}>
+                <MissionText>{index + 1}</MissionText>
+                <MissionText>{String(mission.destination)}</MissionText>
+                <MissionText>
+                  {mission.is_debris ? "Debris" : "Attack"}
+                </MissionText>
+                <MissionText>{countdowns[index]}</MissionText>
+                <ButtonContainer>
+                  <StyledButton size="small" sx={{ background: "#E67E51" }}>
+                    Recall
+                  </StyledButton>
+                  <StyledButton
+                    onClick={() => handleAttackClick(index)}
+                    size="small"
+                    sx={{ background: "#4A63AA" }}
+                    disabled={Number(mission.time_arrival) * 1000 >= Date.now()}
+                  >
+                    {mission.is_debris ? "Collect" : "Attack"}
+                  </StyledButton>
+                </ButtonContainer>
+              </GridRow>
+            ))}
+          </GridContainer>
+        </StyledBox>
+      </Modal>
     </div>
   );
 };

@@ -78,7 +78,7 @@ const UniverseViewBox = ({
 }: Props) => {
   const boxStyle = highlighted
     ? {
-        border: "1px solid #F8F8FF",
+        border: "1px solid #98fb98",
       }
     : {};
 
@@ -99,7 +99,7 @@ const UniverseViewBox = ({
   }, [ownPlanetPosition]);
 
   return (
-    <Box style={boxStyle}>
+    <Styled.Box style={boxStyle}>
       <Styled.ImageContainer>
         {img ? (
           <PlanetModal
@@ -158,7 +158,7 @@ const UniverseViewBox = ({
           />
         </Styled.ButtonContainer>
       </Styled.SubBox>
-    </Box>
+    </Styled.Box>
   );
 };
 

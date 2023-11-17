@@ -1,4 +1,4 @@
-import { styled } from "@mui/system";
+import styled from "styled-components";
 import { Input } from "@mui/joy";
 import Column from "./Column";
 
@@ -9,9 +9,14 @@ export const Box = styled("div")({
   flexDirection: "row",
   marginBottom: "10px",
   backgroundColor: "#1A2025",
-  borderRadius: "8px", // Retaining the hint of curvature
+  borderRadius: "8px",
   overflow: "hidden",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Adding a subtle shadow for depth
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  transition: "box-shadow 0.3s ease, transform 0.3s ease", // Smooth transition for shadow and transform
+  "&:hover": {
+    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.6)",
+    transform: "translateY(-2px)", // Slight raise to give a hovering effect
+  },
 });
 
 export const SubBox = styled("div")({

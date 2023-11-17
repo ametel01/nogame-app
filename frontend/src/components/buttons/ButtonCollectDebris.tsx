@@ -14,7 +14,7 @@ import {
   getFleetSpeed,
   getFlightTime,
   getFuelConsumption,
-} from "../../shared/utils/FleeUtils";
+} from "../../shared/utils/FleetUtils";
 import { convertSecondsToTime } from "../../shared/utils";
 
 export const StyledBox = styled(Box)({

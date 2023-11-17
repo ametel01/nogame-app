@@ -57,7 +57,7 @@ const UniverseBoxItem = ({ ownPlanetId, position }: UniverseBoxItemProps) => {
   )} / ${String(position.orbit).padStart(2, "0")}`;
 
   const shortenedAddress = owner
-    ? `${owner.substring(0, 4)}...${owner.substring(59)}`
+    ? `${owner.slice(0, 4)}...${owner.slice(-4)}`
     : "null";
 
   return (

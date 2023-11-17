@@ -49,7 +49,12 @@ const Header = ({ planetId }: Props) => {
           Resources Market
         </StyledButton>
         <StyledButton variant="text" size="small">
-          Battle Reports
+          <Link
+            to="/battlereports"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            Battle Reports
+          </Link>
         </StyledButton>
         <StyledButton variant="text" size="small">
           <Link
