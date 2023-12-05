@@ -140,7 +140,7 @@ const DockyardBox = ({
         </InfoContainer>
         <Styled.ResourceContainer>
           <Input
-            type="text"
+            type="number"
             value={quantity}
             onChange={(e) => {
               if (e.target.value === "") {
