@@ -1,10 +1,10 @@
 import { StyledTabPanel } from "./styleds";
-import steelImg from "../assets/gameElements/compounds/steel-mine-1-v2.png";
-import quartzImg from "../assets/gameElements/compounds/quartz-mine-2-v2.png";
-import tritiumImg from "../assets/gameElements/compounds/tritium-v2-2.png";
-import energyImg from "../assets/gameElements/compounds/energy-plant-v2-2.png";
-import labImg from "../assets/gameElements/compounds/research-lab-v2-1.png";
-import dockyardImg from "../assets/gameElements/compounds/dockyard-v2-1.png";
+import steelImg from "../assets/gameElements/compounds/steel4.png";
+import quartzImg from "../assets/gameElements/compounds/quartz4.png";
+import tritiumImg from "../assets/gameElements/compounds/tritium4.png";
+import energyImg from "../assets/gameElements/compounds/energy4.png";
+import labImg from "../assets/gameElements/compounds/lab4.png";
+import dockyardImg from "../assets/gameElements/compounds/dockyard4.png";
 import {
   CompoundsCostUpgrade,
   CompoundsLevels,
@@ -32,7 +32,7 @@ type CompoundConfigType = {
 };
 
 interface Props {
-  spendableResources: Resources;
+  spendableResources?: Resources;
   compoundsLevels: CompoundsLevels;
   compoundsCostUpgrade: CompoundsCostUpgrade;
   energyRequired: EnergyCost;
@@ -124,6 +124,7 @@ export const CompoundsTabPanel = ({
               spendableResources
             )
           }
+          resourcesAvailable={spendableResources}
         />
       ))}
     </StyledTabPanel>

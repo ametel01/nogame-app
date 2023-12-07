@@ -104,8 +104,11 @@ const DockyardBox = ({
             <Styled.ResourceTitle>STEEL</Styled.ResourceTitle>
             <Styled.NumberContainer
               style={{
-                color:
-                  resourcesAvailable.steel < adjustedSteel ? "red" : "inherit",
+                color: resourcesAvailable
+                  ? resourcesAvailable.steel < adjustedSteel
+                    ? "red"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {steelDisplay}
@@ -115,10 +118,11 @@ const DockyardBox = ({
             <Styled.ResourceTitle>QUARTZ</Styled.ResourceTitle>
             <Styled.NumberContainer
               style={{
-                color:
-                  resourcesAvailable.quartz < adjustedQuartz
+                color: resourcesAvailable
+                  ? resourcesAvailable.steel < adjustedSteel
                     ? "red"
-                    : "inherit",
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {quartzDisplay}
@@ -128,10 +132,11 @@ const DockyardBox = ({
             <Styled.ResourceTitle>TRITIUM</Styled.ResourceTitle>
             <Styled.NumberContainer
               style={{
-                color:
-                  resourcesAvailable.tritium < adjustedTritium
+                color: resourcesAvailable
+                  ? resourcesAvailable.steel < adjustedSteel
                     ? "red"
-                    : "inherit",
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {tritiumDisplay}

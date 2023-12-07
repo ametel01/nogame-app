@@ -2,6 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import { DefencesStats, ShipsStats } from "../../constants/Stats";
+import armadeImg from "../../assets/gameElements/ships/armade4.png";
+import frigateImg from "../../assets/gameElements/ships/frigate4.png";
+import carrierImg from "../../assets/gameElements/ships/carrier4.png";
+import sparrowImg from "../../assets/gameElements/ships/sparrow4.png";
+import scraperImg from "../../assets/gameElements/ships/scraper4.png";
+import celestiaImg from "../../assets/gameElements/ships/celestia4.png";
 
 // Styled components
 
@@ -14,24 +20,23 @@ export const StyledBox = styled(Box)({
   backgroundColor: "#1a2025",
   borderRadius: 16,
   boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
-  padding: "16px 16px",
-  display: "flex",
+  padding: "24px 24px",
   flexDirection: "column",
-  width: "35%",
+  width: "40%",
+  display: "grid",
+  gridTemplateRows: "auto 1fr auto", // Three rows: header, main content, stats
+  gap: "16px", // Space between grid rows
 });
 
 const HeaderDiv = styled("div")`
   font-size: 20px;
-`;
-
-const Container = styled("div")`
-  padding: 20px;
-  // border-radius: 8px;
+  text-transform: uppercase;
 `;
 
 const TextBox = styled("div")`
   font-size: 16px;
   line-height: 1.5;
+  margin-bottom: 24px;
 `;
 
 const GridContainer = styled.div`
@@ -60,25 +65,45 @@ const Requirements = styled("ul")({
 // Component props
 interface DescriptionComponentProps {
   title: string;
+  image: string;
   description: React.ReactNode;
+  stats: React.ReactNode;
   requirements: React.ReactNode;
 }
 
 const DescriptionComponent = ({
   title,
+  image,
   description,
+  stats,
   requirements,
 }: DescriptionComponentProps) => {
   return (
     <StyledBox>
       <HeaderDiv>{title}</HeaderDiv>
-      <Container>
-        <TextBox>
-          {description}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-start",
+          marginBottom: "24px",
+        }}
+      >
+        {/* Image */}
+        <img
+          src={image}
+          alt={`${title}`}
+          style={{ width: "240px", marginRight: "16px", borderRadius: "8px" }}
+        />
+        {/* Description and Requirements */}
+        <div>
+          <TextBox>{description}</TextBox>
           <div style={{ marginTop: "8px" }}>Requirements:</div>
           <Requirements>{requirements}</Requirements>
-        </TextBox>
-      </Container>
+        </div>
+      </div>
+      {/* Stats */}
+      {stats}
     </StyledBox>
   );
 };
@@ -145,7 +170,9 @@ const StatsComponent = ({
 export const CarrierDescription = () => (
   <DescriptionComponent
     title="Carrier"
-    description={StatsComponent(ShipsStats.carrier)}
+    image={carrierImg}
+    description="Carriers are used to transport resources; they are inexpensive and available early in the game. Initially equipped with a combustion engine, their speed doubles at level 4 with thrust propulsion."
+    stats={StatsComponent(ShipsStats.carrier)}
     requirements={
       <>
         <li>Dockyard level 2</li>
@@ -157,7 +184,9 @@ export const CarrierDescription = () => (
 export const CelestiaDescription = () => (
   <DescriptionComponent
     title="Celestia"
-    description={StatsComponent(DefencesStats.celestia)}
+    image={celestiaImg}
+    description="Celestia orbit the planet and generate energy, with higher output in low orbits. They are efficient energy sources but are vulnerable to attacks and can be easily destroyed."
+    stats={StatsComponent(DefencesStats.celestia)}
     requirements={
       <>
         <li>Dockyar level 1</li>
@@ -169,7 +198,9 @@ export const CelestiaDescription = () => (
 export const ScraperDescription = () => (
   <DescriptionComponent
     title="Scraper"
-    description={StatsComponent(ShipsStats.scraper)}
+    image={scraperImg}
+    description="Scrapers collect resources from debris fields around planets post-battles. They are slow-moving and consume a relatively high amount of fuel."
+    stats={StatsComponent(ShipsStats.scraper)}
     requirements={
       <>
         <li>Dockyard level 4</li>
@@ -182,7 +213,9 @@ export const ScraperDescription = () => (
 export const SparrowDescription = () => (
   <DescriptionComponent
     title="Sparrow"
-    description={StatsComponent(ShipsStats.sparrow)}
+    image={sparrowImg}
+    description="The Sparrow, the smallest warship, is available early in the game. It's fast and inexpensive but has limited weaponry and a small hull."
+    stats={StatsComponent(ShipsStats.sparrow)}
     requirements={
       <>
         <li>Dockyard level 2</li>
@@ -193,7 +226,9 @@ export const SparrowDescription = () => (
 export const FrigateDescription = () => (
   <DescriptionComponent
     title="Frigate"
-    description={StatsComponent(ShipsStats.frigate)}
+    image={frigateImg}
+    description="The Frigate is a mid-sized warship, known for its speed. It can be particularly powerful in the early game, when most players have only Sparrows and Blasters."
+    stats={StatsComponent(ShipsStats.frigate)}
     requirements={
       <>
         <li>Dockyard level 5</li>
@@ -206,7 +241,9 @@ export const FrigateDescription = () => (
 export const ArmadeDescription = () => (
   <DescriptionComponent
     title="Armade"
-    description={StatsComponent(ShipsStats.armade)}
+    image={armadeImg}
+    description="Armades are the most powerful warships, with their speed and heavy weaponry making them formidable against most defenses. They don't require tritium for construction but have high fuel consumption."
+    stats={StatsComponent(ShipsStats.armade)}
     requirements={
       <>
         <li>Dockyard level 7</li>

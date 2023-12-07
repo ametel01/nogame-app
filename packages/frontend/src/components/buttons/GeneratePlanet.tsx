@@ -1,50 +1,16 @@
-import { useCallback } from "react";
+// import { useCallback } from "react";
 import { Box, Button } from "@mui/material";
-import styled from "styled-components";
+// import styled from "styled-components";
 import CircularProgress from "@mui/material/CircularProgress";
-import { TransactionStatus } from "../ui/TransactionStatus";
+// import { TransactionStatus } from "../ui/TransactionStatus";
 import { useContractWrite } from "@starknet-react/core";
 import { GAMEADDRESS, ETH_ADDRESS } from "../../constants/addresses";
 import game from "../../constants/nogame.json";
 import erc20 from "../../constants/erc20.json";
 import { useContract } from "@starknet-react/core";
-import { useTransactionManager } from "../../hooks/useTransactionManager";
+// import { useTransactionManager } from "../../hooks/useTransactionManager";
 
-// Keyframe for glowing effect
-import { keyframes } from "@emotion/react";
-
-const rhythmicGlow = keyframes`
-  0% {
-    boxShadow: 0 0 5px 1px white;
-  }
-  50% {
-    boxShadow: 0 0 25px 5px white;
-  }
-  100% {
-    boxShadow: 0 0 5px 1px white;
-  }
-`;
-
-const StyledButton = styled(Button)({
-  width: "120%",
-  height: "60px",
-  borderRadius: 10,
-  padding: "12px 40px",
-  fontSize: "1.2em",
-  textTransform: "capitalize",
-  letterSpacing: "0.15em",
-  backgroundColor: "#0D4980", // yellow color from the image
-  border: "1px solid #0F111A",
-  display: "flex",
-  justifyContent: "center",
-  color: "white",
-  boxShadow: "0 0 10px 3px white",
-  animation: `${rhythmicGlow} 1.5s infinite`,
-  "&:hover": {
-    background: "#09345d", // slightly darker shade of yellow for hover
-    boxShadow: "0 0 30px 10px white",
-  },
-});
+// const StyledButton = styled(Button)({});
 
 interface Props {
   price: number;
@@ -65,23 +31,22 @@ export const GeneratePlanet = ({ price }: Props) => {
     address: ETH_ADDRESS,
   });
 
-  const {
-    writeAsync,
-    isPending,
-    data: tx,
-  } = useContractWrite({
+  const { writeAsync, isPending } = useContractWrite({
     calls: [
-      eth?.populateTransaction["approve"]!(GAMEADDRESS, Number(price)),
+      eth?.populateTransaction["approve"]!(GAMEADDRESS, {
+        low: Number(price),
+        high: 0,
+      }),
       nogame?.populateTransaction["generate_planet"]!(),
     ],
   });
 
-  const { add } = useTransactionManager();
+  // const { add } = useTransactionManager();
 
-  const submitTx = useCallback(async () => {
-    const tx = await writeAsync({});
-    add(tx.transaction_hash);
-  }, [writeAsync]);
+  // const submitTx = useCallback(async () => {
+  //   const tx = await writeAsync({});
+  //   add(tx.transaction_hash);
+  // }, [writeAsync]);
 
   return (
     <Box position="relative" display="inline-flex">
@@ -97,10 +62,27 @@ export const GeneratePlanet = ({ price }: Props) => {
           }}
         />
       )}
-      <StyledButton variant="contained" onClick={submitTx} disabled={isPending}>
+      <Button
+        // variant="outlined"
+        size="large"
+        sx={{
+          color: "white",
+          width: "345px",
+          height: "75px",
+          backgroundColor: "#4A63AA",
+          border: "1px solid #0F111A",
+          borderRadius: "8px",
+          marginTop: "32px",
+          fontWeight: "700",
+          "&:hover": {
+            background: "#212530", // Slightly lighter than #1B1E2A for a subtle hover effect
+          },
+        }}
+        onClick={() => writeAsync()}
+        disabled={isPending}
+      >
         Mint Planet
-      </StyledButton>
-      <TransactionStatus name="Generating Planet" tx={tx} />
+      </Button>
     </Box>
   );
 };

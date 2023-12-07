@@ -2,6 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 
+import armourImg from "../../assets/gameElements/techs/armour4.png";
+import beamImg from "../../assets/gameElements/techs/beam4.png";
+import ionImg from "../../assets/gameElements/techs/ion4.png";
+import plasmaImg from "../../assets/gameElements/techs/plasma4.png";
+import spacetimeImg from "../../assets/gameElements/techs/spacetime4.png";
+import warpEnginImg from "../../assets/gameElements/techs/warp4.png";
+import combustionImg from "../../assets/gameElements/techs/combustion4.png";
+import thrustImg from "../../assets/gameElements/techs/thrust4.png";
+import weaponsImg from "../../assets/gameElements/techs/weapons4.png";
+import digitalImg from "../../assets/gameElements/techs/digital4.png";
+import shieldImg from "../../assets/gameElements/techs/shield4.png";
+import energyImg from "../../assets/gameElements/techs/energy4.png";
+
 // Styled components
 
 export const StyledBox = styled(Box)({
@@ -13,19 +26,16 @@ export const StyledBox = styled(Box)({
   backgroundColor: "#1a2025",
   borderRadius: 16,
   boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
-  padding: "16px 16px",
+  padding: "24px 24px",
   display: "flex",
   flexDirection: "column",
-  width: "35%",
+  width: "40%",
 });
 
 const HeaderDiv = styled("div")`
   font-size: 20px;
-`;
-
-const Container = styled("div")`
-  padding: 20px;
-  border-radius: 8px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
 `;
 
 const TextBox = styled("div")`
@@ -40,6 +50,7 @@ const Requirements = styled("ul")({
 // Component props
 interface DescriptionComponentProps {
   title: string;
+  image: string;
   description: string;
   requirements: React.ReactNode;
 }
@@ -47,13 +58,23 @@ interface DescriptionComponentProps {
 // Description component
 const DescriptionComponent = ({
   title,
+  image,
   description,
   requirements,
 }: DescriptionComponentProps) => {
   return (
     <StyledBox>
       <HeaderDiv>{title}</HeaderDiv>
-      <Container>
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        {/* Image Section */}
+        <div style={{ marginRight: "16px" }}>
+          <img
+            src={image}
+            alt={`${title} Image`}
+            style={{ width: "240px", height: "auto", borderRadius: "8px" }}
+          />
+        </div>
+        <div style={{ display: "grid" }}></div>
         <TextBox>
           {description}
           <br />
@@ -61,7 +82,7 @@ const DescriptionComponent = ({
           <div>Requirements:</div>
           <Requirements>{requirements}</Requirements>
         </TextBox>
-      </Container>
+      </div>
     </StyledBox>
   );
 };
@@ -70,6 +91,7 @@ const DescriptionComponent = ({
 export const ArmourDescription = () => (
   <DescriptionComponent
     title="Armour Technology"
+    image={armourImg}
     description="Armour Innovation increases fleet and defense hull durability by 10%."
     requirements={
       <li>
@@ -81,6 +103,7 @@ export const ArmourDescription = () => (
 export const CombustionDescription = () => (
   <DescriptionComponent
     title="Combustion Drive"
+    image={combustionImg}
     description="Each level increases the base speed of Carrier, Sparrow, and Scraper by 10%"
     requirements={
       <>
@@ -93,6 +116,7 @@ export const CombustionDescription = () => (
 export const ComputerDescription = () => (
   <DescriptionComponent
     title="Digital Systems"
+    image={digitalImg}
     description="Increases the fleet slots by 1 for each level. Specifically, the number of
     fleet slots equals the level of digital systems plus one"
     requirements={
@@ -105,6 +129,7 @@ export const ComputerDescription = () => (
 export const EnergyDescription = () => (
   <DescriptionComponent
     title="Energy Innovation"
+    image={energyImg}
     description="Each upgrade in Energy
     Innovation leads to new research opportunities, enabling the
     development of advanced ships and defenses."
@@ -118,6 +143,7 @@ export const EnergyDescription = () => (
 export const BeamDescription = () => (
   <DescriptionComponent
     title="Beam Technology"
+    image={beamImg}
     description="This technology is an essential prerequisite for the
     progression into ion and plasma-based weaponry systems. The utility of
     Beam Technology research exhibits a saturation point at Level 12."
@@ -132,6 +158,7 @@ export const BeamDescription = () => (
 export const IonDescription = () => (
   <DescriptionComponent
     title="Ion Systems"
+    image={ionImg}
     description="This technology aids in developing weapon systems. Successful integration leads to advancements like
     deploying Frigate-class vessels and initiating Plasma Engineering
     research"
@@ -148,6 +175,7 @@ export const IonDescription = () => (
 export const PlasmaDescription = () => (
   <DescriptionComponent
     title="Plasma Engineering"
+    image={plasmaImg}
     description="Used for heavy weaponry development. Upon collision with a target, plasma is capable of
     causing substantial structural damage."
     requirements={
@@ -164,6 +192,7 @@ export const PlasmaDescription = () => (
 export const ShieldDescription = () => (
   <DescriptionComponent
     title="Shields Technology"
+    image={shieldImg}
     description="Advancements in this domain increment shield
     efficiency by a factor equivalent to 10% of the intrinsic baseline
     value for each subsequent level of development."
@@ -179,6 +208,7 @@ export const ShieldDescription = () => (
 export const SpacetimeDescription = () => (
   <DescriptionComponent
     title="Spacetime Technology"
+    image={spacetimeImg}
     description=" With enough
     advancement in Spacetime Warp Technology, Hyperspatial Propulsion 
     becomes more than just a theoretical concept, allowing for the development of the Warp Drive"
@@ -195,6 +225,7 @@ export const SpacetimeDescription = () => (
 export const ThrustDescription = () => (
   <DescriptionComponent
     title="Thrust Propulsion"
+    image={thrustImg}
     description="After level 4 is reached, Carriers are equipped
     with thrust propulsion, doubling their base speed. For every
     subsequent level of advancement in the Thrust Propulsion technology,
@@ -211,6 +242,7 @@ export const ThrustDescription = () => (
 export const WarpDescription = () => (
   <DescriptionComponent
     title="Warp Drive"
+    image={warpEnginImg}
     description="Ships equipped with this technology (Armades) experience a 30% increase in Base
     Speed for each level of proficiency in the Warp Drive"
     requirements={
@@ -227,6 +259,7 @@ export const WarpDescription = () => (
 export const WeaponsDescription = () => (
   <DescriptionComponent
     title="Weapons Technology"
+    image={weaponsImg}
     description="Allowes the development of advanced ships and defences. Each levele advancement
     yealds a 10% increase in weapons power"
     requirements={

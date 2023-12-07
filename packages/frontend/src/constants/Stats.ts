@@ -16,7 +16,7 @@ export const ShipsStats = {
     consumption: 300,
   },
   sparrow: {
-    weapon: 250,
+    weapon: 150,
     shield: 10,
     hull: 1000,
     speed: 12500,
@@ -24,7 +24,7 @@ export const ShipsStats = {
     consumption: 20,
   },
   frigate: {
-    weapon: 400,
+    weapon: 600,
     shield: 100,
     hull: 6750,
     speed: 15000,
@@ -32,7 +32,7 @@ export const ShipsStats = {
     consumption: 800,
   },
   armade: {
-    weapon: 600,
+    weapon: 1000,
     shield: 200,
     hull: 15000,
     speed: 10000,

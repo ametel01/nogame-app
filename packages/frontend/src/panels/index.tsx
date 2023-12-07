@@ -69,6 +69,8 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   const celestiaAvailable = useGetCelestiaAvailable(planetId);
   const energyGain = useGetEnergyGainAfterUpgrade(planetId);
   const defencesCost = useDefencesCost();
+
+  console.log(planetId);
   return (
     <ResourcesTabs>
       <ResourcesTabList>

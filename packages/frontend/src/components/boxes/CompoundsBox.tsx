@@ -1,13 +1,16 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import { Input } from "@mui/joy";
 import useUpgrade from "../../hooks/writeHooks/useUpgrade";
 import { numberWithCommas } from "../../shared/utils";
 import { ButtonUpgrade } from "../ui/Button";
 import DescriptionModal from "../modals/Description";
 import * as Styled from "../../shared/styled/Box";
+import { Resources } from "../../shared/types";
 
 const InfoContainer = styled(Styled.InfoContainer)({
-  width: "55%",
+  width: "45%",
 });
 interface CompoundsBoxProps {
   img: string;
@@ -22,6 +25,7 @@ interface CompoundsBoxProps {
   energyRequired: number;
   functionCallName: string; // Assuming this is a string, you might need to adjust if it's another type
   description: React.ReactNode;
+  resourcesAvailable?: Resources;
 }
 
 const CompoundsBox: React.FC<CompoundsBoxProps> = ({
@@ -33,12 +37,12 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   energyRequired,
   functionCallName,
   description,
+  resourcesAvailable,
 }) => {
-  const { tx, submitTx: upgrade } = useUpgrade(functionCallName);
+  const [quantity, setQuantity] = useState(0);
 
-  const steel = costUpdate && numberWithCommas(costUpdate.steel);
-  const quartz = costUpdate && numberWithCommas(costUpdate.quartz);
-  const tritium = costUpdate && numberWithCommas(costUpdate.tritium);
+  const { tx, submitTx: upgrade } = useUpgrade(functionCallName, quantity);
+
   const energy = numberWithCommas(energyRequired);
 
   const buttonStates = {
@@ -56,6 +60,29 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   const currentButtonState = hasEnoughResources ? "valid" : "noResource";
   const isDisabled = currentButtonState === "noResource";
 
+  const adjustedSteel = costUpdate
+    ? quantity === 0
+      ? Number(costUpdate.steel)
+      : Number(costUpdate.steel) * quantity
+    : 0;
+  const adjustedQuartz = costUpdate
+    ? quantity === 0
+      ? Number(costUpdate.quartz)
+      : Number(costUpdate.quartz) * quantity
+    : 0;
+  const adjustedTritium = costUpdate
+    ? quantity === 0
+      ? Number(costUpdate.tritium)
+      : Number(costUpdate.tritium) * quantity
+    : 0;
+
+  const steelDisplay = adjustedSteel ? numberWithCommas(adjustedSteel) : 0;
+  const quartzDisplay = adjustedQuartz ? numberWithCommas(adjustedQuartz) : 0;
+  const tritiumDisplay = adjustedTritium
+    ? numberWithCommas(adjustedTritium)
+    : 0;
+
+
   return (
     <Styled.Box color={buttonStates[currentButtonState].color ?? "grey"}>
       <Styled.ImageContainer>
@@ -70,15 +97,45 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>STEEL</Styled.ResourceTitle>
-            <Styled.NumberContainer>{String(steel)}</Styled.NumberContainer>
+            <Styled.NumberContainer
+              style={{
+                color: resourcesAvailable
+                  ? resourcesAvailable.steel < adjustedSteel
+                    ? "red"
+                    : "inherit"
+                  : "inherit",
+              }}
+            >
+              {steelDisplay}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>QUARTZ</Styled.ResourceTitle>
-            <Styled.NumberContainer>{String(quartz)}</Styled.NumberContainer>
+            <Styled.NumberContainer
+              style={{
+                color: resourcesAvailable
+                  ? resourcesAvailable.steel < adjustedSteel
+                    ? "red"
+                    : "inherit"
+                  : "inherit",
+              }}
+            >
+              {quartzDisplay}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>TRITIUM</Styled.ResourceTitle>
-            <Styled.NumberContainer>{String(tritium)}</Styled.NumberContainer>
+            <Styled.NumberContainer
+              style={{
+                color: resourcesAvailable
+                  ? resourcesAvailable.steel < adjustedSteel
+                    ? "red"
+                    : "inherit"
+                  : "inherit",
+              }}
+            >
+              {tritiumDisplay}
+            </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>ENERGY</Styled.ResourceTitle>
@@ -87,6 +144,23 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
         </InfoContainer>
+        <Styled.ResourceContainer>
+          <Input
+            type="number"
+            value={quantity}
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setQuantity(0);
+              } else {
+                setQuantity(parseInt(e.target.value, 10));
+              }
+            }}
+            size="sm"
+            color="neutral"
+            variant="soft"
+            style={{ width: "80px" }}
+          />
+        </Styled.ResourceContainer>
         <Styled.ButtonContainer>
           <ButtonUpgrade
             name={`Upgrading ${title}`}

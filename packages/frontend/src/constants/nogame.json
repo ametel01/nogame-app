@@ -382,6 +382,10 @@
       "name": "nogame::libraries::types::Mission",
       "members": [
         {
+          "name": "id",
+          "type": "core::integer::u16"
+        },
+        {
           "name": "time_start",
           "type": "core::integer::u64"
         },
@@ -460,6 +464,14 @@
             {
               "name": "receiver",
               "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "uni_speed",
+              "type": "core::integer::u128"
+            },
+            {
+              "name": "token_price",
+              "type": "core::integer::u128"
             }
           ],
           "outputs": [],
@@ -505,126 +517,216 @@
         {
           "type": "function",
           "name": "steel_mine_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "quartz_mine_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "tritium_mine_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "energy_plant_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "dockyard_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "lab_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "energy_innovation_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "digital_systems_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "beam_technology_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "armour_innovation_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "ion_systems_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "plasma_engineering_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "weapons_development_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "shield_tech_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "spacetime_warp_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "combustive_engine_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "thrust_propulsion_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
         {
           "type": "function",
           "name": "warp_drive_upgrade",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
@@ -903,6 +1005,22 @@
           "outputs": [
             {
               "type": "nogame::libraries::types::Debris"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_last_active",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u64"
             }
           ],
           "state_mutability": "view"

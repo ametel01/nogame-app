@@ -1,8 +1,9 @@
 import { styled } from "@mui/system";
 import { FC } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Person } from "@mui/icons-material";
 import NoGameLogo from "../assets/logos/NoGameLogo.png";
-import roundLogo from "../assets/logos/round-logo.png";
+// import roundLogo from "../assets/logos/round-logo.png";
 import { ColumnCenter } from "../shared/styled/Column";
 import { RowCentered } from "../components/ui/Row";
 import ConnectWalletButton from "../components/auth/ConnectWallet";
@@ -10,7 +11,7 @@ import { GeneratePlanet } from "../components/buttons/GeneratePlanet";
 import { useGetPlanetPrice } from "../hooks/useGetPlanetPrice";
 
 const MainWrapper = styled(ColumnCenter)`
-  height: 80vh;
+  height: 100vh;
   justify-content: space-evenly; // Evenly distribute the child elements
   gap: 16px;
 `;
@@ -30,15 +31,9 @@ const SubTextBefore = styled("div")`
   margin-y: 80px;
 `;
 
-const GeneratePlanetWrapper = styled("div")`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 100vh;
-`;
-
 const StyledLogo = styled("img")`
   width: 600px;
+  margin-top: 100px;
 `;
 
 const TopRightButtonContainer = styled("div")`
@@ -55,6 +50,7 @@ const PriceText = styled("div")`
   letter-spacing: 0.02em;
   background-color: rgba(34, 36, 45, 0.8);
   padding: 8px 16px;
+  margin-bottom: 24px;
   border-radius: 8px;
   font-family: "Courier New", Courier, monospace;
   white-space: nowrap;
@@ -81,7 +77,7 @@ const AuthScreen = ({
   hasGeneratedPlanets = false,
 }: AuthScreenProps) => {
   if (address && !hasGeneratedPlanets) {
-    return <GeneratePlanetView />;
+    return <GeneratePlanetView address={address} />;
   }
 
   return (
@@ -92,6 +88,14 @@ const AuthScreen = ({
     />
   );
 };
+
+const ConnectWalletLogo = styled(StyledLogo)`
+  margin-top: 20px;
+`;
+
+const ConnectWalletText = styled(SubTextBefore)`
+  margin-top: 0px;
+`;
 
 const ConnectWalletView: FC<ConnectWalletViewProps> = ({
   address,
@@ -110,53 +114,91 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
 
   return (
     <MainWrapper>
-      <RowCentered>
-        <StyledLogo src={NoGameLogo} alt="No Game Logo" />
-      </RowCentered>
-      <SubTextBefore>
-        In the vast tapestry of the cosmos, the game of NoGame beckons. It's not
-        merely about conquests, nor just about new worlds. It is an intellectual
-        pursuit: discovering unprecedented technologies, forging alliances that
-        defy the very fabric of space-time, and engaging in cosmic battles with
-        countless emperors, each vying for the very essence of universal
-        dominance.
-      </SubTextBefore>
+      <ConnectWalletLogo src={NoGameLogo} alt="No Game Logo" />
+      <ConnectWalletText>
+        Welcome to NoGame, an intergalactic, real-time multiplayer game set in
+        the vastness of the cosmos, powered by Starknet technology. Connect your
+        digital wallet to initiate the creation of your very own celestial body!
+      </ConnectWalletText>
       <TopRightButtonContainer>{renderButton()}</TopRightButtonContainer>
     </MainWrapper>
   );
 };
 
-const GeneratePlanetView = () => {
+const SubTextAfter = styled(SubTextBefore)`
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  font-size: 13px;
+`;
+
+const StyledAddress = styled("div")`
+  display: flex; // Use flexbox for alignment
+  align-items: center; // Vertically center the items
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #ffffff;
+  font-size: 16px;
+
+  & > svg {
+    // Target the Person icon specifically
+    margin-right: 8px; // Add some space between the icon and the text
+  }
+`;
+
+// Step 2: Function to format the address
+const formatAddress = (address: string) => {
+  if (address && address.length > 10) {
+    return `${address.substring(0, 6)}...${address.substring(
+      address.length - 4
+    )}`;
+  }
+  return address; // Return the original address if it's too short
+};
+
+interface PlanetViewProp {
+  address: string;
+}
+
+const GeneratePlanetView = ({ address }: PlanetViewProp) => {
   const price = useGetPlanetPrice();
 
   if (price === undefined) {
-    return <CircularProgress />; // Or any other loading indicator.
+    return <CircularProgress />;
   }
 
   return (
-    <GeneratePlanetWrapper>
-      <MainWrapper>
-        <RowCentered>
-          <img
-            src={roundLogo}
-            alt="UFO for lift off"
-            width={300}
-            height={300}
-          />{" "}
-        </RowCentered>
+    <MainWrapper>
+      <StyledAddress>
+        <Person />
+        {formatAddress(address)}
+      </StyledAddress>
+      <RowCentered>
+        <StyledLogo src={NoGameLogo} alt="No Game Logo" />
+      </RowCentered>
+      <SubTextBefore>
+        In NoGame each participant can mint a single planet NFT per wallet,
+        granting access to the game. Prices for minting are set by a reverse
+        Dutch auction: high demand increases prices, while lower demand reduces
+        them. These prices, updated in real time by a smart contract, can
+        fluctuate, so check back later if they're currently too high.
+      </SubTextBefore>
 
-        <PriceText>
-          Current NFT price:{" "}
-          {price !== undefined ? (
-            (Number(price) / 10 ** 18).toFixed(6)
-          ) : (
-            <CircularProgress size={24} />
-          )}{" "}
-          ETH
-        </PriceText>
-        <GeneratePlanet price={price} />
-      </MainWrapper>
-    </GeneratePlanetWrapper>
+      <PriceText>
+        Current NFT price:{" "}
+        {price !== undefined ? (
+          (Number(price) / 10 ** 18).toFixed(6)
+        ) : (
+          <CircularProgress size={24} />
+        )}{" "}
+        ETH
+      </PriceText>
+      <GeneratePlanet price={price} />
+      <SubTextAfter>
+        It may take a short while for the NFT to show up in your wallet. Once it
+        does, please refresh the page to gain access to the game.
+      </SubTextAfter>
+    </MainWrapper>
   );
 };
 

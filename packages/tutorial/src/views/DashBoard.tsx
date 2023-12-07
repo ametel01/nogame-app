@@ -26,7 +26,7 @@ export default function Dashboard({
   defencesLevels,
   defencesCost,
 }: TutorialProps) {
-  console.log("DashBoard", energyAvailable);
+  // console.log("DashBoard", energyAvailable);
   return (
     <DashboardMainContainer>
       <SideBar

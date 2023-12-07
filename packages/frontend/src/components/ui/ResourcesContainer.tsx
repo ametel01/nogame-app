@@ -166,6 +166,8 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
   const spendable =
     planetId !== undefined ? useSpendableResources(planetId) : undefined;
 
+  console.log(spendable);
+
   const collectible =
     planetId != undefined ? useCollectibleResources(planetId) : undefined;
 

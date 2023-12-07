@@ -13,7 +13,7 @@ import { HostileMissions } from "./HostileMissions";
 
 //pink-capable-snake-964.mypinata.cloud/ipfs/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ/
 const IPFS_BASE_URL = "https://pink-capable-snake-964.mypinata.cloud/ipfs";
-const METADATA_URL = `${IPFS_BASE_URL}/Qmd5j1gnUBtbfpHCMnWDE8HRHu1G3ghuXSxjKW2pzy3PAk`;
+const METADATA_URL = `${IPFS_BASE_URL}/QmaqenNxdgMeRRidn5hFte5bNY4EknEPLbAwA1kYp4f56N`;
 const IMG_URL = `${IPFS_BASE_URL}/QmYuu69m6ArmGq18QjC6UpqFgevFZXooupAyaxKd9XfDpW`;
 // const IMG_MODULO = 10;
 
@@ -22,18 +22,6 @@ const DebugRowCentered = styled(RowCentered)`
   padding: 30px;
   // justify-content: flex-start;
 `;
-
-// const PlanetImageWrapper = styled(Box)({
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-//   height: 250,
-//   width: 250,
-//   borderRadius: 10,
-//   background: "#192125",
-//   overflow: "hidden",
-//   boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-// });
 
 const PlanetImageWrapper = styled(Box)({
   display: "flex",
@@ -155,7 +143,7 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
 
   useEffect(() => {
     if (address && !metadata) {
-      const url = `${METADATA_URL}/${planetId}.json`;
+      const url = `${METADATA_URL}/${planetId}`;
       axios
         .get(url)
         .then((result) => {
@@ -166,23 +154,20 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
     }
   }, [planetId, metadata, address]);
 
-  const imgId = Number(position?.orbit);
+  // console.log(`${METADATA_URL}/${planetId}`);
 
-  // const imgId = useMemo(
-  //   () =>
-  //     planetId !== undefined ? dataToNumber(planetId) % IMG_MODULO : undefined,
-  //   [planetId]
-  // );
+  const imgId = Number(position?.orbit);
 
   const findAttribute = (name: string) =>
     metadata?.attributes.find((props: Props) => props.trait_type === name)
       ?.value || "-";
 
+      console.log(planetId)
   return (
     <>
       <PlanetImageWrapper>
         {imgId ? (
-          <a href={`${IMG_URL}/${planetId}.json`}>
+          <a href={`${IMG_URL}/${planetId}`}>
             <img
               src={getPlanetImageUrl(imgId)}
               width={250}
@@ -196,7 +181,7 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
         )}
       </PlanetImageWrapper>
       <PlanetInfoContainer>
-        <PlanetInfoRow label="Type" value={findAttribute("type")} />
+        <PlanetInfoRow label="Name" value={findAttribute("name")} />
         <PlanetInfoRow
           label="Diameter"
           value={`${numberWithCommas(

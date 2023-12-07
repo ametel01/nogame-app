@@ -3,6 +3,11 @@ import styled from "styled-components";
 import Box from "@mui/material/Box";
 import { DefencesStats } from "../../constants/Stats";
 
+import blasterImg from "../../assets/gameElements/defences/blaster4.png";
+import beamImg from "../../assets/gameElements/defences/beam4.png";
+import astralLauncherImg from "../../assets/gameElements/defences/astral4.png";
+import plasmaImg from "../../assets/gameElements/defences/plasma4.png";
+
 // Styled components
 
 export const StyledBox = styled(Box)({
@@ -14,24 +19,23 @@ export const StyledBox = styled(Box)({
   backgroundColor: "#1a2025",
   borderRadius: 16,
   boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
-  padding: "16px 16px",
-  display: "flex",
+  padding: "24px 24px",
   flexDirection: "column",
-  width: "35%",
+  width: "40%",
+  display: "grid",
+  gridTemplateRows: "auto 1fr auto", // Three rows: header, main content, stats
+  gap: "16px", // Space between grid rows
 });
 
 const HeaderDiv = styled("div")`
   font-size: 20px;
-`;
-
-const Container = styled("div")`
-  padding: 20px;
-  // border-radius: 8px;
+  text-transform: uppercase;
 `;
 
 const TextBox = styled("div")`
   font-size: 16px;
   line-height: 1.5;
+  margin-bottom: 24px;
 `;
 
 const GridContainer = styled.div`
@@ -60,38 +64,92 @@ const Requirements = styled("ul")({
 // Component props
 interface DescriptionComponentProps {
   title: string;
+  image: string;
   description: React.ReactNode;
+  stats: React.ReactNode;
   requirements: React.ReactNode;
 }
 
 const DescriptionComponent = ({
   title,
+  image,
   description,
+  stats,
   requirements,
 }: DescriptionComponentProps) => {
   return (
     <StyledBox>
       <HeaderDiv>{title}</HeaderDiv>
-      <Container>
-        <TextBox>
-          {description}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-start",
+          marginBottom: "24px",
+        }}
+      >
+        {/* Image */}
+        <img
+          src={image}
+          alt={`${title}`}
+          style={{ width: "240px", marginRight: "16px", borderRadius: "8px" }}
+        />
+        {/* Description and Requirements */}
+        <div>
+          <TextBox>{description}</TextBox>
           <div style={{ marginTop: "8px" }}>Requirements:</div>
           <Requirements>{requirements}</Requirements>
-        </TextBox>
-      </Container>
+        </div>
+      </div>
+      {/* Stats */}
+      {stats}
     </StyledBox>
   );
 };
 
 interface StatsProps {
+  cargo?: number;
+  speed?: number;
+  consumption?: number;
   hull: number;
   shield: number;
   weapon: number;
 }
 
-const StatsComponent = ({ hull, shield, weapon }: StatsProps) => {
+const StatsComponent = ({
+  cargo,
+  speed,
+  consumption,
+  hull,
+  shield,
+  weapon,
+}: StatsProps) => {
   return (
     <GridContainer>
+      {cargo ? (
+        <>
+          <InfoRow>
+            <Label>Cargo Capacity:</Label>
+            <InfoData>{cargo}</InfoData>
+          </InfoRow>
+        </>
+      ) : null}
+      {speed ? (
+        <>
+          <InfoRow>
+            <Label>Base Speed: </Label>
+            <InfoData>{speed}</InfoData>
+          </InfoRow>
+        </>
+      ) : null}
+      {consumption ? (
+        <>
+          <InfoRow>
+            <Label>Consumption: </Label>
+            <InfoData>{consumption}</InfoData>
+          </InfoRow>
+        </>
+      ) : null}
       <InfoRow>
         <Label>Base Hull: </Label>
         <InfoData>{hull}</InfoData>
@@ -111,7 +169,9 @@ const StatsComponent = ({ hull, shield, weapon }: StatsProps) => {
 export const BlasterDescription = () => (
   <DescriptionComponent
     title="Blaster"
-    description={StatsComponent(DefencesStats.blaster)}
+    image={blasterImg}
+    description="Blasters are the first defense available, effective against Carriers and low in cost. They only require steel to be built, making them economical, but they are less effective against other ship types."
+    stats={StatsComponent(DefencesStats.blaster)}
     requirements={
       <>
         <li>Dockyard level 1</li>
@@ -122,12 +182,14 @@ export const BlasterDescription = () => (
 export const BeamDescription = () => (
   <DescriptionComponent
     title="Beam"
-    description={StatsComponent(DefencesStats.beam)}
+    image={beamImg}
+    description="Beams represent the second stage of defense, being effective against Sparrows and Carriers but less effective against higher-grade ships."
+    stats={StatsComponent(DefencesStats.beam)}
     requirements={
       <>
         <li>Dockyar level 2</li>
         <li>Energy Innovation level 2</li>
-        <li>Beam Technology level 3</li>
+        <li>Beam Tech level 3</li>
       </>
     }
   />
@@ -135,12 +197,14 @@ export const BeamDescription = () => (
 export const AstralDescription = () => (
   <DescriptionComponent
     title="Astral Launcher"
-    description={StatsComponent(DefencesStats.astral)}
+    image={astralLauncherImg}
+    description="Astral Launchers can counter attacks from fleets equipped with Frigates, but they struggle against Armades."
+    stats={StatsComponent(DefencesStats.astral)}
     requirements={
       <>
         <li>Dockyard level 6</li>
         <li>Energy Innovation level 6</li>
-        <li>Weapons Development level 3</li>
+        <li>Weapons tech level 3</li>
         <li>Shield Technology level 1</li>
       </>
     }
@@ -149,11 +213,13 @@ export const AstralDescription = () => (
 export const PlasmaDescription = () => (
   <DescriptionComponent
     title="Plasma Projector"
-    description={StatsComponent(DefencesStats.plasma)}
+    image={plasmaImg}
+    description="Plasma Projectors, the ultimate defense, can withstand Armadas with their strong hulls and powerful weapons, but they come at a high cost."
+    stats={StatsComponent(DefencesStats.plasma)}
     requirements={
       <>
         <li>Dockyard level 8</li>
-        <li>Plasma Engineering level 7</li>
+        <li>Plasma tech level 7</li>
       </>
     }
   />

@@ -150,9 +150,8 @@ export default function ConnectWallet() {
             ))}
           </StyledUl>
           <DisclaimerText>
-            By connecting a wallet, you agree to NoGame Terms & Conditions and
-            acknowledge that you have read and understood the NoGame Protocol
-            Disclaimer.
+            By connecting your wallet, you acknowledge and accept all risks and
+            responsibilities related to this decentralized application.
           </DisclaimerText>
         </StyledBox>
       </Modal>
