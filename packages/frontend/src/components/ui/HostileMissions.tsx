@@ -1,9 +1,12 @@
+import { useState, useEffect } from "react";
 import { keyframes, styled } from "@mui/system";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useGetHostileMissions } from "../../hooks/FleetHooks";
 import WarningIcon from "@mui/icons-material/Warning";
+import { usePlanetPosition } from "../../hooks/usePlanetPosition";
+import { HostileMission } from "../../shared/types";
 
 // Styled components
 const Container = styled(Box)(({ theme }) => ({
@@ -59,18 +62,25 @@ const Row = styled(Box)({
 });
 
 const Cell = styled(Typography)(() => ({
+  fontSize: "14px",
   opacity: 0.5,
   color: "#98fb98",
 }));
 
-const getTimeDifference = (arrivalTime: number) => {
-  const currentTime = Date.now();
-  const differenceInSeconds = (arrivalTime - currentTime) / 1000;
+const RightAlignedCell = styled(Cell)({
+  textAlign: "right",
+});
 
+const getTimeDifference = (arrivalTime: number) => {
+  const currentTime = Date.now() / 1000; // Convert current time to seconds
+  const differenceInSeconds = arrivalTime - currentTime;
+
+  // Check if the mission has already arrived
   if (differenceInSeconds <= 0) {
-    return `Arrived`;
+    return "Arrived";
   }
 
+  // Otherwise, calculate the time remaining
   const hours = Math.floor(differenceInSeconds / 3600);
   const minutes = Math.floor((differenceInSeconds % 3600) / 60);
   const seconds = Math.floor(differenceInSeconds % 60);
@@ -78,12 +88,42 @@ const getTimeDifference = (arrivalTime: number) => {
   return `${hours}h ${minutes}m ${seconds}s`;
 };
 
-interface Props {
+interface RowProps {
+  mission: HostileMission;
+}
+
+const MissionRow = ({ mission }: RowProps) => {
+  const [countdown, setCountdown] = useState(
+    getTimeDifference(Number(mission.time_arrival))
+  );
+  const position = usePlanetPosition(Number(mission.origin));
+  const originCoordinates = position
+    ? `${position.system} / ${position.orbit}`
+    : "Unknown";
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(getTimeDifference(Number(mission.time_arrival)));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [mission.time_arrival]);
+
+  return (
+    <Row key={mission.id_at_origin}>
+      <Cell>{originCoordinates}</Cell>
+      <Cell>{countdown}</Cell>
+      <RightAlignedCell>{Number(mission.number_of_ships)}</RightAlignedCell>
+    </Row>
+  );
+};
+
+interface HostileMissionsProps {
   planetId: number;
 }
 
 // Component
-export const HostileMissions = ({ planetId }: Props) => {
+export const HostileMissions = ({ planetId }: HostileMissionsProps) => {
   const hostileMissions = planetId
     ? useGetHostileMissions(Number(planetId))
     : [];
@@ -93,26 +133,22 @@ export const HostileMissions = ({ planetId }: Props) => {
       {hostileMissions === undefined ? (
         <CircularProgress />
       ) : hostileMissions.length === 0 ? null : (
-        hostileMissions.map((mission) => (
-          <Container>
-            <TitleContainer>
-              {hostileMissions && hostileMissions.length > 0 && (
-                <StyledWarningIcon />
-              )}
-              <Title variant="h6">Hostile Missions</Title>
-            </TitleContainer>
-            <HeaderRow>
-              <Cell>Origin</Cell>
-              <Cell>Time to Arrival</Cell>
-              <Cell>Number of Ships</Cell>
-            </HeaderRow>
-            <Row key={mission.id_at_origin}>
-              <Cell>{Number(mission.origin)}</Cell>
-              <Cell>{getTimeDifference(Number(mission.time_arrival))}</Cell>
-              <Cell>{Number(mission.number_of_ships)}</Cell>
-            </Row>
-          </Container>
-        ))
+        <Container>
+          <TitleContainer>
+            {hostileMissions && hostileMissions.length > 0 && (
+              <StyledWarningIcon />
+            )}
+            <Title variant="h6">Hostile Missions</Title>
+          </TitleContainer>
+          <HeaderRow>
+            <Cell>Origin</Cell>
+            <Cell>Arrival</Cell>
+            <RightAlignedCell>Ships</RightAlignedCell>
+          </HeaderRow>
+          {hostileMissions.map((mission) => (
+            <MissionRow mission={mission} key={mission.id_at_origin} />
+          ))}
+        </Container>
       )}
     </>
   );
