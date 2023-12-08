@@ -154,20 +154,17 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
     }
   }, [planetId, metadata, address]);
 
-  // console.log(`${METADATA_URL}/${planetId}`);
-
   const imgId = Number(position?.orbit);
 
   const findAttribute = (name: string) =>
     metadata?.attributes.find((props: Props) => props.trait_type === name)
       ?.value || "-";
 
-      console.log(planetId)
   return (
     <>
       <PlanetImageWrapper>
         {imgId ? (
-          <a href={`${IMG_URL}/${planetId}`}>
+          <a href={`${IMG_URL}/${position?.orbit}`}>
             <img
               src={getPlanetImageUrl(imgId)}
               width={250}

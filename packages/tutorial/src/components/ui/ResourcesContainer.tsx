@@ -155,7 +155,6 @@ const ResourcesContainer = ({
   energyAvailable,
   energyFromCelestia,
 }: TutorialProps) => {
-  // console.log("ResourcesContainer", collectibleResources);
   return (
     <div>
       <Resource

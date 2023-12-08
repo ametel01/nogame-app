@@ -70,7 +70,6 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   const energyGain = useGetEnergyGainAfterUpgrade(planetId);
   const defencesCost = useDefencesCost();
 
-  console.log(planetId);
   return (
     <ResourcesTabs>
       <ResourcesTabList>

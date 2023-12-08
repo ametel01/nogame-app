@@ -78,6 +78,7 @@ export type Position = {
 };
 
 export type Mission = {
+  id: number;
   time_start: number;
   destination: number;
   time_arrival: number;

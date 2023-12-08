@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useAttackPlanet, useGetActiveMissions } from "../../hooks/FleetHooks";
 import { Box } from "@mui/system";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal"; // Import Modal
 import styled from "styled-components";
+import { StyledButton } from "../../shared/styled/Button";
+import { calculateFleetLoss } from "../../shared/utils/Formulas";
+import { usePlanetPosition } from "../../hooks/usePlanetPosition";
+import { Mission } from "../../shared/types";
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -17,12 +21,12 @@ export const StyledBox = styled(Box)({
   padding: "16px 32px",
   display: "flex",
   flexDirection: "column",
-  width: "65%",
+  width: "70%",
 });
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr); // Five columns
+  grid-template-columns: repeat(6, 1fr); // Five columns
   gap: 10px;
 `;
 
@@ -49,11 +53,51 @@ export const MissionText = styled("div")({
   // marginBottom: "0px",
 });
 
-const StyledButton = styled(Button)({
-  margin: "16px",
-  marginLeft: "0px",
-  color: "white", // Spacing between the StyledButtons
-});
+interface MissionRowProps {
+  mission: Mission;
+  index: number;
+  countdown: string;
+  decayPercentage: number;
+  handleAttackClick: (arg0: number) => void;
+}
+
+const MissionRow = ({
+  mission,
+  index,
+  countdown,
+  decayPercentage,
+  handleAttackClick,
+}: MissionRowProps) => {
+  const position = usePlanetPosition(Number(mission.destination));
+  const destination = position
+    ? `${position.system} / ${position.orbit}`
+    : "Unknown";
+
+  return (
+    <GridRow key={index}>
+      <MissionText>{mission.id.toString()}</MissionText>
+      <MissionText>{destination}</MissionText>
+      <MissionText>{mission.is_debris ? "Debris" : "Attack"}</MissionText>
+      <MissionText>{countdown || "Arrived"}</MissionText>
+      <MissionText>
+        {decayPercentage ? `${decayPercentage}%` : "0%"}
+      </MissionText>
+      <ButtonContainer>
+        <StyledButton size="small" sx={{ background: "#E67E51" }}>
+          Recall
+        </StyledButton>
+        <StyledButton
+          onClick={() => handleAttackClick(index)}
+          size="small"
+          sx={{ background: "#4A63AA" }}
+          disabled={Number(mission.time_arrival) * 1000 >= Date.now()}
+        >
+          {mission.is_debris ? "Collect" : "Attack"}
+        </StyledButton>
+      </ButtonContainer>
+    </GridRow>
+  );
+};
 
 interface Props {
   planetId: number;
@@ -61,12 +105,26 @@ interface Props {
 
 export const FleetMovements = ({ planetId }: Props) => {
   const missions = useGetActiveMissions(planetId);
-
   const [isOpen, setIsOpen] = useState(false);
   const [countdowns, setCountdowns] = useState<string[]>([]);
+  const [decayPercentages, setDecayPercentages] = useState<number[]>([]);
+  const [, setMissionDestinations] = useState<string[]>([]);
 
   useEffect(() => {
+    const fetchDestinations = async () => {
+      const destinations = await Promise.all(
+        missions.map(async (mission) => {
+          const position = await usePlanetPosition(mission.destination);
+          return position
+            ? `${position.system} / ${position.orbit}`
+            : "Unknown";
+        })
+      );
+      setMissionDestinations(destinations);
+    };
+
     if (missions) {
+      fetchDestinations();
       const timers = missions.map((mission, index) => {
         return setInterval(() => {
           setCountdowns((prev) => {
@@ -76,6 +134,18 @@ export const FleetMovements = ({ planetId }: Props) => {
             );
             return updatedCountdowns;
           });
+
+          const timeSinceArrival =
+            Date.now() / 1000 - Number(mission.time_arrival);
+          if (timeSinceArrival > 7200) {
+            // 2 hours in seconds
+            const decay = calculateFleetLoss(timeSinceArrival - 7200);
+            setDecayPercentages((prev) => {
+              const updatedDecays = [...prev];
+              updatedDecays[index] = decay;
+              return updatedDecays;
+            });
+          }
         }, 1000);
       });
 
@@ -121,7 +191,7 @@ export const FleetMovements = ({ planetId }: Props) => {
   };
 
   return (
-    <div>
+    <div style={{ marginRight: "16px" }}>
       <StyledButton
         variant="text"
         size="small"
@@ -147,31 +217,21 @@ export const FleetMovements = ({ planetId }: Props) => {
               <strong>Mission Type</strong>
             </FixedLengthText>
             <FixedLengthText>
-              <strong>Time to Arrival</strong>
+              <strong>Arrival</strong>
+            </FixedLengthText>
+            <FixedLengthText>
+              <strong>Fleet decay %</strong>
             </FixedLengthText>
             <div></div> {/* Placeholder for the button column */}
             {missions?.map((mission, index) => (
-              <GridRow key={index}>
-                <MissionText>{index + 1}</MissionText>
-                <MissionText>{String(mission.destination)}</MissionText>
-                <MissionText>
-                  {mission.is_debris ? "Debris" : "Attack"}
-                </MissionText>
-                <MissionText>{countdowns[index]}</MissionText>
-                <ButtonContainer>
-                  <StyledButton size="small" sx={{ background: "#E67E51" }}>
-                    Recall
-                  </StyledButton>
-                  <StyledButton
-                    onClick={() => handleAttackClick(index)}
-                    size="small"
-                    sx={{ background: "#4A63AA" }}
-                    disabled={Number(mission.time_arrival) * 1000 >= Date.now()}
-                  >
-                    {mission.is_debris ? "Collect" : "Attack"}
-                  </StyledButton>
-                </ButtonContainer>
-              </GridRow>
+              <MissionRow
+                key={mission.id}
+                mission={mission}
+                index={index}
+                countdown={countdowns[index]}
+                decayPercentage={decayPercentages[index]}
+                handleAttackClick={handleAttackClick}
+              />
             ))}
           </GridContainer>
         </StyledBox>

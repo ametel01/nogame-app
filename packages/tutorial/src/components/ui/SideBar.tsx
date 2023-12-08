@@ -19,7 +19,6 @@ const SideBar = ({
   energyAvailable,
   energyFromCelestia,
 }: TutorialProps) => {
-  // console.log("SideBar", spendableResources);
   return (
     <BodyContainer>
       <WalletHeader account={account} />

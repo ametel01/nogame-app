@@ -101,9 +101,9 @@ const UniverseViewBox = ({
   return (
     <Styled.Box style={boxStyle}>
       <Styled.ImageContainer>
-        {img ? (
+        {img && planetId ? (
           <PlanetModal
-            planetId={planetId!}
+            planetId={planetId}
             image={img}
             position={position ? position : ""}
           />
@@ -155,6 +155,7 @@ const UniverseViewBox = ({
             ownFleet={ownFleet!}
             techs={techsNumberised!}
             ownPosition={ownPositionNumberised!}
+            planetId={planetId}
           />
         </Styled.ButtonContainer>
       </Styled.SubBox>

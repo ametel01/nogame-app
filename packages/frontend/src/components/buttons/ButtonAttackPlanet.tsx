@@ -13,6 +13,7 @@ import scraperImg from "../../assets/gameElements/ships/scraper4.png";
 import { StyledButton } from "../../shared/styled/Button";
 import { ShipsLevels, TechLevels } from "../../shared/types";
 import useSendFleet from "../../hooks/writeHooks/useSendFleet";
+import { useGetActiveMissions } from "../../hooks/FleetHooks";
 import { Fleet, Position } from "../../shared/types";
 import {
   calculateTotalCargoCapacity,
@@ -144,6 +145,7 @@ interface Props {
   ownFleet: ShipsLevels;
   techs?: TechLevels;
   ownPosition?: Position;
+  planetId: number;
 }
 
 export function ButtonAttackPlanet({
@@ -154,11 +156,16 @@ export function ButtonAttackPlanet({
   ownFleet,
   techs,
   ownPosition,
+  planetId,
 }: Props) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [travelTime, setTravelTime] = useState(0);
   const [fuelConsumption, setFuelConsumption] = useState(0);
   const [cargoCapacity, setCargoCapacity] = useState(0);
+
+  const missions = useGetActiveMissions(planetId);
+  const isMissionLimitReached =
+    missions && techs && missions.length === techs.digital + 1;
 
   const totalShips = Object.entries(quantities).reduce(
     (acc, [ship, quantity]) => {
@@ -285,7 +292,7 @@ export function ButtonAttackPlanet({
                         </Text>
                         <InputButtonContainer>
                           <Input
-                            type="text"
+                            type="number"
                             value={quantities[ship] || 0}
                             onChange={(e) => {
                               const value =
@@ -351,7 +358,7 @@ export function ButtonAttackPlanet({
                 style={{
                   background: isAnyShipOverLimit ? "#3B3F53" : "#4A63AA",
                 }}
-                disabled={isAnyShipOverLimit}
+                disabled={isAnyShipOverLimit || isMissionLimitReached}
               >
                 Send Fleet
               </StyledButton>

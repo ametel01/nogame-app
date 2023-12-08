@@ -46,7 +46,7 @@ const UniverseBoxItem = ({ ownPlanetId, position }: UniverseBoxItemProps) => {
   const points_data = useGetPlanetPoints(planetId);
   const points: number = points_data ? points_data : 0;
 
-  const img = getPlanetImageUrl(planetId);
+  const img = getPlanetImageUrl(position.orbit);
 
   const { data } = useOwnerOf(planetId);
   const owner: string = data ? data.toString(16) : "";

@@ -99,4 +99,12 @@ export function techCostFormula(
   return { steel, quartz, tritium };
 }
 
+export function calculateFleetLoss(timeSeconds: number): number {
+  const decay = Math.exp(-0.02 * (timeSeconds / 60));
+
+  const fleetLoss = 100 * (1 - decay);
+
+  return Math.floor(fleetLoss);
+}
+
 export default CompoundsFormulas;

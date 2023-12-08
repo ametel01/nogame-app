@@ -231,7 +231,7 @@ export function ButtonCollectDebris({
                 </Text>
                 <InputButtonContainer>
                   <Input
-                    type="text"
+                    type="number"
                     value={quantities.scraper || ""}
                     onChange={handleInputChange}
                     size="sm"
