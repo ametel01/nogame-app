@@ -24,7 +24,6 @@ jobs:
             git pull origin main
             # Add commands to build and restart your applications
             # For example, for a Node.js app:
-            cd nogame-app
             npm install
             cd packages/backend
             echo '${{ secrets.BACKEND_ENV_FILE }}' > .env
