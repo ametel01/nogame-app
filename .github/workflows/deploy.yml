@@ -11,7 +11,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
+
+      - name: Install Node.js version 18 using NVM
+        run: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          nvm install 18
+          nvm use 18
+          node -v
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
@@ -20,10 +28,12 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm use 18
             cd /var/www/no-game.xyz/nogame-app
-            git pull origin main
+            git pull origin master
             # Add commands to build and restart your applications
-            # For example, for a Node.js app:
             npm install
             cd packages/backend
             echo '${{ secrets.BACKEND_ENV_FILE }}' > .env
