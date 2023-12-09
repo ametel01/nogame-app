@@ -27,9 +27,11 @@ jobs:
             cd nogame-app
             npm install
             cd packages/backend
+            echo '${{ secrets.BACKEND_ENV_FILE }}' > .env
             npm install
             npm run build
             pm2 restart all
-            cd ../frontend
+            cd ../frontend 
+            echo '${{ secrets.FRONTEND_ENV_FILE }}' > .env
             npm install
             npm run build
