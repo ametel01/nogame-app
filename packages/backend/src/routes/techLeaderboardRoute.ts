@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getTechLeaderBoard } from "../controllers/getTechLeaderboard"; // Replace with actual import
+import getTechLeaderBoard from "../controllers/getTechLeaderBoard"; // Replace with actual import
 
 const router = Router();
 

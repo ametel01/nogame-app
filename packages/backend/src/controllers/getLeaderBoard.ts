@@ -1,6 +1,6 @@
 // backend/src/controllers/getLeaderBoard.ts
 import { Request, Response } from "express";
-import fetchLeaderBoard from "../services/fetchLeaderBoard";
+import fetchLeaderBoard from "../services/fetchLeaderboard";
 
 export const getLeaderBoard = async (req: Request, res: Response) => {
   try {
