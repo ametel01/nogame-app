@@ -44,8 +44,8 @@ jobs:
             echo '${{ secrets.BACKEND_ENV_FILE }}' > .env
             npm install
             npm run build
-            pm2 restart all
             cd ../frontend 
             echo '${{ secrets.FRONTEND_ENV_FILE }}' > .env
             npm install
             npm run build
+            pm2 restart all
