@@ -1,0 +1,35 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main # Set this to the branch you want to deploy from
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            cd /var/www/no-game.xyz
+            git pull origin main
+            # Add commands to build and restart your applications
+            # For example, for a Node.js app:
+            cd nogame-app
+            npm install
+            cd packages/backend
+            npm install
+            npm run build
+            pm2 restart all
+            cd ../frontend
+            npm install
+            npm run build
