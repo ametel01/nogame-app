@@ -6,11 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "serve -s dist"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.19",
+    "@mui/joy": "^5.0.0-beta.16",
+    "@mui/material": "^5.14.19",
+    "@mui/system": "^5.14.19",
     "@starknet-react/chains": "^0.1.0",
     "@starknet-react/core": "^2.1.1",
     "bignumber.js": "^9.0.1",
@@ -19,6 +24,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
+    "react-tabs": "^6.0.2",
+    "serve": "^14.2.1",
     "starknet": "^5.24.3",
     "styled-components": "^6.0.8",
     "webfontloader": "^1.6.28",
