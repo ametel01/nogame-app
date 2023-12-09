@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -21,9 +26,9 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd /var/www/no-game.xyz/nogame-app
-            git pull origin main
+            git pull origin master
+            node -v
             # Add commands to build and restart your applications
-            # For example, for a Node.js app:
             npm install
             cd packages/backend
             echo '${{ secrets.BACKEND_ENV_FILE }}' > .env

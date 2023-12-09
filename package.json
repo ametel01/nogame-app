@@ -13,11 +13,5 @@
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
-  "dependencies": {
-    "@mui/icons-material": "^5.14.19",
-    "@mui/joy": "^5.0.0-beta.16",
-    "@mui/material": "^5.14.19",
-    "@mui/system": "^5.14.19",
-    "react-tabs": "^6.0.2"
-  }
+  "dependencies": {}
 }
