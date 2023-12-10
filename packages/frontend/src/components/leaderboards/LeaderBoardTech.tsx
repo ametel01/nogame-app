@@ -54,7 +54,7 @@ const LeadearBoardTech = ({ planetId }: Props) => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch("http://localhost:3000/api/tech");
+        const response = await fetch("http://103.252.117.72:5000/api/tech");
         if (!response.ok) {
           throw new Error("Something went wrong!");
         }
