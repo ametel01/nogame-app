@@ -56,9 +56,7 @@ const LeadearBoardMain = ({ planetId }: Props) => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch(
-          "http://103.252.117.72:5000/api/leaderboard"
-        );
+        const response = await fetch("http://localhost:3001/api/leaderboard");
         if (!response.ok) {
           throw new Error("Something went wrong!");
         }
@@ -106,11 +104,15 @@ const LeadearBoardMain = ({ planetId }: Props) => {
             >
               <Data>{index + 1}</Data>
               <Data>
-                {entry.account.substring(0, 6)}...
-                {entry.account.substring(entry.account.length - 4)}
+                {entry.account
+                  ? `${entry.account.substring(
+                      0,
+                      6
+                    )}...${entry.account.substring(entry.account.length - 4)}`
+                  : "Unknown Account"}
               </Data>
               <Data>{entry.planet_id}</Data>
-              <Data>{Math.round(entry.net_amount / 1000)}</Data>
+              <Data>{Math.round(Number(entry.net_amount) / 1000)}</Data>
             </Row>
           ))}
         </tbody>
