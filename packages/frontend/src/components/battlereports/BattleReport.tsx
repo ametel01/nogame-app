@@ -85,7 +85,7 @@ const BattleReports = ({ planetId }: Props) => {
       setError(null);
       try {
         const response = await fetch(
-          `http://localhost:3000/api/battle-reports?planet_id=${planetId}`
+          `http://103.252.117.72:3001/api/battle-reports?planet_id=${planetId}`
         );
         if (!response.ok) {
           throw new Error("Something went wrong!");
