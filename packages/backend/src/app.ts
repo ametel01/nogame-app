@@ -11,12 +11,14 @@ const app = express();
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
-      if (
-        ["http://127.0.0.1:5173", "http://localhost:5173"].indexOf(origin) !==
-        -1
-      ) {
+      // Add your frontend address to the list of allowed origins
+      const allowedOrigins = [
+        "http://127.0.0.1:5173",
+        "http://localhost:5173",
+        "http://103.252.117.72:3000", // Add this line
+      ];
+      if (allowedOrigins.indexOf(origin) !== -1) {
         return callback(null, true);
       }
       callback(new Error("CORS policy violation"));
