@@ -27,3 +27,5 @@ stats.html
 .env
 
 indexer/prod-ca-2021.pem
+
+package-lock.json
