@@ -7,7 +7,13 @@ import { Input } from "@mui/joy";
 import scraperImg from "../../assets/gameElements/ships/scraper4.png";
 import { StyledButton } from "../../shared/styled/Button";
 import useSendFleet from "../../hooks/writeHooks/useSendFleet";
-import { Fleet, Position, ShipsLevels, TechLevels } from "../../shared/types";
+import {
+  DebrisField,
+  Fleet,
+  Position,
+  ShipsLevels,
+  TechLevels,
+} from "../../shared/types";
 import {
   SCRAPER,
   getDistance,
@@ -89,17 +95,27 @@ const Text = styled("span")<TextProps>(({ totalShips, ownFleet }) => ({
 const FlexContainer = styled("div")({
   display: "flex",
   alignItems: "center",
-  justifyContent: "flex-start", // This already aligns items to the left
-  borderRadius: "8px",
+  justifyContent: "flex-start",
   gap: "4px",
-  margin: "8px",
-  width: "100%", // Ensure it takes the full width of the parent
+  margin: "8px 0", // Adjust margin as needed
+  width: "100%",
+});
+
+const TotalDebrisText = styled("div")({
+  color: "#F8F8FF",
+  fontSize: "16px",
+  marginRight: "8px", // Adjust margin as needed
+});
+
+const TotalDebrisValue = styled("span")({
+  color: "#98fb98",
 });
 
 const InputButtonContainer = styled("div")({
   display: "flex",
   alignItems: "center",
   gap: "4px",
+  marginRight: "16px", // Add right margin to create space
 });
 
 const TravelInfoContainer = styled("div")({
@@ -145,6 +161,7 @@ interface Props {
   ownFleet: ShipsLevels;
   techs: TechLevels;
   ownPosition: Position;
+  debrisField: DebrisField;
 }
 
 export function ButtonCollectDebris({
@@ -153,6 +170,7 @@ export function ButtonCollectDebris({
   ownFleet,
   techs,
   ownPosition,
+  debrisField,
 }: Props) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [travelTime, setTravelTime] = useState(0);
@@ -240,6 +258,12 @@ export function ButtonCollectDebris({
                     style={{ width: "80px" }}
                   />
                 </InputButtonContainer>
+                <TotalDebrisText>
+                  Total Debris{" "}
+                  <TotalDebrisValue>
+                    {Number(debrisField.steel) + Number(debrisField.quartz)}
+                  </TotalDebrisValue>
+                </TotalDebrisText>
               </FlexContainer>
             </StyledUl>
           </div>

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useAttackPlanet, useGetActiveMissions } from "../../hooks/FleetHooks";
+import {
+  useAttackPlanet,
+  useGetActiveMissions,
+  useCollectDebris,
+} from "../../hooks/FleetHooks";
 import { Box } from "@mui/system";
-// import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 import Modal from "@mui/material/Modal"; // Import Modal
 import styled from "styled-components";
 import { StyledButton } from "../../shared/styled/Button";
@@ -58,7 +62,7 @@ interface MissionRowProps {
   index: number;
   countdown: string;
   decayPercentage: number;
-  handleAttackClick: (arg0: number) => void;
+  handleAttackClick: (mission: Mission) => void;
 }
 
 const MissionRow = ({
@@ -80,14 +84,16 @@ const MissionRow = ({
       <MissionText>{mission.is_debris ? "Debris" : "Attack"}</MissionText>
       <MissionText>{countdown || "Arrived"}</MissionText>
       <MissionText>
-        {decayPercentage ? `${decayPercentage}%` : "0%"}
+        <Tooltip title="The fleet will start decay 2 hours after arrival if you don't attack or collect the debris">
+          <span>{decayPercentage ? `${decayPercentage}%` : "0%"}</span>
+        </Tooltip>
       </MissionText>
       <ButtonContainer>
         <StyledButton size="small" sx={{ background: "#E67E51" }}>
           Recall
         </StyledButton>
         <StyledButton
-          onClick={() => handleAttackClick(index)}
+          onClick={() => handleAttackClick(mission)}
           size="small"
           sx={{ background: "#4A63AA" }}
           disabled={Number(mission.time_arrival) * 1000 >= Date.now()}
@@ -103,28 +109,20 @@ interface Props {
   planetId: number;
 }
 
+interface Props {
+  planetId: number;
+}
+
 export const FleetMovements = ({ planetId }: Props) => {
-  const missions = useGetActiveMissions(planetId);
+  const missions = useGetActiveMissions(planetId) || [];
   const [isOpen, setIsOpen] = useState(false);
   const [countdowns, setCountdowns] = useState<string[]>([]);
   const [decayPercentages, setDecayPercentages] = useState<number[]>([]);
-  const [, setMissionDestinations] = useState<string[]>([]);
+  const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
 
   useEffect(() => {
-    const fetchDestinations = async () => {
-      const destinations = await Promise.all(
-        missions.map(async (mission) => {
-          const position = await usePlanetPosition(mission.destination);
-          return position
-            ? `${position.system} / ${position.orbit}`
-            : "Unknown";
-        })
-      );
-      setMissionDestinations(destinations);
-    };
-
-    if (missions) {
-      fetchDestinations();
+    // Ensure missions is defined and is an array before mapping
+    if (missions && missions.length > 0) {
       const timers = missions.map((mission, index) => {
         return setInterval(() => {
           setCountdowns((prev) => {
@@ -149,26 +147,27 @@ export const FleetMovements = ({ planetId }: Props) => {
         }, 1000);
       });
 
+      // Clear the timers when the component unmounts or missions change
       return () => timers.forEach((timer) => clearInterval(timer));
     }
   }, [missions]);
 
-  const [selectedMissionId, setSelectedMissionId] = useState<number | null>(
-    null
-  );
-
-  // This useEffect hook ensures that useAttackPlanet is called with the correct missionId
   useEffect(() => {
-    if (selectedMissionId != null) {
-      attackPlanet();
+    if (selectedMission) {
+      if (selectedMission.is_debris) {
+        const { submitTx: collectDebris } = useCollectDebris(
+          selectedMission.id
+        );
+        collectDebris();
+      } else {
+        const { submitTx: attackPlanet } = useAttackPlanet(selectedMission.id);
+        attackPlanet();
+      }
     }
-  }, [selectedMissionId]);
+  }, [selectedMission]);
 
-  const { submitTx: attackPlanet } = useAttackPlanet(selectedMissionId);
-  // const { submitTx: CollectDebris } = useCollectDebris(selectedMissionId);
-
-  const handleAttackClick = (missionIndex: number) => {
-    setSelectedMissionId(missionIndex + 1);
+  const handleAttackClick = (mission: Mission) => {
+    setSelectedMission(mission);
   };
 
   const getTimeDifference = (arrivalTime: number) => {

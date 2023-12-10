@@ -94,6 +94,7 @@ export function DebrisFieldView({
                 ownFleet={ownFleet!}
                 techs={techs!}
                 ownPosition={ownPosition!}
+                debrisField={debris}
               />
             </div>
           </Modal>
