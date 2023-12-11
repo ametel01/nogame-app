@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/frontend",
+    "packages/backend"
   ],
   "scripts": {
     "dev": "concurrently \"cd packages/backend && npm run dev\" \"cd packages/frontend && npm run dev\"",

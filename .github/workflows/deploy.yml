@@ -41,8 +41,8 @@ jobs:
             # Check if Node is installed and install it if not
             if ! command -v node &> /dev/null
             then
-                curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-                sudo apt-get install -y nodejs
+                curl -sL https://deb.nodesource.com/setup_18.x | sudo bash -
+                sudo apt install -y nodejs
             fi
 
             cd /var/www/no-game.xyz/nogame-app
@@ -54,8 +54,19 @@ jobs:
                 npm install
                 echo '${{ secrets.BACKEND_ENV_FILE }}' > packages/backend/.env
                 echo '${{ secrets.FRONTEND_ENV_FILE }}' > packages/frontend/.env
-                npm run build --workspace=frontend
-                npm run build --workspace=backend
+
+                # Build Frontend
+                cd packages/frontend
+                npm install
+                npm run build
+
+                # Build Backend
+                cd ../backend
+                npm install
+                npm run build
+
+                # Restart the application using PM2
+                cd /var/www/no-game.xyz/nogame-app
                 pm2 restart all
             else
                 echo "npm not found"
