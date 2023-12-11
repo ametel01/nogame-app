@@ -57,6 +57,31 @@ export const MissionText = styled("div")({
   // marginBottom: "0px",
 });
 
+interface ActionProps {
+  missionId: number;
+  onAction: () => void;
+}
+
+const CollectDebrisAction = ({ missionId, onAction }: ActionProps) => {
+  const { submitTx: collectDebris } = useCollectDebris(missionId);
+  useEffect(() => {
+    collectDebris();
+    onAction();
+  }, [collectDebris, onAction]);
+
+  return null; // This component does not render anything
+};
+
+const AttackPlanetAction = ({ missionId, onAction }: ActionProps) => {
+  const { submitTx: attackPlanet } = useAttackPlanet(missionId);
+  useEffect(() => {
+    attackPlanet();
+    onAction();
+  }, [attackPlanet, onAction]);
+
+  return null; // This component does not render anything
+};
+
 interface MissionRowProps {
   mission: Mission;
   index: number;
@@ -152,20 +177,6 @@ export const FleetMovements = ({ planetId }: Props) => {
     }
   }, [missions]);
 
-  useEffect(() => {
-    if (selectedMission) {
-      if (selectedMission.is_debris) {
-        const { submitTx: collectDebris } = useCollectDebris(
-          selectedMission.id
-        );
-        collectDebris();
-      } else {
-        const { submitTx: attackPlanet } = useAttackPlanet(selectedMission.id);
-        attackPlanet();
-      }
-    }
-  }, [selectedMission]);
-
   const handleAttackClick = (mission: Mission) => {
     setSelectedMission(mission);
   };
@@ -198,6 +209,7 @@ export const FleetMovements = ({ planetId }: Props) => {
       >
         Fleet Movements
       </StyledButton>
+
       <Modal
         open={isOpen}
         onClose={() => toggleModal(false)}
@@ -235,6 +247,20 @@ export const FleetMovements = ({ planetId }: Props) => {
           </GridContainer>
         </StyledBox>
       </Modal>
+
+      {/* Conditional rendering of action components */}
+      {selectedMission &&
+        (selectedMission.is_debris ? (
+          <CollectDebrisAction
+            missionId={selectedMission.id}
+            onAction={() => setSelectedMission(null)}
+          />
+        ) : (
+          <AttackPlanetAction
+            missionId={selectedMission.id}
+            onAction={() => setSelectedMission(null)}
+          />
+        ))}
     </div>
   );
 };
