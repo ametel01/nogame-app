@@ -13,6 +13,7 @@ const allowedOrigins = [
   "https://www.no-game.xyz",
   "https://api.no-game.xyz",
   "http://localhost:3000",
+  "http://localhost:5173",
 ];
 
 const corsOptions = {

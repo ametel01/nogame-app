@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../ui/Header";
+import { CircularProgress } from "@mui/material";
 // import { Fleet } from "../../shared/types";
 
 const ContentWrapper = styled.div`
@@ -119,7 +120,7 @@ const BattleReports = ({ planetId }: Props) => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <CircularProgress />;
   }
 
   if (error) {
