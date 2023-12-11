@@ -26,8 +26,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.npm
-            **/node_modules
+            ./node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
@@ -39,11 +38,25 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
+            # Check if Node is installed and install it if not
+            if ! command -v node &> /dev/null
+            then
+                curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+                sudo apt-get install -y nodejs
+            fi
+
             cd /var/www/no-game.xyz/nogame-app
             git pull origin master
-            npm install
-            echo '${{ secrets.BACKEND_ENV_FILE }}' > packages/backend/.env
-            echo '${{ secrets.FRONTEND_ENV_FILE }}' > packages/frontend/.env
-            npm run build --workspace=frontend
-            npm run build --workspace=backend
-            pm2 restart all
+
+            # Check for npm command
+            if command -v npm &> /dev/null
+            then
+                npm install
+                echo '${{ secrets.BACKEND_ENV_FILE }}' > packages/backend/.env
+                echo '${{ secrets.FRONTEND_ENV_FILE }}' > packages/frontend/.env
+                npm run build --workspace=frontend
+                npm run build --workspace=backend
+                pm2 restart all
+            else
+                echo "npm not found"
+            fi
