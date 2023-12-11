@@ -56,9 +56,7 @@ const LeadearBoardMain = ({ planetId }: Props) => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch(
-          "http://103.252.117.72:3001/api/leaderboard"
-        );
+        const response = await fetch("https://api.no-game.xyz/api/leaderboard");
         if (!response.ok) {
           throw new Error("Something went wrong!");
         }

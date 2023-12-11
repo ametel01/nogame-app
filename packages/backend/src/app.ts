@@ -8,23 +8,27 @@ import battleReportsRoute from "./routes/battleReportsRoute";
 
 const app = express();
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      // Add your frontend address to the list of allowed origins
-      const allowedOrigins = [
-        "http://127.0.0.1:5173",
-        "http://localhost:5173",
-        "http://103.252.117.72:3000", // Add this line
-      ];
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        return callback(null, true);
-      }
+const allowedOrigins = [
+  "https://no-game.xyz",
+  "https://www.no-game.xyz",
+  "https://api.no-game.xyz",
+  "http://localhost:3000",
+];
+
+const corsOptions = {
+  origin: (
+    origin: string | undefined,
+    callback: (err: Error | null, allow?: boolean) => void
+  ) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
       callback(new Error("CORS policy violation"));
-    },
-  })
-);
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
