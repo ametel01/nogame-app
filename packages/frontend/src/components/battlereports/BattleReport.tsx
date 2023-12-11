@@ -85,7 +85,7 @@ const BattleReports = ({ planetId }: Props) => {
       setError(null);
       try {
         const response = await fetch(
-          `http://103.252.117.72:3001/api/battle-reports?planet_id=${planetId}`
+          `https://api.no-game.xyz/api/battle-reports?planet_id=${planetId}`
         );
         if (!response.ok) {
           throw new Error("Something went wrong!");
