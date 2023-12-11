@@ -1,6 +1,6 @@
 // import { useCallback } from "react";
 import { Box, Button } from "@mui/material";
-// import styled from "styled-components";
+import styled from "styled-components";
 import CircularProgress from "@mui/material/CircularProgress";
 // import { TransactionStatus } from "../ui/TransactionStatus";
 import { useContractWrite } from "@starknet-react/core";
@@ -10,7 +10,12 @@ import erc20 from "../../constants/erc20.json";
 import { useContract } from "@starknet-react/core";
 // import { useTransactionManager } from "../../hooks/useTransactionManager";
 
-// const StyledButton = styled(Button)({});
+const CenteredProgress = styled("div")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // This makes the container take the full viewport height
+`;
 
 interface Props {
   price: number;
@@ -41,26 +46,21 @@ export const GeneratePlanet = ({ price }: Props) => {
     ],
   });
 
-  // const { add } = useTransactionManager();
-
-  // const submitTx = useCallback(async () => {
-  //   const tx = await writeAsync({});
-  //   add(tx.transaction_hash);
-  // }, [writeAsync]);
-
   return (
     <Box position="relative" display="inline-flex">
       {isPending && (
-        <CircularProgress
-          size={24}
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            marginTop: "-12px",
-            marginLeft: "-12px",
-          }}
-        />
+        <CenteredProgress>
+          <CircularProgress
+            size={24}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              marginTop: "-12px",
+              marginLeft: "-12px",
+            }}
+          />
+        </CenteredProgress>
       )}
       <Button
         // variant="outlined"

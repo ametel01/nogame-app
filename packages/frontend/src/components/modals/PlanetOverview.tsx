@@ -108,6 +108,13 @@ const ImageContainer = styled.div`
   }
 `;
 
+const CenteredProgress = styled("div")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // This makes the container take the full viewport height
+`;
+
 interface Props {
   planetId: number;
   image: string;
@@ -148,7 +155,9 @@ export default function PlanetModal({ planetId, image, position }: Props) {
             style={{ maxWidth: "100%", height: "auto" }}
           />
         ) : (
-          <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
+          <CenteredProgress>
+            <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
+          </CenteredProgress>
         )}
       </ImageContainer>
       <Modal open={isModalOpen} onClose={handleClose}>

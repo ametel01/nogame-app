@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Header from "../ui/Header";
 import { CircularProgress } from "@mui/material";
 // import { Fleet } from "../../shared/types";
 
@@ -42,6 +41,13 @@ const BattleReportDetails = styled.div`
 const DetailItem = styled.div`
   color: #98fb98;
   margin-bottom: 5px;
+`;
+
+const CenteredProgress = styled("div")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // This makes the container take the full viewport height
 `;
 
 type FetchData = {
@@ -120,7 +126,11 @@ const BattleReports = ({ planetId }: Props) => {
   };
 
   if (isLoading) {
-    return <CircularProgress />;
+    return (
+      <CenteredProgress>
+        <CircularProgress />
+      </CenteredProgress>
+    );
   }
 
   if (error) {
@@ -129,7 +139,6 @@ const BattleReports = ({ planetId }: Props) => {
 
   return (
     <>
-      <Header planetId={planetId} />
       <ContentWrapper>
         {battleReports.map((report: FetchData) => (
           <BattleReportContainer key={report.battle_id}>

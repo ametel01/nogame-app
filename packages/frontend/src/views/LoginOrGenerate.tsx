@@ -1,6 +1,6 @@
 import { styled } from "@mui/system";
 import { FC } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
+import { CircularProgress } from "@mui/material";
 import { Person } from "@mui/icons-material";
 import NoGameLogo from "../assets/logos/NoGameLogo.png";
 // import roundLogo from "../assets/logos/round-logo.png";
@@ -58,6 +58,13 @@ const PriceText = styled("div")`
   opacity: 0.9;
 `;
 
+const CenteredProgress = styled("div")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // This makes the container take the full viewport height
+`;
+
 interface AuthScreenProps {
   address?: string;
   loading: boolean;
@@ -104,7 +111,9 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
   const renderButton = () => {
     if (!address) {
       return walletConnectLoading ? (
-        <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
+        <CenteredProgress>
+          <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
+        </CenteredProgress>
       ) : (
         <ConnectWalletButton />
       );
@@ -189,7 +198,9 @@ const GeneratePlanetView = ({ address }: PlanetViewProp) => {
         {price !== undefined ? (
           (Number(price) / 10 ** 18).toFixed(6)
         ) : (
-          <CircularProgress size={24} />
+          <CenteredProgress>
+            <CircularProgress size={24} />
+          </CenteredProgress>
         )}{" "}
         ETH
       </PriceText>
