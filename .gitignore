@@ -29,3 +29,5 @@ stats.html
 indexer/prod-ca-2021.pem
 
 package-lock.json
+
+.github/workflows/xyz
