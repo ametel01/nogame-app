@@ -10,6 +10,10 @@ describe("getBattleReports Controller", () => {
   app.use(express.json());
   app.get("/battle-reports", getBattleReports);
 
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it("should return battle reports for a valid planet_id", async () => {
     (service.fetchBattleReportsForPlanet as jest.Mock).mockResolvedValue({
       reports: ["report1", "report2"],
