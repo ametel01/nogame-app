@@ -95,10 +95,13 @@ const BattleReports = ({ planetId }: Props) => {
           `https://api.no-game.xyz/api/battle-reports?planet_id=${planetId}`
         );
         if (!response.ok) {
-          throw new Error("Something went wrong!");
+          // Setting a specific error message instead of throwing an error
+          setError("No Battle Reports to show");
+          setBattleReports([]); // Clear any existing reports
+        } else {
+          const data = await response.json();
+          setBattleReports(data);
         }
-        const data = await response.json();
-        setBattleReports(data);
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);
@@ -110,7 +113,9 @@ const BattleReports = ({ planetId }: Props) => {
       }
     };
 
-    fetchData();
+    if (planetId !== undefined) {
+      fetchData();
+    }
   }, [planetId]);
 
   const toggleExpand = (id: unknown) => {
