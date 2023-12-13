@@ -19,7 +19,7 @@ const MainWrapper = styled(ColumnCenter)`
 const SubTextBefore = styled("div")`
   color: #ffffff;
   margin-top: 24px;
-  margin-bottom: 24px;
+  // margin-bottom: 24px;
   font-weight: 400;
   font-size: 20px;
   line-height: 42px;
@@ -49,7 +49,7 @@ const PriceText = styled("div")`
   text-align: center;
   letter-spacing: 0.02em;
   background-color: rgba(34, 36, 45, 0.8);
-  padding: 8px 16px;
+  // padding: 8px 16px;
   margin-bottom: 24px;
   border-radius: 8px;
   font-family: "Courier New", Courier, monospace;
@@ -136,8 +136,7 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
 
 const SubTextAfter = styled(SubTextBefore)`
   margin-bottom: 30px;
-  padding-bottom: 20px;
-  font-size: 13px;
+  font-size: 16px;
 `;
 
 const StyledAddress = styled("div")`
@@ -205,7 +204,7 @@ const GeneratePlanetView = ({ address }: PlanetViewProp) => {
         ETH
       </PriceText>
       <GeneratePlanet price={price} />
-      <SubTextAfter>
+      <SubTextAfter style={{color: "#E67E51"}}>
         It may take a short while for the NFT to show up in your wallet. Once it
         does, please refresh the page to gain access to the game.
       </SubTextAfter>

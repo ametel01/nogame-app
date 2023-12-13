@@ -11,7 +11,6 @@ import {
   EnergyCost,
   Resources,
 } from "../shared/types";
-import { calculEnoughResources } from "../shared/utils";
 import CompoundsBox from "../components/boxes/CompoundsBox";
 import {
   EnergyPlantDescription,
@@ -42,9 +41,6 @@ interface Props {
 export const CompoundsTabPanel = ({
   spendableResources,
   compoundsLevels,
-  compoundsCostUpgrade,
-  energyRequired,
-  energyGain,
   ...rest
 }: Props) => {
   const compoundsConfig: CompoundConfigType[] = [
@@ -100,33 +96,21 @@ export const CompoundsTabPanel = ({
 
   return (
     <StyledTabPanel {...rest}>
-      {compoundsConfig.map((compound) => (
-        <CompoundsBox
-          key={compound.functionCallName}
-          description={compound.description}
-          img={compound.img}
-          title={compound.title}
-          functionCallName={compound.functionCallName}
-          level={Number(compoundsLevels?.[compound.compoundName])}
-          costUpdate={compoundsCostUpgrade?.[compound.compoundName]}
-          energyRequired={
-            compound.energyKey === "null"
-              ? 0
-              : compound.energyKey === "energy"
-              ? Number(energyGain)
-              : Number(-energyRequired?.[compound.energyKey])
-          }
-          hasEnoughResources={
-            spendableResources &&
-            compoundsCostUpgrade?.[compound.compoundName] &&
-            calculEnoughResources(
-              compoundsCostUpgrade[compound.compoundName],
-              spendableResources
-            )
-          }
-          resourcesAvailable={spendableResources}
-        />
-      ))}
+      {compoundsConfig.map((compound) => {
+        const level = Number(compoundsLevels?.[compound.compoundName]);
+
+        return (
+          <CompoundsBox
+            key={compound.functionCallName}
+            description={compound.description}
+            img={compound.img}
+            title={compound.title}
+            functionCallName={compound.functionCallName}
+            level={level}
+            resourcesAvailable={spendableResources}
+          />
+        );
+      })}
     </StyledTabPanel>
   );
 };

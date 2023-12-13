@@ -13,7 +13,7 @@ import { HostileMissions } from "./HostileMissions";
 
 //pink-capable-snake-964.mypinata.cloud/ipfs/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ/
 const IPFS_BASE_URL = "https://pink-capable-snake-964.mypinata.cloud/ipfs";
-const METADATA_URL = `${IPFS_BASE_URL}/QmaqenNxdgMeRRidn5hFte5bNY4EknEPLbAwA1kYp4f56N`;
+const METADATA_URL = `${IPFS_BASE_URL}/QmTi7pEBq2ZxUw8WyiZSdqbYUqcukvhwPpHd2DB4qWNJxk`;
 const IMG_URL = `${IPFS_BASE_URL}/QmYuu69m6ArmGq18QjC6UpqFgevFZXooupAyaxKd9XfDpW`;
 // const IMG_MODULO = 10;
 

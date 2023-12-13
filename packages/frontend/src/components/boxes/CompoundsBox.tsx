@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Input } from "@mui/joy";
 import useUpgrade from "../../hooks/writeHooks/useUpgrade";
@@ -8,6 +7,11 @@ import { ButtonUpgrade } from "../ui/Button";
 import DescriptionModal from "../modals/Description";
 import * as Styled from "../../shared/styled/Box";
 import { Resources } from "../../shared/types";
+import {
+  getCompoundCost,
+  getCumulativeEnergyChange,
+} from "../../shared/utils/Formulas";
+import { calculEnoughResources } from "../../shared/utils";
 
 const InfoContainer = styled(Styled.InfoContainer)({
   width: "45%",
@@ -15,14 +19,7 @@ const InfoContainer = styled(Styled.InfoContainer)({
 interface CompoundsBoxProps {
   img: string;
   title: string;
-  level?: number;
-  hasEnoughResources?: boolean;
-  costUpdate?: {
-    steel: number;
-    quartz: number;
-    tritium: number;
-  };
-  energyRequired: number;
+  level: number;
   functionCallName: string; // Assuming this is a string, you might need to adjust if it's another type
   description: React.ReactNode;
   resourcesAvailable?: Resources;
@@ -32,14 +29,17 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   img,
   title,
   level,
-  hasEnoughResources,
-  costUpdate,
-  energyRequired,
   functionCallName,
   description,
   resourcesAvailable,
 }) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [costUpdate, setCostUpdate] = useState({
+    steel: 0,
+    quartz: 0,
+    tritium: 0,
+  });
+  const [energyRequired, setEnergyRequired] = useState(0);
 
   const { tx, submitTx: upgrade } = useUpgrade(functionCallName, quantity);
 
@@ -57,31 +57,27 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
     },
   };
 
+  useEffect(() => {
+    const newCost = getCompoundCost(functionCallName, level + 1, quantity);
+    setCostUpdate(newCost);
+  }, [quantity, level, functionCallName]);
+
+  useEffect(() => {
+    const newConsumption = getCumulativeEnergyChange(
+      functionCallName,
+      level + 1,
+      quantity
+    );
+    setEnergyRequired(newConsumption);
+  }, [quantity, level, functionCallName]);
+
+  const hasEnoughResources = calculEnoughResources(
+    costUpdate,
+    resourcesAvailable
+  );
+
   const currentButtonState = hasEnoughResources ? "valid" : "noResource";
   const isDisabled = currentButtonState === "noResource";
-
-  const adjustedSteel = costUpdate
-    ? quantity === 0
-      ? Number(costUpdate.steel)
-      : Number(costUpdate.steel) * quantity
-    : 0;
-  const adjustedQuartz = costUpdate
-    ? quantity === 0
-      ? Number(costUpdate.quartz)
-      : Number(costUpdate.quartz) * quantity
-    : 0;
-  const adjustedTritium = costUpdate
-    ? quantity === 0
-      ? Number(costUpdate.tritium)
-      : Number(costUpdate.tritium) * quantity
-    : 0;
-
-  const steelDisplay = adjustedSteel ? numberWithCommas(adjustedSteel) : 0;
-  const quartzDisplay = adjustedQuartz ? numberWithCommas(adjustedQuartz) : 0;
-  const tritiumDisplay = adjustedTritium
-    ? numberWithCommas(adjustedTritium)
-    : 0;
-
 
   return (
     <Styled.Box color={buttonStates[currentButtonState].color ?? "grey"}>
@@ -100,13 +96,13 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
             <Styled.NumberContainer
               style={{
                 color: resourcesAvailable
-                  ? resourcesAvailable.steel < adjustedSteel
+                  ? resourcesAvailable.steel < costUpdate.steel
                     ? "red"
                     : "inherit"
                   : "inherit",
               }}
             >
-              {steelDisplay}
+              {costUpdate.steel}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
@@ -114,13 +110,13 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
             <Styled.NumberContainer
               style={{
                 color: resourcesAvailable
-                  ? resourcesAvailable.steel < adjustedSteel
+                  ? resourcesAvailable.quartz < costUpdate.quartz
                     ? "red"
                     : "inherit"
                   : "inherit",
               }}
             >
-              {quartzDisplay}
+              {costUpdate.quartz}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
@@ -128,19 +124,19 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
             <Styled.NumberContainer
               style={{
                 color: resourcesAvailable
-                  ? resourcesAvailable.steel < adjustedSteel
+                  ? resourcesAvailable.tritium < costUpdate.tritium
                     ? "red"
                     : "inherit"
                   : "inherit",
               }}
             >
-              {tritiumDisplay}
+              {costUpdate.tritium}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>ENERGY</Styled.ResourceTitle>
             <Styled.NumberContainer>
-              {Number(energy) > 0 ? `+${energy}` : String(energy)}
+              {Number(energy) > 0 ? `${energy}` : String(energy)}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
         </InfoContainer>
