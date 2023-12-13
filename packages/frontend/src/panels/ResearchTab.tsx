@@ -4,7 +4,6 @@ import ResearchBox from "../components/boxes/ResearchBox";
 import {
   armourRequirements,
   beamTechRequirements,
-  calculEnoughResources,
   combustionRequirements,
   digitalRequirements,
   energyRequirements,
@@ -64,7 +63,6 @@ interface Props {
 export const ResearchTabPanel = ({
   spendableResources,
   techLevels,
-  techCostUpgrade,
   labLevel,
   ...rest
 }: Props) => {
@@ -177,16 +175,7 @@ export const ResearchTabPanel = ({
           title={research.title}
           functionCallName={research.functionCallName}
           level={Number(techLevels?.[research.techName])}
-          costUpdate={techCostUpgrade?.[research.techName]}
           resourcesAvailable={spendableResources}
-          hasEnoughResources={
-            spendableResources &&
-            techCostUpgrade?.[research.techName] &&
-            calculEnoughResources(
-              techCostUpgrade[research.techName],
-              spendableResources
-            )
-          }
           requirementsMet={research.requirements}
           techs={techLevels!}
         />

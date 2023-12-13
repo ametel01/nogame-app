@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import Tooltip from "@mui/material/Tooltip";
 import styled from "styled-components";
 import { Input } from "@mui/joy";
 import ImagePopover from "../modals/Description";
@@ -115,7 +116,7 @@ const DefencesBox = ({
             <Styled.NumberContainer
               style={{
                 color: resourcesAvailable
-                  ? resourcesAvailable.steel < adjustedSteel
+                  ? resourcesAvailable.quartz < adjustedQuartz
                     ? "red"
                     : "inherit"
                   : "inherit",
@@ -129,7 +130,7 @@ const DefencesBox = ({
             <Styled.NumberContainer
               style={{
                 color: resourcesAvailable
-                  ? resourcesAvailable.steel < adjustedSteel
+                  ? resourcesAvailable.tritium < adjustedTritium
                     ? "red"
                     : "inherit"
                   : "inherit",
@@ -140,21 +141,23 @@ const DefencesBox = ({
           </Styled.ResourceContainer>
         </InfoContainer>
         <Styled.ResourceContainer>
-          <Input
-            type="number"
-            value={quantity}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setQuantity(0);
-              } else {
-                setQuantity(parseInt(e.target.value, 10));
-              }
-            }}
-            size="sm"
-            color="neutral"
-            variant="soft"
-            style={{ width: "80px" }}
-          />
+          <Tooltip title="Select the number of units to build">
+            <Input
+              type="number"
+              value={quantity}
+              onChange={(e) => {
+                if (e.target.value === "") {
+                  setQuantity(0);
+                } else {
+                  setQuantity(parseInt(e.target.value, 10));
+                }
+              }}
+              size="sm"
+              color="neutral"
+              variant="soft"
+              style={{ width: "80px" }}
+            />
+          </Tooltip>
         </Styled.ResourceContainer>
         <Styled.ButtonContainer>
           <ButtonBuild

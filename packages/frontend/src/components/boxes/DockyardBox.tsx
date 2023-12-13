@@ -119,7 +119,7 @@ const DockyardBox = ({
             <Styled.NumberContainer
               style={{
                 color: resourcesAvailable
-                  ? resourcesAvailable.steel < adjustedSteel
+                  ? resourcesAvailable.quartz < adjustedQuartz
                     ? "red"
                     : "inherit"
                   : "inherit",
@@ -133,7 +133,7 @@ const DockyardBox = ({
             <Styled.NumberContainer
               style={{
                 color: resourcesAvailable
-                  ? resourcesAvailable.steel < adjustedSteel
+                  ? resourcesAvailable.tritium < adjustedTritium
                     ? "red"
                     : "inherit"
                   : "inherit",

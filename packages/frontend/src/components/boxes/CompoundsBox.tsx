@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Input } from "@mui/joy";
+import Tooltip from "@mui/material/Tooltip";
 import useUpgrade from "../../hooks/writeHooks/useUpgrade";
 import { numberWithCommas } from "../../shared/utils";
 import { ButtonUpgrade } from "../ui/Button";
@@ -136,26 +137,28 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>ENERGY</Styled.ResourceTitle>
             <Styled.NumberContainer>
-              {Number(energy) > 0 ? `${energy}` : String(energy)}
+              {Number(energy) > 0 ? `+${energy}` : String(energy)}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
         </InfoContainer>
         <Styled.ResourceContainer>
-          <Input
-            type="number"
-            value={quantity}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setQuantity(0);
-              } else {
-                setQuantity(parseInt(e.target.value, 10));
-              }
-            }}
-            size="sm"
-            color="neutral"
-            variant="soft"
-            style={{ width: "80px" }}
-          />
+          <Tooltip title="Select the number of levels to upgrade">
+            <Input
+              type="number"
+              value={quantity}
+              onChange={(e) => {
+                if (e.target.value === "") {
+                  setQuantity(0);
+                } else {
+                  setQuantity(parseInt(e.target.value, 10));
+                }
+              }}
+              size="sm"
+              color="neutral"
+              variant="soft"
+              style={{ width: "80px" }}
+            />
+          </Tooltip>
         </Styled.ResourceContainer>
         <Styled.ButtonContainer>
           <ButtonUpgrade

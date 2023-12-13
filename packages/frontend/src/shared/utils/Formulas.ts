@@ -106,7 +106,6 @@ export const getCompoundCost = (
   const totalCost = { steel: 0, quartz: 0, tritium: 0 };
   for (let i = 0; i < quantity; i++) {
     let levelCost;
-    console.log(functionCallName);
     switch (functionCallName) {
       case "steel_mine":
         levelCost = CompoundsFormulas.steelCost(level + i);

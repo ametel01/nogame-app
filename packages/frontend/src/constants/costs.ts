@@ -29,3 +29,21 @@ export const baseDefenceCost: { [key: string]: Resources } = {
   astral: { steel: 20000, quartz: 15000, tritium: 0 },
   plasma: { steel: 50000, quartz: 50000, tritium: 0 },
 };
+
+type BaseTechCostKey = keyof typeof baseTechCost;
+
+// Mapping from functionCallName to baseTechCost key
+export const techCostMapping: { [key: string]: BaseTechCostKey } = {
+  digital_systems: "digital",
+  weapons_development: "weapon",
+  shield_tech: "shield",
+  armour_innovation: "armour",
+  energy_innovation: "energy",
+  combustive_engine: "combustion",
+  thrust_propulsion: "thrust",
+  warp_drive: "warp",
+  spacetime_warp: "spacetime",
+  beam_technology: "beam",
+  ion_systems: "ion",
+  plasma_engineering: "plasma",
+};

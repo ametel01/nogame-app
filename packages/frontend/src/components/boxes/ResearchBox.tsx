@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Tooltip from "@mui/material/Tooltip";
 import { Input } from "@mui/joy";
 import * as Styled from "../../shared/styled/Box";
 import { ButtonUpgrade } from "../ui/Button";
@@ -9,7 +10,9 @@ import useUpgrade from "../../hooks/writeHooks/useUpgrade";
 import ImagePopover from "../modals/Description";
 import { TechLevels } from "../../shared/types";
 import { Resources } from "../../shared/types";
-
+import { getCumulativeTechCost } from "../../shared/utils/Formulas";
+import { baseTechCost, techCostMapping } from "../../constants/costs";
+import { calculEnoughResources } from "../../shared/utils";
 const InfoContainer = styled(Styled.InfoContainer)({
   width: "45%",
 });
@@ -19,8 +22,6 @@ interface Props {
   title: string;
   functionCallName: string;
   level?: number;
-  costUpdate?: { steel: number; quartz: number; tritium: number };
-  hasEnoughResources?: boolean;
   requirementsMet?: boolean;
   description: ReactNode;
   techs: TechLevels;
@@ -34,15 +35,38 @@ const ResearchBox = ({
   title,
   functionCallName,
   level,
-  costUpdate,
-  hasEnoughResources,
   requirementsMet,
   description,
   resourcesAvailable,
 }: Props) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const { tx, submitTx: upgrade } = useUpgrade(functionCallName, quantity);
+
+  const baseCostKey = techCostMapping[functionCallName] || functionCallName;
+  const baseCosts = baseTechCost[baseCostKey];
+  console.log("Level:", level, "Quantity:", quantity, "Base Costs:", baseCosts);
+  // Calculate the cumulative cost of the upgrade
+  const upgradeCost = useMemo(() => {
+    console.log("Calculating Upgrade Cost");
+    if (quantity > 0 && level != undefined) {
+      const cost = getCumulativeTechCost(
+        level,
+        quantity,
+        baseCosts.steel,
+        baseCosts.quartz,
+        baseCosts.tritium
+      );
+      console.log("Cost:", cost);
+      return cost;
+    }
+    return { steel: 0, quartz: 0, tritium: 0 };
+  }, [level, quantity, baseCosts]);
+
+  const hasEnoughResources = calculEnoughResources(
+    upgradeCost,
+    resourcesAvailable
+  );
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {
@@ -57,28 +81,6 @@ const ResearchBox = ({
   const hasRequirements = buttonState === "noRequirements";
 
   const isDisabled = buttonState === "noResource";
-
-  const adjustedSteel = costUpdate
-    ? quantity === 0
-      ? Number(costUpdate.steel)
-      : Number(costUpdate.steel) * quantity
-    : 0;
-  const adjustedQuartz = costUpdate
-    ? quantity === 0
-      ? Number(costUpdate.quartz)
-      : Number(costUpdate.quartz) * quantity
-    : 0;
-  const adjustedTritium = costUpdate
-    ? quantity === 0
-      ? Number(costUpdate.tritium)
-      : Number(costUpdate.tritium) * quantity
-    : 0;
-
-  const steelDisplay = adjustedSteel ? numberWithCommas(adjustedSteel) : 0;
-  const quartzDisplay = adjustedQuartz ? numberWithCommas(adjustedQuartz) : 0;
-  const tritiumDisplay = adjustedTritium
-    ? numberWithCommas(adjustedTritium)
-    : 0;
 
   return (
     <Styled.Box>
@@ -97,13 +99,13 @@ const ResearchBox = ({
             <Styled.NumberContainer
               style={{
                 color: resourcesAvailable
-                  ? resourcesAvailable.steel < adjustedSteel
+                  ? resourcesAvailable.steel < upgradeCost.steel
                     ? "red"
                     : "inherit"
                   : "inherit",
               }}
             >
-              {steelDisplay}
+              {numberWithCommas(upgradeCost.steel)}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
@@ -111,13 +113,13 @@ const ResearchBox = ({
             <Styled.NumberContainer
               style={{
                 color: resourcesAvailable
-                  ? resourcesAvailable.steel < adjustedSteel
+                  ? resourcesAvailable.quartz < upgradeCost.quartz
                     ? "red"
                     : "inherit"
                   : "inherit",
               }}
             >
-              {quartzDisplay}
+              {numberWithCommas(upgradeCost.quartz)}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
@@ -125,32 +127,34 @@ const ResearchBox = ({
             <Styled.NumberContainer
               style={{
                 color: resourcesAvailable
-                  ? resourcesAvailable.steel < adjustedSteel
+                  ? resourcesAvailable.tritium < upgradeCost.tritium
                     ? "red"
                     : "inherit"
                   : "inherit",
               }}
             >
-              {tritiumDisplay}
+              {numberWithCommas(upgradeCost.tritium)}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
         </InfoContainer>
         <Styled.ResourceContainer>
-          <Input
-            type="number"
-            value={quantity}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setQuantity(0);
-              } else {
-                setQuantity(parseInt(e.target.value, 10));
-              }
-            }}
-            size="sm"
-            color="neutral"
-            variant="soft"
-            style={{ width: "80px" }}
-          />
+          <Tooltip title="Select the number of levels to upgrade">
+            <Input
+              type="number"
+              value={quantity}
+              onChange={(e) => {
+                if (e.target.value === "") {
+                  setQuantity(0);
+                } else {
+                  setQuantity(parseInt(e.target.value, 10));
+                }
+              }}
+              size="sm"
+              color="neutral"
+              variant="soft"
+              style={{ width: "80px" }}
+            />
+          </Tooltip>
         </Styled.ResourceContainer>
         <Styled.ButtonContainer>
           <ButtonUpgrade
