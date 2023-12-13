@@ -67,6 +67,9 @@ export function DebrisFieldView({
           <Tooltip
             title={
               <>
+                <div>
+                  <strong>Debris Field</strong>
+                </div>
                 <div>Steel: {String(debris.steel)}</div>
                 <div>Quartz: {String(debris.quartz)}</div>
               </>

@@ -141,7 +141,7 @@ const DefencesBox = ({
           </Styled.ResourceContainer>
         </InfoContainer>
         <Styled.ResourceContainer>
-          <Tooltip title="Select the number of units to build">
+          <Tooltip title="Select the number of units to build" arrow>
             <Input
               type="number"
               value={quantity}

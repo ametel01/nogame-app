@@ -142,7 +142,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
           </Styled.ResourceContainer>
         </InfoContainer>
         <Styled.ResourceContainer>
-          <Tooltip title="Select the number of levels to upgrade">
+          <Tooltip title="Select the number of levels to upgrade" arrow>
             <Input
               type="number"
               value={quantity}

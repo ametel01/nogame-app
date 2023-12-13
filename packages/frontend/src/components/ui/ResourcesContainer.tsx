@@ -92,28 +92,30 @@ interface Props {
 const Energy = ({ available, img, title, fromCelestia }: Props) => {
   return (
     <Container>
-      <Tooltip
-        title={"Energy must always be positive to avoid loosing production"}
-        arrow
-      >
-        <div>
-          <ResourceName style={{ fontSize: "16px" }}>{title}</ResourceName>
-          <ImageAddressContainer>
-            <div style={{ width: "30px" }}>
-              <ImageStyle src={img} alt="resource" />
-            </div>
-          </ImageAddressContainer>
-        </div>
-      </Tooltip>
+      <div>
+        <ResourceName style={{ fontSize: "16px" }}>{title}</ResourceName>
+        <ImageAddressContainer>
+          <div style={{ width: "30px" }}>
+            <ImageStyle src={img} alt="resource" />
+          </div>
+        </ImageAddressContainer>
+      </div>
       <TotalResourceWrapper>
-        <TotalResourceContainer>
+        <Tooltip
+          title={"Energy must always be positive to avoid loosing production"}
+          arrow
+        >
           <div>
-            <ResourceName style={{ fontSize: "10px" }}>Available</ResourceName>
+            <TotalResourceContainer>
+              <ResourceName style={{ fontSize: "10px" }}>
+                Available
+              </ResourceName>
+            </TotalResourceContainer>
             <TotalResourceText>{String(available)}</TotalResourceText>
             <ResourceName style={{ fontSize: "10px" }}>Celestia</ResourceName>
             <TotalResourceText>{String(fromCelestia)}</TotalResourceText>
           </div>
-        </TotalResourceContainer>
+        </Tooltip>
       </TotalResourceWrapper>
     </Container>
   );
@@ -142,14 +144,27 @@ const Resource = ({ spendable, collectible, img, title, address }: Props) => {
         </div>
       </Tooltip>
       <TotalResourceWrapper>
-        {/* <ResourceName style={{ fontSize: "16px" }}>{title}</ResourceName> */}
         <TotalResourceContainer>
           <div>
-            <ResourceName style={{ fontSize: "10px" }}>Spendable</ResourceName>
+            <Tooltip
+              title="Available for spending; 50% vulnerable to plundering in an attack."
+              arrow
+              placement="top"
+            >
+              <ResourceName style={{ fontSize: "10px" }}>
+                Spendable
+              </ResourceName>
+            </Tooltip>
             <TotalResourceText>{String(spendable)}</TotalResourceText>
-            <ResourceName style={{ fontSize: "10px" }}>
-              Collectible
-            </ResourceName>
+            <Tooltip
+              title="
+              Mined resources pending collection; not spendable and 100% at risk of plundering in an attack."
+              arrow
+            >
+              <ResourceName style={{ fontSize: "10px" }}>
+                Collectible
+              </ResourceName>
+            </Tooltip>
             <TotalResourceText>{String(collectible)}</TotalResourceText>
           </div>
         </TotalResourceContainer>
