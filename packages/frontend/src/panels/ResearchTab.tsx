@@ -1,5 +1,5 @@
 import { StyledTabPanel } from "./styleds";
-import { TechCost, Resources, TechLevels, TechEntities } from "../shared/types";
+import { Resources, TechLevels, TechEntities } from "../shared/types";
 import ResearchBox from "../components/boxes/ResearchBox";
 import {
   armourRequirements,
@@ -56,7 +56,6 @@ type ResearchConfigType = {
 interface Props {
   spendableResources: Resources;
   techLevels?: TechLevels;
-  techCostUpgrade?: TechCost;
   labLevel?: number;
 }
 

@@ -24,24 +24,12 @@ import {
   useShipsLevels,
   useTechsLevels,
 } from "../hooks/LevelsHooks";
-import {
-  useCompoundsUpgradeCost,
-  useDefencesCost,
-  useEnergyCost,
-  useShipsCost,
-  useTechsUpgradeCost,
-} from "../hooks/CostsHooks";
+import { useDefencesCost, useShipsCost } from "../hooks/CostsHooks";
 import { UniverseViewTabPanel } from "./UniverseViewTab";
-import {
-  useGetCelestiaAvailable,
-  useGetEnergyGainAfterUpgrade,
-} from "../hooks/EnergyHooks";
+import { useGetCelestiaAvailable } from "../hooks/EnergyHooks";
 import {
   CompoundsLevels,
-  CompoundsCostUpgrade,
-  EnergyCost,
   Resources,
-  TechCost,
   TechLevels,
   ShipsCost,
   ShipsLevels,
@@ -59,15 +47,11 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   // Data Retrieval Hooks
   const compoundsLevels = useCompoundsLevels(planetId);
   const spendableResources = useSpendableResources(planetId);
-  const compoundsCost = useCompoundsUpgradeCost(planetId);
-  const energyCost = useEnergyCost(planetId);
   const techLevels = useTechsLevels(planetId);
-  const techCost = useTechsUpgradeCost(planetId);
   const shipsLevels = useShipsLevels(planetId);
   const shipsCost = useShipsCost();
   const defencesLevels = useDefencesLevels(planetId);
   const celestiaAvailable = useGetCelestiaAvailable(planetId);
-  const energyGain = useGetEnergyGainAfterUpgrade(planetId);
   const defencesCost = useDefencesCost();
 
   return (
@@ -119,19 +103,11 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
           </RowCentered>
         </ResourceTab>
       </ResourcesTabList>
-      {activeTab === 1 &&
-        renderCompounds(
-          spendableResources,
-          compoundsLevels,
-          compoundsCost,
-          energyCost,
-          energyGain
-        )}
+      {activeTab === 1 && renderCompounds(spendableResources, compoundsLevels)}
       {activeTab === 2 &&
         renderLabPanel(
           spendableResources,
           techLevels,
-          techCost,
           Number(compoundsLevels.lab)
         )}
       {activeTab === 3 &&
@@ -156,20 +132,11 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   );
 };
 
-function renderCompounds(
-  spendable: Resources,
-  compounds: CompoundsLevels,
-  compoundsCost: CompoundsCostUpgrade,
-  energy: EnergyCost,
-  energyGain: number
-) {
+function renderCompounds(spendable: Resources, compounds: CompoundsLevels) {
   return (
     <CompoundsTabPanel
       spendableResources={spendable}
       compoundsLevels={compounds}
-      compoundsCostUpgrade={compoundsCost}
-      energyRequired={energy}
-      energyGain={energyGain}
     />
   );
 }
@@ -177,14 +144,12 @@ function renderCompounds(
 function renderLabPanel(
   spendable: Resources,
   techs: TechLevels,
-  techCost: TechCost,
   labLevel: number
 ) {
   return (
     <ResearchTabPanel
       spendableResources={spendable}
       techLevels={techs}
-      techCostUpgrade={techCost}
       labLevel={labLevel}
     />
   );

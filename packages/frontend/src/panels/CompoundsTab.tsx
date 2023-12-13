@@ -6,7 +6,7 @@ import energyImg from "../assets/gameElements/compounds/energy4.png";
 import labImg from "../assets/gameElements/compounds/lab4.png";
 import dockyardImg from "../assets/gameElements/compounds/dockyard4.png";
 import {
-  CompoundsCostUpgrade,
+  // CompoundsCostUpgrade,
   CompoundsLevels,
   EnergyCost,
   Resources,
@@ -33,9 +33,6 @@ type CompoundConfigType = {
 interface Props {
   spendableResources?: Resources;
   compoundsLevels: CompoundsLevels;
-  compoundsCostUpgrade: CompoundsCostUpgrade;
-  energyRequired: EnergyCost;
-  energyGain: number;
 }
 
 export const CompoundsTabPanel = ({

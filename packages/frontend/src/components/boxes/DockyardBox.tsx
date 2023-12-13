@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
+import Tooltip from "@mui/material/Tooltip";
 import * as Styled from "../../shared/styled/Box";
 import { ButtonBuild } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
@@ -84,14 +85,7 @@ const DockyardBox = ({
     <Styled.Box>
       <Styled.ImageContainer>
         <ImagePopover image={img} title={title} description={description} />
-        <img
-          src={img}
-          alt={title}
-          // style={{
-          //   maxWidth: "100%",
-          //   height: "auto",
-          // }}
-        />
+        <img src={img} alt={title} />
       </Styled.ImageContainer>
       <Styled.SubBox>
         <Styled.Title>{title}</Styled.Title>
@@ -144,21 +138,23 @@ const DockyardBox = ({
           </Styled.ResourceContainer>
         </InfoContainer>
         <Styled.ResourceContainer>
-          <Input
-            type="number"
-            value={quantity}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setQuantity(0);
-              } else {
-                setQuantity(parseInt(e.target.value, 10));
-              }
-            }}
-            size="sm"
-            color="neutral"
-            variant="soft"
-            style={{ width: "80px" }}
-          />
+          <Tooltip title="Select the number of units to build">
+            <Input
+              type="number"
+              value={quantity}
+              onChange={(e) => {
+                if (e.target.value === "") {
+                  setQuantity(0);
+                } else {
+                  setQuantity(parseInt(e.target.value, 10));
+                }
+              }}
+              size="sm"
+              color="neutral"
+              variant="soft"
+              style={{ width: "80px" }}
+            />
+          </Tooltip>
         </Styled.ResourceContainer>
         <Styled.ButtonContainer>
           <ButtonBuild

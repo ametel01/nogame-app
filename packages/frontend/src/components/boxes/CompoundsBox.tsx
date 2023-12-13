@@ -103,7 +103,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
                   : "inherit",
               }}
             >
-              {costUpdate.steel}
+              {numberWithCommas(costUpdate.steel)}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
@@ -117,7 +117,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
                   : "inherit",
               }}
             >
-              {costUpdate.quartz}
+              {numberWithCommas(costUpdate.quartz)}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
@@ -131,7 +131,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
                   : "inherit",
               }}
             >
-              {costUpdate.tritium}
+              {numberWithCommas(costUpdate.tritium)}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
