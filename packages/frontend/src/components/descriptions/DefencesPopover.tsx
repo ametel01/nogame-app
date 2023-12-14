@@ -1,65 +1,20 @@
 import React from "react";
-import styled from "styled-components";
-import Box from "@mui/material/Box";
 import { DefencesStats } from "../../constants/Stats";
+import {
+  PopoverBox,
+  PopoverHeaderDiv,
+  PopoverInfoRow,
+  PopoverTextBox,
+  PopoverGridContainer,
+  PopoverRequirements,
+  PopoverInfoData,
+  PopoverLabel,
+} from "../../shared/styled/PopoverStyle";
 
 import blasterImg from "../../assets/gameElements/defences/blaster4.png";
 import beamImg from "../../assets/gameElements/defences/beam4.png";
 import astralLauncherImg from "../../assets/gameElements/defences/astral4.png";
 import plasmaImg from "../../assets/gameElements/defences/plasma4.png";
-
-// Styled components
-
-export const StyledBox = styled(Box)({
-  fontWeight: 400,
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  backgroundColor: "#1a2025",
-  borderRadius: 16,
-  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
-  padding: "24px 24px",
-  flexDirection: "column",
-  width: "40%",
-  display: "grid",
-  gridTemplateRows: "auto 1fr auto", // Three rows: header, main content, stats
-  gap: "16px", // Space between grid rows
-});
-
-const HeaderDiv = styled("div")`
-  font-size: 20px;
-  text-transform: uppercase;
-`;
-
-const TextBox = styled("div")`
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 24px;
-`;
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); // Two columns
-  grid-auto-rows: minmax(32px, auto); // Row height
-  gap: 4px; // Reduced space between grid items
-`;
-
-const InfoRow = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const InfoData = styled("span")({
-  color: "#98fb98",
-});
-
-const Label = styled("span")({});
-
-const Requirements = styled("ul")({
-  color: "#98fb98",
-});
 
 // Component props
 interface DescriptionComponentProps {
@@ -78,8 +33,8 @@ const DescriptionComponent = ({
   requirements,
 }: DescriptionComponentProps) => {
   return (
-    <StyledBox>
-      <HeaderDiv>{title}</HeaderDiv>
+    <PopoverBox>
+      <PopoverHeaderDiv>{title}</PopoverHeaderDiv>
       <div
         style={{
           display: "flex",
@@ -96,14 +51,14 @@ const DescriptionComponent = ({
         />
         {/* Description and Requirements */}
         <div>
-          <TextBox>{description}</TextBox>
-          <div style={{ marginTop: "8px" }}>Requirements:</div>
-          <Requirements>{requirements}</Requirements>
+          <PopoverTextBox>{description}</PopoverTextBox>
+          <div style={{ margin: "8px" }}>Requirements:</div>
+          <PopoverRequirements>{requirements}</PopoverRequirements>
         </div>
       </div>
       {/* Stats */}
       {stats}
-    </StyledBox>
+    </PopoverBox>
   );
 };
 
@@ -125,44 +80,44 @@ const StatsComponent = ({
   weapon,
 }: StatsProps) => {
   return (
-    <GridContainer>
+    <PopoverGridContainer>
       {cargo ? (
         <>
-          <InfoRow>
-            <Label>Cargo Capacity:</Label>
-            <InfoData>{cargo}</InfoData>
-          </InfoRow>
+          <PopoverInfoRow>
+            <PopoverLabel>Cargo Capacity:</PopoverLabel>
+            <PopoverInfoData>{cargo}</PopoverInfoData>
+          </PopoverInfoRow>
         </>
       ) : null}
       {speed ? (
         <>
-          <InfoRow>
-            <Label>Base Speed: </Label>
-            <InfoData>{speed}</InfoData>
-          </InfoRow>
+          <PopoverInfoRow>
+            <PopoverLabel>Base Speed: </PopoverLabel>
+            <PopoverInfoData>{speed}</PopoverInfoData>
+          </PopoverInfoRow>
         </>
       ) : null}
       {consumption ? (
         <>
-          <InfoRow>
-            <Label>Consumption: </Label>
-            <InfoData>{consumption}</InfoData>
-          </InfoRow>
+          <PopoverInfoRow>
+            <PopoverLabel>Consumption: </PopoverLabel>
+            <PopoverInfoData>{consumption}</PopoverInfoData>
+          </PopoverInfoRow>
         </>
       ) : null}
-      <InfoRow>
-        <Label>Base Hull: </Label>
-        <InfoData>{hull}</InfoData>
-      </InfoRow>
-      <InfoRow>
-        <Label>Base Shield: </Label>
-        <InfoData>{shield}</InfoData>
-      </InfoRow>
-      <InfoRow>
-        <Label>Base Weapon: </Label>
-        <InfoData>{weapon}</InfoData>
-      </InfoRow>
-    </GridContainer>
+      <PopoverInfoRow>
+        <PopoverLabel>Base Hull: </PopoverLabel>
+        <PopoverInfoData>{hull}</PopoverInfoData>
+      </PopoverInfoRow>
+      <PopoverInfoRow>
+        <PopoverLabel>Base Shield: </PopoverLabel>
+        <PopoverInfoData>{shield}</PopoverInfoData>
+      </PopoverInfoRow>
+      <PopoverInfoRow>
+        <PopoverLabel>Base Weapon: </PopoverLabel>
+        <PopoverInfoData>{weapon}</PopoverInfoData>
+      </PopoverInfoRow>
+    </PopoverGridContainer>
   );
 };
 

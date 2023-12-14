@@ -32,7 +32,7 @@ const CompoundsFormulas = {
   },
 
   energyProduction(level: number) {
-    return Math.round(20 * level * Math.pow(GROWTH_FACTOR_LINEAR, level));
+    return Math.round(20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1));
   },
 
   steelCost(level: number) {
@@ -52,29 +52,29 @@ const CompoundsFormulas = {
   },
 
   labCost(level: number) {
-    const steel = Math.floor(200 * Math.pow(2, level - 1));
-    const quartz = Math.floor(400 * Math.pow(2, level - 1));
-    const tritium = Math.floor(200 * Math.pow(2, level - 1));
+    const steel = Math.round(200 * Math.pow(2, level - 1));
+    const quartz = Math.round(400 * Math.pow(2, level - 1));
+    const tritium = Math.round(200 * Math.pow(2, level - 1));
     return { steel, quartz, tritium };
   },
 
   dockyardCost(level: number) {
-    const steel = Math.floor(400 * Math.pow(2, level - 1));
-    const quartz = Math.floor(200 * Math.pow(2, level - 1));
-    const tritium = Math.floor(100 * Math.pow(2, level - 1));
+    const steel = Math.round(400 * Math.pow(2, level - 1));
+    const quartz = Math.round(200 * Math.pow(2, level - 1));
+    const tritium = Math.round(100 * Math.pow(2, level - 1));
     return { steel, quartz, tritium };
   },
 
   steelConsumption(level: number) {
-    return Math.floor(10 * level * Math.pow(GROWTH_FACTOR_LINEAR, level));
+    return Math.round(10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level -1));
   },
 
   quartzConsumption(level: number) {
-    return Math.floor(10 * level * Math.pow(GROWTH_FACTOR_LINEAR, level));
+    return Math.round(10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1));
   },
 
   tritiumConsumption(level: number) {
-    return Math.floor(20 * level * Math.pow(GROWTH_FACTOR_LINEAR, level));
+    return Math.round(20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1));
   },
 };
 
@@ -95,7 +95,7 @@ export function calculateFleetLoss(timeSeconds: number): number {
 
   const fleetLoss = 100 * (1 - decay);
 
-  return Math.floor(fleetLoss);
+  return Math.round(fleetLoss);
 }
 
 export const getCompoundCost = (

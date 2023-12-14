@@ -15,3 +15,14 @@ export const StyledButton = styled(Button)(() => ({
     background: "#2E434C", // Darkened starry blue for hover state
   },
 }));
+
+export const HeaderButton = styled(Button)({
+  margin: "16px",
+  marginLeft: "0px",
+  color: "white",
+  fontWeight: "bold", // More pronounced buttons
+  letterSpacing: "1px", // Space-themed typography style
+  '&:hover': {
+    backgroundColor: "rgba(255, 255, 255, 0.1)", // Hover effect
+  },
+});

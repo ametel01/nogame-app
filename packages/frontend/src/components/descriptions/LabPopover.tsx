@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Box from "@mui/material/Box";
-
 import armourImg from "../../assets/gameElements/techs/armour4.png";
 import beamImg from "../../assets/gameElements/techs/beam4.png";
 import ionImg from "../../assets/gameElements/techs/ion4.png";
@@ -14,38 +12,16 @@ import weaponsImg from "../../assets/gameElements/techs/weapons4.png";
 import digitalImg from "../../assets/gameElements/techs/digital4.png";
 import shieldImg from "../../assets/gameElements/techs/shield4.png";
 import energyImg from "../../assets/gameElements/techs/energy4.png";
-
-// Styled components
-
-export const StyledBox = styled(Box)({
-  fontWeight: 400,
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  backgroundColor: "#1a2025",
-  borderRadius: 16,
-  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
-  padding: "24px 24px",
-  display: "flex",
-  flexDirection: "column",
-  width: "40%",
-});
-
-const HeaderDiv = styled("div")`
-  font-size: 20px;
-  margin-bottom: 24px;
-  text-transform: uppercase;
-`;
+import {
+  PopoverBox,
+  PopoverHeaderDiv,
+  PopoverRequirements,
+} from "../../shared/styled/PopoverStyle";
 
 const TextBox = styled("div")`
   font-size: 16px;
   line-height: 1.5;
 `;
-
-const Requirements = styled("ul")({
-  color: "#98fb98",
-});
 
 // Component props
 interface DescriptionComponentProps {
@@ -63,8 +39,8 @@ const DescriptionComponent = ({
   requirements,
 }: DescriptionComponentProps) => {
   return (
-    <StyledBox>
-      <HeaderDiv>{title}</HeaderDiv>
+    <PopoverBox>
+      <PopoverHeaderDiv>{title}</PopoverHeaderDiv>
       <div style={{ display: "flex", flexDirection: "row" }}>
         {/* Image Section */}
         <div style={{ marginRight: "16px" }}>
@@ -80,10 +56,10 @@ const DescriptionComponent = ({
           <br />
           <br />
           <div>Requirements:</div>
-          <Requirements>{requirements}</Requirements>
+          <PopoverRequirements>{requirements}</PopoverRequirements>
         </TextBox>
       </div>
-    </StyledBox>
+    </PopoverBox>
   );
 };
 

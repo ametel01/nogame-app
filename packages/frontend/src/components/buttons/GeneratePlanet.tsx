@@ -1,6 +1,5 @@
 // import { useCallback } from "react";
 import { Box, Button } from "@mui/material";
-import styled from "styled-components";
 import CircularProgress from "@mui/material/CircularProgress";
 // import { TransactionStatus } from "../ui/TransactionStatus";
 import { useContractWrite } from "@starknet-react/core";
@@ -9,13 +8,6 @@ import game from "../../constants/nogame.json";
 import erc20 from "../../constants/erc20.json";
 import { useContract } from "@starknet-react/core";
 // import { useTransactionManager } from "../../hooks/useTransactionManager";
-
-const CenteredProgress = styled("div")`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; // This makes the container take the full viewport height
-`;
 
 interface Props {
   price: number;
@@ -49,7 +41,6 @@ export const GeneratePlanet = ({ price }: Props) => {
   return (
     <Box position="relative" display="inline-flex">
       {isPending && (
-        <CenteredProgress>
           <CircularProgress
             size={24}
             style={{
@@ -60,7 +51,6 @@ export const GeneratePlanet = ({ price }: Props) => {
               marginLeft: "-12px",
             }}
           />
-        </CenteredProgress>
       )}
       <Button
         // variant="outlined"

@@ -1,30 +1,42 @@
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
+import { HeaderButton } from "../../shared/styled/Button";
 import { styled } from "@mui/material/styles";
 import { FleetMovements } from "./FleetMovements";
 import { Link } from "react-router-dom";
 
 const HeaderWrapper = styled(AppBar)({
-  backgroundColor: "#1a2025",
+  backgroundColor: "#1a2025", // Dark background for space theme
   color: "white",
   margin: 0,
   padding: 0,
   boxShadow: "none",
+  // borderBottom: "1px solid #333", // Subtle border for a sleek look
 });
+
 
 const StyledToolbar = styled(Toolbar)({
   height: "24px",
-  padding: "0px 16px", // Reduced vertical padding
-  minHeight: "8px", // Optional: set a specific minimum height
+  padding: "0px 16px",
+  minHeight: "8px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between", // Align items with space between
+  background: "rgba(0, 0, 0, 0.2)",
 });
 
-const StyledButton = styled(Button)({
-  margin: "16px",
-  marginLeft: "0px",
-  color: "white", // Spacing between the StyledButtons
-});
+
+// const HeaderButton = styled(Button)({
+//   margin: "16px",
+//   marginLeft: "0px",
+//   color: "white",
+//   fontWeight: "bold", // More pronounced buttons
+//   letterSpacing: "1px", // Space-themed typography style
+//   '&:hover': {
+//     backgroundColor: "rgba(255, 255, 255, 0.1)", // Hover effect
+//   },
+// });
 
 const Spacer = styled("div")({
   flex: "1",
@@ -38,35 +50,34 @@ const Header = ({ planetId }: Props) => {
   return (
     <HeaderWrapper position="static">
       <StyledToolbar style={{ minHeight: "48px", padding: "0px 16px" }}>
-        <StyledButton variant="text" size="small">
+        <HeaderButton variant="text">
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             DashBoard
           </Link>
-        </StyledButton>
+        </HeaderButton>
         <Spacer />
         <FleetMovements planetId={planetId ? planetId : 0} />
-        <StyledButton variant="text" size="small">
-          Resources Market
-        </StyledButton>
-        <StyledButton variant="text" size="small">
+        {/* Resources Market button removed */}
+        <HeaderButton variant="text">
           <Link
             to="/battlereports"
             style={{ textDecoration: "none", color: "inherit" }}
           >
             Battle Reports
           </Link>
-        </StyledButton>
-        <StyledButton variant="text" size="small">
+        </HeaderButton>
+        <HeaderButton variant="text">
           <Link
             to="/leaderboard"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            Leader Board
+            LeaderBoard
           </Link>
-        </StyledButton>
+        </HeaderButton>
       </StyledToolbar>
     </HeaderWrapper>
   );
 };
+
 
 export default Header;

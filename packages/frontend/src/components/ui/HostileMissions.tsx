@@ -71,13 +71,6 @@ const RightAlignedCell = styled(Cell)({
   textAlign: "right",
 });
 
-const CenteredProgress = styled("div")`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; // This makes the container take the full viewport height
-`;
-
 const getTimeDifference = (arrivalTime: number) => {
   const currentTime = Date.now() / 1000; // Convert current time to seconds
   const differenceInSeconds = arrivalTime - currentTime;
@@ -138,9 +131,7 @@ export const HostileMissions = ({ planetId }: HostileMissionsProps) => {
   return (
     <>
       {hostileMissions === undefined ? (
-        <CenteredProgress>
           <CircularProgress />
-        </CenteredProgress>
       ) : hostileMissions.length === 0 ? null : (
         <Container>
           <TitleContainer>

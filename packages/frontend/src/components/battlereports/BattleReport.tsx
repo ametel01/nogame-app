@@ -43,13 +43,6 @@ const DetailItem = styled.div`
   margin-bottom: 5px;
 `;
 
-const CenteredProgress = styled("div")`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; // This makes the container take the full viewport height
-`;
-
 type FetchData = {
   battle_id: number;
   time: Date;
@@ -132,9 +125,7 @@ const BattleReports = ({ planetId }: Props) => {
 
   if (isLoading) {
     return (
-      <CenteredProgress>
         <CircularProgress />
-      </CenteredProgress>
     );
   }
 

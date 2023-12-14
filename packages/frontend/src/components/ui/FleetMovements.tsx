@@ -12,6 +12,8 @@ import { StyledButton } from "../../shared/styled/Button";
 import { calculateFleetLoss } from "../../shared/utils/Formulas";
 import { usePlanetPosition } from "../../hooks/usePlanetPosition";
 import { Mission } from "../../shared/types";
+import fleetIcon from "../../assets/uiIcons/Fleet.svg";
+import { HeaderButton } from "../../shared/styled/Button";
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -30,20 +32,31 @@ export const StyledBox = styled(Box)({
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr); // Five columns
+  grid-template-columns: repeat(6, 1fr);
   gap: 10px;
+  background-size: cover;
+  padding: 20px;
+  border-radius: 10px;
 `;
 
 const GridRow = styled.div`
-  border: 1px solid red;
-  display: contents; // This ensures each child takes up a cell in the grid
+  border-bottom: 1px solid #444;
+  display: contents;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
-  align-items: center; // Aligns buttons to the center of the cell vertically
-  justify-content: space-between; // Aligns buttons to the start of the cell horizontally
+  align-items: center;
+  justify-content: space-between;
+  button {
+    &:hover {
+      border-color: #4a63aa;
+    }
+  }
 `;
 
 export const FixedLengthText = styled("div")({
@@ -54,7 +67,7 @@ export const FixedLengthText = styled("div")({
 export const MissionText = styled("div")({
   color: "#98fb98",
   padding: "10px",
-  // marginBottom: "0px",
+  textShadow: "0 0 5px rgba(152, 251, 152, 0.7)", // Glow effect
 });
 
 interface ActionProps {
@@ -82,6 +95,24 @@ const AttackPlanetAction = ({ missionId, onAction }: ActionProps) => {
   return null; // This component does not render anything
 };
 
+const FleetTooltipContent = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  padding: "10px",
+});
+
+const FleetIcon = styled.img.attrs({
+  src: fleetIcon,
+  alt: "Fleet",
+})`
+  width: 20px;
+  height: 20px;
+  margin-left: 32px; // Add some space between the mission ID and the icon
+  cursor: pointer;
+  vertical-align: middle; // Align with the text
+`;
+
 interface MissionRowProps {
   mission: Mission;
   index: number;
@@ -102,9 +133,24 @@ const MissionRow = ({
     ? `${position.system} / ${position.orbit}`
     : "Unknown";
 
+  const fleetDetails = (
+    <FleetTooltipContent>
+      <div>Carrier: {Number(mission.fleet.carrier)}</div>
+      <div>Scraper: {Number(mission.fleet.scraper)}</div>
+      <div>Sparrow: {Number(mission.fleet.sparrow)}</div>
+      <div>Frigate: {Number(mission.fleet.frigate)}</div>
+      <div>Armade: {Number(mission.fleet.armade)}</div>
+    </FleetTooltipContent>
+  );
+
   return (
     <GridRow key={index}>
-      <MissionText>{mission.id.toString()}</MissionText>
+      <MissionText>
+        {mission.id.toString()}
+        <Tooltip title={fleetDetails} placement="top">
+          <FleetIcon />
+        </Tooltip>
+      </MissionText>
       <MissionText>{destination}</MissionText>
       <MissionText>{mission.is_debris ? "Debris" : "Attack"}</MissionText>
       <MissionText>{countdown || "Arrived"}</MissionText>
@@ -129,7 +175,6 @@ const MissionRow = ({
     </GridRow>
   );
 };
-
 interface Props {
   planetId: number;
 }
@@ -200,15 +245,18 @@ export const FleetMovements = ({ planetId }: Props) => {
     setIsOpen(open);
   };
 
+  // In the FleetMovements component, before the return statement
+  missions.sort((a, b) => Number(a.time_arrival) - Number(b.time_arrival));
+
   return (
-    <div style={{ marginRight: "16px" }}>
-      <StyledButton
+    <div>
+      <HeaderButton
         variant="text"
-        size="small"
+        // size="large"
         onClick={() => toggleModal(true)}
       >
-        Fleet Movements
-      </StyledButton>
+        FLEET MOVEMENTS
+      </HeaderButton>
 
       <Modal
         open={isOpen}
@@ -219,7 +267,7 @@ export const FleetMovements = ({ planetId }: Props) => {
         <StyledBox>
           <GridContainer>
             <FixedLengthText>
-              <strong>Mission ID</strong>
+              <strong>Mission</strong>
             </FixedLengthText>
             <FixedLengthText>
               <strong>Destination</strong>
