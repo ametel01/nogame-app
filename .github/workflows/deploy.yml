@@ -14,14 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Node.js version 18 using NVM
-        run: |
-          export NVM_DIR="$HOME/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          nvm install 18
-          nvm use 18
-          node -v
-
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
@@ -33,15 +25,16 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm use 18
             cd /var/www/no-game.xyz/nogame-app
-            git reset --hard HEAD # Reset any local changes
             git pull origin master
-            npm install
+            npm run build
+
+            # Decode and set backend .env
             cd packages/backend
-            echo '${{ secrets.BACKEND_ENV_FILE }}' > .env
-            npm install
-            npm run build
+            echo '${{ secrets.BACKEND_ENV_FILE }}' >> .env
+
+            # Decode and set frontend .env
             cd ../frontend 
-            echo '${{ secrets.FRONTEND_ENV_FILE }}' > .env
-            npm install
-            npm run build
+            echo '${{ secrets.FRONTEND_ENV_FILE }}'  >> .env
+
+            # Restart PM2 processes
             pm2 restart all
