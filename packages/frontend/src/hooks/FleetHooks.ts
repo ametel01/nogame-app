@@ -90,6 +90,16 @@ export function useGetIsNoobProtected(
   return data as unknown as boolean;
 }
 
+export function useGetLastActive(planetId: number): number {
+  const { data } = useContractRead({
+    address: GAMEADDRESS,
+    abi: game.abi,
+    functionName: "get_last_active",
+    args: [planetId],
+  });
+  return data as unknown as number;
+}
+
 export function useAttackPlanet(missionId: number | null) {
   const { contract } = useContract({
     abi: game.abi,

@@ -41,16 +41,16 @@ export const GeneratePlanet = ({ price }: Props) => {
   return (
     <Box position="relative" display="inline-flex">
       {isPending && (
-          <CircularProgress
-            size={24}
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              marginTop: "-12px",
-              marginLeft: "-12px",
-            }}
-          />
+        <CircularProgress
+          size={24}
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            marginTop: "-12px",
+            marginLeft: "-12px",
+          }}
+        />
       )}
       <Button
         // variant="outlined"
@@ -62,7 +62,7 @@ export const GeneratePlanet = ({ price }: Props) => {
           backgroundColor: "#4A63AA",
           border: "1px solid #0F111A",
           borderRadius: "8px",
-          marginTop: "32px",
+          marginBottom: "16px",
           fontWeight: "700",
           "&:hover": {
             background: "#212530", // Slightly lighter than #1B1E2A for a subtle hover effect

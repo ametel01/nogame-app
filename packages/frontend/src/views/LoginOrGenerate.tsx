@@ -43,19 +43,20 @@ const TopRightButtonContainer = styled("div")`
 `;
 
 const PriceText = styled("div")`
-  color: white; // A golden color for the ticker text
+  color: #ffd700; // A golden color for the ticker text
   font-weight: 500;
   font-size: 20px;
   text-align: center;
   letter-spacing: 0.02em;
-  background-color: rgba(34, 36, 45, 0.8);
-  // padding: 8px 16px;
-  margin-bottom: 24px;
+  background-color: rgba(0, 0, 0, 0.85); // Dark background for contrast
+  margin-bottom: 12px;
   border-radius: 8px;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Courier New", Courier, monospace; // Monospaced font for the ticker effect
   white-space: nowrap;
   overflow: hidden;
   opacity: 0.9;
+  padding: 8px 16px; // Adjust padding for better appearance
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); // Add a subtle shadow for depth
 `;
 
 const CenteredProgress = styled("div")`
@@ -134,11 +135,6 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
   );
 };
 
-const SubTextAfter = styled(SubTextBefore)`
-  margin-bottom: 30px;
-  font-size: 16px;
-`;
-
 const StyledAddress = styled("div")`
   display: flex; // Use flexbox for alignment
   align-items: center; // Vertically center the items
@@ -204,10 +200,10 @@ const GeneratePlanetView = ({ address }: PlanetViewProp) => {
         ETH
       </PriceText>
       <GeneratePlanet price={price} />
-      <SubTextAfter style={{color: "#E67E51"}}>
+      {/* <SubTextAfter style={{color: "#E67E51"}}>
         It may take a short while for the NFT to show up in your wallet. Once it
         does, please refresh the page to gain access to the game.
-      </SubTextAfter>
+      </SubTextAfter> */}
     </MainWrapper>
   );
 };

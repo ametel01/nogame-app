@@ -13,7 +13,7 @@ import { useOwnerOf } from "../hooks/useOwnerOf";
 import { useGetPlanetPoints } from "../hooks/useGetPlanetPoints";
 import { useAccount } from "@starknet-react/core";
 import { useShipsLevels } from "../hooks/LevelsHooks";
-import { useGetIsNoobProtected } from "../hooks/FleetHooks";
+import { useGetIsNoobProtected, useGetLastActive } from "../hooks/FleetHooks";
 
 interface UniverseBoxItemProps {
   ownPlanetId: number;
@@ -30,6 +30,8 @@ const UniverseBoxItem = ({ ownPlanetId, position }: UniverseBoxItemProps) => {
     Number(ownPlanetId),
     Number(planetId)
   );
+
+  const lastActive = useGetLastActive(Number(planetId));
 
   const ownFleetData = useShipsLevels(Number(ownPlanetId));
   const ownFleet: ShipsLevels = ownFleetData
@@ -71,6 +73,7 @@ const UniverseBoxItem = ({ ownPlanetId, position }: UniverseBoxItemProps) => {
       ownPlanetId={ownPlanetId}
       ownFleet={ownFleet}
       isNoobProtected={isNoobProtected}
+      lastActive={lastActive}
     />
   );
 };

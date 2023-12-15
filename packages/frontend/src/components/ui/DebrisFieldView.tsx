@@ -80,7 +80,12 @@ export function DebrisFieldView({
               <img
                 src={DebrisIcon}
                 alt="Debris"
-                style={{ width: 40, height: 40, display: "block" }}
+                style={{
+                  width: 40,
+                  height: 40,
+                  display: "block",
+                  color: "gray",
+                }}
               />
             </IconButton>
           </Tooltip>

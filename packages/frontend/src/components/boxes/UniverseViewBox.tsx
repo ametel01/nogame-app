@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import * as Styled from "../../shared/styled/Box";
 import { CircularProgress } from "@mui/material";
-// import { useStarkName } from "@starknet-react/core";
 import { ButtonAttackPlanet } from "../buttons/ButtonAttackPlanet";
 import { DefenceLevels, Resources, ShipsLevels } from "../../shared/types";
 import PlanetModal from "../modals/PlanetOverview";
@@ -63,6 +62,7 @@ interface Props {
   ownPlanetId: number;
   ownFleet?: ShipsLevels;
   isNoobProtected?: boolean;
+  lastActive?: number;
 }
 
 const UniverseViewBox = ({
@@ -75,6 +75,7 @@ const UniverseViewBox = ({
   ownPlanetId,
   ownFleet,
   isNoobProtected,
+  lastActive,
 }: Props) => {
   const boxStyle = highlighted
     ? {
@@ -86,6 +87,33 @@ const UniverseViewBox = ({
   // TODO: implement StarkName once on mainnet
   const techs = useTechsLevels(Number(ownPlanetId));
   const ownPlanetPosition = usePlanetPosition(Number(ownPlanetId));
+
+  const getLastActiveTime = (lastActiveTimestamp: number) => {
+    if (!lastActiveTimestamp) return "Unknown";
+
+    const now = Date.now();
+    // Convert lastActiveTimestamp from seconds to milliseconds
+    const lastActiveInMilliseconds = Number(lastActiveTimestamp) * 1000;
+    const differenceInSeconds = Math.floor(
+      (now - lastActiveInMilliseconds) / 1000
+    );
+
+    if (differenceInSeconds < 3600) {
+      // Less than 1 hour
+      return `${Math.floor(differenceInSeconds / 60)} min ago`;
+    } else if (differenceInSeconds < 86400) {
+      // Less than 24 hours
+      return `${Math.floor(differenceInSeconds / 3600)} hours ago`;
+    } else {
+      // More than 24 hours
+      return `${Math.floor(differenceInSeconds / 86400)} days ago`;
+    }
+  };
+
+  const lastActiveString = useMemo(
+    () => getLastActiveTime(lastActive!),
+    [lastActive]
+  );
 
   // Derived states or memoized values should handle the conditional logic
   const techsNumberised = useMemo(() => {
@@ -121,10 +149,10 @@ const UniverseViewBox = ({
         <InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle style={{ width: "200%" }}>
-              LAST ONLINE
+              LAST ACTIVE
             </Styled.ResourceTitle>
             <Styled.NumberContainer style={{ fontSize: "14px" }}>
-              Oct 13
+              {lastActiveString}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>

@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useAccount } from "@starknet-react/core";
 import axios from "axios";
-
+import Tooltip from "@mui/material/Tooltip";
 import { ImageIcon } from "../icons/Image";
 import { dataToNumber, numberWithCommas } from "../../shared/utils";
 
@@ -138,12 +138,16 @@ interface PlanetImageArgs {
 const PlanetImage = ({ planetId }: PlanetImageArgs) => {
   const { address } = useAccount();
   const [metadata, setMetadata] = useState<Metadata | null>(null);
+  const [metadataUrl, setMetadataUrl] = useState("");
+
+  console.log(metadataUrl);
 
   const position = usePlanetPosition(planetId);
 
   useEffect(() => {
     if (address && !metadata) {
       const url = `${METADATA_URL}/${planetId}`;
+      setMetadataUrl(url);
       axios
         .get(url)
         .then((result) => {
@@ -160,23 +164,27 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
     metadata?.attributes.find((props: Props) => props.trait_type === name)
       ?.value || "-";
 
+  // Simplified click handler
+  const openMetadataUrl = () => {
+    window.open(metadataUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const shouldRenderImage = imgId && metadataUrl;
+
   return (
     <>
-      <PlanetImageWrapper>
-        {imgId ? (
-          <a href={`${IMG_URL}/${position?.orbit}`}>
-            <img
-              src={getPlanetImageUrl(imgId)}
-              width={250}
-              height={252}
-              alt="planet"
-              style={{ maxWidth: "100%", height: "auto" }}
-            />
-          </a>
-        ) : (
-          <ImageIcon />
-        )}
-      </PlanetImageWrapper>
+      {shouldRenderImage ? (
+        <Tooltip title="Click to open IPFS metadata" placement="top">
+          <PlanetImageWrapper
+            onClick={openMetadataUrl}
+            style={{ cursor: "pointer" }}
+          >
+            <img src={getPlanetImageUrl(imgId)} alt="planet" />
+          </PlanetImageWrapper>
+        </Tooltip>
+      ) : (
+        <ImageIcon />
+      )}
       <PlanetInfoContainer>
         <PlanetInfoRow label="Name" value={findAttribute("name")} />
         <PlanetInfoRow
