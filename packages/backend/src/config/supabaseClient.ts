@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 
 // Load environment variables
-dotenv.config();
+dotenv.config({ path: '/var/www/no-game.xyz/nogame-app/packages/backend/.env' });
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
