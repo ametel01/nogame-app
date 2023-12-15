@@ -5,6 +5,9 @@ import { HeaderButton } from "../../shared/styled/Button";
 import { styled } from "@mui/material/styles";
 import { FleetMovements } from "./FleetMovements";
 import { Link } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useDisconnect } from "@starknet-react/core";
+import IconButton from "@mui/material/IconButton";
 
 const HeaderWrapper = styled(AppBar)({
   backgroundColor: "#1a2025", // Dark background for space theme
@@ -15,7 +18,6 @@ const HeaderWrapper = styled(AppBar)({
   // borderBottom: "1px solid #333", // Subtle border for a sleek look
 });
 
-
 const StyledToolbar = styled(Toolbar)({
   height: "24px",
   padding: "0px 16px",
@@ -25,7 +27,6 @@ const StyledToolbar = styled(Toolbar)({
   justifyContent: "space-between", // Align items with space between
   background: "rgba(0, 0, 0, 0.2)",
 });
-
 
 // const HeaderButton = styled(Button)({
 //   margin: "16px",
@@ -47,9 +48,22 @@ interface Props {
 }
 
 const Header = ({ planetId }: Props) => {
+  const { disconnect } = useDisconnect();
+
+  const handleLogoutClick = () => {
+    disconnect();
+  };
+
   return (
     <HeaderWrapper position="static">
       <StyledToolbar style={{ minHeight: "48px", padding: "0px 16px" }}>
+        <IconButton
+          onClick={handleLogoutClick}
+          color="inherit"
+          style={{ marginRight: "16px" }}
+        >
+          <LogoutIcon style={{ transform: "rotate(180deg)" }} />
+        </IconButton>
         <HeaderButton variant="text">
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             DashBoard
@@ -78,6 +92,5 @@ const Header = ({ planetId }: Props) => {
     </HeaderWrapper>
   );
 };
-
 
 export default Header;

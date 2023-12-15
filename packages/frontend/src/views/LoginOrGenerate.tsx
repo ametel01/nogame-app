@@ -1,9 +1,9 @@
 import { styled } from "@mui/system";
 import { FC } from "react";
 import { CircularProgress } from "@mui/material";
-import { Person } from "@mui/icons-material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useDisconnect } from "@starknet-react/core";
 import NoGameLogo from "../assets/logos/NoGameLogo.png";
-// import roundLogo from "../assets/logos/round-logo.png";
 import { ColumnCenter } from "../shared/styled/Column";
 import { RowCentered } from "../components/ui/Row";
 import ConnectWalletButton from "../components/auth/ConnectWallet";
@@ -64,6 +64,26 @@ const CenteredProgress = styled("div")`
   justify-content: center;
   align-items: center;
   height: 100vh; // This makes the container take the full viewport height
+`;
+
+const StyledAddress = styled("div")`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #ffffff;
+  font-size: 16px;
+  background-color: rgba(34, 36, 45, 0.8); // Optional: Add background color
+  padding: 8px; // Optional: Add padding
+  border-radius: 8px; // Optional: Round corners
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); // Optional: Add shadow for depth
+`;
+
+const RotatedLogoutIcon = styled(LogoutIcon)`
+  transform: rotate(180deg);
+  cursor: pointer;
+  margin-right: 8px;
 `;
 
 interface AuthScreenProps {
@@ -135,21 +155,6 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
   );
 };
 
-const StyledAddress = styled("div")`
-  display: flex; // Use flexbox for alignment
-  align-items: center; // Vertically center the items
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  color: #ffffff;
-  font-size: 16px;
-
-  & > svg {
-    // Target the Person icon specifically
-    margin-right: 8px; // Add some space between the icon and the text
-  }
-`;
-
 // Step 2: Function to format the address
 const formatAddress = (address: string) => {
   if (address && address.length > 10) {
@@ -166,6 +171,11 @@ interface PlanetViewProp {
 
 const GeneratePlanetView = ({ address }: PlanetViewProp) => {
   const price = useGetPlanetPrice();
+  const { disconnect } = useDisconnect();
+
+  const handleLogout = () => {
+    disconnect();
+  };
 
   if (price === undefined) {
     return <CircularProgress />;
@@ -174,7 +184,7 @@ const GeneratePlanetView = ({ address }: PlanetViewProp) => {
   return (
     <MainWrapper>
       <StyledAddress>
-        <Person />
+        <RotatedLogoutIcon onClick={handleLogout} />
         {formatAddress(address)}
       </StyledAddress>
       <RowCentered>
