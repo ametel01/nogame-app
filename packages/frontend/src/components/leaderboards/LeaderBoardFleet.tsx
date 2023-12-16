@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import CircularProgress from "@mui/material/CircularProgress";
+import { CenteredProgress } from "./LeaderBoardMain";
 
 const Table = styled.table`
   width: 100%;
@@ -75,9 +77,12 @@ const LeadearBoardFleet = ({ planetId }: Props) => {
     fetchData();
   }, []);
 
-  // Render logic...
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <CenteredProgress>
+        <CircularProgress />
+      </CenteredProgress>
+    );
   }
 
   if (error) {

@@ -155,7 +155,7 @@ const MissionRow = ({
       <MissionText>{mission.is_debris ? "Debris" : "Attack"}</MissionText>
       <MissionText>{countdown || "Arrived"}</MissionText>
       <MissionText>
-        <Tooltip title="The fleet will start decay 2 hours after arrival if you don't attack or collect the debris">
+        <Tooltip title="Fleet will begin to decay 2 hours post-arrival unless an attack is initiated or debris is collected">
           <span>{decayPercentage ? `${decayPercentage}%` : "0%"}</span>
         </Tooltip>
       </MissionText>

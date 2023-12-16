@@ -1,20 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { CircularProgress } from "@mui/material";
-// import { Fleet } from "../../shared/types";
+import PublicIcon from "@mui/icons-material/Public";
 
 const ContentWrapper = styled.div`
   margin-top: 24px;
   width: 50%;
   margin: 0 auto; // This centers the box
+  background-color: #0d1117; // Dark background for terminal effect
+  color: #58a6ff; // Light blue color for text
+  font-family: "Courier New", Courier, monospace; // Monospaced font for a terminal look
 `;
 
 const BattleReportContainer = styled.div`
-  color: white;
   margin-bottom: 10px;
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #30363d; // Border for each report
 `;
 
 const BattleReportHeader = styled.div`
@@ -23,14 +27,14 @@ const BattleReportHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(180deg, #3a3f44 0%, #181c20 100%);
+  background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
   &:hover {
-    background: linear-gradient(180deg, #4a4f54 0%, #282c30 100%);
+    background: linear-gradient(180deg, #21262d 0%, #161b22 100%);
   }
 `;
 
 const BattleReportDetails = styled.div`
-  background-color: #2b3036;
+  background-color: #0d1117;
   padding: 10px;
   display: none;
   &.expanded {
@@ -39,34 +43,59 @@ const BattleReportDetails = styled.div`
 `;
 
 const DetailItem = styled.div`
-  color: #98fb98;
+  color: #8b949e; // Grey color for details
   margin-bottom: 5px;
+  padding-left: 20px; // Indentation for readability
 `;
+
+type Fleet = {
+  armade: number;
+  carrier: number;
+  frigate: number;
+  scraper: number;
+  sparrow: number;
+};
+
+type Defences = {
+  beam: number;
+  astral: number;
+  plasma: number;
+  blaster: number;
+  celestia: number;
+};
+
+type Loot = {
+  steel: number;
+  quartz: number;
+  tritium: number;
+};
+
+type Debris = {
+  steel: number;
+  quartz: number;
+};
 
 type FetchData = {
   battle_id: number;
-  time: Date;
-  attacker: string;
-  defender: string;
-  // attacker_fleet: Fleet;
-  // defender_fleet: Fleet;
-  attacker_carrier_loss: number;
-  attacker_scraper_loss: number;
-  attacker_sparrow_loss: number;
-  attacker_frigate_loss: number;
-  attacker_armade_loss: number;
-  defender_carrier_loss: number;
-  defender_scraper_loss: number;
-  defender_sparrow_loss: number;
-  defender_frigate_loss: number;
-  defender_armade_loss: number;
-  celestia_loss: number;
-  blaster_loss: number;
-  beam_loss: number;
-  astral_loss: number;
-  plasma_loss: number;
-  debris_steel: number;
-  debris_quartz: number;
+  time: string;
+  attacker_planet_id: number;
+  attacker_position: {
+    orbit: number;
+    system: number;
+  };
+  attacker_initial_fleet: Fleet;
+  attacker_fleet_loss: Fleet;
+  defender_planet_id: number;
+  defender_position: {
+    orbit: number;
+    system: number;
+  };
+  defender_initial_fleet: Fleet;
+  defender_fleet_loss: Fleet;
+  initial_defences: Defences;
+  defences_loss: Defences;
+  loot: Loot;
+  debris: Debris;
 };
 
 interface Props {
@@ -74,8 +103,10 @@ interface Props {
 }
 
 const BattleReports = ({ planetId }: Props) => {
-  const [battleReports, setBattleReports] = useState([]);
-  const [expandedReports, setExpandedReports] = useState(new Set());
+  const [battleReports, setBattleReports] = useState<FetchData[]>([]);
+  const [expandedReports, setExpandedReports] = useState<Set<number>>(
+    new Set()
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -88,11 +119,17 @@ const BattleReports = ({ planetId }: Props) => {
           `https://api.no-game.xyz/api/battle-reports?planet_id=${planetId}`
         );
         if (!response.ok) {
-          // Setting a specific error message instead of throwing an error
           setError("No Battle Reports to show");
-          setBattleReports([]); // Clear any existing reports
+          setBattleReports([]);
         } else {
           const data = await response.json();
+          // Sort data by most recent first
+          data.sort(
+            (
+              a: { time: string | number | Date },
+              b: { time: string | number | Date }
+            ) => new Date(b.time).getTime() - new Date(a.time).getTime()
+          );
           setBattleReports(data);
         }
       } catch (error) {
@@ -111,7 +148,7 @@ const BattleReports = ({ planetId }: Props) => {
     }
   }, [planetId]);
 
-  const toggleExpand = (id: unknown) => {
+  const toggleExpand = (id: number) => {
     setExpandedReports((prevExpandedReports) => {
       const newExpandedReports = new Set(prevExpandedReports);
       if (newExpandedReports.has(id)) {
@@ -124,9 +161,7 @@ const BattleReports = ({ planetId }: Props) => {
   };
 
   if (isLoading) {
-    return (
-        <CircularProgress />
-    );
+    return <CircularProgress />;
   }
 
   if (error) {
@@ -136,114 +171,150 @@ const BattleReports = ({ planetId }: Props) => {
   return (
     <>
       <ContentWrapper>
-        {battleReports.map((report: FetchData) => (
+        {battleReports.map((report) => (
           <BattleReportContainer key={report.battle_id}>
-            <BattleReportHeader onClick={() => toggleExpand(report.battle_id)}>
-              <span>NoGame Battle {report.battle_id}</span>
-              <span>
-                {new Date(report.time).toLocaleString()} - {report.attacker} vs{" "}
-                {report.defender}
-              </span>
+            <BattleReportHeader
+              onClick={() =>
+                typeof report.battle_id === "number" &&
+                toggleExpand(report.battle_id)
+              }
+            >
+              <span>Battle Report: {report.battle_id}</span>
+              <span>{new Date(report.time).toLocaleString()}</span>
             </BattleReportHeader>
             <BattleReportDetails
               className={
                 expandedReports.has(report.battle_id) ? "expanded" : ""
               }
             >
-              {/* Add details here */}
+              {/* Display the military-style narrative of the battle */}
+              <DetailItem>Battle Report ID: [{report.battle_id}]</DetailItem>
               <DetailItem>
-                {/* Attacker Fleet:{" "}
-                <ul>
-                  {report.attacker_fleet.carrier > 0 ? (
-                    <li>Carrier :{report.attacker_carrier_loss}</li>
-                  ) : null}
-                  {report.attacker_fleet.scraper > 0 ? (
-                    <li>Scraper :{report.attacker_scraper_loss}</li>
-                  ) : null}
-                  {report.attacker_fleet.sparrow > 0 ? (
-                    <li>Sparrow :{report.attacker_sparrow_loss}</li>
-                  ) : null}
-                  {report.attacker_fleet.frigate > 0 ? (
-                    <li>Frigate :{report.attacker_frigate_loss}</li>
-                  ) : null}
-                  {report.attacker_fleet.armade > 0 ? (
-                    <li>Armade :{report.attacker_armade_loss}</li>
-                  ) : null}
-                </ul>
-                Defender Fleet:{" "}
-                <ul>
-                  {report.attacker_carrier_loss > 0 ? (
-                    <li>Carrier :{report.attacker_carrier_loss}</li>
-                  ) : null}
-                  {report.attacker_scraper_loss > 0 ? (
-                    <li>Scraper :{report.attacker_scraper_loss}</li>
-                  ) : null}
-                  {report.attacker_sparrow_loss > 0 ? (
-                    <li>Sparrow :{report.attacker_sparrow_loss}</li>
-                  ) : null}
-                  {report.attacker_frigate_loss > 0 ? (
-                    <li>Frigate :{report.attacker_frigate_loss}</li>
-                  ) : null}
-                  {report.attacker_armade_loss > 0 ? (
-                    <li>Armade :{report.attacker_armade_loss}</li>
-                  ) : null}
-                </ul> */}
-                Attacker Loss:{" "}
-                <ul>
-                  {report.attacker_carrier_loss > 0 ? (
-                    <li>Carrier :{report.attacker_carrier_loss}</li>
-                  ) : null}
-                  {report.attacker_scraper_loss > 0 ? (
-                    <li>Scraper :{report.attacker_scraper_loss}</li>
-                  ) : null}
-                  {report.attacker_sparrow_loss > 0 ? (
-                    <li>Sparrow :{report.attacker_sparrow_loss}</li>
-                  ) : null}
-                  {report.attacker_frigate_loss > 0 ? (
-                    <li>Frigate :{report.attacker_frigate_loss}</li>
-                  ) : null}
-                  {report.attacker_armade_loss > 0 ? (
-                    <li>Armade :{report.attacker_armade_loss}</li>
-                  ) : null}
-                </ul>
-                Defender Loss:{" "}
-                <ul>
-                  {report.defender_carrier_loss > 0 ? (
-                    <li>Carrier :{report.defender_carrier_loss}</li>
-                  ) : null}
-                  {report.defender_scraper_loss > 0 ? (
-                    <li>Scraper :{report.defender_scraper_loss}</li>
-                  ) : null}
-                  {report.defender_sparrow_loss > 0 ? (
-                    <li>Sparrow :{report.defender_sparrow_loss}</li>
-                  ) : null}
-                  {report.defender_frigate_loss > 0 ? (
-                    <li>Frigate :{report.defender_frigate_loss}</li>
-                  ) : null}
-                  {report.defender_armade_loss > 0 ? (
-                    <li>Armade :{report.defender_armade_loss}</li>
-                  ) : null}
-                </ul>
-                Destroyed Defences:{" "}
-                <ul>
-                  {report.celestia_loss > 0 ? (
-                    <li>Celestia :{report.celestia_loss}</li>
-                  ) : null}
-                  {report.blaster_loss > 0 ? (
-                    <li>Blaster :{report.blaster_loss}</li>
-                  ) : null}
-                  {report.defender_sparrow_loss > 0 ? (
-                    <li>Beam :{report.beam_loss}</li>
-                  ) : null}
-                  {report.defender_frigate_loss > 0 ? (
-                    <li>Astral Launcher :{report.astral_loss}</li>
-                  ) : null}
-                  {report.plasma_loss > 0 ? (
-                    <li>Plasma Projector :{report.plasma_loss}</li>
-                  ) : null}
-                </ul>
+                Timestamp: [{new Date(report.time).toLocaleString()}]
               </DetailItem>
-              {/* Add all other detail items */}
+
+              <DetailItem>Operational Summary:</DetailItem>
+              <DetailItem>
+                - Attacking Planet: System {report.attacker_position.system}{" "}
+                Orbit {report.attacker_position.orbit}
+              </DetailItem>
+              <DetailItem>
+                - Defending Planet: System {report.defender_position.system}{" "}
+                Orbit {report.defender_position.orbit}
+              </DetailItem>
+
+              <DetailItem>Attacker Fleet Composition:</DetailItem>
+              {Object.entries(report.attacker_initial_fleet)
+                .filter(([_, quantity]) => quantity > 0)
+                .map(([fleetType, quantity]) => (
+                  <DetailItem key={fleetType}>
+                    - {fleetType.charAt(0).toUpperCase() + fleetType.slice(1)}:{" "}
+                    {quantity}
+                  </DetailItem>
+                ))}
+
+              <DetailItem>Defender Fleet Composition:</DetailItem>
+              {Object.entries(report.defender_initial_fleet).filter(
+                ([_, quantity]) => quantity > 0
+              ).length > 0 ? (
+                Object.entries(report.defender_initial_fleet)
+                  .filter(([_, quantity]) => quantity > 0)
+                  .map(([defenceType, quantity]) => (
+                    <DetailItem key={defenceType}>
+                      -{" "}
+                      {defenceType.charAt(0).toUpperCase() +
+                        defenceType.slice(1)}
+                      : {quantity}
+                    </DetailItem>
+                  ))
+              ) : (
+                <DetailItem>- No active fleet units detected.</DetailItem>
+              )}
+
+              <DetailItem>Defender Planetary Defenses:</DetailItem>
+              {Object.entries(report.initial_defences).filter(
+                ([_, quantity]) => quantity > 0
+              ).length > 0 ? (
+                Object.entries(report.initial_defences)
+                  .filter(([_, quantity]) => quantity > 0)
+                  .map(([defenceType, quantity]) => (
+                    <DetailItem key={defenceType}>
+                      -{" "}
+                      {defenceType.charAt(0).toUpperCase() +
+                        defenceType.slice(1)}
+                      : {quantity}
+                    </DetailItem>
+                  ))
+              ) : (
+                <DetailItem>- No defenses were present.</DetailItem>
+              )}
+
+              <DetailItem>Casualty and Damage Report:</DetailItem>
+              <DetailItem>
+                - Attacker Losses:{" "}
+                {Object.entries(report.attacker_fleet_loss)
+                  .filter(([_, quantity]) => quantity > 0)
+                  .map(
+                    ([fleetType, quantity]) =>
+                      `${quantity} ${
+                        fleetType.charAt(0).toUpperCase() + fleetType.slice(1)
+                      }`
+                  )
+                  .join(", ") || "None"}
+              </DetailItem>
+              <DetailItem>
+                - Defender Losses:{" "}
+                {Object.entries({
+                  ...report.defender_fleet_loss,
+                  ...report.defences_loss,
+                })
+                  .filter(([_, quantity]) => quantity > 0)
+                  .map(
+                    ([fleetType, quantity]) =>
+                      `${quantity} ${
+                        fleetType.charAt(0).toUpperCase() + fleetType.slice(1)
+                      }`
+                  )
+                  .join(", ") || "None"}
+              </DetailItem>
+
+              <DetailItem>Resource Acquisition:</DetailItem>
+              {Object.values(report.loot).some((quantity) => quantity > 0) ? (
+                Object.entries(report.loot)
+                  .filter(([_, quantity]) => quantity > 0)
+                  .map(([resourceType, quantity]) => (
+                    <DetailItem key={resourceType}>
+                      -{" "}
+                      {resourceType.charAt(0).toUpperCase() +
+                        resourceType.slice(1)}
+                      : {quantity}
+                    </DetailItem>
+                  ))
+              ) : (
+                <DetailItem>- None</DetailItem>
+              )}
+
+              <DetailItem>Post-Combat Assessment:</DetailItem>
+              <DetailItem>
+                - Outcome:{" "}
+                {Object.values(report.loot).some((value) => value > 0)
+                  ? "Decisive Attacker Victory"
+                  : "Attacker Defeat"}{" "}
+                {/* Updated logic for determining the outcome */}
+              </DetailItem>
+              <DetailItem>
+                - Debris Analysis:{" "}
+                {Object.entries(report.debris)
+                  .filter(([_, quantity]) => quantity > 0)
+                  .map(
+                    ([resourceType, quantity]) =>
+                      `${
+                        resourceType.charAt(0).toUpperCase() +
+                        resourceType.slice(1)
+                      }: ${quantity}`
+                  )
+                  .join(", ") || "No debris field generated post-engagement."}
+              </DetailItem>
             </BattleReportDetails>
           </BattleReportContainer>
         ))}

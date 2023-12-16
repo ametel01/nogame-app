@@ -10,6 +10,7 @@ import {
   Position,
 } from "../../shared/types";
 import React from "react";
+import { numberWithCommas } from "../../shared/utils";
 
 interface Props {
   planetId?: number;
@@ -70,8 +71,8 @@ export function DebrisFieldView({
                 <div>
                   <strong>Debris Field</strong>
                 </div>
-                <div>Steel: {String(debris.steel)}</div>
-                <div>Quartz: {String(debris.quartz)}</div>
+                <div>Steel: {numberWithCommas(debris.steel)}</div>
+                <div>Quartz: {numberWithCommas(debris.quartz)}</div>
               </>
             }
             arrow

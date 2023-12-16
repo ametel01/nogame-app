@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Table = styled.table`
   width: 100%;
@@ -19,6 +20,12 @@ type RowProps = {
   isHighlighted: boolean;
 };
 
+export const CenteredProgress = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; // Adjust as needed
+`;
 // Use the type in your styled component with the correct syntax
 const Row = styled.tr<RowProps>`
   background-color: ${(props) =>
@@ -76,9 +83,12 @@ const LeadearBoardMain = ({ planetId }: Props) => {
     fetchData();
   }, []);
 
-  // Render logic...
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <CenteredProgress>
+        <CircularProgress />
+      </CenteredProgress>
+    );
   }
 
   if (error) {

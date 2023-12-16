@@ -3,7 +3,7 @@ import { Resources } from "../shared/types";
 export const baseTechCost: { [key: string]: Resources } = {
   digital: { steel: 0, quartz: 400, tritium: 600 },
   weapon: { steel: 800, quartz: 200, tritium: 0 },
-  shield: { steel: 0, quartz: 600, tritium: 0 },
+  shield: { steel: 200, quartz: 600, tritium: 0 },
   armour: { steel: 1000, quartz: 0, tritium: 0 },
   energy: { steel: 0, quartz: 800, tritium: 400 },
   combustion: { steel: 0, quartz: 400, tritium: 600 },

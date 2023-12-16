@@ -26,10 +26,11 @@ export const PopoverHeaderDiv = styled("div")({
 
 export const PopoverInfoRow = styled("div")({
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "start", // Aligned to the start, closer together
   alignItems: "center",
   marginBottom: "16px",
 });
+
 
 export const PopoverTextBox = styled("div")`
   font-size: 16px;
@@ -48,7 +49,10 @@ export const PopoverInfoData = styled("span")({
   color: "#98fb98",
 });
 
-export const PopoverLabel = styled("span")({});
+export const PopoverLabel = styled("span")({
+  marginRight: "8px", // Adjust this value as needed to control spacing
+});
+
 
 export const PopoverRequirements = styled("ul")({
   color: "#98fb98",

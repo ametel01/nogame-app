@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import CircularProgress from "@mui/material/CircularProgress";
+import { CenteredProgress } from "./LeaderBoardMain";
 
 const Table = styled.table`
   width: 100%;
@@ -37,7 +39,7 @@ const Wrapper = styled.div`
 type FetchData = {
   planet_id: number;
   account: string;
-  net_amount: number;
+  total_spent: number;
 };
 
 interface Props {
@@ -60,6 +62,10 @@ const LeadearBoardTech = ({ planetId }: Props) => {
         }
         const data = await response.json();
         setLeaderboard(data);
+
+        data.forEach((entry: FetchData) => {
+          console.log(entry.total_spent);
+        });
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);
@@ -74,9 +80,12 @@ const LeadearBoardTech = ({ planetId }: Props) => {
     fetchData();
   }, []);
 
-  // Render logic...
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <CenteredProgress>
+        <CircularProgress />
+      </CenteredProgress>
+    );
   }
 
   if (error) {
@@ -110,7 +119,7 @@ const LeadearBoardTech = ({ planetId }: Props) => {
                   : "Unknown Account"}
               </Data>
               <Data>{entry.planet_id}</Data>
-              <Data>{Math.round(Number(entry.net_amount) / 1000)}</Data>
+              <Data>{Math.round(Number(entry.total_spent) / 1000)}</Data>
             </Row>
           ))}
         </tbody>
