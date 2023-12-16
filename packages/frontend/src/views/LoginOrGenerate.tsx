@@ -1,4 +1,4 @@
-import { styled } from "@mui/system";
+import styled from "styled-components";
 import { FC } from "react";
 import { CircularProgress } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -9,6 +9,7 @@ import { RowCentered } from "../components/ui/Row";
 import ConnectWalletButton from "../components/auth/ConnectWallet";
 import { GeneratePlanet } from "../components/buttons/GeneratePlanet";
 import { useGetPlanetPrice } from "../hooks/useGetPlanetPrice";
+import WarningIcon from "@mui/icons-material/Warning";
 
 const MainWrapper = styled(ColumnCenter)`
   height: 100vh;
@@ -84,6 +85,32 @@ const RotatedLogoutIcon = styled(LogoutIcon)`
   transform: rotate(180deg);
   cursor: pointer;
   margin-right: 8px;
+`;
+
+const InfoBox = styled("div")(() => ({
+  display: "flex",
+  alignItems: "flex-start", // Align items to the top of the flex container
+  position: "absolute",
+  bottom: "20px",
+  right: "20px",
+  width: "400px",
+  height: "120px",
+  backgroundColor: "rgba(0, 0, 0, 0.85)",
+  color: "#ffffff",
+  opacity: "0.5",
+  letterSpacing: "inherit",
+  padding: "10px",
+  borderRadius: "8px",
+  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
+  fontSize: "14px",
+  overflow: "auto",
+  textAlign: "left",
+}));
+
+const StyledInfoIcon = styled(WarningIcon)`
+  color: #ffd700; // A golden color for the ticker text
+  margin-right: 10px; // Space between icon and text
+  align-self: flex-start; // Align to the top of the flex container
 `;
 
 interface AuthScreenProps {
@@ -210,10 +237,14 @@ const GeneratePlanetView = ({ address }: PlanetViewProp) => {
         ETH
       </PriceText>
       <GeneratePlanet price={price} />
-      {/* <SubTextAfter style={{color: "#E67E51"}}>
-        It may take a short while for the NFT to show up in your wallet. Once it
-        does, please refresh the page to gain access to the game.
-      </SubTextAfter> */}
+      <InfoBox>
+        <StyledInfoIcon sx={{ fontSize: "100px" }} />
+        <span>
+          Please allow a few minutes for the minting process to complete. If
+          you've successfully minted but are still unable to access the game,
+          refreshing the page may resolve the issue
+        </span>
+      </InfoBox>
     </MainWrapper>
   );
 };
