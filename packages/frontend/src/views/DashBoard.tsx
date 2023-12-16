@@ -15,7 +15,7 @@ export const GameContainer = styled.div`
 
 export const DashboardMainContainer = styled.div`
   height: 100vh;
-  overflow: scroll;
+  overflow: auto;
   width: 100vw;
   display: flex;
   flex-direction: row;
