@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { CircularProgress } from "@mui/material";
 import PublicIcon from "@mui/icons-material/Public";
+import Tooltip from "@mui/material/Tooltip";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const ContentWrapper = styled.div`
   margin-top: 24px;
@@ -36,6 +38,7 @@ const BattleReportHeader = styled.div`
 const BattleReportDetails = styled.div`
   background-color: #0d1117;
   padding: 10px;
+  position: relative; // Add this to position children absolutely relative to this container
   display: none;
   &.expanded {
     display: block;
@@ -46,6 +49,13 @@ const DetailItem = styled.div`
   color: #8b949e; // Grey color for details
   margin-bottom: 5px;
   padding-left: 20px; // Indentation for readability
+`;
+
+const CopyButton = styled.button`
+  position: absolute;
+  top: 10px; // Adjust as necessary
+  right: 10px; // Adjust as necessary
+  // Add more styling here as per your design
 `;
 
 type Fleet = {
@@ -168,6 +178,125 @@ const BattleReports = ({ planetId }: Props) => {
     return <div>Error: {error}</div>;
   }
 
+  const copyToClipboard = (report: FetchData) => {
+    const formatFleetComposition = (fleet: Fleet) => {
+      return (
+        Object.entries(fleet)
+          .filter(([_, quantity]) => quantity > 0)
+          .map(
+            ([type, quantity]) =>
+              `- ${type.charAt(0).toUpperCase() + type.slice(1)}: ${quantity}`
+          )
+          .join("\n") || "- No active fleet units detected."
+      );
+    };
+
+    const formatDefences = (defences: Defences) => {
+      return (
+        Object.entries(defences)
+          .filter(([_, quantity]) => quantity > 0)
+          .map(
+            ([type, quantity]) =>
+              `- ${type.charAt(0).toUpperCase() + type.slice(1)}: ${quantity}`
+          )
+          .join("\n") || "- No defenses were present."
+      );
+    };
+
+    const formatLoot = (loot: Loot) => {
+      return (
+        Object.entries(loot)
+          .filter(([_, quantity]) => quantity > 0)
+          .map(
+            ([resourceType, quantity]) =>
+              `- ${
+                resourceType.charAt(0).toUpperCase() + resourceType.slice(1)
+              }: ${quantity}`
+          )
+          .join("\n") || "- None"
+      );
+    };
+
+    const formatDebris = (loot: Debris) => {
+      return (
+        Object.entries(loot)
+          .filter(([_, quantity]) => quantity > 0)
+          .map(
+            ([resourceType, quantity]) =>
+              `- ${
+                resourceType.charAt(0).toUpperCase() + resourceType.slice(1)
+              }: ${quantity}`
+          )
+          .join("\n") || "- None"
+      );
+    };
+
+    const formatCasualties = (losses: Fleet) => {
+      return (
+        Object.entries(losses)
+          .filter(([_, quantity]) => quantity > 0)
+          .map(
+            ([fleetType, quantity]) =>
+              `${quantity} ${
+                fleetType.charAt(0).toUpperCase() + fleetType.slice(1)
+              }`
+          )
+          .join(", ") || "None"
+      );
+    };
+
+    const formatReportForDiscord = (report: FetchData) => {
+      let formattedReport = `**Battle Report ID**: [${report.battle_id}]\n`;
+      formattedReport += `**Timestamp**: [${new Date(
+        report.time
+      ).toLocaleString()}]\n`;
+      formattedReport += `**Operational Summary**:\n`;
+      formattedReport += `- Attacking Planet: System ${report.attacker_position.system} Orbit ${report.attacker_position.orbit}\n`;
+      formattedReport += `- Defending Planet: System ${report.defender_position.system} Orbit ${report.defender_position.orbit}\n`;
+      formattedReport += `**Attacker Fleet Composition**:\n${formatFleetComposition(
+        report.attacker_initial_fleet
+      )}\n`;
+      formattedReport += `**Defender Fleet Composition**:\n${formatFleetComposition(
+        report.defender_initial_fleet
+      )}\n`;
+      formattedReport += `**Defender Planetary Defenses**:\n${formatDefences(
+        report.initial_defences
+      )}\n`;
+      formattedReport += `**Casualty and Damage Report**:\n`;
+      formattedReport += `- Attacker Losses: ${formatCasualties(
+        report.attacker_fleet_loss
+      )}\n`;
+      formattedReport += `- Defender Losses: ${formatCasualties({
+        ...report.defender_fleet_loss,
+        ...report.defences_loss,
+      })}\n`;
+      formattedReport += `**Resource Acquisition**:\n${formatLoot(
+        report.loot
+      )}\n`;
+      formattedReport += `**Post-Combat Assessment**:\n`;
+      formattedReport += `- Outcome: ${
+        Object.values(report.loot).some((value) => value > 0)
+          ? "Decisive Attacker Victory"
+          : "Attacker Defeat"
+      }\n`;
+      formattedReport += `- Debris Analysis: ${formatDebris(report.debris)}`;
+
+      return formattedReport;
+    };
+
+    const formattedReport = formatReportForDiscord(report);
+
+    navigator.clipboard
+      .writeText(formattedReport)
+      .then(() => {
+        alert("Battle report copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Error in copying text: ", err);
+        alert("Failed to copy report");
+      });
+  };
+
   return (
     <>
       <ContentWrapper>
@@ -187,6 +316,16 @@ const BattleReports = ({ planetId }: Props) => {
                 expandedReports.has(report.battle_id) ? "expanded" : ""
               }
             >
+              <Tooltip title="Copy to clipboard">
+                <CopyButton
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevents the collapsing of the report
+                    copyToClipboard(report);
+                  }}
+                >
+                  <ContentCopyIcon />
+                </CopyButton>
+              </Tooltip>
               {/* Display the military-style narrative of the battle */}
               <DetailItem>Battle Report ID: [{report.battle_id}]</DetailItem>
               <DetailItem>
