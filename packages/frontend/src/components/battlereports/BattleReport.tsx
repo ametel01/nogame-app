@@ -58,6 +58,13 @@ const CopyButton = styled.button`
   // Add more styling here as per your design
 `;
 
+const CenteredMessage = styled.div`
+  text-align: center; // Center the text horizontally
+  margin-top: 50px; // Add some space at the top
+  color: #58a6ff; // Use the same light blue color for consistency
+  font-size: 24px; // Larger font size for visibility
+`;
+
 type Fleet = {
   armade: number;
   carrier: number;
@@ -176,6 +183,10 @@ const BattleReports = ({ planetId }: Props) => {
 
   if (error) {
     return <div>Error: {error}</div>;
+  }
+
+  if (battleReports.length === 0) {
+    return <CenteredMessage>No Battle Reports Available</CenteredMessage>;
   }
 
   const copyToClipboard = (report: FetchData) => {
