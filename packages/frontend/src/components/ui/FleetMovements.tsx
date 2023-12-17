@@ -3,6 +3,7 @@ import {
   useAttackPlanet,
   useGetActiveMissions,
   useCollectDebris,
+  useRecallFleet,
 } from "../../hooks/FleetHooks";
 import { Box } from "@mui/system";
 import Tooltip from "@mui/material/Tooltip";
@@ -133,6 +134,14 @@ const MissionRow = ({
     ? `${position.system} / ${position.orbit}`
     : "Unknown";
 
+  const { submitTx: recallFleet } = useRecallFleet(mission.id);
+
+  const onRecallClick = () => {
+    recallFleet().then(() => {
+      // Handle post-recall actions here, if needed
+    });
+  };
+
   const fleetDetails = (
     <FleetTooltipContent>
       <div>Carrier: {Number(mission.fleet.carrier)}</div>
@@ -160,7 +169,11 @@ const MissionRow = ({
         </Tooltip>
       </MissionText>
       <ButtonContainer>
-        <StyledButton size="small" sx={{ background: "#E67E51" }}>
+        <StyledButton
+          size="small"
+          sx={{ background: "#E67E51" }}
+          onClick={() => onRecallClick()} // Bind the recall handler
+        >
           Recall
         </StyledButton>
         <StyledButton

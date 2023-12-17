@@ -129,6 +129,35 @@ export function useAttackPlanet(missionId: number | null) {
   return { submitTx, isPending, tx };
 }
 
+export function useRecallFleet(missionId: number | null) {
+  const { contract } = useContract({
+    abi: game.abi,
+    address: GAMEADDRESS,
+  });
+
+  const calls =
+    missionId != null
+      ? [contract?.populateTransaction["recall_fleet"]!(missionId)]
+      : [];
+
+  const {
+    writeAsync,
+    isPending,
+    data: tx,
+  } = useContractWrite({
+    ...(missionId != null && { calls }),
+  });
+
+  const { add } = useTransactionManager();
+
+  const submitTx = useCallback(async () => {
+    const tx = await writeAsync();
+    add(tx.transaction_hash);
+  }, [writeAsync]);
+
+  return { submitTx, isPending, tx };
+}
+
 export function useCollectDebris(missionId: number | null) {
   const { contract } = useContract({
     abi: game.abi,
