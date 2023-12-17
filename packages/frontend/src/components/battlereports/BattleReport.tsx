@@ -55,7 +55,7 @@ const CopyButton = styled.button`
   position: absolute;
   top: 10px; // Adjust as necessary
   right: 10px; // Adjust as necessary
-  // Add more styling here as per your design
+  cursor: pointer;
 `;
 
 const CenteredMessage = styled.div`
@@ -126,6 +126,8 @@ const BattleReports = ({ planetId }: Props) => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [copyTooltipMessage, setCopyTooltipMessage] =
+    useState<string>("Copy to clipboard");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -300,11 +302,11 @@ const BattleReports = ({ planetId }: Props) => {
     navigator.clipboard
       .writeText(formattedReport)
       .then(() => {
-        alert("Battle report copied to clipboard");
+        setCopyTooltipMessage("Copied to clipboard"); // Update tooltip message
+        setTimeout(() => setCopyTooltipMessage("Copy to clipboard"), 2000); // Reset message after 2 seconds
       })
       .catch((err) => {
         console.error("Error in copying text: ", err);
-        alert("Failed to copy report");
       });
   };
 
@@ -327,7 +329,7 @@ const BattleReports = ({ planetId }: Props) => {
                 expandedReports.has(report.battle_id) ? "expanded" : ""
               }
             >
-              <Tooltip title="Copy to clipboard">
+              <Tooltip title={copyTooltipMessage}>
                 <CopyButton
                   onClick={(e) => {
                     e.stopPropagation(); // Prevents the collapsing of the report
@@ -381,7 +383,7 @@ const BattleReports = ({ planetId }: Props) => {
                 <DetailItem>- No active fleet units detected.</DetailItem>
               )}
 
-              <DetailItem>Defender Planetary Defenses:</DetailItem>
+              <DetailItem>Defender Planetary Defences:</DetailItem>
               {Object.entries(report.initial_defences).filter(
                 ([_, quantity]) => quantity > 0
               ).length > 0 ? (
