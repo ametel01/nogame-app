@@ -104,6 +104,7 @@ const Energy = ({ available, img, title, fromCelestia }: Props) => {
         <Tooltip
           title={"Energy must always be positive to avoid loosing production"}
           arrow
+          placement="top"
         >
           <div>
             <TotalResourceContainer>
@@ -125,7 +126,12 @@ const Resource = ({ spendable, collectible, img, title, address }: Props) => {
   const [copied, setCopied] = useState(false);
   return (
     <Container>
-      <Tooltip title={copied ? "Copied" : "Copy Token Address and add it to your wallet"} arrow>
+      <Tooltip
+        title={
+          copied ? "Copied" : "Copy Token Address and add it to your wallet"
+        }
+        arrow
+      >
         <div>
           <ResourceName style={{ fontSize: "16px" }}>{title}</ResourceName>
           <ImageAddressContainer

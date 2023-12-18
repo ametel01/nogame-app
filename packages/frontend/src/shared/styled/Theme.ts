@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 
   /* Base font settings */
   html, body, input, textarea, button {
-    font-family: 'Share Tech Mono', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-display: fallback;
     color: #F8F8FF;
     background-color: #151a1e;
