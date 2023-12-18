@@ -15,13 +15,15 @@ import tritiumImg from "../../assets/gameElements/resources/tritium-1.png";
 import energyImg from "../../assets/gameElements/resources/energy-2.png";
 import {
   useCollectibleResources,
-  useEnergyAvailable,
+  // useEnergyAvailable,
   useSpendableResources,
 } from "../../hooks/ResourcesHooks";
 import {
   useGetCelestiaAvailable,
   useGetCelestiaProduction,
 } from "../../hooks/EnergyHooks";
+import { useCompoundsLevels } from "../../hooks/LevelsHooks";
+import CompoundsFormulas from "../../shared/utils/Formulas";
 
 const Container = styled.div`
   display: flex;
@@ -90,6 +92,10 @@ interface Props {
 }
 
 const Energy = ({ available, img, title, fromCelestia }: Props) => {
+  const energyAvailable = available != undefined ? Number(available) : 0;
+  const availableStyle = {
+    color: energyAvailable < 0 ? "red" : "inherit", // Apply red color if available is negative
+  };
   return (
     <Container>
       <div>
@@ -112,7 +118,9 @@ const Energy = ({ available, img, title, fromCelestia }: Props) => {
                 Available
               </ResourceName>
             </TotalResourceContainer>
-            <TotalResourceText>{String(available)}</TotalResourceText>
+            <TotalResourceText style={availableStyle}>
+              {String(available)}
+            </TotalResourceText>
             <ResourceName style={{ fontSize: "10px" }}>Celestia</ResourceName>
             <TotalResourceText>{String(fromCelestia)}</TotalResourceText>
           </div>
@@ -190,12 +198,31 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
   const collectible =
     planetId != undefined ? useCollectibleResources(planetId) : undefined;
 
-  const energy = useEnergyAvailable(planetId);
+  const compoundsLevels =
+    planetId != undefined ? useCompoundsLevels(planetId) : undefined;
+
+  const solarEnergy = compoundsLevels
+    ? CompoundsFormulas.energyProduction(Number(compoundsLevels.energy))
+    : 0;
   const celestia =
     planetId != undefined ? useGetCelestiaAvailable(planetId) : undefined;
   const celestiaProduction =
     planetId != undefined ? useGetCelestiaProduction(planetId) : undefined;
   const energyFromCelestia = Number(celestia) * Number(celestiaProduction);
+
+  const steelConsumption = compoundsLevels
+    ? CompoundsFormulas.steelConsumption(Number(compoundsLevels.steel))
+    : 0;
+  const quartzConsumption = compoundsLevels
+    ? CompoundsFormulas.quartzConsumption(Number(compoundsLevels.quartz))
+    : 0;
+  const tritiumConsumption = compoundsLevels
+    ? CompoundsFormulas.tritiumConsumption(Number(compoundsLevels.tritium))
+    : 0;
+  const netEnergy =
+    solarEnergy +
+    energyFromCelestia -
+    (steelConsumption + quartzConsumption + tritiumConsumption);
 
   const spendableResources = useMemo(() => {
     if (spendable) {
@@ -216,8 +243,6 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
       };
     }
   }, [collectible]);
-
-  const energyAvailable = Number(energy);
 
   return (
     <div>
@@ -245,7 +270,7 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
       <Energy
         title="Energy"
         img={energyImg}
-        available={String(energyAvailable)}
+        available={String(netEnergy)}
         fromCelestia={String(energyFromCelestia)}
       />
     </div>

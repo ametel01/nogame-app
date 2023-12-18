@@ -18,7 +18,7 @@ function calculateCost(
 }
 
 // Functions grouped in a single object
-const CompoundsFormulas = {
+export const CompoundsFormulas = {
   steelProduction(level: number) {
     return Math.round(30 * level * Math.pow(GROWTH_FACTOR_LINEAR, level));
   },
