@@ -32,7 +32,9 @@ const CompoundsFormulas = {
   },
 
   energyProduction(level: number) {
-    return Math.round(20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1));
+    return Math.round(
+      20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
+    );
   },
 
   steelCost(level: number) {
@@ -66,15 +68,21 @@ const CompoundsFormulas = {
   },
 
   steelConsumption(level: number) {
-    return Math.round(10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level -1));
+    return Math.round(
+      10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
+    );
   },
 
   quartzConsumption(level: number) {
-    return Math.round(10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1));
+    return Math.round(
+      10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
+    );
   },
 
   tritiumConsumption(level: number) {
-    return Math.round(20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1));
+    return Math.round(
+      20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
+    );
   },
 };
 
@@ -141,43 +149,37 @@ export const getCumulativeEnergyChange = (
   level: number,
   quantity: number
 ) => {
-  let totalAdditionalOutput = 0;
+  let output = 0;
 
-  // Current level's production
-  let currentLevelOutput =
-    functionCallName === "energy_plant"
-      ? CompoundsFormulas.energyProduction(level)
-      : 0;
-
-  for (let i = 1; i <= quantity; i++) {
-    let outputAtLevel;
-    switch (functionCallName) {
-      case "steel_mine":
-        outputAtLevel = -CompoundsFormulas.steelConsumption(level + i);
-        break;
-      case "quartz_mine":
-        outputAtLevel = -CompoundsFormulas.quartzConsumption(level + i);
-        break;
-      case "tritium_mine":
-        outputAtLevel = -CompoundsFormulas.tritiumConsumption(level + i);
-        break;
-      case "energy_plant":
-        // Get the output for the upgraded level
-        outputAtLevel = CompoundsFormulas.energyProduction(level + i);
-        break;
-      default:
-        outputAtLevel = 0;
-    }
-    // Add the difference in output for each level to the total
-    totalAdditionalOutput += outputAtLevel - currentLevelOutput;
-
-    // Update current level output for next iteration (only for energy plant)
-    if (functionCallName === "energy_plant") {
-      currentLevelOutput = outputAtLevel;
-    }
+  switch (functionCallName) {
+    case "steel_mine":
+      output = -(
+        CompoundsFormulas.steelConsumption(level + quantity) -
+        CompoundsFormulas.steelConsumption(level)
+      );
+      break;
+    case "quartz_mine":
+      output = -(
+        CompoundsFormulas.quartzConsumption(level + quantity) -
+        CompoundsFormulas.quartzConsumption(level)
+      );
+      break;
+    case "tritium_mine":
+      output = -(
+        CompoundsFormulas.tritiumConsumption(level + quantity) -
+        CompoundsFormulas.tritiumConsumption(level)
+      );
+      break;
+    case "energy_plant":
+      // Get the output for the upgraded level
+      output =
+        CompoundsFormulas.energyProduction(level + quantity) -
+        CompoundsFormulas.energyProduction(level);
+      break;
+    default:
+      output = 0;
   }
-
-  return totalAdditionalOutput;
+  return output;
 };
 
 export const getCumulativeTechCost = (
