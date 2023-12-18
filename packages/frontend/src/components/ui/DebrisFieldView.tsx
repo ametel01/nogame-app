@@ -85,7 +85,7 @@ export function DebrisFieldView({
                   width: 40,
                   height: 40,
                   display: "block",
-                  color: "gray",
+                  color: "#F4F3EE",
                 }}
               />
             </IconButton>
