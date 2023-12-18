@@ -12,7 +12,6 @@ import braavosIcon from "../../assets/uiIcons/braavos.png";
 const StyledBox = styled(Box)({
   fontWeight: 600,
   fontSize: 20,
-  color: "#E7ECEE", // This is a good neutral light color. Keeping it.
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -87,7 +86,7 @@ const StyledButton = styled(Button)({
   backgroundColor: "#2A2D3A", // Slightly lighter background for the button
   border: "1px solid #0F111A", // Darker border for definition
   display: "flex",
-  color: "white",
+  color: "#F4F3EE",
   justifyContent: "center",
   "&:hover": {
     background: "#212530", // Slightly lighter than #1B1E2A for a subtle hover effect

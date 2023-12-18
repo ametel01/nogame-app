@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   html, body, input, textarea, button {
     font-family: 'Roboto', sans-serif;
     font-display: fallback;
-    color: #F8F8FF;
+    color: #F4F3EE;
     background-color: #151a1e;
   }
 

@@ -13,12 +13,11 @@ import WarningIcon from "@mui/icons-material/Warning";
 
 const MainWrapper = styled(ColumnCenter)`
   height: 100vh;
-  justify-content: space-evenly; // Evenly distribute the child elements
+  justify-content: center; // Evenly distribute the child elements
   gap: 16px;
 `;
 
 const SubTextBefore = styled("div")`
-  color: #ffffff;
   margin-top: 24px;
   // margin-bottom: 24px;
   font-weight: 400;
@@ -28,7 +27,7 @@ const SubTextBefore = styled("div")`
   letter-spacing: 0.02em;
   padding: 0 15px 16px;
   width: 70%;
-  opacity: 0.5;
+  opacity: 0.8;
   margin-y: 80px;
 `;
 
@@ -49,7 +48,7 @@ const PriceText = styled("div")`
   font-size: 20px;
   text-align: center;
   letter-spacing: 0.02em;
-  background-color: rgba(0, 0, 0, 0.85); // Dark background for contrast
+  background-color: rgba(34, 36, 45, 0.8); // Dark background for contrast
   margin-bottom: 12px;
   border-radius: 8px;
   font-family: "Courier New", Courier, monospace; // Monospaced font for the ticker effect
@@ -57,14 +56,7 @@ const PriceText = styled("div")`
   overflow: hidden;
   opacity: 0.9;
   padding: 8px 16px; // Adjust padding for better appearance
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); // Add a subtle shadow for depth
-`;
-
-const CenteredProgress = styled("div")`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; // This makes the container take the full viewport height
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); // Add a subtle shadow for depth
 `;
 
 const StyledAddress = styled("div")`
@@ -73,8 +65,8 @@ const StyledAddress = styled("div")`
   position: absolute;
   top: 20px;
   right: 20px;
-  color: #ffffff;
   font-size: 16px;
+  opacity: 0.8
   background-color: rgba(34, 36, 45, 0.8); // Optional: Add background color
   padding: 8px; // Optional: Add padding
   border-radius: 8px; // Optional: Round corners
@@ -89,28 +81,27 @@ const RotatedLogoutIcon = styled(LogoutIcon)`
 
 const InfoBox = styled("div")(() => ({
   display: "flex",
-  alignItems: "flex-start", // Align items to the top of the flex container
+  alignItems: "center", // Align items to the top of the flex container
   position: "absolute",
-  bottom: "20px",
-  right: "20px",
+  top: "20px", // Set top position
+  left: "20px", // Set left position
   width: "400px",
   height: "120px",
-  backgroundColor: "rgba(0, 0, 0, 0.85)",
-  color: "#ffffff",
-  opacity: "0.5",
+  backgroundColor: "rgba(34, 36, 45, 0.8)",
+  opacity: "0.8",
   letterSpacing: "inherit",
   padding: "10px",
   borderRadius: "8px",
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
+  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
   fontSize: "14px",
   overflow: "auto",
   textAlign: "left",
 }));
 
 const StyledInfoIcon = styled(WarningIcon)`
-  color: #ffd700; // A golden color for the ticker text
-  margin-right: 10px; // Space between icon and text
-  align-self: flex-start; // Align to the top of the flex container
+  color: #ffd700;
+  margin: 10px;
+  align-self: center;
 `;
 
 interface AuthScreenProps {
@@ -149,7 +140,9 @@ const ConnectWalletLogo = styled(StyledLogo)`
 `;
 
 const ConnectWalletText = styled(SubTextBefore)`
-  margin-top: 0px;
+  margin-top: 16px;
+  font-size: 22px;
+  max-width: 60%;
 `;
 
 const ConnectWalletView: FC<ConnectWalletViewProps> = ({
@@ -159,9 +152,7 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
   const renderButton = () => {
     if (!address) {
       return walletConnectLoading ? (
-        <CenteredProgress>
-          <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
-        </CenteredProgress>
+        <CircularProgress sx={{ opacity: "0.5" }} />
       ) : (
         <ConnectWalletButton />
       );
@@ -230,9 +221,7 @@ const GeneratePlanetView = ({ address }: PlanetViewProp) => {
         {price !== undefined ? (
           (Number(price) / 10 ** 18).toFixed(6)
         ) : (
-          <CenteredProgress>
-            <CircularProgress size={24} />
-          </CenteredProgress>
+          <CircularProgress size={24} />
         )}{" "}
         ETH
       </PriceText>

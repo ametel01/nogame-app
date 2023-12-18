@@ -11,7 +11,6 @@ import IconButton from "@mui/material/IconButton";
 
 const HeaderWrapper = styled(AppBar)({
   backgroundColor: "#1a2025", // Dark background for space theme
-  color: "white",
   margin: 0,
   padding: 0,
   boxShadow: "none",
@@ -27,17 +26,6 @@ const StyledToolbar = styled(Toolbar)({
   justifyContent: "space-between", // Align items with space between
   background: "rgba(0, 0, 0, 0.2)",
 });
-
-// const HeaderButton = styled(Button)({
-//   margin: "16px",
-//   marginLeft: "0px",
-//   color: "white",
-//   fontWeight: "bold", // More pronounced buttons
-//   letterSpacing: "1px", // Space-themed typography style
-//   '&:hover': {
-//     backgroundColor: "rgba(255, 255, 255, 0.1)", // Hover effect
-//   },
-// });
 
 const Spacer = styled("div")({
   flex: "1",

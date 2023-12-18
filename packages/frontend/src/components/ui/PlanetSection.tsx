@@ -64,7 +64,6 @@ const MainContainer = styled(Box)({
 
 const PlanetInfoContainer = styled(Box)({
   gap: 6,
-  color: "white",
   width: 252,
 });
 

@@ -86,8 +86,6 @@ export function ButtonBuild({
           fullWidth={true}
           sx={{
             background: "#4A63AA",
-            // color: "white",
-            // size: "large",
           }}
         >
           Build

@@ -11,7 +11,6 @@ import { HostileMission } from "../../shared/types";
 // Styled components
 const Container = styled(Box)(({ theme }) => ({
   backgroundColor: "#1a2025", // Assuming a dark theme from the image
-  color: "white",
   borderRadius: "8px",
   boxshadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   padding: theme.spacing(2),
@@ -131,7 +130,7 @@ export const HostileMissions = ({ planetId }: HostileMissionsProps) => {
   return (
     <>
       {hostileMissions === undefined ? (
-          <CircularProgress />
+        <CircularProgress />
       ) : hostileMissions.length === 0 ? null : (
         <Container>
           <TitleContainer>

@@ -12,7 +12,6 @@ const Table = styled.table`
 
 const Header = styled.th`
   background-color: #1a2025;
-  color: white;
   padding: 10px;
   opacity: 0.5;
 `;

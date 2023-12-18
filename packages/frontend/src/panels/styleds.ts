@@ -23,7 +23,6 @@ export const ResourceTab = styled(Tab)({
   fontSize: "16px",
   lineHeight: "21px",
   letterSpacing: "0.02em",
-  color: "white",
   border: "none",
   padding: "16px",
   cursor: "pointer",

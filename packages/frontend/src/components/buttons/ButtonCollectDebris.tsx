@@ -26,7 +26,6 @@ import { convertSecondsToTime } from "../../shared/utils";
 export const StyledBox = styled(Box)({
   fontWeight: 400,
   fontSize: 20,
-  color: "#E7ECEE",
   position: "absolute",
   top: "50%",
   left: "50%",

@@ -56,13 +56,13 @@ export const GeneratePlanet = ({ price }: Props) => {
         // variant="outlined"
         size="large"
         sx={{
-          color: "white",
+          color: "#E7ECEE",
           width: "345px",
           height: "75px",
           backgroundColor: "#4A63AA",
           border: "1px solid #0F111A",
           borderRadius: "8px",
-          marginBottom: "16px",
+          marginTop: "32px",
           fontWeight: "700",
           "&:hover": {
             background: "#212530", // Slightly lighter than #1B1E2A for a subtle hover effect
