@@ -180,7 +180,7 @@ const MissionRow = ({
           onClick={() => handleAttackClick(mission)}
           size="small"
           sx={{ background: "#4A63AA" }}
-          disabled={Number(mission.time_arrival) * 1000 >= Date.now()}
+          disabled={Number(mission.time_arrival) * 1000 + 240>= Date.now()}
         >
           {mission.is_debris ? "Collect" : "Attack"}
         </StyledButton>
@@ -241,7 +241,7 @@ export const FleetMovements = ({ planetId }: Props) => {
 
   const getTimeDifference = (arrivalTime: number) => {
     const currentTime = Date.now();
-    const differenceInSeconds = (arrivalTime - currentTime) / 1000 - 120;
+    const differenceInSeconds = (arrivalTime - currentTime) / 1000 + 240;
 
     if (differenceInSeconds <= 0) {
       return `Arrived`;

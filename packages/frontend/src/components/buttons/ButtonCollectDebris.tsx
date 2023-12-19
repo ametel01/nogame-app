@@ -218,7 +218,7 @@ export function ButtonCollectDebris({
   useEffect(() => {
     if (travelTime !== undefined) {
       const arrival = new Date();
-      arrival.setSeconds(arrival.getSeconds() + Number(travelTime));
+      arrival.setSeconds(arrival.getSeconds() + Number(travelTime) + 240);
       setTimeOfArrival(arrival);
     }
   }, [travelTime]);
