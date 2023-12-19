@@ -94,7 +94,7 @@ interface Props {
 const Energy = ({ available, img, title, fromCelestia }: Props) => {
   const energyAvailable = available != undefined ? Number(available) : 0;
   const availableStyle = {
-    color: energyAvailable < 0 ? "red" : "inherit", // Apply red color if available is negative
+    color: energyAvailable < 0 ? "red" : "#98fb98", // Apply red color if available is negative
   };
   return (
     <Container>
