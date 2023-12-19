@@ -21,7 +21,7 @@ import {
   getFlightTime,
   getFuelConsumption,
 } from "../../shared/utils/FleetUtils";
-import { convertSecondsToTime } from "../../shared/utils";
+import { convertSecondsToTime, numberWithCommas } from "../../shared/utils";
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -260,7 +260,9 @@ export function ButtonCollectDebris({
                 <TotalDebrisText>
                   Total Debris{" "}
                   <TotalDebrisValue>
-                    {Number(debrisField.steel) + Number(debrisField.quartz)}
+                    {numberWithCommas(
+                      Number(debrisField.steel) + Number(debrisField.quartz)
+                    )}
                   </TotalDebrisValue>
                 </TotalDebrisText>
               </FlexContainer>
