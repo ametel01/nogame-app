@@ -73,7 +73,7 @@ export function getFleetSpeed(fleet: Fleet, techs: TechLevels) {
 
   if (fleet.armade > 0) {
     const baseSpeed = ARMADE.speed;
-    const speed = calculateSpeed(baseSpeed, techs.spacetime - 3, 3);
+    const speed = calculateSpeed(baseSpeed, techs.warp - 3, 3);
     minSpeed = Math.min(minSpeed, speed);
   }
 
