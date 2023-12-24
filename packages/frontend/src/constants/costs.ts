@@ -8,7 +8,7 @@ export const baseTechCost: { [key: string]: Resources } = {
   energy: { steel: 0, quartz: 800, tritium: 400 },
   combustion: { steel: 0, quartz: 400, tritium: 600 },
   thrust: { steel: 0, quartz: 2000, tritium: 4000 },
-  warp: { steel: 0, quartz: 10000, tritium: 20000 },
+  warp: { steel: 10000, quartz: 20000, tritium: 6000 },
   spacetime: { steel: 0, quartz: 4000, tritium: 2000 },
   beam: { steel: 200, quartz: 100, tritium: 0 },
   ion: { steel: 1000, quartz: 300, tritium: 100 },
