@@ -1,0 +1,1646 @@
+{
+  "abi": [
+    {
+      "type": "impl",
+      "name": "NoGame",
+      "interface_name": "nogame::game::interface::INoGame"
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::Fleet",
+      "members": [
+        {
+          "name": "carrier",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "scraper",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "sparrow",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "frigate",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "armade",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::PlanetPosition",
+      "members": [
+        {
+          "name": "system",
+          "type": "core::integer::u16"
+        },
+        {
+          "name": "orbit",
+          "type": "core::integer::u8"
+        }
+      ]
+    },
+    {
+      "type": "enum",
+      "name": "core::bool",
+      "variants": [
+        {
+          "name": "False",
+          "type": "()"
+        },
+        {
+          "name": "True",
+          "type": "()"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::Tokens",
+      "members": [
+        {
+          "name": "erc721",
+          "type": "core::starknet::contract_address::ContractAddress"
+        },
+        {
+          "name": "steel",
+          "type": "core::starknet::contract_address::ContractAddress"
+        },
+        {
+          "name": "quartz",
+          "type": "core::starknet::contract_address::ContractAddress"
+        },
+        {
+          "name": "tritium",
+          "type": "core::starknet::contract_address::ContractAddress"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::Debris",
+      "members": [
+        {
+          "name": "steel",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "quartz",
+          "type": "core::integer::u128"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::ERC20s",
+      "members": [
+        {
+          "name": "steel",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "quartz",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "tritium",
+          "type": "core::integer::u128"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::CompoundsLevels",
+      "members": [
+        {
+          "name": "steel",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "quartz",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "tritium",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "energy",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "lab",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "dockyard",
+          "type": "core::integer::u8"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::CompoundsCost",
+      "members": [
+        {
+          "name": "steel",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "quartz",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "tritium",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "energy",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "lab",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "dockyard",
+          "type": "nogame::libraries::types::ERC20s"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::EnergyCost",
+      "members": [
+        {
+          "name": "steel",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "quartz",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "tritium",
+          "type": "core::integer::u128"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::TechLevels",
+      "members": [
+        {
+          "name": "energy",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "digital",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "beam",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "armour",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "ion",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "plasma",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "weapons",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "shield",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "spacetime",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "combustion",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "thrust",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "warp",
+          "type": "core::integer::u8"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::TechsCost",
+      "members": [
+        {
+          "name": "energy",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "digital",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "beam",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "armour",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "ion",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "plasma",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "weapons",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "shield",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "spacetime",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "combustion",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "thrust",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "warp",
+          "type": "nogame::libraries::types::ERC20s"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::ShipsCost",
+      "members": [
+        {
+          "name": "carrier",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "celestia",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "scraper",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "sparrow",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "frigate",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "armade",
+          "type": "nogame::libraries::types::ERC20s"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::DefencesLevels",
+      "members": [
+        {
+          "name": "celestia",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "blaster",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "beam",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "astral",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "plasma",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::DefencesCost",
+      "members": [
+        {
+          "name": "blaster",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "beam",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "astral",
+          "type": "nogame::libraries::types::ERC20s"
+        },
+        {
+          "name": "plasma",
+          "type": "nogame::libraries::types::ERC20s"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::Mission",
+      "members": [
+        {
+          "name": "id",
+          "type": "core::integer::u16"
+        },
+        {
+          "name": "time_start",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "destination",
+          "type": "core::integer::u16"
+        },
+        {
+          "name": "time_arrival",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "fleet",
+          "type": "nogame::libraries::types::Fleet"
+        },
+        {
+          "name": "is_debris",
+          "type": "core::bool"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::HostileMission",
+      "members": [
+        {
+          "name": "origin",
+          "type": "core::integer::u16"
+        },
+        {
+          "name": "id_at_origin",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "time_arrival",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "number_of_ships",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "interface",
+      "name": "nogame::game::interface::INoGame",
+      "items": [
+        {
+          "type": "function",
+          "name": "initializer",
+          "inputs": [
+            {
+              "name": "erc721",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "steel",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "quartz",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "tritium",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "rand",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "eth",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "receiver",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "uni_speed",
+              "type": "core::integer::u128"
+            },
+            {
+              "name": "token_price",
+              "type": "core::integer::u128"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "upgrade",
+          "inputs": [
+            {
+              "name": "impl_hash",
+              "type": "core::starknet::class_hash::ClassHash"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "version",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::integer::u8"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "generate_planet",
+          "inputs": [],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "collect_resources",
+          "inputs": [],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "steel_mine_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "quartz_mine_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "tritium_mine_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "energy_plant_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "dockyard_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "lab_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "energy_innovation_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "digital_systems_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "beam_technology_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "armour_innovation_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "ion_systems_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "plasma_engineering_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "weapons_development_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "shield_tech_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "spacetime_warp_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "combustive_engine_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "thrust_propulsion_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "warp_drive_upgrade",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "carrier_build",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "scraper_build",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "celestia_build",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "sparrow_build",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "frigate_build",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "armade_build",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "blaster_build",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "beam_build",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "astral_launcher_build",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "plasma_projector_build",
+          "inputs": [
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "send_fleet",
+          "inputs": [
+            {
+              "name": "f",
+              "type": "nogame::libraries::types::Fleet"
+            },
+            {
+              "name": "destination",
+              "type": "nogame::libraries::types::PlanetPosition"
+            },
+            {
+              "name": "is_debris_collection",
+              "type": "core::bool"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "attack_planet",
+          "inputs": [
+            {
+              "name": "mission_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "recall_fleet",
+          "inputs": [
+            {
+              "name": "mission_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "collect_debris",
+          "inputs": [
+            {
+              "name": "mission_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "get_receiver",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_token_addresses",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::Tokens"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_current_planet_price",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::integer::u128"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_number_of_planets",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::integer::u16"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_generated_planets_positions",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::array::Array::<nogame::libraries::types::PlanetPosition>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_planet_position",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::PlanetPosition"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_position_slot_occupant",
+          "inputs": [
+            {
+              "name": "position",
+              "type": "nogame::libraries::types::PlanetPosition"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u16"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_debris_field",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::Debris"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_last_active",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u64"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_spendable_resources",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::ERC20s"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_collectible_resources",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::ERC20s"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_planet_points",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u128"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_energy_available",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u128"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_compounds_levels",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::CompoundsLevels"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_compounds_upgrade_cost",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::CompoundsCost"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_energy_for_upgrade",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::EnergyCost"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_energy_gain_after_upgrade",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u128"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_celestia_production",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u16"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_techs_levels",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::TechLevels"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_techs_upgrade_cost",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::TechsCost"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_ships_levels",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::Fleet"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_ships_cost",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::ShipsCost"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_celestia_available",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u32"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_defences_levels",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::DefencesLevels"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_defences_cost",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::DefencesCost"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "is_noob_protected",
+          "inputs": [
+            {
+              "name": "planet1_id",
+              "type": "core::integer::u16"
+            },
+            {
+              "name": "planet2_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::bool"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_mission_details",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            },
+            {
+              "name": "mission_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::Mission"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_hostile_missions",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::array::Array::<nogame::libraries::types::HostileMission>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_active_missions",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::array::Array::<nogame::libraries::types::Mission>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_travel_time",
+          "inputs": [
+            {
+              "name": "origin",
+              "type": "nogame::libraries::types::PlanetPosition"
+            },
+            {
+              "name": "destination",
+              "type": "nogame::libraries::types::PlanetPosition"
+            },
+            {
+              "name": "fleet",
+              "type": "nogame::libraries::types::Fleet"
+            },
+            {
+              "name": "techs",
+              "type": "nogame::libraries::types::TechLevels"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u64"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_fuel_consumption",
+          "inputs": [
+            {
+              "name": "origin",
+              "type": "nogame::libraries::types::PlanetPosition"
+            },
+            {
+              "name": "destination",
+              "type": "nogame::libraries::types::PlanetPosition"
+            },
+            {
+              "name": "fleet",
+              "type": "nogame::libraries::types::Fleet"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u128"
+            }
+          ],
+          "state_mutability": "view"
+        }
+      ]
+    },
+    {
+      "type": "constructor",
+      "name": "constructor",
+      "inputs": []
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::PlanetGenerated",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "id",
+          "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "account",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::CompoundSpent",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "planet_id",
+          "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "spent",
+          "type": "nogame::libraries::types::ERC20s",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::TechSpent",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "planet_id",
+          "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "spent",
+          "type": "nogame::libraries::types::ERC20s",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::FleetSpent",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "planet_id",
+          "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "spent",
+          "type": "nogame::libraries::types::ERC20s",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::DefenceSpent",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "planet_id",
+          "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "spent",
+          "type": "nogame::libraries::types::ERC20s",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::FleetSent",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "time",
+          "type": "core::integer::u64",
+          "kind": "data"
+        },
+        {
+          "name": "origin",
+          "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "destination",
+          "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "mission_type",
+          "type": "core::felt252",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::BattleReport",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "time",
+          "type": "core::integer::u64",
+          "kind": "data"
+        },
+        {
+          "name": "attacker",
+          "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "attacker_fleet_loss",
+          "type": "nogame::libraries::types::Fleet",
+          "kind": "data"
+        },
+        {
+          "name": "defender",
+          "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "defender_fleet_loss",
+          "type": "nogame::libraries::types::Fleet",
+          "kind": "data"
+        },
+        {
+          "name": "defences_loss",
+          "type": "nogame::libraries::types::DefencesLevels",
+          "kind": "data"
+        },
+        {
+          "name": "debris",
+          "type": "nogame::libraries::types::Debris",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::DebrisCollected",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "time",
+          "type": "core::integer::u64",
+          "kind": "data"
+        },
+        {
+          "name": "debris_field_id",
+          "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "amount",
+          "type": "nogame::libraries::types::Debris",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::Upgraded",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "implementation",
+          "type": "core::starknet::class_hash::ClassHash",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::Event",
+      "kind": "enum",
+      "variants": [
+        {
+          "name": "PlanetGenerated",
+          "type": "nogame::game::main::NoGame::PlanetGenerated",
+          "kind": "nested"
+        },
+        {
+          "name": "CompoundSpent",
+          "type": "nogame::game::main::NoGame::CompoundSpent",
+          "kind": "nested"
+        },
+        {
+          "name": "TechSpent",
+          "type": "nogame::game::main::NoGame::TechSpent",
+          "kind": "nested"
+        },
+        {
+          "name": "FleetSpent",
+          "type": "nogame::game::main::NoGame::FleetSpent",
+          "kind": "nested"
+        },
+        {
+          "name": "DefenceSpent",
+          "type": "nogame::game::main::NoGame::DefenceSpent",
+          "kind": "nested"
+        },
+        {
+          "name": "FleetSent",
+          "type": "nogame::game::main::NoGame::FleetSent",
+          "kind": "nested"
+        },
+        {
+          "name": "BattleReport",
+          "type": "nogame::game::main::NoGame::BattleReport",
+          "kind": "nested"
+        },
+        {
+          "name": "DebrisCollected",
+          "type": "nogame::game::main::NoGame::DebrisCollected",
+          "kind": "nested"
+        },
+        {
+          "name": "Upgraded",
+          "type": "nogame::game::main::NoGame::Upgraded",
+          "kind": "nested"
+        }
+      ]
+    }
+  ]
+}
