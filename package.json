@@ -7,9 +7,9 @@
     "packages/backend"
   ],
   "scripts": {
-    "dev": "concurrently \"cd packages/backend && npm run dev\" \"cd packages/frontend && npm run dev\"",
-    "build": "concurrently \"cd packages/backend && npm run build\" \"cd packages/frontend && npm run build\"",
-    "start": "concurrently \"cd packages/backend && npm start\" \"cd packages/frontend && npm run preview\""
+    "dev": "concurrently \"cd packages/testnet/backend && npm run dev\" \"cd packages/testnet/frontend && npm run dev\"",
+    "build": "concurrently \"cd packages/testnet/backend && npm run build\" \"cd packages/testnet/frontend && npm run build\"",
+    "start": "concurrently \"cd packages/testnet/backend && npm start\" \"cd packages/testnet/frontend && npm run preview\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
