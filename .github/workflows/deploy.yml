@@ -1,44 +1,45 @@
-# name: Deploy to Server
+name: Deploy to Server
 
-# on:
-#   push:
-#     branches:
-#       - master
+on:
+  push:
+    branches:
+      - master
 
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     timeout-minutes: 30
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
 
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-#       - name: Deploy to Server
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: ${{ secrets.HOST }}
-#           username: ${{ secrets.USERNAME }}
-#           key: ${{ secrets.DEPLOY_KEY }}
-#           script: |
-#             export NVM_DIR="$HOME/.nvm"
-#             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-#             nvm use 18
-#             cd /var/www/no-game.xyz/nogame-app
-#             git reset --hard origin/master
-#             git pull origin master
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm use 18
+            cd /var/www/no-game.xyz/nogame-app
+            git reset --hard origin/master
+            git pull origin master
             
-#             # Decode and set backend .env
-#             cd packages/backend
-#             echo '${{ secrets.BACKEND_ENV_FILE }}' > .env
-#             npm install
-#             npm run build
+            # Decode and set backend .env
+            cd packages/testnet/backend
+            echo '${{ secrets.BACKEND_ENV_FILE }}' > .env
+            npm install
+            npm run build
 
-#             # Decode and set frontend .env
-#             cd ../frontend 
-#             echo '${{ secrets.FRONTEND_ENV_FILE }}'  > .env
-#             npm install
-#             npm run build
+            # Decode and set frontend .env
+            cd ../frontend 
+            echo '${{ secrets.FRONTEND_ENV_FILE }}'  > .env
+            npm install
+            npm run build
 
-#             # Restart PM2 processes
-#             pm2 restart all
+            # Restart PM2 processes
+            pm2 restart all
+            sudo systemctl reload nginx
