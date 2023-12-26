@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RowCentered } from "../components/ui/Row";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   PrecisionManufacturing,
   Biotech,
@@ -18,12 +19,7 @@ import { DefenceTabPanel } from "./DefencesTab";
 
 import { CompoundsTabPanel } from "./CompoundsTab";
 import { useSpendableResources } from "../hooks/ResourcesHooks";
-import {
-  useCompoundsLevels,
-  useDefencesLevels,
-  useShipsLevels,
-  useTechsLevels,
-} from "../hooks/LevelsHooks";
+import { useDefencesLevels, useShipsLevels } from "../hooks/LevelsHooks";
 import { useDefencesCost, useShipsCost } from "../hooks/CostsHooks";
 import { UniverseViewTabPanel } from "./UniverseViewTab";
 import { useGetCelestiaAvailable } from "../hooks/EnergyHooks";
@@ -37,6 +33,7 @@ import {
   DefenceLevels,
 } from "../shared/types";
 import { Typography } from "@mui/material";
+import fetchUpgradesData from "../api/fetchUpgradesData";
 
 interface ResourcesSectionArgs {
   planetId: number;
@@ -44,15 +41,47 @@ interface ResourcesSectionArgs {
 
 export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   const [activeTab, setActiveTab] = useState(1);
+  const [compoundsLevels, setCompoundsLevels] =
+    useState<CompoundsLevels | null>(null);
+  const [techLevels, setTechLevels] = useState<TechLevels | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchUpgradesData({ planetId });
+        setCompoundsLevels(data.compoundsLevels);
+        setTechLevels(data.techLevels);
+      } catch (error) {
+        console.error("Error fetching upgrades data:", error);
+        // Handle the error appropriately
+      }
+    };
+
+    fetchData();
+  }, [planetId]);
   // Data Retrieval Hooks
-  const compoundsLevels = useCompoundsLevels(planetId);
   const spendableResources = useSpendableResources(planetId);
-  const techLevels = useTechsLevels(planetId);
   const shipsLevels = useShipsLevels(planetId);
   const shipsCost = useShipsCost();
   const defencesLevels = useDefencesLevels(planetId);
   const celestiaAvailable = useGetCelestiaAvailable(planetId);
   const defencesCost = useDefencesCost();
+
+  if (!compoundsLevels || !techLevels) {
+    // Centered CircularProgress
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </div>
+    );
+  }
 
   return (
     <ResourcesTabs>

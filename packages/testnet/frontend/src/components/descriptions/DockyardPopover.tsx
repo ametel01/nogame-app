@@ -172,7 +172,8 @@ export const SparrowDescription = () => (
     stats={StatsComponent(ShipsStats.sparrow)}
     requirements={
       <>
-        <li>Dockyard level 2</li>
+        <li>Dockyard level 1</li>
+        <li>Combustion Drive level 1</li>
       </>
     }
   />

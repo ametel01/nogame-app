@@ -1,7 +1,7 @@
 import { useContractRead } from "@starknet-react/core";
 import { GAMEADDRESS } from "../constants/addresses";
 import gameContract from "../constants/nogame.json";
-import { PositionObject } from "../shared/types";
+import { Position } from "../shared/types";
 
 export function usePlanetPosition(planetId: number) {
   const { data } = useContractRead({
@@ -11,5 +11,5 @@ export function usePlanetPosition(planetId: number) {
     args: [planetId],
   });
 
-  return data as unknown as PositionObject;
+  return data as unknown as Position;
 }

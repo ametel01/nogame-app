@@ -137,9 +137,7 @@ interface PlanetImageArgs {
 const PlanetImage = ({ planetId }: PlanetImageArgs) => {
   const { address } = useAccount();
   const [metadata, setMetadata] = useState<Metadata | null>(null);
-  const [metadataUrl, setMetadataUrl] = useState("");
-
-  console.log(metadataUrl);
+  // const [metadataUrl, setMetadataUrl] = useState("");
 
   const position = usePlanetPosition(planetId);
 

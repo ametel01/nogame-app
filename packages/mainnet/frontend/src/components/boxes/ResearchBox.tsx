@@ -45,10 +45,8 @@ const ResearchBox = ({
 
   const baseCostKey = techCostMapping[functionCallName] || functionCallName;
   const baseCosts = baseTechCost[baseCostKey];
-  console.log("Level:", level, "Quantity:", quantity, "Base Costs:", baseCosts);
   // Calculate the cumulative cost of the upgrade
   const upgradeCost = useMemo(() => {
-    console.log("Calculating Upgrade Cost");
     if (quantity > 0 && level != undefined) {
       const cost = getCumulativeTechCost(
         level,
@@ -57,7 +55,6 @@ const ResearchBox = ({
         baseCosts.quartz,
         baseCosts.tritium
       );
-      console.log("Cost:", cost);
       return cost;
     }
     return { steel: 0, quartz: 0, tritium: 0 };

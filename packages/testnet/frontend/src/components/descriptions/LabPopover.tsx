@@ -126,7 +126,7 @@ export const BeamDescription = () => (
     requirements={
       <>
         <li>Research Lab Level 1</li>
-        <li>Energy Innovation Level 1</li>
+        <li>Energy Innovation Level 2</li>
       </>
     }
   />
@@ -225,8 +225,7 @@ export const WarpDescription = () => (
       <>
         <li>Research Lab Level 7</li>
         <li>Energy Innovation Level 5</li>
-        <li>Shield Tech 5</li>
-        <li>Spacetime Warp Level 3</li>
+        <li>Spacetime Technology Level 3</li>
       </>
     }
   />

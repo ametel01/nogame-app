@@ -54,11 +54,6 @@ export type DefenceLevels = { [key in DefencesEntities]: number };
 export type TechCost = { [key in TechEntities]: Resources };
 export type TechLevels = { [key in TechEntities]: number };
 
-export type PositionObject = {
-  system: number;
-  orbit: number;
-};
-
 export type DebrisField = {
   steel: number;
   quartz: number;
@@ -75,6 +70,14 @@ export type Fleet = {
 export type Position = {
   system: number;
   orbit: number;
+};
+
+export type PlanetDetails = {
+  planetId: number;
+  account: string;
+  position: Position;
+  points: number;
+  lastActive: string;
 };
 
 export type Mission = {

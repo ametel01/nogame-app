@@ -1,37 +1,32 @@
+import { useState, useEffect } from "react";
 import UniverseViewBox from "../components/boxes/UniverseViewBox";
 import { StyledTabPanel } from "./styleds";
-import { useGetPositionsArray } from "../hooks/useGetPositionsArray";
 import {
   DefenceLevels,
-  PositionObject,
   Resources,
   ShipsLevels,
+  PlanetDetails,
 } from "../shared/types";
-import { getPlanetImageUrl } from "../components/ui/PlanetSection";
-import { useGetPositionSlotOccupant } from "../hooks/useGetPositionSlotOccupant";
-import { useOwnerOf } from "../hooks/useOwnerOf";
-import { useGetPlanetPoints } from "../hooks/useGetPlanetPoints";
 import { useAccount } from "@starknet-react/core";
 import { useShipsLevels } from "../hooks/LevelsHooks";
-import { useGetIsNoobProtected, useGetLastActive } from "../hooks/FleetHooks";
+import { useGetIsNoobProtected } from "../hooks/FleetHooks";
+import { getPlanetImage, ImageId } from "../shared/utils/getPlanetImage";
+import fetchPlanetsData from "../api/fetchPlanetsData";
 
 interface UniverseBoxItemProps {
   ownPlanetId: number;
-  position: PositionObject;
+  planet: PlanetDetails;
 }
 
-const UniverseBoxItem = ({ ownPlanetId, position }: UniverseBoxItemProps) => {
+const UniverseBoxItem = ({ ownPlanetId, planet }: UniverseBoxItemProps) => {
   const { address: address_data } = useAccount();
   const address = address_data ? address_data : "";
-
-  const planetId = useGetPositionSlotOccupant(position.system, position.orbit);
+  const highlighted = parseInt(address, 16) === parseInt(planet.account, 16);
 
   const isNoobProtected = useGetIsNoobProtected(
     Number(ownPlanetId),
-    Number(planetId)
+    planet.planetId
   );
-
-  const lastActive = useGetLastActive(Number(planetId));
 
   const ownFleetData = useShipsLevels(Number(ownPlanetId));
   const ownFleet: ShipsLevels = ownFleetData
@@ -45,35 +40,32 @@ const UniverseBoxItem = ({ ownPlanetId, position }: UniverseBoxItemProps) => {
         celestia: 0,
       };
 
-  const points_data = useGetPlanetPoints(planetId);
-  const points: number = points_data ? points_data : 0;
+  const img = getPlanetImage(
+    planet.position.orbit.toString() as unknown as ImageId
+  );
 
-  const img = getPlanetImageUrl(position.orbit);
-
-  const { data } = useOwnerOf(planetId);
-  const owner: string = data ? data.toString(16) : "";
-
-  const formattedPosition = `${String(position.system).padStart(
+  const formattedPosition = `${String(planet.position.system).padStart(
     2,
     "0"
-  )} / ${String(position.orbit).padStart(2, "0")}`;
+  )} / ${String(planet.position.orbit).padStart(2, "0")}`;
 
-  const shortenedAddress = owner
-    ? `${owner.slice(0, 4)}...${owner.slice(-4)}`
-    : "null";
+  const shortenedAddress = `${planet.account.slice(
+    0,
+    4
+  )}...${planet.account.slice(-4)}`;
 
   return (
     <UniverseViewBox
-      planetId={planetId}
+      planetId={planet.planetId}
       img={img}
       owner={shortenedAddress}
       position={formattedPosition}
-      points={points}
-      highlighted={address === "0x" + owner}
+      points={planet.points}
+      highlighted={highlighted}
       ownPlanetId={ownPlanetId}
       ownFleet={ownFleet}
       isNoobProtected={isNoobProtected}
-      lastActive={lastActive}
+      lastActive={Number(planet.lastActive)}
     />
   );
 };
@@ -90,22 +82,36 @@ export const UniverseViewTabPanel = ({
   ownPlanetId,
   ...rest
 }: UniverseViewTabPanelProps) => {
-  const planets_data: PositionObject[] = useGetPositionsArray() || [];
+  const [planetsData, setPlanetsData] = useState<PlanetDetails[]>([]);
 
-  const sortedPlanetsData = planets_data.sort((a, b) => {
-    if (Number(a.system) === Number(b.system)) {
-      return Number(a.orbit) - Number(b.orbit); // If same system, compare by orbit
+  useEffect(() => {
+    fetchPlanetsData()
+      .then((data) => {
+        const sortedData = data.sort((a, b) => {
+          if (Number(a.position.system) === Number(b.position.system)) {
+            return Number(a.position.orbit) - Number(b.position.orbit);
+          }
+          return Number(a.position.system) - Number(b.position.system);
+        });
+        setPlanetsData(sortedData);
+      })
+      .catch((error) => console.error("Error fetching planets data:", error));
+  }, []);
+
+  const sortedPlanetsData = planetsData.sort((a, b) => {
+    if (Number(a.position.system) === Number(b.position.system)) {
+      return Number(a.position.orbit) - Number(b.position.orbit); // If same system, compare by orbit
     }
-    return Number(a.system) - Number(b.system); // Else, compare by system
+    return Number(a.position.system) - Number(b.position.system); // Else, compare by system
   });
 
   return (
     <StyledTabPanel {...rest}>
-      {sortedPlanetsData.map((position, index) => (
+      {sortedPlanetsData.map((planet, index) => (
         <UniverseBoxItem
           ownPlanetId={ownPlanetId}
           key={index}
-          position={position}
+          planet={planet}
         />
       ))}
     </StyledTabPanel>

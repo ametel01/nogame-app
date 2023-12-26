@@ -6,15 +6,16 @@ import { styled } from "@mui/material/styles";
 import { FleetMovements } from "./FleetMovements";
 import { Link } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useDisconnect } from "@starknet-react/core";
+import { useAccount, useDisconnect } from "@starknet-react/core";
 import IconButton from "@mui/material/IconButton";
+import WalletHeader from "./WalletHeader";
 
 const HeaderWrapper = styled(AppBar)({
   backgroundColor: "#1a2025", // Dark background for space theme
   margin: 0,
   padding: 0,
   boxShadow: "none",
-  // borderBottom: "1px solid #333", // Subtle border for a sleek look
+  borderBottom: "1px solid #1a2025", // Subtle border for a sleek look
 });
 
 const StyledToolbar = styled(Toolbar)({
@@ -36,6 +37,7 @@ interface Props {
 }
 
 const Header = ({ planetId }: Props) => {
+  const { address: account } = useAccount();
   const { disconnect } = useDisconnect();
 
   const handleLogoutClick = () => {
@@ -48,18 +50,18 @@ const Header = ({ planetId }: Props) => {
         <IconButton
           onClick={handleLogoutClick}
           color="inherit"
-          style={{ marginRight: "16px" }}
+          style={{ marginRight: "16px", color: "#98fb98" }}
         >
           <LogoutIcon style={{ transform: "rotate(180deg)" }} />
         </IconButton>
+        <WalletHeader account={account} />
+        <Spacer />
         <HeaderButton variant="text">
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             DashBoard
           </Link>
         </HeaderButton>
-        <Spacer />
         <FleetMovements planetId={planetId ? planetId : 0} />
-        {/* Resources Market button removed */}
         <HeaderButton variant="text">
           <Link
             to="/battlereports"

@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { useAccount } from "@starknet-react/core";
-import WalletHeader from "./WalletHeader";
 import LogoAndRankContainer from "./LogoutAndRankContainer";
 import ResourcesContainer from "./ResourcesContainer";
 import { UseCollectResources } from "../buttons/CollectResources";
 
 const BodyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  height: 100%;
+  height: 100vh;
   background-color: #1a2025;
 `;
 
@@ -16,11 +16,8 @@ interface Props {
 }
 
 const SideBar = ({ planetId }: Props) => {
-  const { address: account } = useAccount();
-
   return (
     <BodyContainer>
-      <WalletHeader account={account} />
       <LogoAndRankContainer planetId={planetId} />
       <ResourcesContainer planetId={planetId} />
       <UseCollectResources />

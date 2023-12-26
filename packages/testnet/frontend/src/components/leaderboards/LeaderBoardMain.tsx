@@ -57,12 +57,18 @@ const LeadearBoardMain = ({ planetId }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const nodeEnv = import.meta.env.VITE_NODE_ENV;
+  const apiUrl =
+    nodeEnv === "production"
+      ? "https://api.testnet.no-game.xyz/leaderboard"
+      : "http://localhost:3001/leaderboard";
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch("https://api.no-game.xyz/api/leaderboard");
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error("Something went wrong!");
         }

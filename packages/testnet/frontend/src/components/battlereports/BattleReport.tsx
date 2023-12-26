@@ -129,14 +129,18 @@ const BattleReports = ({ planetId }: Props) => {
   const [copyTooltipMessage, setCopyTooltipMessage] =
     useState<string>("Copy to clipboard");
 
+  const nodeEnv = import.meta.env.VITE_NODE_ENV;
+  const apiUrl =
+    nodeEnv === "production"
+      ? `https://api.testnet.no-game.xyz/battle-reports?planet_id=${planetId}`
+      : "http://localhost:3001/battle_reports?planet_id=${planetId}";
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch(
-          `https://api.no-game.xyz/api/battle-reports?planet_id=${planetId}`
-        );
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           setError("No Battle Reports to show");
           setBattleReports([]);

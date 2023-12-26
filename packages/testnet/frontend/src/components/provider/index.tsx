@@ -1,23 +1,21 @@
-import { goerli, sepolia} from "@starknet-react/chains";
-import {
-  StarknetConfig,
-  argent,
-  braavos,
-} from "@starknet-react/core";
+import { sepolia } from "@starknet-react/chains";
+import { StarknetConfig, argent, braavos } from "@starknet-react/core";
 import { jsonRpcProvider } from "@starknet-react/core";
+
+const RPC_URL = import.meta.env.VITE_BLAST_RPC;
 
 function rpc() {
   return {
-    nodeUrl: import.meta.env.BLAST_RPC,
-  }
+    nodeUrl: RPC_URL,
+  };
 }
 
 // const alchemyKey = import.meta.env.VITE_ALCHEMY_APY_KEY;
 
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
-  const chains = [goerli, sepolia];
+  const chains = [sepolia];
   const provider = jsonRpcProvider({ rpc });
-  
+
   const connectors = [argent(), braavos()];
 
   return (

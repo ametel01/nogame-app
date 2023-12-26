@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { PositionObject, TechLevels } from "../types";
+import { Position, TechLevels } from "../types";
 
 export const dataToNumber = (value: unknown[] | string | number | undefined) =>
   new BigNumber(value as unknown as number).toNumber();
@@ -258,9 +258,7 @@ export function convertTechLevelsToNumbers(techLevels: TechLevels): {
   return converted;
 }
 
-export function convertPositionToNumbers(
-  position: PositionObject
-): PositionObject {
+export function convertPositionToNumbers(position: Position): Position {
   return {
     system: Number(position.system),
     orbit: Number(position.orbit),

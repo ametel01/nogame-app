@@ -10,11 +10,11 @@ import { Typography } from "@mui/material";
 import { RowCentered } from "./Row";
 import { usePlanetPosition } from "../../hooks/usePlanetPosition";
 import { HostileMissions } from "./HostileMissions";
+import { getPlanetImage, ImageId } from "../../shared/utils/getPlanetImage";
 
 //pink-capable-snake-964.mypinata.cloud/ipfs/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ/
 const IPFS_BASE_URL = "https://pink-capable-snake-964.mypinata.cloud/ipfs";
-const METADATA_URL = `${IPFS_BASE_URL}/QmTi7pEBq2ZxUw8WyiZSdqbYUqcukvhwPpHd2DB4qWNJxk`;
-const IMG_URL = `${IPFS_BASE_URL}/QmYuu69m6ArmGq18QjC6UpqFgevFZXooupAyaxKd9XfDpW`;
+const METADATA_URL = `${IPFS_BASE_URL}/Qmb7QkVbF5qhPgkyBAJeZSiR7k5ApoP22Hy2cKuaETavHg`;
 // const IMG_MODULO = 10;
 
 const DebugRowCentered = styled(RowCentered)`
@@ -127,8 +127,10 @@ interface Metadata {
   }[];
 }
 
+const IMG_URL = "../../assets/planets";
+
 export const getPlanetImageUrl = (imgId: number | undefined) =>
-  imgId ? `${IMG_URL}/${imgId}.png` : undefined;
+  imgId ? `${IMG_URL}/${imgId}.webp` : undefined;
 
 interface PlanetImageArgs {
   planetId: number;
@@ -139,13 +141,11 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
   const [metadata, setMetadata] = useState<Metadata | null>(null);
   const [metadataUrl, setMetadataUrl] = useState("");
 
-  console.log(metadataUrl);
-
   const position = usePlanetPosition(planetId);
 
   useEffect(() => {
     if (address && !metadata) {
-      const url = `${METADATA_URL}/${planetId}`;
+      const url = `${METADATA_URL}/${planetId}.json`;
       setMetadataUrl(url);
       axios
         .get(url)
@@ -158,6 +158,7 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
   }, [planetId, metadata, address]);
 
   const imgId = Number(position?.orbit);
+  const planetImageUrl = getPlanetImage(imgId.toString() as unknown as ImageId);
 
   const findAttribute = (name: string) =>
     metadata?.attributes.find((props: Props) => props.trait_type === name)
@@ -178,7 +179,7 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
             onClick={openMetadataUrl}
             style={{ cursor: "pointer" }}
           >
-            <img src={getPlanetImageUrl(imgId)} alt="planet" />
+            <img src={planetImageUrl} alt="planet" />
           </PlanetImageWrapper>
         </Tooltip>
       ) : (
@@ -189,7 +190,7 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
         <PlanetInfoRow
           label="Diameter"
           value={`${numberWithCommas(
-            dataToNumber(findAttribute("size")) * 10 ** 4
+            dataToNumber(findAttribute("size")) * 10 ** 2
           )} km`}
         />
         <PlanetInfoRow

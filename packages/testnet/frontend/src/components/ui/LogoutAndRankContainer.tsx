@@ -6,12 +6,14 @@ import nogameLogo from "../../assets/logos/NoGameLogo.png";
 // import { numberWithCommas } from "../../shared/utils";
 import { GAMEADDRESS } from "../../constants/addresses";
 import game from "../../constants/nogame.json";
+import { numberWithCommas } from "../../shared/utils";
 
 const LogoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 16px;
   padding: 16px 18px 18px;
   gap: 16px;
 `;
@@ -79,7 +81,7 @@ const LogoAndRankContainer = ({ planetId }: Props) => {
           <TrophyDiv>
             <TitleContainer>Score</TitleContainer>
           </TrophyDiv>
-          {Number(score)}
+          {numberWithCommas(Number(score))}
         </RankLineContainer>
       </RankContainer>
     </LogoContainer>

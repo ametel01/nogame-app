@@ -1,10 +1,10 @@
 import { useContractRead } from "@starknet-react/core";
 import { GAMEADDRESS } from "../constants/addresses";
 import gameContract from "../constants/nogame.json";
-import { PositionObject } from "../shared/types";
+import { Position } from "../shared/types";
 
 export function useGetPositionSlotOccupant(system: number, orbit: number) {
-  const position: PositionObject = {
+  const position: Position = {
     system: Number(system),
     orbit: Number(orbit),
   };

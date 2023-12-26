@@ -51,9 +51,9 @@ interface Props {
   img: string | undefined;
   owner?: string;
   functionCallName?: string;
-  position?: string;
+  position: string;
   debris?: { steel: number; quartz: number };
-  points?: number;
+  points: number;
   highlighted: boolean;
   spendable?: Resources;
   collectible?: Resources;
@@ -62,7 +62,7 @@ interface Props {
   ownPlanetId: number;
   ownFleet?: ShipsLevels;
   isNoobProtected?: boolean;
-  lastActive?: number;
+  lastActive: number;
 }
 
 const UniverseViewBox = ({
@@ -91,11 +91,19 @@ const UniverseViewBox = ({
   const getLastActiveTime = (lastActiveTimestamp: number) => {
     if (!lastActiveTimestamp) return "Unknown";
 
-    const now = Date.now();
     // Convert lastActiveTimestamp from seconds to milliseconds
-    const lastActiveInMilliseconds = Number(lastActiveTimestamp) * 1000;
+    const lastActiveDate = new Date(lastActiveTimestamp * 1000);
+
+    // Adjust for the 8-hour difference
+    const adjustedLastActiveDate = new Date(
+      lastActiveDate.getTime() + 8 * 60 * 60 * 1000
+    );
+
+    // Get the current time
+    const now = new Date();
+
     const differenceInSeconds = Math.floor(
-      (now - lastActiveInMilliseconds) / 1000
+      (now.getTime() - adjustedLastActiveDate.getTime()) / 1000
     );
 
     if (differenceInSeconds < 3600) {
@@ -144,7 +152,7 @@ const UniverseViewBox = ({
           <Styled.ResourceTitle>PLAYER</Styled.ResourceTitle>
           <Styled.NumberContainer
             style={{ fontSize: "14px" }}
-          >{`0x${owner}`}</Styled.NumberContainer>
+          >{`${owner}`}</Styled.NumberContainer>
         </Styled.Title>
         <InfoContainer>
           <Styled.ResourceContainer>

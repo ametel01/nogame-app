@@ -72,7 +72,7 @@ const TotalResourceText = styled.div`
 const TotalResourceContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding: 16px;
 `;
 
 const TotalResourceWrapper = styled.div`
@@ -122,7 +122,9 @@ const Energy = ({ available, img, title, fromCelestia }: Props) => {
               {numberWithCommas(available!)}
             </TotalResourceText>
             <ResourceName style={{ fontSize: "10px" }}>Celestia</ResourceName>
-            <TotalResourceText>{numberWithCommas(fromCelestia!)}</TotalResourceText>
+            <TotalResourceText>
+              {numberWithCommas(fromCelestia!)}
+            </TotalResourceText>
           </div>
         </Tooltip>
       </TotalResourceWrapper>

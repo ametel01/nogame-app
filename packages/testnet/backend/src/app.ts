@@ -5,7 +5,8 @@ import leaderboard from "./routes/leaderboardRoute";
 import fleetleaderboard from "./routes/fleetLeaderboardRoute";
 import techleaderboard from "./routes/techLeaderboardRoute";
 import battleReportsRoute from "./routes/battleReportsRoute";
-
+import upgradesLevelsRoute from "./routes/upgradesLevelsRoute";
+import universeRoute from "./routes/universeRoute";
 const app = express();
 
 const allowedOrigins = [
@@ -39,9 +40,11 @@ app.get("/", (req, res) => {
 });
 
 // Use your leaderboard routes
-app.use("/api", leaderboard);
-app.use("/api/fleet", fleetleaderboard);
-app.use("/api/tech", techleaderboard);
-app.use("/api/battle-reports", battleReportsRoute); // Define the base path for battle reports routes
+app.use("/leaderboard", leaderboard);
+app.use("/fleet", fleetleaderboard);
+app.use("/tech", techleaderboard);
+app.use("/battle-reports", battleReportsRoute);
+app.use("/upgrades-levels", upgradesLevelsRoute);
+app.use("/universe", universeRoute);
 
 export default app;
