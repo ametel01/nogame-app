@@ -54,7 +54,7 @@ const LeadearBoardFleet = ({ planetId }: Props) => {
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const apiUrl =
     nodeEnv === "production"
-      ? "https://api.testnet.no-game.xyz/fleet"
+      ? "https://www.api.testnet.no-game.xyz/fleet"
       : "http://localhost:3001/fleet";
 
   useEffect(() => {

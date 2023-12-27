@@ -53,7 +53,7 @@ const LeadearBoardTech = ({ planetId }: Props) => {
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const apiUrl =
     nodeEnv === "production"
-      ? "https://api.testnet.no-game.xyz/tech"
+      ? "https://www.api.testnet.no-game.xyz/tech"
       : "http://localhost:3001/tech";
 
   useEffect(() => {

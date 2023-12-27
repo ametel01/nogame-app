@@ -60,7 +60,7 @@ const LeadearBoardMain = ({ planetId }: Props) => {
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const apiUrl =
     nodeEnv === "production"
-      ? "https://api.testnet.no-game.xyz/leaderboard"
+      ? "https://www.api.testnet.no-game.xyz/leaderboard"
       : "http://localhost:3001/leaderboard";
 
   useEffect(() => {

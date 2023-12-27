@@ -14,7 +14,7 @@ const fetchPlanetsData = async (): Promise<PlanetDetails[]> => {
   console.log(nodeEnv);
   const apiUrl =
     nodeEnv === "production"
-      ? "https://api.testnet.no-game.xyz/universe"
+      ? "https://www.api.testnet.no-game.xyz/universe"
       : "http://localhost:3001/universe";
 
   try {
