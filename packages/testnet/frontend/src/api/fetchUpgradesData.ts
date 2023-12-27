@@ -16,7 +16,53 @@ const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
     const data = await response.json();
 
     if (data.length === 0) {
-      throw new Error("No data found for the given planet ID.");
+      // Return default objects with all fields set to 0
+      const defaultLevels = {
+        steel: 0,
+        quartz: 0,
+        tritium: 0,
+        energy: 0,
+        dockyard: 0,
+        lab: 0,
+        armour: 0,
+        combustion: 0,
+        digital: 0,
+        energy_tech: 0,
+        warp: 0,
+        spacetime: 0,
+        thrust: 0,
+        ion: 0,
+        beam_tech: 0,
+        plasma_tech: 0,
+        shield: 0,
+        weapons: 0,
+      };
+
+      const compoundsLevels: CompoundsLevels = {
+        steel: defaultLevels.steel,
+        quartz: defaultLevels.quartz,
+        tritium: defaultLevels.tritium,
+        energy: defaultLevels.energy,
+        dockyard: defaultLevels.dockyard,
+        lab: defaultLevels.lab,
+      };
+
+      const techLevels: TechLevels = {
+        armour: defaultLevels.armour,
+        combustion: defaultLevels.combustion,
+        digital: defaultLevels.digital,
+        energy: defaultLevels.energy_tech,
+        warp: defaultLevels.warp,
+        spacetime: defaultLevels.spacetime,
+        thrust: defaultLevels.thrust,
+        ion: defaultLevels.ion,
+        beam: defaultLevels.beam_tech,
+        plasma: defaultLevels.plasma_tech,
+        shield: defaultLevels.shield,
+        weapons: defaultLevels.weapons,
+      };
+
+      return { compoundsLevels, techLevels };
     }
 
     const upgrades = data[0]; // Assuming the first item is the one we need
