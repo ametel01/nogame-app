@@ -112,20 +112,20 @@ const Energy = ({ available, img, title, fromCelestia }: Props) => {
           arrow
           placement="top"
         >
-          <div>
-            <TotalResourceContainer>
+          <TotalResourceContainer>
+            <div>
               <ResourceName style={{ fontSize: "10px" }}>
                 Available
               </ResourceName>
-            </TotalResourceContainer>
-            <TotalResourceText style={availableStyle}>
-              {numberWithCommas(available!)}
-            </TotalResourceText>
-            <ResourceName style={{ fontSize: "10px" }}>Celestia</ResourceName>
-            <TotalResourceText>
-              {numberWithCommas(fromCelestia!)}
-            </TotalResourceText>
-          </div>
+              <TotalResourceText style={availableStyle}>
+                {numberWithCommas(available!)}
+              </TotalResourceText>
+              <ResourceName style={{ fontSize: "10px" }}>Celestia</ResourceName>
+              <TotalResourceText>
+                {numberWithCommas(fromCelestia!)}
+              </TotalResourceText>
+            </div>
+          </TotalResourceContainer>
         </Tooltip>
       </TotalResourceWrapper>
     </Container>
