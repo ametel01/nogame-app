@@ -77,7 +77,7 @@ const SubTitle = styled("h5")`
 `;
 
 const Value = styled.span`
-  color: #23CE6B; // Set the color for values
+  color: #23ce6b; // Set the color for values
 `;
 
 const ImageContainer = styled.div`
@@ -147,10 +147,10 @@ export default function PlanetModal({ planetId, image, position }: Props) {
             style={{ maxWidth: "100%", height: "auto" }}
           />
         ) : (
-            <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
+          <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
         )}
       </ImageContainer>
-      <Modal open={isModalOpen} onClose={handleClose}>
+      <Modal open={isModalOpen} onClose={handleClose} disableAutoFocus={true}>
         <StyledBox>
           <CloseStyledIcon onClick={handleClose} />
           <GridSection>

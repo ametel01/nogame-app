@@ -95,6 +95,7 @@ export function DebrisFieldView({
             onClose={handleCloseModal}
             aria-labelledby="collect-debris-modal"
             aria-describedby="collect-debris-modal-description"
+            disableAutoFocus={true}
           >
             <div>
               <ButtonCollectDebris

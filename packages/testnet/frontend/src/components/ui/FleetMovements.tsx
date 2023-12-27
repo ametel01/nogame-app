@@ -180,7 +180,7 @@ const MissionRow = ({
           onClick={() => handleAttackClick(mission)}
           size="small"
           sx={{ background: "#4A63AA" }}
-          disabled={Number(mission.time_arrival) * 1000 + 240>= Date.now()}
+          disabled={Number(mission.time_arrival) * 1000 + 240 >= Date.now()}
         >
           {mission.is_debris ? "Collect" : "Attack"}
         </StyledButton>
@@ -276,6 +276,7 @@ export const FleetMovements = ({ planetId }: Props) => {
         onClose={() => toggleModal(false)}
         aria-labelledby="fleet-movements-modal-title"
         aria-describedby="fleet-movements-modal-description"
+        disableAutoFocus={true}
       >
         <StyledBox>
           <GridContainer>

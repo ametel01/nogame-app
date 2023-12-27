@@ -115,6 +115,7 @@ export default function ConnectWallet() {
         open={open}
         onClose={toggleModal}
         aria-label="Connect Wallet Modal"
+        disableAutoFocus={true}
       >
         <StyledBox>
           <HeaderDiv>

@@ -52,7 +52,7 @@ export default function DescriptionModal({
           }}
         />
       </ImageContainer>
-      <Modal open={isModalOpen} onClose={handleClose}>
+      <Modal open={isModalOpen} onClose={handleClose} disableAutoFocus={true}>
         <StyledDialogContent>{description}</StyledDialogContent>
       </Modal>
     </>

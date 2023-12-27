@@ -88,11 +88,19 @@ export function TransactionStatus({ name, tx }: Props) {
     <>
       {showModal ? (
         isLoading ? (
-          <Modal open={showModal} onClose={handleModalClose}>
+          <Modal
+            open={showModal}
+            onClose={handleModalClose}
+            disableAutoFocus={true}
+          >
             {loadingBody}
           </Modal>
         ) : (
-          <Modal open={showModal} onClose={handleModalClose}>
+          <Modal
+            open={showModal}
+            onClose={handleModalClose}
+            disableAutoFocus={true}
+          >
             {successBody}
           </Modal>
         )
