@@ -18,8 +18,8 @@ import {
 } from "../components/descriptions/DockyardPopover";
 import { ShipsCost, Resources, ShipsLevels, TechLevels } from "../shared/types";
 import DockyardBox from "../components/boxes/DockyardBox";
-import armadeImg from "../assets/gameElements/ships/armade4.webp";
-import frigateImg from "../assets/gameElements/ships/frigate4.webp";
+import armadeImg from "../assets/gameElements/ships/armade_not_available.webp";
+import frigateImg from "../assets/gameElements/ships/frigate_not_available.webp";
 import carrierImg from "../assets/gameElements/ships/carrier4.webp";
 import sparrowImg from "../assets/gameElements/ships/sparrow4.webp";
 import scraperImg from "../assets/gameElements/ships/scraper4.webp";

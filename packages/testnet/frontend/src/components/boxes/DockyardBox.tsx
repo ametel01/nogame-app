@@ -81,7 +81,9 @@ const DockyardBox = ({
     ? numberWithCommas(adjustedTritium)
     : 0;
 
-  return (
+  const shouldShowTooltip = ["Frigate", "Armade"].includes(title);
+
+  const boxContent = (
     <Styled.Box>
       <Styled.ImageContainer>
         <ImagePopover image={img} title={title} description={description} />
@@ -167,6 +169,14 @@ const DockyardBox = ({
         </Styled.ButtonContainer>
       </Styled.SubBox>
     </Styled.Box>
+  );
+
+  return shouldShowTooltip ? (
+    <Tooltip title="Non available on testnet release" placement="top" arrow>
+      {boxContent}
+    </Tooltip>
+  ) : (
+    boxContent
   );
 };
 

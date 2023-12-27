@@ -4,7 +4,7 @@ export const ShipsStats = {
     shield: 10,
     hull: 1000,
     speed: 5000,
-    cargo: 5000,
+    cargo: 10000,
     consumption: 10,
   },
   scraper: {

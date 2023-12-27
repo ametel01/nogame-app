@@ -80,7 +80,11 @@ const DefencesBox = ({
     ? numberWithCommas(adjustedTritium)
     : 0;
 
-  return (
+  const shouldShowTooltip = ["Astral Launcher", "Plasma Projector"].includes(
+    title
+  );
+
+  const boxContent = (
     <Styled.Box>
       <Styled.ImageContainer>
         <ImagePopover image={img} title={title} description={description} />
@@ -170,6 +174,14 @@ const DefencesBox = ({
         </Styled.ButtonContainer>
       </Styled.SubBox>
     </Styled.Box>
+  );
+
+  return shouldShowTooltip ? (
+    <Tooltip title="Non available on testnet release" placement="top" arrow>
+      {boxContent}
+    </Tooltip>
+  ) : (
+    boxContent
   );
 };
 

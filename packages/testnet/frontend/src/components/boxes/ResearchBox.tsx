@@ -79,7 +79,14 @@ const ResearchBox = ({
 
   const isDisabled = buttonState === "noResource";
 
-  return (
+  const shouldShowTooltip = [
+    "Ion Systems",
+    "Plasma Engineering",
+    "Spacetime Technology",
+    "Warp Drive",
+  ].includes(title);
+
+  const boxContent = (
     <Styled.Box>
       <Styled.ImageContainer>
         <ImagePopover image={img} title={title} description={description} />
@@ -164,6 +171,14 @@ const ResearchBox = ({
         </Styled.ButtonContainer>
       </Styled.SubBox>
     </Styled.Box>
+  );
+
+  return shouldShowTooltip ? (
+    <Tooltip title="Non available on testnet release" placement="top" arrow>
+      {boxContent}
+    </Tooltip>
+  ) : (
+    boxContent
   );
 };
 

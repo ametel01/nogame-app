@@ -15,8 +15,8 @@ import {
 } from "../shared/utils";
 import blasterImg from "../assets/gameElements/defences/blaster4.webp";
 import beamImg from "../assets/gameElements/defences/beam4.webp";
-import astralLauncherImg from "../assets/gameElements/defences/astral4.webp";
-import plasmaImg from "../assets/gameElements/defences/plasma4.webp";
+import astralLauncherImg from "../assets/gameElements/defences/astral_not_availa.webp";
+import plasmaImg from "../assets/gameElements/defences/plasma_not_available.webp";
 import {
   BlasterDescription,
   BeamDescription,
