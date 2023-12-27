@@ -28,17 +28,15 @@ jobs:
             git reset --hard origin/master
             git pull origin master
             NODE_ENV=production
-            npm install
-            npm run build
 
             # Decode and set backend .env
-            cd packages/testnet/backend
-            echo '${{ secrets.BACKEND_ENV_FILE }}' > .env
+            echo '${{ secrets.BACKEND_ENV_FILE }}' > packages/testnet/backend/.env
 
             # Decode and set frontend .env
-            cd ../frontend 
-            echo '${{ secrets.FRONTEND_ENV_FILE }}'  > .env
+            echo '${{ secrets.FRONTEND_ENV_FILE }}'  > packages/testnet/frontend/.env
 
+            npm install
+            npm run build
             # Restart PM2 processes
             pm2 restart all
             sudo systemctl reload nginx
