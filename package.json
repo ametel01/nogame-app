@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "packages/frontend",
-    "packages/backend"
+    "packages/testnet/frontend",
+    "packages/testnet/backend"
   ],
   "scripts": {
     "testnet-dev": "concurrently \"cd packages/testnet/backend && npm run dev\" \"cd packages/testnet/frontend && npm run dev\"",

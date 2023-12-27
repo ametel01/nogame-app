@@ -132,7 +132,7 @@ const BattleReports = ({ planetId }: Props) => {
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const apiUrl =
     nodeEnv === "production"
-      ? `https://api.testnet.no-game.xyz/battle-reports?planet_id=${planetId}`
+      ? `https://www.api.testnet.no-game.xyz/battle-reports?planet_id=${planetId}`
       : "http://localhost:3001/battle_reports?planet_id=${planetId}";
 
   useEffect(() => {
