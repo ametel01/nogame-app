@@ -8,6 +8,7 @@ export const StyledButton = styled(Button)(() => ({
   textTransform: "capitalize",
   size: "large",
   color: "#F4F3EE",
+  border: "1px solid #2E3A45",
   letterSpacing: "0.1em",
   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   "&:hover": {

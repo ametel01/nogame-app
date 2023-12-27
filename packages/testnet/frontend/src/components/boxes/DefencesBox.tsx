@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import styled from "styled-components";
 import { Input } from "@mui/joy";
-import ImagePopover from "../modals/Description";
+import DescriptionModal from "../modals/Description";
 import { ButtonBuild } from "../ui/Button";
 import useBuild from "../../hooks/writeHooks/useBuild";
 import { numberWithCommas } from "../../shared/utils";
@@ -39,6 +39,7 @@ const DefencesBox = ({
   resourcesAvailable,
 }: Props) => {
   const [quantity, setQuantity] = useState(0);
+  const [showTooltip, setShowTooltip] = useState(true);
 
   const { tx, submitTx: build } = useBuild(functionCallName, quantity);
 
@@ -80,14 +81,18 @@ const DefencesBox = ({
     ? numberWithCommas(adjustedTritium)
     : 0;
 
-  const shouldShowTooltip = ["Astral Launcher", "Plasma Projector"].includes(
-    title
-  );
+  const shouldShowTooltip =
+    ["Astral Launcher", "Plasma Projector"].includes(title) && showTooltip;
 
   const boxContent = (
     <Styled.Box>
       <Styled.ImageContainer>
-        <ImagePopover image={img} title={title} description={description} />
+        <DescriptionModal
+          onClick={() => setShowTooltip(false)}
+          image={img}
+          title={title}
+          description={description}
+        />
         <img
           src={img}
           alt={title}

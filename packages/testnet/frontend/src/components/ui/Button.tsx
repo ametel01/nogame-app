@@ -54,7 +54,7 @@ export function ButtonUpgrade({
           fullWidth={true}
           disabled
           sx={{
-            background: "#883606",
+            background: "#C47E33",
           }}
         >
           Needs Resources

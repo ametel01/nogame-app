@@ -7,7 +7,7 @@ import { numberWithCommas } from "../../shared/utils";
 import { useMemo, useState } from "react";
 import useBuild from "../../hooks/writeHooks/useBuild";
 import { Input } from "@mui/joy";
-import ImagePopover from "../modals/Description";
+import DescriptionModal from "../modals/Description";
 import { Resources } from "../../shared/types";
 
 const InfoContainer = styled(Styled.InfoContainer)({
@@ -40,6 +40,7 @@ const DockyardBox = ({
   resourcesAvailable,
 }: Props) => {
   const [quantity, setQuantity] = useState(0);
+  const [showTooltip, setShowTooltip] = useState(true);
 
   const { tx, submitTx: build } = useBuild(functionCallName, quantity);
 
@@ -81,12 +82,18 @@ const DockyardBox = ({
     ? numberWithCommas(adjustedTritium)
     : 0;
 
-  const shouldShowTooltip = ["Frigate", "Armade"].includes(title);
+  const shouldShowTooltip =
+    ["Frigate", "Armade"].includes(title) && showTooltip;
 
   const boxContent = (
     <Styled.Box>
       <Styled.ImageContainer>
-        <ImagePopover image={img} title={title} description={description} />
+        <DescriptionModal
+          onClick={() => setShowTooltip(false)}
+          image={img}
+          title={title}
+          description={description}
+        />
         <img src={img} alt={title} />
       </Styled.ImageContainer>
       <Styled.SubBox>

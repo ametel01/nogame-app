@@ -35,6 +35,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   resourcesAvailable,
 }) => {
   const [quantity, setQuantity] = useState(1);
+  const [, setShowTooltip] = useState(true);
   const [costUpdate, setCostUpdate] = useState({
     steel: 0,
     quartz: 0,
@@ -71,7 +72,12 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   return (
     <Styled.Box>
       <Styled.ImageContainer>
-        <DescriptionModal image={img} title={title} description={description} />
+        <DescriptionModal
+          onClick={() => setShowTooltip(false)}
+          image={img}
+          title={title}
+          description={description}
+        />
       </Styled.ImageContainer>
       <Styled.SubBox>
         <Styled.Title>{title}</Styled.Title>

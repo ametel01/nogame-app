@@ -20,12 +20,14 @@ interface ModalProps {
   image: string;
   title: string;
   description: React.ReactNode;
+  onClick: () => void;
 }
 
 export default function DescriptionModal({
   image,
   title,
   description,
+  onClick,
 }: ModalProps) {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
@@ -35,6 +37,7 @@ export default function DescriptionModal({
 
   const handleButtonClick = () => {
     setIsModalOpen(true);
+    onClick();
   };
 
   return (

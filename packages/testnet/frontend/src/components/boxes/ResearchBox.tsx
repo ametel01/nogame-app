@@ -7,7 +7,7 @@ import { ButtonUpgrade } from "../ui/Button";
 import { numberWithCommas } from "../../shared/utils";
 import { ReactNode, useMemo } from "react";
 import useUpgrade from "../../hooks/writeHooks/useUpgrade";
-import ImagePopover from "../modals/Description";
+import DescriptionModal from "../modals/Description";
 import { TechLevels } from "../../shared/types";
 import { Resources } from "../../shared/types";
 import { getCumulativeTechCost } from "../../shared/utils/Formulas";
@@ -40,6 +40,7 @@ const ResearchBox = ({
   resourcesAvailable,
 }: Props) => {
   const [quantity, setQuantity] = useState(1);
+  const [showTooltip, setShowTooltip] = useState(true);
 
   const { tx, submitTx: upgrade } = useUpgrade(functionCallName, quantity);
 
@@ -79,17 +80,23 @@ const ResearchBox = ({
 
   const isDisabled = buttonState === "noResource";
 
-  const shouldShowTooltip = [
-    "Ion Systems",
-    "Plasma Engineering",
-    "Spacetime Technology",
-    "Warp Drive",
-  ].includes(title);
+  const shouldShowTooltip =
+    [
+      "Ion Systems",
+      "Plasma Engineering",
+      "Spacetime Technology",
+      "Warp Drive",
+    ].includes(title) && showTooltip;
 
   const boxContent = (
     <Styled.Box>
       <Styled.ImageContainer>
-        <ImagePopover image={img} title={title} description={description} />
+        <DescriptionModal
+          onClick={() => setShowTooltip(false)}
+          image={img}
+          title={title}
+          description={description}
+        />
       </Styled.ImageContainer>
       <Styled.SubBox>
         <Styled.Title>{title}</Styled.Title>
