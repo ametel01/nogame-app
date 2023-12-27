@@ -10,9 +10,7 @@ import universeRoute from "./routes/universeRoute";
 const app = express();
 
 const allowedOrigins = [
-  "https://no-game.xyz",
-  "https://www.no-game.xyz",
-  "https://api.no-game.xyz",
+  "https://www.app.testnet.no-game.xyz/",
   "http://localhost:3000",
   "http://localhost:5173",
 ];
