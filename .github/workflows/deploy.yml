@@ -36,7 +36,7 @@ jobs:
             echo '${{ secrets.FRONTEND_ENV_FILE }}'  > packages/testnet/frontend/.env
 
             npm install
-            npm run build
+            npm run testnet-build
             # Restart PM2 processes
             pm2 restart all
             sudo systemctl reload nginx

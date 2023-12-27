@@ -3,7 +3,7 @@ import { FC } from "react";
 import { CircularProgress } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useDisconnect } from "@starknet-react/core";
-import NoGameLogo from "../assets/logos/NoGameLogo.png";
+import NoGameLogo from "../assets/logos/NoGameLogo.webp";
 import { ColumnCenter } from "../shared/styled/Column";
 import { RowCentered } from "../components/ui/Row";
 import ConnectWalletButton from "../components/auth/ConnectWallet";
@@ -32,7 +32,6 @@ const SubTextBefore = styled("div")`
 `;
 
 const StyledLogo = styled("img")`
-  width: 600px;
   margin-top: 100px;
 `;
 

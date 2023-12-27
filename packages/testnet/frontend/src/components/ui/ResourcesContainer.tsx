@@ -9,10 +9,10 @@ import {
 } from "../../constants/addresses";
 import { numberWithCommas } from "../../shared/utils";
 // Asset imports
-import ironImg from "../../assets/gameElements/resources/steel-1.png";
-import quartzImg from "../../assets/gameElements/resources/quartz-2.png";
-import tritiumImg from "../../assets/gameElements/resources/tritium-1.png";
-import energyImg from "../../assets/gameElements/resources/energy-2.png";
+import ironImg from "../../assets/gameElements/resources/steel-1.webp";
+import quartzImg from "../../assets/gameElements/resources/quartz-2.webp";
+import tritiumImg from "../../assets/gameElements/resources/tritium-1.webp";
+import energyImg from "../../assets/gameElements/resources/energy-2.webp";
 import {
   useCollectibleResources,
   // useEnergyAvailable,

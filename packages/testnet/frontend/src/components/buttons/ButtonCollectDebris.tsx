@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import { Input } from "@mui/joy";
-import scraperImg from "../../assets/gameElements/ships/scraper4.png";
+import scraperImg from "../../assets/gameElements/ships/scraper4.webp";
 import { StyledButton } from "../../shared/styled/Button";
 import useSendFleet from "../../hooks/writeHooks/useSendFleet";
 import {

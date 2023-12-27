@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import styled from "styled-components";
 import { Typography } from "@mui/material";
 import { useContractRead } from "@starknet-react/core";
-import nogameLogo from "../../assets/logos/NoGameLogo.png";
+import nogameLogo from "../../assets/logos/NoGameLogo.webp";
 // import { numberWithCommas } from "../../shared/utils";
 import { GAMEADDRESS } from "../../constants/addresses";
 import game from "../../constants/nogame.json";

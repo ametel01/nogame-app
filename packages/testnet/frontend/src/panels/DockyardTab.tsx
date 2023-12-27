@@ -18,12 +18,12 @@ import {
 } from "../components/descriptions/DockyardPopover";
 import { ShipsCost, Resources, ShipsLevels, TechLevels } from "../shared/types";
 import DockyardBox from "../components/boxes/DockyardBox";
-import armadeImg from "../assets/gameElements/ships/armade4.png";
-import frigateImg from "../assets/gameElements/ships/frigate4.png";
-import carrierImg from "../assets/gameElements/ships/carrier4.png";
-import sparrowImg from "../assets/gameElements/ships/sparrow4.png";
-import scraperImg from "../assets/gameElements/ships/scraper4.png";
-import celestiaImg from "../assets/gameElements/ships/celestia4.png";
+import armadeImg from "../assets/gameElements/ships/armade4.webp";
+import frigateImg from "../assets/gameElements/ships/frigate4.webp";
+import carrierImg from "../assets/gameElements/ships/carrier4.webp";
+import sparrowImg from "../assets/gameElements/ships/sparrow4.webp";
+import scraperImg from "../assets/gameElements/ships/scraper4.webp";
+import celestiaImg from "../assets/gameElements/ships/celestia4.webp";
 
 type ShipConfigType = {
   description: React.ReactNode;

@@ -13,10 +13,10 @@ import {
   astralRequirements,
   plasmaRequirements,
 } from "../shared/utils";
-import blasterImg from "../assets/gameElements/defences/blaster4.png";
-import beamImg from "../assets/gameElements/defences/beam4.png";
-import astralLauncherImg from "../assets/gameElements/defences/astral4.png";
-import plasmaImg from "../assets/gameElements/defences/plasma4.png";
+import blasterImg from "../assets/gameElements/defences/blaster4.webp";
+import beamImg from "../assets/gameElements/defences/beam4.webp";
+import astralLauncherImg from "../assets/gameElements/defences/astral4.webp";
+import plasmaImg from "../assets/gameElements/defences/plasma4.webp";
 import {
   BlasterDescription,
   BeamDescription,

@@ -3,13 +3,12 @@ import styled from "styled-components";
 import { Input } from "@mui/joy";
 import CompoundsFormulas from "../../shared/utils/Formulas";
 import Box from "@mui/material/Box";
-// import steelImg from "../../assets/gameElements/steel-mine-1-v2.png";
-import steelImg from "../../assets/gameElements/compounds/steel4.png";
-import quartzImg from "../../assets/gameElements/compounds/quartz4.png";
-import tritiumImg from "../../assets/gameElements/compounds/tritium4.png";
-import energyImg from "../../assets/gameElements/compounds/energy4.png";
-import labImg from "../../assets/gameElements/compounds/lab4.png";
-import dockyardImg from "../../assets/gameElements/compounds/dockyard4.png";
+import steelImg from "../../assets/gameElements/compounds/steel4.webp";
+import quartzImg from "../../assets/gameElements/compounds/quartz4.webp";
+import tritiumImg from "../../assets/gameElements/compounds/tritium4.webp";
+import energyImg from "../../assets/gameElements/compounds/energy4.webp";
+import labImg from "../../assets/gameElements/compounds/lab4.webp";
+import dockyardImg from "../../assets/gameElements/compounds/dockyard4.webp";
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
