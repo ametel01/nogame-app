@@ -5,7 +5,7 @@ const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
   console.log(nodeEnv);
   const apiUrl =
     nodeEnv === "production"
-      ? `https://api.testnet.no-game.xyz/upgrades-levels?planet_id=${planetId}`
+      ? `https://www.api.testnet.no-game.xyz/upgrades-levels?planet_id=${planetId}`
       : `http://localhost:3001/upgrades-levels?planet_id=${planetId}`;
 
   try {
