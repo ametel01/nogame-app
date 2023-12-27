@@ -27,18 +27,17 @@ jobs:
             cd /var/www/no-game.xyz/nogame-app
             git reset --hard origin/master
             git pull origin master
-            
+            NODE_ENV=production
+            npm install
+            npm run build
+
             # Decode and set backend .env
             cd packages/testnet/backend
             echo '${{ secrets.BACKEND_ENV_FILE }}' > .env
-            npm install
-            npm run build
 
             # Decode and set frontend .env
             cd ../frontend 
             echo '${{ secrets.FRONTEND_ENV_FILE }}'  > .env
-            npm install
-            npm run build
 
             # Restart PM2 processes
             pm2 restart all

@@ -1,7 +1,7 @@
 import { CompoundsLevels, TechLevels } from "../shared/types";
 
 const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
-  const nodeEnv = import.meta.env.VITE_NODE_ENV;
+  const nodeEnv = import.meta.env.MODE;
   const apiUrl =
     nodeEnv === "production"
       ? `https://api.testnet.no-game.xyz/upgrades-levels?planet_id=${planetId}`

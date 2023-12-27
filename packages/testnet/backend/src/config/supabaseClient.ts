@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 
 // Check the NODE_ENV and load the corresponding .env file
 const envFile = process.env.NODE_ENV === "production" ? ".env" : ".env.local";
+console.log(process.env.NODE_ENV);
 
 dotenv.config({ path: envFile });
 

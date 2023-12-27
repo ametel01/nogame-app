@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node ./src/server.ts",
-    "dev": "nodemon",
+    "start": "NODE_ENV=production ts-node ./src/server.ts",
+    "dev": "NODE_ENV=development nodemon",
     "build": "tsc",
     "watch": "tsc --watch",
     "test": "jest"
