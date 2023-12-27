@@ -63,7 +63,7 @@ const ResourceName = styled(Typography)({
 });
 
 const TotalResourceText = styled.div`
-  color: #98fb98;
+  color: #23CE6B;
   font-weight: 500;
   margin-left: 10px;
   padding-bottom: 6px;
@@ -94,7 +94,7 @@ interface Props {
 const Energy = ({ available, img, title, fromCelestia }: Props) => {
   const energyAvailable = available != undefined ? Number(available) : 0;
   const availableStyle = {
-    color: energyAvailable < 0 ? "red" : "#98fb98", // Apply red color if available is negative
+    color: energyAvailable < 0 ? "#AB3836" : "#23CE6B", // Apply red color if available is negative
   };
   return (
     <Container>

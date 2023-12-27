@@ -29,13 +29,13 @@ export const CenteredProgress = styled.div`
 const Row = styled.tr<RowProps>`
   background-color: ${(props) =>
     props.isHighlighted ? "#32414B" : "transparent"};
-  color: #98fb98;
+  color: #23CE6B;
 `;
 
 const Data = styled.td`
   padding: 10px;
   // border-bottom: 1px solid #ddd;
-  color: "#98fb98";
+  color: "#23CE6B";
 `;
 
 const Wrapper = styled.div`

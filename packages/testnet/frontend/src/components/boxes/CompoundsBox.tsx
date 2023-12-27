@@ -46,18 +46,6 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
 
   const energy = numberWithCommas(energyRequired);
 
-  const buttonStates = {
-    valid: {
-      title: "Upgrade",
-      callback: upgrade,
-      color: "#45A85A",
-    },
-    noResource: {
-      title: "Need Resources",
-      color: "#FFC107",
-    },
-  };
-
   useEffect(() => {
     const newCost = getCompoundCost(functionCallName, level + 1, quantity);
     setCostUpdate(newCost);
@@ -81,7 +69,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   const isDisabled = currentButtonState === "noResource";
 
   return (
-    <Styled.Box color={buttonStates[currentButtonState].color ?? "grey"}>
+    <Styled.Box>
       <Styled.ImageContainer>
         <DescriptionModal image={img} title={title} description={description} />
       </Styled.ImageContainer>
@@ -98,7 +86,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.steel < costUpdate.steel
-                    ? "red"
+                    ? "#AB3836"
                     : "inherit"
                   : "inherit",
               }}
@@ -112,7 +100,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.quartz < costUpdate.quartz
-                    ? "red"
+                    ? "#AB3836"
                     : "inherit"
                   : "inherit",
               }}
@@ -126,7 +114,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.tritium < costUpdate.tritium
-                    ? "red"
+                    ? "#AB3836"
                     : "inherit"
                   : "inherit",
               }}

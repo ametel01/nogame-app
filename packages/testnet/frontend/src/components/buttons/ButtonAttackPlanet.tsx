@@ -122,7 +122,7 @@ const TravelInfoRow = styled("div")({
 });
 
 const TravelInfoData = styled("span")({
-  color: "#98fb98",
+  color: "#23CE6B",
   marginLeft: "16px",
 });
 
@@ -268,7 +268,7 @@ export function ButtonAttackPlanet({
                             color:
                               quantities[ship] >
                               ownFleet[ship as keyof typeof ownFleet]
-                                ? "red"
+                                ? "#AB3836"
                                 : "#F8F8FF",
                           }}
                         >
@@ -281,8 +281,8 @@ export function ButtonAttackPlanet({
                                 ) -
                                   (quantities[ship] || 0) <
                                 0
-                                  ? "red"
-                                  : "#98fb98",
+                                  ? "#AB3836"
+                                  : "#23CE6B",
                             }}
                           >
                             {Number(ownFleet[ship as keyof typeof ownFleet]) -

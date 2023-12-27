@@ -50,7 +50,7 @@ const Header = ({ planetId }: Props) => {
         <IconButton
           onClick={handleLogoutClick}
           color="inherit"
-          style={{ marginRight: "16px", color: "#98fb98" }}
+          style={{ marginRight: "16px", color: "#23CE6B" }}
         >
           <LogoutIcon style={{ transform: "rotate(180deg)" }} />
         </IconButton>

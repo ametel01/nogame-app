@@ -77,7 +77,7 @@ const SubTitle = styled("h5")`
 `;
 
 const Value = styled.span`
-  color: #98fb98; // Set the color for values
+  color: #23CE6B; // Set the color for values
 `;
 
 const ImageContainer = styled.div`

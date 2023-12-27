@@ -41,7 +41,7 @@ const blinkAnimation = keyframes`
 const StyledWarningIcon = styled(WarningIcon)({
   fontSize: "32px", // Adjust size as needed
   marginRight: "8px", // Assuming default theme spacing
-  color: "red", // Icon color
+  color: "#AB3836", // Icon color
   animation: `${blinkAnimation} 1s linear infinite`, // Apply the animation
 });
 
@@ -63,7 +63,7 @@ const Row = styled(Box)({
 const Cell = styled(Typography)(() => ({
   fontSize: "14px",
   opacity: 0.5,
-  color: "#98fb98",
+  color: "#23CE6B",
 }));
 
 const RightAlignedCell = styled(Cell)({

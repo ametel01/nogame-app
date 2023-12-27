@@ -40,7 +40,7 @@ const InfoRow = styled("div")({
 });
 
 const InfoData = styled("span")({
-  color: "#98fb98",
+  color: "#23CE6B",
 });
 
 const StyledImage = styled("img")({

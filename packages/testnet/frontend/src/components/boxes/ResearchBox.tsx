@@ -104,7 +104,7 @@ const ResearchBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.steel < upgradeCost.steel
-                    ? "red"
+                    ? "#AB3836"
                     : "inherit"
                   : "inherit",
               }}
@@ -118,7 +118,7 @@ const ResearchBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.quartz < upgradeCost.quartz
-                    ? "red"
+                    ? "#AB3836"
                     : "inherit"
                   : "inherit",
               }}
@@ -132,7 +132,7 @@ const ResearchBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.tritium < upgradeCost.tritium
-                    ? "red"
+                    ? "#AB3836"
                     : "inherit"
                   : "inherit",
               }}

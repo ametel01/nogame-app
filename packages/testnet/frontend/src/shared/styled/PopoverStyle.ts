@@ -46,7 +46,7 @@ export const PopoverGridContainer = styled("div")({
 });
 
 export const PopoverInfoData = styled("span")({
-  color: "#98fb98",
+  color: "#23CE6B",
 });
 
 export const PopoverLabel = styled("span")({
@@ -55,6 +55,6 @@ export const PopoverLabel = styled("span")({
 
 
 export const PopoverRequirements = styled("ul")({
-  color: "#98fb98",
+  color: "#23CE6B",
   margin: "16px",
 });

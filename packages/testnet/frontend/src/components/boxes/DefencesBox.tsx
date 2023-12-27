@@ -107,7 +107,7 @@ const DefencesBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.steel < adjustedSteel
-                    ? "red"
+                    ? "#AB3836"
                     : "inherit"
                   : "inherit",
               }}
@@ -121,7 +121,7 @@ const DefencesBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.quartz < adjustedQuartz
-                    ? "red"
+                    ? "#AB3836"
                     : "inherit"
                   : "inherit",
               }}
@@ -135,7 +135,7 @@ const DefencesBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.tritium < adjustedTritium
-                    ? "red"
+                    ? "#AB3836"
                     : "inherit"
                   : "inherit",
               }}

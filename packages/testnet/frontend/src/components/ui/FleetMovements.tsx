@@ -66,7 +66,7 @@ export const FixedLengthText = styled("div")({
 });
 
 export const MissionText = styled("div")({
-  color: "#98fb98",
+  color: "#23CE6B",
   padding: "10px",
   textShadow: "0 0 5px rgba(152, 251, 152, 0.7)", // Glow effect
 });

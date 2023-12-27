@@ -88,7 +88,7 @@ const Text = styled("span")<TextProps>(({ totalShips, ownFleet }) => ({
   fontSize: "16px",
   marginRight: "32px",
   textTransform: "capitalize",
-  color: totalShips > ownFleet.scraper ? "red" : "#F8F8FF",
+  color: totalShips > ownFleet.scraper ? "#AB3836" : "#F8F8FF",
 }));
 
 const FlexContainer = styled("div")({
@@ -107,7 +107,7 @@ const TotalDebrisText = styled("div")({
 });
 
 const TotalDebrisValue = styled("span")({
-  color: "#98fb98",
+  color: "#23CE6B",
 });
 
 const InputButtonContainer = styled("div")({
@@ -141,7 +141,7 @@ const TravelInfoName = styled("div")({
 });
 
 const TravelInfoValue = styled("span")({
-  color: "#98fb98",
+  color: "#23CE6B",
 });
 
 const ShipImage = styled("img")({
@@ -239,7 +239,7 @@ export function ButtonCollectDebris({
                   scraper (
                   <span
                     style={{
-                      color: totalShips > ownFleet.scraper ? "red" : "#F8F8FF",
+                      color: totalShips > ownFleet.scraper ? "#AB3836" : "#F8F8FF",
                     }}
                   >
                     {String(availableScrapers)}
