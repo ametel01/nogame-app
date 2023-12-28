@@ -246,7 +246,9 @@ export const plasmaRequirements = (
 };
 
 export const numberWithCommas = (num: number) =>
-  num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  num > 999
+    ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    : num.toString();
 
 export function convertTechLevelsToNumbers(techLevels: TechLevels): {
   [K in keyof TechLevels]: number;
