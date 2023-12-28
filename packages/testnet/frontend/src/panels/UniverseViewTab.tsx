@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import UniverseViewBox from "../components/boxes/UniverseViewBox";
 import { StyledTabPanel } from "./styleds";
 import {
@@ -83,6 +85,8 @@ export const UniverseViewTabPanel = ({
   ...rest
 }: UniverseViewTabPanelProps) => {
   const [planetsData, setPlanetsData] = useState<PlanetDetails[]>([]);
+  const [currentPage, setCurrentPage] = useState(1); // MUI Pagination is 1-indexed
+  const itemsPerPage = 6;
 
   useEffect(() => {
     fetchPlanetsData()
@@ -93,27 +97,60 @@ export const UniverseViewTabPanel = ({
           }
           return Number(a.position.system) - Number(b.position.system);
         });
+
+        // Find the index of the planet with the ownPlanetId
+        const ownPlanetIndex = sortedData.findIndex(planet => planet.planetId === ownPlanetId);
+        // Calculate the initial page based on the index
+        const initialPage = Math.ceil((ownPlanetIndex + 1) / itemsPerPage);
+
         setPlanetsData(sortedData);
+        // Set the initial page
+        setCurrentPage(initialPage);
       })
       .catch((error) => console.error("Error fetching planets data:", error));
-  }, []);
+  }, [ownPlanetId]); // Add ownPlanetId as a dependency to recalculate if it changes
 
-  const sortedPlanetsData = planetsData.sort((a, b) => {
-    if (Number(a.position.system) === Number(b.position.system)) {
-      return Number(a.position.orbit) - Number(b.position.orbit); // If same system, compare by orbit
-    }
-    return Number(a.position.system) - Number(b.position.system); // Else, compare by system
-  });
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const selectedPlanets = planetsData.slice(startIndex, startIndex + itemsPerPage);
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page);
+  };
+
+  const pageCount = Math.ceil(planetsData.length / itemsPerPage);
 
   return (
     <StyledTabPanel {...rest}>
-      {sortedPlanetsData.map((planet, index) => (
+      {selectedPlanets.map((planet, index) => (
         <UniverseBoxItem
           ownPlanetId={ownPlanetId}
           key={index}
           planet={planet}
         />
       ))}
+      <Stack
+        spacing={2}
+        alignItems="center"
+        justifyContent="center"
+        sx={{ width: '100%' }}
+      >
+        <Pagination
+          count={pageCount}
+          page={currentPage}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          sx={{
+            // ...
+            ".MuiPaginationItem-root.MuiPaginationItem-root": {
+              color: 'white',
+            },
+            ".MuiPaginationItem-root.Mui-selected": {
+              backgroundColor: 'rgba(211, 211, 211, 0.5)', // Lighter gray background for the selected page
+            },
+          }}
+        />
+      </Stack>
     </StyledTabPanel>
   );
 };
