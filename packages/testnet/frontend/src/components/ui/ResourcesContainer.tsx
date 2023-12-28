@@ -239,9 +239,9 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
   const collectibleResources = useMemo(() => {
     if (collectible) {
       return {
-        steel: numberWithCommas(Number(collectible.steel)),
-        quartz: numberWithCommas(Number(collectible.quartz)),
-        tritium: numberWithCommas(Number(collectible.tritium)),
+        steel: numberWithCommas(Math.round(Number(collectible.steel) / 3600)),
+        quartz: numberWithCommas(Math.round(Number(collectible.quartz) / 3600)),
+        tritium: numberWithCommas(Math.round(Number(collectible.tritium) / 3600)),
       };
     }
   }, [collectible]);
