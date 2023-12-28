@@ -42,7 +42,7 @@ const TopRightButtonContainer = styled("div")`
 `;
 
 const PriceText = styled("div")`
-  color: #ffd700; // A golden color for the ticker text
+  color: #ffd700;
   font-weight: 500;
   font-size: 20px;
   text-align: center;
@@ -65,7 +65,7 @@ const StyledAddress = styled("div")`
   top: 20px;
   right: 20px;
   font-size: 16px;
-  opacity: 0.8
+  opacity: 0.8;
   background-color: rgba(34, 36, 45, 0.8); // Optional: Add background color
   padding: 8px; // Optional: Add padding
   border-radius: 8px; // Optional: Round corners
@@ -99,6 +99,7 @@ const InfoBox = styled("div")(() => ({
 
 const StyledInfoIcon = styled(WarningIcon)`
   color: #ffd700;
+  opacity: 0.9;
   margin: 10px;
   align-self: center;
 `;

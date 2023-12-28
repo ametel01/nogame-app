@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { StyledButton } from "../../shared/styled/Button";
 import { TransactionStatus } from "./TransactionStatus";
-import { InvokeFunctionResponse } from "starknet";
+// import { InvokeFunctionResponse } from "starknet";
 interface Props {
   name: string;
   callback?: () => void;
-  tx?: InvokeFunctionResponse | undefined;
+  tx: string | undefined;
   disabled?: boolean;
   noRequirements?: boolean;
 }

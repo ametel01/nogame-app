@@ -172,7 +172,7 @@ const DefencesBox = ({
           <ButtonBuild
             name={`Building ${quantity} ${title}`}
             callback={build}
-            tx={tx}
+            tx={tx?.transaction_hash}
             disabled={isDisabled}
             noRequirements={hasRequirements}
           />

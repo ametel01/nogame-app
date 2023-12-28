@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import { TransactionStatus } from "../ui/TransactionStatus";
@@ -7,7 +7,6 @@ import game from "../../constants/nogame.json";
 import { useContractWrite } from "@starknet-react/core";
 import { StyledButton } from "../../shared/styled/Button";
 import { useContract } from "@starknet-react/core";
-import { useTransactionManager } from "../../hooks/useTransactionManager";
 
 const StyledBox = styled(Box)(() => ({
   position: "relative",
@@ -23,19 +22,14 @@ export function UseCollectResources() {
     abi: game.abi,
     address: GAMEADDRESS,
   });
-  const { writeAsync, data: tx } = useContractWrite({
+  const { writeAsync, data} = useContractWrite({
     calls: [contract?.populateTransaction["collect_resources"]!()],
   });
 
-  const { add } = useTransactionManager();
 
-  const submitTx = useCallback(async () => {
-    const tx = await writeAsync();
-    add(tx.transaction_hash);
-  }, [writeAsync]);
 
   const handleOnClick = () => {
-    submitTx();
+    writeAsync();
     setIsClicked(true);
   };
 
@@ -52,7 +46,7 @@ export function UseCollectResources() {
         </StyledButton>
       </StyledBox>
       {isClicked ? (
-        <TransactionStatus name="Collect Resources" tx={tx} />
+        <TransactionStatus name="Collect Resources" tx={data?.transaction_hash} />
       ) : (
         <></>
       )}

@@ -158,7 +158,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
           <ButtonUpgrade
             name={`Upgrading ${title}`}
             callback={upgrade}
-            tx={tx}
+            tx={tx?.transaction_hash}
             disabled={isDisabled}
             noRequirements={false}
           />

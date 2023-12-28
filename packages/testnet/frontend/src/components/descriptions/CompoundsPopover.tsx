@@ -73,7 +73,8 @@ function useMineInformation(
 
 interface DescriptionProps {
   title: string;
-  image: string; // Add an image prop
+  image: string;
+  currentLevel?: number;
   costFunc: (arg0: number) => Cost;
   productionFunc?: (arg0: number) => number;
   consumptionFunc?: (arg0: number) => number;
@@ -85,8 +86,9 @@ function CompoundDescription({
   productionFunc,
   costFunc,
   consumptionFunc,
+  currentLevel,
 }: DescriptionProps) {
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(currentLevel!);
   const { production, cost, consumption } = useMineInformation(
     level,
     costFunc,
@@ -142,11 +144,16 @@ function CompoundDescription({
   );
 }
 
-export function SteelMineDescription() {
+interface MineDescriptionProps {
+  currentLevel?: number;
+}
+
+export function SteelMineDescription({ currentLevel }: MineDescriptionProps) {
   return (
     <CompoundDescription
       title="Steel Mine"
       image={steelImg}
+      currentLevel={currentLevel}
       productionFunc={CompoundsFormulas.steelProduction}
       costFunc={CompoundsFormulas.steelCost}
       consumptionFunc={CompoundsFormulas.steelConsumption}
@@ -154,11 +161,12 @@ export function SteelMineDescription() {
   );
 }
 
-export function QuartzMineDescription() {
+export function QuartzMineDescription({ currentLevel }: MineDescriptionProps) {
   return (
     <CompoundDescription
       title="Quartz Mine"
       image={quartzImg}
+      currentLevel={currentLevel}
       productionFunc={CompoundsFormulas.quartzProduction}
       costFunc={CompoundsFormulas.quartzCost}
       consumptionFunc={CompoundsFormulas.quartzConsumption}
@@ -166,11 +174,12 @@ export function QuartzMineDescription() {
   );
 }
 
-export function TritiumMineDescription() {
+export function TritiumMineDescription({ currentLevel }: MineDescriptionProps) {
   return (
     <CompoundDescription
       title="Tritium Mine"
       image={tritiumImg}
+      currentLevel={currentLevel}
       productionFunc={CompoundsFormulas.tritiumProduction}
       costFunc={CompoundsFormulas.tritiumCost}
       consumptionFunc={CompoundsFormulas.tritiumConsumption}
@@ -178,11 +187,12 @@ export function TritiumMineDescription() {
   );
 }
 
-export function EnergyPlantDescription() {
+export function EnergyPlantDescription({ currentLevel }: MineDescriptionProps) {
   return (
     <CompoundDescription
       title="Energy Plant"
       image={energyImg}
+      currentLevel={currentLevel}
       productionFunc={CompoundsFormulas.energyProduction}
       costFunc={CompoundsFormulas.energyCost}
     />

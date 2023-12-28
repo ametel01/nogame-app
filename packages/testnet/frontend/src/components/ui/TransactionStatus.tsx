@@ -4,35 +4,33 @@ import Modal from "@mui/material/Modal";
 import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { StyledBox, HeaderDiv } from "../buttons/ButtonAttackPlanet";
-import { InvokeFunctionResponse } from "starknet";
+// import { InvokeFunctionResponse } from "starknet";
 
 interface Props {
   name: string;
-  tx: InvokeFunctionResponse | undefined;
+  tx: string | undefined;
 }
 
 export function TransactionStatus({ name, tx }: Props) {
-  const [showModal, setShowModal] = useState(false);
-
-  const { isSuccess, isLoading } = useWaitForTransaction({
-    hash: tx?.transaction_hash,
+  const [showModal, setShowModal] = useState(true);
+  const [transactionSuccess, setTransactionSuccess] = useState(false);
+  const { isLoading, data } = useWaitForTransaction({
+    hash: tx,
     watch: true,
-    retry: true,
-    refetchInterval: 2000,
   });
 
   useEffect(() => {
-    if (isLoading) {
-      setShowModal(true);
+    // Type guard to check if data is of the type with 'finality_status'
+    if (data && "finality_status" in data) {
+      // Now TypeScript knows 'finality_status' is a valid property
+      if (data.finality_status === "ACCEPTED_ON_L2") {
+        console.log(data.finality_status);
+        setTransactionSuccess(true);
+      }
     }
-    if (isSuccess) {
-      const timer = setTimeout(() => {
-        handleModalClose();
-        // Here, add any additional logic to reset the transaction state if possible
-      }, 4000);
-      return () => clearTimeout(timer); // Clear the timer if the component unmounts
-    }
-  }, [isSuccess]);
+  }, [data]);
+
+  console.log(data);
 
   const handleModalClose = () => {
     setShowModal(false);
@@ -54,15 +52,10 @@ export function TransactionStatus({ name, tx }: Props) {
   );
 
   const successBody = (
-    <div
-      style={{
-        margin: "10px",
-        padding: "10px",
-      }}
-    >
+    <div style={{ margin: "10px", padding: "10px" }}>
       <StyledBox style={{ width: "40%" }}>
         <HeaderDiv style={{ display: "flex", justifyContent: "center" }}>
-          {name} successful!
+          {name} Successful!
         </HeaderDiv>
         <div
           style={{
@@ -80,32 +73,32 @@ export function TransactionStatus({ name, tx }: Props) {
             }}
           />
         </div>
+        {/* Additional message about potential delay in data update */}
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "20px",
+            fontSize: "14px",
+            color: "gray",
+          }}
+        >
+          Note: The displayed data might take several seconds to update. If it
+          do not, try refreshing the page.
+        </div>
       </StyledBox>
     </div>
   );
 
   return (
     <>
-      {showModal ? (
-        isLoading ? (
-          <Modal
-            open={showModal}
-            onClose={handleModalClose}
-            disableAutoFocus={true}
-          >
-            {loadingBody}
-          </Modal>
-        ) : (
-          <Modal
-            open={showModal}
-            onClose={handleModalClose}
-            disableAutoFocus={true}
-          >
-            {successBody}
-          </Modal>
-        )
-      ) : (
-        <></>
+      {showModal && (
+        <Modal
+          open={showModal}
+          onClose={handleModalClose}
+          disableAutoFocus={true}
+        >
+          {isLoading || !transactionSuccess ? loadingBody : successBody}
+        </Modal>
       )}
     </>
   );

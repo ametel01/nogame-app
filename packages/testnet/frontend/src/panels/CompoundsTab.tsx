@@ -42,7 +42,9 @@ export const CompoundsTabPanel = ({
 }: Props) => {
   const compoundsConfig: CompoundConfigType[] = [
     {
-      description: <SteelMineDescription />,
+      description: (
+        <SteelMineDescription currentLevel={compoundsLevels.steel} />
+      ),
       img: steelImg,
       title: "Steel Mine",
       functionCallName: "steel_mine",
@@ -50,7 +52,9 @@ export const CompoundsTabPanel = ({
       energyKey: "steel",
     },
     {
-      description: <QuartzMineDescription />,
+      description: (
+        <QuartzMineDescription currentLevel={compoundsLevels.quartz} />
+      ),
       img: quartzImg,
       title: "Quartz Mine",
       functionCallName: "quartz_mine",
@@ -58,7 +62,9 @@ export const CompoundsTabPanel = ({
       energyKey: "quartz",
     },
     {
-      description: <TritiumMineDescription />,
+      description: (
+        <TritiumMineDescription currentLevel={compoundsLevels.tritium} />
+      ),
       img: tritiumImg,
       title: "Tritium Mine",
       functionCallName: "tritium_mine",
@@ -66,7 +72,9 @@ export const CompoundsTabPanel = ({
       energyKey: "tritium",
     },
     {
-      description: <EnergyPlantDescription />,
+      description: (
+        <EnergyPlantDescription currentLevel={compoundsLevels.energy} />
+      ),
       img: energyImg,
       title: "Energy Plant",
       functionCallName: "energy_plant",
