@@ -180,7 +180,10 @@ export default function PlanetModal({ planetId, image, position }: Props) {
                   {key}:{" "}
                   <Value>
                     {numberWithCommas(
-                      collectibleResources![key as keyof Resources]
+                      Math.round(
+                        Number(collectibleResources![key as keyof Resources]) /
+                          3600
+                      )
                     )}
                   </Value>
                 </h6>
