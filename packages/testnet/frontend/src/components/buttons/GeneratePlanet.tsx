@@ -1,13 +1,12 @@
-// import { useCallback } from "react";
+import { useState } from "react";
 import { Box, Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-// import { TransactionStatus } from "../ui/TransactionStatus";
+import { TransactionStatus } from "../ui/TransactionStatus";
 import { useContractWrite } from "@starknet-react/core";
 import { GAMEADDRESS, ETH_ADDRESS } from "../../constants/addresses";
 import game from "../../constants/nogame.json";
 import erc20 from "../../constants/erc20.json";
 import { useContract } from "@starknet-react/core";
-// import { useTransactionManager } from "../../hooks/useTransactionManager";
 
 interface Props {
   price: number;
@@ -18,6 +17,8 @@ interface Props {
 }
 
 export const GeneratePlanet = ({ price }: Props) => {
+  const [isClicked, setIsClicked] = useState(false);
+
   const { contract: nogame } = useContract({
     abi: game.abi,
     address: GAMEADDRESS,
@@ -28,7 +29,7 @@ export const GeneratePlanet = ({ price }: Props) => {
     address: ETH_ADDRESS,
   });
 
-  const { writeAsync, isPending } = useContractWrite({
+  const { writeAsync, isPending, data } = useContractWrite({
     calls: [
       eth?.populateTransaction["approve"]!(GAMEADDRESS, {
         low: Number(price),
@@ -37,6 +38,11 @@ export const GeneratePlanet = ({ price }: Props) => {
       nogame?.populateTransaction["generate_planet"]!(),
     ],
   });
+
+  const handleOnClick = () => {
+    writeAsync();
+    setIsClicked(true);
+  };
 
   return (
     <Box position="relative" display="inline-flex">
@@ -68,11 +74,16 @@ export const GeneratePlanet = ({ price }: Props) => {
             background: "#212530", // Slightly lighter than #1B1E2A for a subtle hover effect
           },
         }}
-        onClick={() => writeAsync()}
+        onClick={() => handleOnClick()}
         disabled={isPending}
       >
         Mint Planet
       </Button>
+      {isClicked ? (
+        <TransactionStatus name="Mint Planet " tx={data?.transaction_hash} />
+      ) : (
+        <></>
+      )}
     </Box>
   );
 };

@@ -78,7 +78,11 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
           height: "100vh",
         }}
       >
-        <CircularProgress />
+        <ResourcesTabs>
+          <ResourcesTabList>
+            <CircularProgress />
+          </ResourcesTabList>
+        </ResourcesTabs>
       </div>
     );
   }

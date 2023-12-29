@@ -170,7 +170,7 @@ const DefencesBox = ({
         </Styled.ResourceContainer>
         <Styled.ButtonContainer>
           <ButtonBuild
-            name={`Building ${quantity} ${title}`}
+            name={`Build ${quantity} ${title}`}
             callback={build}
             tx={tx?.transaction_hash}
             disabled={isDisabled}

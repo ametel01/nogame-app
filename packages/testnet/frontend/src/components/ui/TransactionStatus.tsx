@@ -40,7 +40,7 @@ export function TransactionStatus({ name, tx }: Props) {
     <div style={{ margin: "10px", padding: "10px" }}>
       <StyledBox style={{ width: "40%" }}>
         <HeaderDiv style={{ display: "flex", justifyContent: "center" }}>
-          {name}
+          {name} transaction submitted
         </HeaderDiv>
         <div
           style={{ display: "flex", justifyContent: "center", margin: "30px" }}
@@ -55,7 +55,7 @@ export function TransactionStatus({ name, tx }: Props) {
     <div style={{ margin: "10px", padding: "10px" }}>
       <StyledBox style={{ width: "40%" }}>
         <HeaderDiv style={{ display: "flex", justifyContent: "center" }}>
-          {name} Successful!
+          {name} transaction accepted on L2
         </HeaderDiv>
         <div
           style={{
@@ -82,8 +82,8 @@ export function TransactionStatus({ name, tx }: Props) {
             color: "gray",
           }}
         >
-          Note: The displayed data might take several seconds to update. If it
-          do not, try refreshing the page.
+          Note: The displayed data might take several seconds to update. Try
+          refreshing the page in a few minutes.
         </div>
       </StyledBox>
     </div>
