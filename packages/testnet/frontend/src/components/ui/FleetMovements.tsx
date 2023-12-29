@@ -271,7 +271,7 @@ export const FleetMovements = ({ planetId }: Props) => {
       >
         <RocketLaunchIcon
           fontSize="small"
-          sx={{ color: "#708090", marginRight: "4px" }}
+          sx={{ color: "#c5c6c7", marginRight: "4px" }}
         />
         FLEET MOVEMENTS
       </HeaderButton>

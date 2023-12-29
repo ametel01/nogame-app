@@ -187,11 +187,7 @@ const BattleReports = ({ planetId }: Props) => {
     return <CircularProgress />;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (battleReports.length === 0) {
+  if (error || battleReports.length === 0) {
     return <CenteredMessage>No Battle Reports Available</CenteredMessage>;
   }
 
