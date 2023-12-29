@@ -14,6 +14,7 @@ import { calculateFleetLoss } from "../../shared/utils/Formulas";
 import { usePlanetPosition } from "../../hooks/usePlanetPosition";
 import { Mission } from "../../shared/types";
 import fleetIcon from "../../assets/uiIcons/Fleet.svg";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { HeaderButton } from "../../shared/styled/Button";
 
 export const StyledBox = styled(Box)({
@@ -268,6 +269,10 @@ export const FleetMovements = ({ planetId }: Props) => {
         // size="large"
         onClick={() => toggleModal(true)}
       >
+        <RocketLaunchIcon
+          fontSize="small"
+          sx={{ color: "#708090", marginRight: "4px" }}
+        />
         FLEET MOVEMENTS
       </HeaderButton>
 

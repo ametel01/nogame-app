@@ -19,7 +19,7 @@ export const StyledButton = styled(Button)(() => ({
 export const HeaderButton = styled(Button)({
   margin: "16px",
   marginLeft: "0px",
-  color: "#23CE6B",
+  color: "#708090",
   fontWeight: "bold", // More pronounced buttons
   letterSpacing: "1px", // Space-themed typography style
   "&:hover": {

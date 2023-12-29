@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 const HeaderWalletContainer = styled.div`
-  color: #23CE6B;
+  color: #708090;
+  font-weight: 600;
   display: flex;
   padding: 12px;
   border-top: 2px solid #151a1e;
