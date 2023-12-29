@@ -4,7 +4,6 @@ import Modal from "@mui/material/Modal";
 import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { StyledBox, HeaderDiv } from "../buttons/ButtonAttackPlanet";
-// import { InvokeFunctionResponse } from "starknet";
 
 interface Props {
   name: string;
@@ -38,7 +37,7 @@ export function TransactionStatus({ name, tx }: Props) {
 
   const loadingBody = (
     <div style={{ margin: "10px", padding: "10px" }}>
-      <StyledBox style={{ width: "40%" }}>
+      <StyledBox style={{ width: "35%" }}>
         <HeaderDiv style={{ display: "flex", justifyContent: "center" }}>
           {name} transaction submitted
         </HeaderDiv>
