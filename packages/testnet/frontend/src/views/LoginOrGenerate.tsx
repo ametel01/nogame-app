@@ -9,7 +9,7 @@ import { RowCentered } from "../components/ui/Row";
 import ConnectWalletButton from "../components/auth/ConnectWallet";
 import { GeneratePlanet } from "../components/buttons/GeneratePlanet";
 import { useGetPlanetPrice } from "../hooks/useGetPlanetPrice";
-import WarningIcon from "@mui/icons-material/Warning";
+// import WarningIcon from "@mui/icons-material/Warning";
 
 const MainWrapper = styled(ColumnCenter)`
   height: 100vh;
@@ -78,31 +78,31 @@ const RotatedLogoutIcon = styled(LogoutIcon)`
   margin-right: 8px;
 `;
 
-const InfoBox = styled("div")(() => ({
-  display: "flex",
-  alignItems: "center", // Align items to the top of the flex container
-  position: "absolute",
-  top: "20px", // Set top position
-  left: "20px", // Set left position
-  width: "400px",
-  height: "120px",
-  backgroundColor: "rgba(34, 36, 45, 0.8)",
-  opacity: "0.8",
-  letterSpacing: "inherit",
-  padding: "10px",
-  borderRadius: "8px",
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
-  fontSize: "14px",
-  overflow: "auto",
-  textAlign: "left",
-}));
+// const InfoBox = styled("div")(() => ({
+//   display: "flex",
+//   alignItems: "center", // Align items to the top of the flex container
+//   position: "absolute",
+//   top: "20px", // Set top position
+//   left: "20px", // Set left position
+//   width: "400px",
+//   height: "120px",
+//   backgroundColor: "rgba(34, 36, 45, 0.8)",
+//   opacity: "0.8",
+//   letterSpacing: "inherit",
+//   padding: "10px",
+//   borderRadius: "8px",
+//   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+//   fontSize: "14px",
+//   overflow: "auto",
+//   textAlign: "left",
+// }));
 
-const StyledInfoIcon = styled(WarningIcon)`
-  color: #ffd700;
-  opacity: 0.9;
-  margin: 10px;
-  align-self: center;
-`;
+// const StyledInfoIcon = styled(WarningIcon)`
+//   color: #ffd700;
+//   opacity: 0.9;
+//   margin: 10px;
+//   align-self: center;
+// `;
 
 interface AuthScreenProps {
   address?: string;
@@ -226,14 +226,14 @@ const GeneratePlanetView = ({ address }: PlanetViewProp) => {
         ETH
       </PriceText>
       <GeneratePlanet price={price} />
-      <InfoBox>
+      {/* <InfoBox>
         <StyledInfoIcon sx={{ fontSize: "100px" }} />
         <span>
           Please allow a few minutes for the minting process to complete. If
           you've successfully minted but are still unable to access the game,
           refreshing the page may resolve the issue
         </span>
-      </InfoBox>
+      </InfoBox> */}
     </MainWrapper>
   );
 };
