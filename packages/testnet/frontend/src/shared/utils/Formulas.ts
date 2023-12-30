@@ -92,9 +92,9 @@ export function techCostFormula(
   quartzCost: number,
   tritiumCost: number
 ) {
-  const steel = Math.round(steelCost * Math.pow(2, level - 1));
-  const quartz = Math.round(quartzCost * Math.pow(2, level - 1));
-  const tritium = Math.round(tritiumCost * Math.pow(2, level - 1));
+  const steel = Math.round(steelCost * Math.pow(2, level));
+  const quartz = Math.round(quartzCost * Math.pow(2, level));
+  const tritium = Math.round(tritiumCost * Math.pow(2, level));
   return { steel, quartz, tritium };
 }
 
