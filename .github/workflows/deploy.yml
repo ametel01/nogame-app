@@ -50,7 +50,7 @@ jobs:
             fi
 
             # Check Nginx service
-            sudo systemctl status nginx
+            systemctl status nginx
             if [ $? -ne 0 ]; then
                 echo "Nginx did not reload correctly."
                 exit 1
