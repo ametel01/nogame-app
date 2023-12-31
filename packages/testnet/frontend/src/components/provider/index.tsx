@@ -2,7 +2,7 @@ import { sepolia } from "@starknet-react/chains";
 import { StarknetConfig, argent, braavos } from "@starknet-react/core";
 import { jsonRpcProvider } from "@starknet-react/core";
 
-const RPC_URL = import.meta.env.VITE_BLAST_RPC;
+const RPC_URL = import.meta.env.VITE_INFURA_RPC;
 
 function rpc() {
   return {
