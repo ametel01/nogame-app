@@ -1,4 +1,5 @@
 import { Fleet, Position, TechLevels } from "../types";
+import { ShipsStats, DefencesStats } from "../../constants/Stats";
 
 export function getDistance(start: Position, end: Position): number {
   if (start.system === end.system && start.orbit === end.orbit) {
@@ -86,19 +87,19 @@ export function calculateTotalCargoCapacity(fleet: Fleet) {
   let totalCargoCapacity = 0;
 
   if (fleet.carrier) {
-    totalCargoCapacity += fleet.carrier * CARRIER.cargo;
+    totalCargoCapacity += fleet.carrier * ShipsStats.carrier.cargo;
   }
   if (fleet.scraper) {
-    totalCargoCapacity += fleet.scraper * SCRAPER.cargo;
+    totalCargoCapacity += fleet.scraper * ShipsStats.scraper.cargo;
   }
   if (fleet.sparrow) {
-    totalCargoCapacity += fleet.sparrow * SPARROW.cargo;
+    totalCargoCapacity += fleet.sparrow * ShipsStats.sparrow.cargo;
   }
   if (fleet.frigate) {
-    totalCargoCapacity += fleet.frigate * FRIGATE.cargo;
+    totalCargoCapacity += fleet.frigate * ShipsStats.frigate.cargo;
   }
   if (fleet.armade) {
-    totalCargoCapacity += fleet.armade * ARMADE.cargo;
+    totalCargoCapacity += fleet.armade * ShipsStats.armade.cargo;
   }
 
   return totalCargoCapacity;
@@ -116,90 +117,90 @@ interface Unit {
 
 export const CARRIER: Unit = {
   id: 0,
-  weapon: 50,
-  shield: 10,
-  hull: 1000,
-  speed: 5000,
-  cargo: 5000,
-  consumption: 10,
+  weapon: ShipsStats.carrier.weapon,
+  shield: ShipsStats.carrier.shield,
+  hull: ShipsStats.carrier.hull,
+  speed: ShipsStats.carrier.speed,
+  cargo: ShipsStats.carrier.cargo,
+  consumption: ShipsStats.carrier.consumption,
 };
 export const SCRAPER: Unit = {
   id: 1,
-  weapon: 50,
-  shield: 100,
-  hull: 1600,
-  speed: 2000,
-  cargo: 20000,
-  consumption: 300,
+  weapon: ShipsStats.scraper.weapon,
+  shield: ShipsStats.scraper.shield,
+  hull: ShipsStats.scraper.hull,
+  speed: ShipsStats.scraper.speed,
+  cargo: ShipsStats.scraper.cargo,
+  consumption: ShipsStats.scraper.consumption,
 };
 export const SPARROW: Unit = {
   id: 2,
-  weapon: 250,
-  shield: 10,
-  hull: 1000,
-  speed: 12500,
-  cargo: 50,
-  consumption: 20,
+  weapon: ShipsStats.sparrow.weapon,
+  shield: ShipsStats.sparrow.shield,
+  hull: ShipsStats.sparrow.hull,
+  speed: ShipsStats.sparrow.speed,
+  cargo: ShipsStats.sparrow.cargo,
+  consumption: ShipsStats.sparrow.consumption,
 };
 export const FRIGATE: Unit = {
   id: 3,
-  weapon: 400,
-  shield: 50,
-  hull: 6750,
-  speed: 15000,
-  cargo: 800,
-  consumption: 300,
+  weapon: ShipsStats.frigate.weapon,
+  shield: ShipsStats.frigate.shield,
+  hull: ShipsStats.frigate.hull,
+  speed: ShipsStats.frigate.speed,
+  cargo: ShipsStats.frigate.cargo,
+  consumption: ShipsStats.frigate.consumption,
 };
 export const ARMADE: Unit = {
   id: 4,
-  weapon: 600,
-  shield: 200,
-  hull: 15000,
-  speed: 10000,
-  cargo: 1500,
-  consumption: 500,
+  weapon: ShipsStats.armade.weapon,
+  shield: ShipsStats.armade.shield,
+  hull: ShipsStats.armade.hull,
+  speed: ShipsStats.armade.speed,
+  cargo: ShipsStats.armade.cargo,
+  consumption: ShipsStats.armade.consumption,
 };
 export const CELESTIA: Unit = {
   id: 5,
-  weapon: 1,
-  shield: 1,
-  hull: 500,
-  speed: 0,
-  cargo: 0,
-  consumption: 0,
+  weapon: DefencesStats.celestia.weapon,
+  shield: DefencesStats.celestia.shield,
+  hull: DefencesStats.celestia.hull,
+  speed: DefencesStats.celestia.speed,
+  cargo: DefencesStats.celestia.cargo,
+  consumption: DefencesStats.celestia.consumption,
 };
 export const BLASTER: Unit = {
   id: 6,
-  weapon: 125,
-  shield: 20,
-  hull: 500,
+  weapon: DefencesStats.blaster.weapon,
+  shield: DefencesStats.blaster.shield,
+  hull: DefencesStats.blaster.hull,
   speed: 0,
   cargo: 0,
   consumption: 0,
 };
 export const BEAM: Unit = {
   id: 7,
-  weapon: 250,
-  shield: 100,
-  hull: 2000,
+  weapon: DefencesStats.beam.weapon,
+  shield: DefencesStats.beam.shield,
+  hull: DefencesStats.beam.hull,
   speed: 0,
   cargo: 0,
   consumption: 0,
 };
 export const ASTRAL: Unit = {
   id: 8,
-  weapon: 1100,
-  shield: 200,
-  hull: 8750,
+  weapon: DefencesStats.astral.weapon,
+  shield: DefencesStats.astral.shield,
+  hull: DefencesStats.astral.hull,
   speed: 0,
   cargo: 0,
   consumption: 0,
 };
 export const PLASMA: Unit = {
   id: 9,
-  weapon: 2000,
-  shield: 300,
-  hull: 20000,
+  weapon: DefencesStats.plasma.weapon,
+  shield: DefencesStats.plasma.shield,
+  hull: DefencesStats.plasma.hull,
   speed: 0,
   cargo: 0,
   consumption: 0,
