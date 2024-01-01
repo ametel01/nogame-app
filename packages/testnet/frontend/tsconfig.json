@@ -16,9 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src",
-    "tests",
-    "./global.d.ts"
-, "../tutorial/tutorial"  ]
+  "include": ["src", "tests", "./global.d.ts", "vite.config.ts"]
 }

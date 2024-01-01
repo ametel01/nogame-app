@@ -1,11 +1,11 @@
-// src/pages/LeaderboardPage.tsx
-import LeadearBoardFleet from "../components/leaderboards/LeaderBoardFleet";
-import LeadearBoardMain from "../components/leaderboards/LeaderBoardMain";
-import LeadearBoardTech from "../components/leaderboards/LeaderBoardTech";
-import Header from "../components/ui/Header";
-import styled from "styled-components";
-import { useAccount } from "@starknet-react/core";
-import { useTokenOf } from "../hooks/useTokenOf";
+import React from 'react';
+import LeadearBoardFleet from '../components/leaderboards/LeaderBoardFleet';
+import LeadearBoardMain from '../components/leaderboards/LeaderBoardMain';
+import LeadearBoardTech from '../components/leaderboards/LeaderBoardTech';
+import Header from '../components/ui/Header';
+import styled from 'styled-components';
+import { useAccount } from '@starknet-react/core';
+import { useTokenOf } from '../hooks/useTokenOf';
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const Section = styled.section`
   transition: all 0.2s ease-in-out; // Smooth transition for potential hover effects
 
   // Typography
-  font-family: "Orbitron", sans-serif; // Retaining the sci-fi theme
+  font-family: 'Orbitron', sans-serif; // Retaining the sci-fi theme
 
   // Since this is a passive element, we keep the hover effect subtle or you can remove it if not needed
   &:hover {

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import CircularProgress from "@mui/material/CircularProgress";
-import { CenteredProgress } from "./LeaderBoardMain";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import CircularProgress from '@mui/material/CircularProgress';
+import { CenteredProgress } from './LeaderBoardMain';
 
 const Table = styled.table`
   width: 100%;
@@ -16,30 +16,30 @@ const Header = styled.th`
   opacity: 0.5;
 `;
 
-type RowProps = {
+interface RowProps {
   isHighlighted: boolean;
-};
+}
 
 const Row = styled.tr<RowProps>`
   background-color: ${(props) =>
-    props.isHighlighted ? "#32414B" : "transparent"};
-  color: #23CE6B;
+    props.isHighlighted ? '#32414B' : 'transparent'};
+  color: #23ce6b;
 `;
 
 const Data = styled.td`
   padding: 10px;
-  color: "#23CE6B";
+  color: '#23CE6B';
 `;
 
 const Wrapper = styled.div`
   padding: 20px;
 `;
 
-type FetchData = {
+interface FetchData {
   planet_id: number;
   account: string;
   total_spent: number;
-};
+}
 
 interface Props {
   planetId: number;
@@ -52,9 +52,9 @@ const LeadearBoardTech = ({ planetId }: Props) => {
 
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const apiUrl =
-    nodeEnv === "production"
-      ? "https://www.api.testnet.no-game.xyz/tech"
-      : "http://localhost:3001/tech";
+    nodeEnv === 'production'
+      ? 'https://www.api.testnet.no-game.xyz/tech'
+      : 'http://localhost:3001/tech';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,7 +63,7 @@ const LeadearBoardTech = ({ planetId }: Props) => {
       try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
-          throw new Error("Something went wrong!");
+          throw new Error('Something went wrong!');
         }
         const data = await response.json();
         setLeaderboard(data);
@@ -75,7 +75,7 @@ const LeadearBoardTech = ({ planetId }: Props) => {
         if (error instanceof Error) {
           setError(error.message);
         } else {
-          setError("An unexpected error occurred");
+          setError('An unexpected error occurred');
         }
       } finally {
         setIsLoading(false);
@@ -83,7 +83,7 @@ const LeadearBoardTech = ({ planetId }: Props) => {
     };
 
     fetchData();
-  }, []);
+  }, [apiUrl]);
 
   if (isLoading) {
     return (
@@ -121,7 +121,7 @@ const LeadearBoardTech = ({ planetId }: Props) => {
                       0,
                       6
                     )}...${entry.account.substring(entry.account.length - 4)}`
-                  : "Unknown Account"}
+                  : 'Unknown Account'}
               </Data>
               <Data>{entry.planet_id}</Data>
               <Data>{Math.round(Number(entry.total_spent) / 1000)}</Data>

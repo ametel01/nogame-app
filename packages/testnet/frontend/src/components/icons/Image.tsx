@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { type FC } from 'react';
 
 export const ImageIcon: FC = () => {
   return (

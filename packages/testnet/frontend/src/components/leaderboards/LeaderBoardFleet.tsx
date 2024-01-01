@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import CircularProgress from "@mui/material/CircularProgress";
-import { CenteredProgress } from "./LeaderBoardMain";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import CircularProgress from '@mui/material/CircularProgress';
+import { CenteredProgress } from './LeaderBoardMain';
 
 const Table = styled.table`
   width: 100%;
@@ -16,28 +16,28 @@ const Header = styled.th`
   opacity: 0.5;
 `;
 
-type RowProps = {
+interface RowProps {
   isHighlighted: boolean;
-};
+}
 
 // Use the type in your styled component with the correct syntax
 const Row = styled.tr<RowProps>`
   background-color: ${(props) =>
-    props.isHighlighted ? "#32414B" : "transparent"};
-  color: #23CE6B;
+    props.isHighlighted ? '#32414B' : 'transparent'};
+  color: #23ce6b;
 `;
 
 const Data = styled.td`
   padding: 10px;
   // border-bottom: 1px solid #ddd;
-  color: "#23CE6B";
+  color: '#23CE6B';
 `;
 
-type FetchData = {
+interface FetchData {
   planet_id: number;
   account: string;
   net_amount: number;
-};
+}
 const LeaderboardWrapper = styled.div`
   padding: 20px;
 `;
@@ -53,9 +53,9 @@ const LeadearBoardFleet = ({ planetId }: Props) => {
 
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const apiUrl =
-    nodeEnv === "production"
-      ? "https://www.api.testnet.no-game.xyz/fleet"
-      : "http://localhost:3001/fleet";
+    nodeEnv === 'production'
+      ? 'https://www.api.testnet.no-game.xyz/fleet'
+      : 'http://localhost:3001/fleet';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,7 +64,7 @@ const LeadearBoardFleet = ({ planetId }: Props) => {
       try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
-          throw new Error("Something went wrong!");
+          throw new Error('Something went wrong!');
         }
         const data = await response.json();
         setLeaderboard(data);
@@ -72,7 +72,7 @@ const LeadearBoardFleet = ({ planetId }: Props) => {
         if (error instanceof Error) {
           setError(error.message);
         } else {
-          setError("An unexpected error occurred");
+          setError('An unexpected error occurred');
         }
       } finally {
         setIsLoading(false);
@@ -80,7 +80,7 @@ const LeadearBoardFleet = ({ planetId }: Props) => {
     };
 
     fetchData();
-  }, []);
+  }, [apiUrl]);
 
   if (isLoading) {
     return (
@@ -118,7 +118,7 @@ const LeadearBoardFleet = ({ planetId }: Props) => {
                       0,
                       6
                     )}...${entry.account.substring(entry.account.length - 4)}`
-                  : "Unknown Account"}
+                  : 'Unknown Account'}
               </Data>
               <Data>{entry.planet_id}</Data>
               <Data>{Math.round(Number(entry.net_amount) / 1000)}</Data>

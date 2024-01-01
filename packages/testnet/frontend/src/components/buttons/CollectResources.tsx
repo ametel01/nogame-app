@@ -1,55 +1,57 @@
-import { useState } from "react";
-import { Box } from "@mui/material";
-import { styled } from "@mui/system";
-import { TransactionStatus } from "../ui/TransactionStatus";
-import { GAMEADDRESS } from "../../constants/addresses";
-import game from "../../constants/nogame.json";
-import { useContractWrite } from "@starknet-react/core";
-import { StyledButton } from "../../shared/styled/Button";
-import { useContract } from "@starknet-react/core";
+import React, { useState } from 'react'
+import { Box } from '@mui/material'
+import { styled } from '@mui/system'
+import { TransactionStatus } from '../ui/TransactionStatus'
+import { GAMEADDRESS } from '../../constants/addresses'
+import game from '../../constants/nogame.json'
+import { useContractWrite, useContract } from '@starknet-react/core'
+import { StyledButton } from '../../shared/styled/Button'
 
 const StyledBox = styled(Box)(() => ({
-  position: "relative",
-  display: "flex",
-  justifyContent: "center", // center horizontally
-  alignItems: "center", // center vertically
-}));
+  position: 'relative',
+  display: 'flex',
+  justifyContent: 'center', // center horizontally
+  alignItems: 'center' // center vertically
+}))
 
-export function UseCollectResources() {
-  const [isClicked, setIsClicked] = useState(false);
+export function UseCollectResources () {
+  const [isClicked, setIsClicked] = useState(false)
 
   const { contract } = useContract({
     abi: game.abi,
-    address: GAMEADDRESS,
-  });
-  const { writeAsync, data} = useContractWrite({
-    calls: [contract?.populateTransaction["collect_resources"]!()],
-  });
-
-
+    address: GAMEADDRESS
+  })
+  const { writeAsync, data } = useContractWrite({
+    calls: [contract?.populateTransaction.collect_resources?.()]
+  })
 
   const handleOnClick = () => {
-    writeAsync();
-    setIsClicked(true);
-  };
+    void writeAsync()
+    setIsClicked(true)
+  }
 
   return (
     <>
       <StyledBox>
         <StyledButton
           fullWidth
-          style={{ margin: "4px", background: "#4A63AA" }}
+          style={{ margin: '4px', background: '#4A63AA' }}
           onClick={handleOnClick}
           variant="contained"
         >
           Collect Resources
         </StyledButton>
       </StyledBox>
-      {isClicked ? (
-        <TransactionStatus name="Collect Resources" tx={data?.transaction_hash} />
-      ) : (
+      {isClicked
+        ? (
+        <TransactionStatus
+          name="Collect Resources"
+          tx={data?.transaction_hash}
+        />
+          )
+        : (
         <></>
-      )}
+          )}
     </>
-  );
+  )
 }

@@ -1,48 +1,53 @@
-import styled from "styled-components";
-import * as Styled from "../../shared/styled/Box";
-import { CircularProgress } from "@mui/material";
-import { ButtonAttackPlanet } from "../buttons/ButtonAttackPlanet";
-import { DefenceLevels, Resources, ShipsLevels } from "../../shared/types";
-import PlanetModal from "../modals/PlanetOverview";
+import React from 'react';
+import styled from 'styled-components';
+import * as Styled from '../../shared/styled/Box';
+import { CircularProgress } from '@mui/material';
+import { ButtonAttackPlanet } from '../buttons/ButtonAttackPlanet';
+import {
+  type DefenceLevels,
+  type Resources,
+  type ShipsLevels,
+} from '../../shared/types';
+import PlanetModal from '../modals/PlanetOverview';
 import {
   convertPositionToNumbers,
   convertTechLevelsToNumbers,
   numberWithCommas,
-} from "../../shared/utils";
-import { DebrisFieldView } from "../ui/DebrisFieldView";
-import { useTechsLevels } from "../../hooks/LevelsHooks";
-import { usePlanetPosition } from "../../hooks/usePlanetPosition";
-import { useMemo } from "react";
+} from '../../shared/utils';
+import { DebrisFieldView } from '../ui/DebrisFieldView';
+import { useTechsLevels } from '../../hooks/LevelsHooks';
+import { usePlanetPosition } from '../../hooks/usePlanetPosition';
+import { useMemo } from 'react';
 
 const InfoContainer = styled(Styled.InfoContainer)({
-  width: "45%",
+  width: '45%',
 });
 
-export const Box = styled("div")({
-  justifyContent: "space-evenly",
-  alignItems: "center", // Ensures vertically center aligned
-  padding: "0 5px", // Reduce horizontal padding slightly
-  width: "100%",
-  maxHeight: "70px",
-  height: "100%", // Ensuring the Box takes full height up to the max-height
-  display: "flex",
-  flexDirection: "row",
-  marginBottom: "10px",
-  backgroundColor: "#1A2025",
-  borderRadius: "8px",
-  overflow: "hidden",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+export const Box = styled('div')({
+  justifyContent: 'space-evenly',
+  alignItems: 'center', // Ensures vertically center aligned
+  padding: '0 5px', // Reduce horizontal padding slightly
+  width: '100%',
+  maxHeight: '70px',
+  height: '100%', // Ensuring the Box takes full height up to the max-height
+  display: 'flex',
+  flexDirection: 'row',
+  marginBottom: '10px',
+  backgroundColor: '#1A2025',
+  borderRadius: '8px',
+  overflow: 'hidden',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
 });
 
-export const ImageContainer = styled("div")({
+export const ImageContainer = styled('div')({
   flexShrink: 0, // Ensure the images don't shrink
-  display: "flex", // To center the image vertically
-  alignItems: "center", // Centering the image inside this container
-  width: "60px", // reduced width
-  flex: "0 0 auto", // Allows this container to not shrink and to not grow beyond its content size
-  margin: "0 10px", // Gives horizontal space
-  marginRight: "5px", // Reduce margin to push elements closer
-  marginLeft: "0", // Remove the left margin
+  display: 'flex', // To center the image vertically
+  alignItems: 'center', // Centering the image inside this container
+  width: '60px', // reduced width
+  flex: '0 0 auto', // Allows this container to not shrink and to not grow beyond its content size
+  margin: '0 10px', // Gives horizontal space
+  marginRight: '5px', // Reduce margin to push elements closer
+  marginLeft: '0', // Remove the left margin
 });
 
 interface Props {
@@ -79,7 +84,7 @@ const UniverseViewBox = ({
 }: Props) => {
   const boxStyle = highlighted
     ? {
-        border: "1px solid #23CE6B",
+        border: '1px solid #23CE6B',
       }
     : {};
 
@@ -89,7 +94,7 @@ const UniverseViewBox = ({
   const ownPlanetPosition = usePlanetPosition(Number(ownPlanetId));
 
   const getLastActiveTime = (lastActiveTimestamp: number) => {
-    if (!lastActiveTimestamp) return "Unknown";
+    if (!lastActiveTimestamp) return 'Unknown';
 
     // Convert lastActiveTimestamp from seconds to milliseconds
     const lastActiveDate = new Date(lastActiveTimestamp * 1000);
@@ -119,7 +124,7 @@ const UniverseViewBox = ({
   };
 
   const lastActiveString = useMemo(
-    () => getLastActiveTime(lastActive!),
+    () => getLastActiveTime(lastActive),
     [lastActive]
   );
 
@@ -141,56 +146,56 @@ const UniverseViewBox = ({
           <PlanetModal
             planetId={planetId}
             image={img}
-            position={position ? position : ""}
+            position={position || ''}
           />
         ) : (
-          <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
+          <CircularProgress sx={{ color: '#ffffff', opacity: '0.5' }} />
         )}
       </Styled.ImageContainer>
       <Styled.SubBox>
         <Styled.Title>
           <Styled.ResourceTitle>PLAYER</Styled.ResourceTitle>
           <Styled.NumberContainer
-            style={{ fontSize: "14px" }}
+            style={{ fontSize: '14px' }}
           >{`${owner}`}</Styled.NumberContainer>
         </Styled.Title>
         <InfoContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle style={{ width: "200%" }}>
+            <Styled.ResourceTitle style={{ width: '200%' }}>
               LAST ACTIVE
             </Styled.ResourceTitle>
-            <Styled.NumberContainer style={{ fontSize: "14px" }}>
+            <Styled.NumberContainer style={{ fontSize: '14px' }}>
               {lastActiveString}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POINTS</Styled.ResourceTitle>
-            <Styled.NumberContainer style={{ fontSize: "14px" }}>
+            <Styled.NumberContainer style={{ fontSize: '14px' }}>
               {numberWithCommas(Number(points))}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POSITION</Styled.ResourceTitle>
-            <Styled.NumberContainer style={{ fontSize: "14px" }}>
+            <Styled.NumberContainer style={{ fontSize: '14px' }}>
               {position}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
         </InfoContainer>
         <DebrisFieldView
           planetId={planetId}
-          position={position!}
-          ownFleet={ownFleet!}
-          techs={techsNumberised!}
-          ownPosition={ownPositionNumberised!}
+          position={position}
+          ownFleet={ownFleet}
+          techs={techsNumberised}
+          ownPosition={ownPositionNumberised}
         />
         <Styled.ButtonContainer>
           <ButtonAttackPlanet
             noRequirements={isButtonDisabled}
             isNoobProtected={isNoobProtected}
-            destination={position!}
+            destination={position}
             ownFleet={ownFleet!}
-            techs={techsNumberised!}
-            ownPosition={ownPositionNumberised!}
+            techs={techsNumberised}
+            ownPosition={ownPositionNumberised}
             planetId={planetId}
           />
         </Styled.ButtonContainer>

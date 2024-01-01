@@ -1,12 +1,12 @@
-import { useMemo } from "react";
-import styled from "styled-components";
-import { Typography } from "@mui/material";
-import { useContractRead } from "@starknet-react/core";
-import nogameLogo from "../../assets/logos/NoGameLogo.webp";
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
+import { Typography } from '@mui/material';
+import { useContractRead } from '@starknet-react/core';
+import nogameLogo from '../../assets/logos/NoGameLogo.webp';
 // import { numberWithCommas } from "../../shared/utils";
-import { GAMEADDRESS } from "../../constants/addresses";
-import game from "../../constants/nogame.json";
-import { numberWithCommas } from "../../shared/utils";
+import { GAMEADDRESS } from '../../constants/addresses';
+import game from '../../constants/nogame.json';
+import { numberWithCommas } from '../../shared/utils';
 
 const LogoContainer = styled.div`
   display: flex;
@@ -37,10 +37,10 @@ const RankLineContainer = styled.div`
 
 const TitleContainer = styled(Typography)({
   fontWeight: 500,
-  lineHeight: "18px",
-  letterSpacing: "0.02em",
-  color: "grey",
-  marginLeft: "4px",
+  lineHeight: '18px',
+  letterSpacing: '0.02em',
+  color: 'grey',
+  marginLeft: '4px',
 });
 
 const TrophyDiv = styled.div`
@@ -64,13 +64,13 @@ const LogoAndRankContainer = ({ planetId }: Props) => {
   const { data: points } = useContractRead({
     address: GAMEADDRESS,
     abi: game.abi,
-    functionName: "get_planet_points",
+    functionName: 'get_planet_points',
     args: [Number(planetId)],
     watch: false,
   });
 
   const score = useMemo(() => {
-    return points ? Number(points) : "";
+    return points ? Number(points) : '';
   }, [points]);
 
   return (

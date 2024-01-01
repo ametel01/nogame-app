@@ -1,39 +1,39 @@
-import { useState, useEffect } from "react";
-import { RowCentered } from "../components/ui/Row";
-import CircularProgress from "@mui/material/CircularProgress";
+import React, { useState, useEffect } from 'react';
+import { RowCentered } from '../components/ui/Row';
+import CircularProgress from '@mui/material/CircularProgress';
 import {
   PrecisionManufacturing,
   Biotech,
   Rocket,
   Security,
   Explore,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 import {
   ResourceTab,
   ResourcesTabs,
   ResourcesTabList,
-} from "../shared/styled/Tabs";
-import { ResearchTabPanel } from "./ResearchTab";
-import { DockyardTabPanel } from "./DockyardTab";
-import { DefenceTabPanel } from "./DefencesTab";
+} from '../shared/styled/Tabs';
+import { ResearchTabPanel } from './ResearchTab';
+import { DockyardTabPanel } from './DockyardTab';
+import { DefenceTabPanel } from './DefencesTab';
 
-import { CompoundsTabPanel } from "./CompoundsTab";
-import { useSpendableResources } from "../hooks/ResourcesHooks";
-import { useDefencesLevels, useShipsLevels } from "../hooks/LevelsHooks";
-import { useDefencesCost, useShipsCost } from "../hooks/CostsHooks";
-import { UniverseViewTabPanel } from "./UniverseViewTab";
-import { useGetCelestiaAvailable } from "../hooks/EnergyHooks";
+import { CompoundsTabPanel } from './CompoundsTab';
+import { useSpendableResources } from '../hooks/ResourcesHooks';
+import { useDefencesLevels, useShipsLevels } from '../hooks/LevelsHooks';
+import { useDefencesCost, useShipsCost } from '../hooks/CostsHooks';
+import { UniverseViewTabPanel } from './UniverseViewTab';
+import { useGetCelestiaAvailable } from '../hooks/EnergyHooks';
 import {
-  CompoundsLevels,
-  Resources,
-  TechLevels,
-  ShipsCost,
-  ShipsLevels,
-  DefenceCost,
-  DefenceLevels,
-} from "../shared/types";
-import { Typography } from "@mui/material";
-import fetchUpgradesData from "../api/fetchUpgradesData";
+  type CompoundsLevels,
+  type Resources,
+  type TechLevels,
+  type ShipsCost,
+  type ShipsLevels,
+  type DefenceCost,
+  type DefenceLevels,
+} from '../shared/types';
+import { Typography } from '@mui/material';
+import fetchUpgradesData from '../api/fetchUpgradesData';
 
 interface ResourcesSectionArgs {
   planetId: number;
@@ -52,7 +52,7 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
         setCompoundsLevels(data.compoundsLevels);
         setTechLevels(data.techLevels);
       } catch (error) {
-        console.error("Error fetching upgrades data:", error);
+        console.error('Error fetching upgrades data:', error);
         // Handle the error appropriately
       }
     };
@@ -72,10 +72,10 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
     return (
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
         }}
       >
         <ResourcesTabs>
@@ -91,46 +91,56 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
     <ResourcesTabs>
       <ResourcesTabList>
         <ResourceTab
-          onClick={() => setActiveTab(1)}
-          active={activeTab === 1 ? "true" : "false"}
+          onClick={() => {
+            setActiveTab(1);
+          }}
+          active={activeTab === 1 ? 'true' : 'false'}
         >
-          <RowCentered gap={"8px"}>
+          <RowCentered gap={'8px'}>
             <PrecisionManufacturing />
             <Typography>Compounds</Typography>
           </RowCentered>
         </ResourceTab>
         <ResourceTab
-          onClick={() => setActiveTab(2)}
-          active={activeTab === 2 ? "true" : "false"}
+          onClick={() => {
+            setActiveTab(2);
+          }}
+          active={activeTab === 2 ? 'true' : 'false'}
         >
-          <RowCentered gap={"8px"}>
+          <RowCentered gap={'8px'}>
             <Biotech />
             <Typography>Research Lab</Typography>
           </RowCentered>
         </ResourceTab>
         <ResourceTab
-          onClick={() => setActiveTab(3)}
-          active={activeTab === 3 ? "true" : "false"}
+          onClick={() => {
+            setActiveTab(3);
+          }}
+          active={activeTab === 3 ? 'true' : 'false'}
         >
-          <RowCentered gap={"8px"}>
+          <RowCentered gap={'8px'}>
             <Rocket />
             <Typography>Dockyard</Typography>
           </RowCentered>
         </ResourceTab>
         <ResourceTab
-          onClick={() => setActiveTab(4)}
-          active={activeTab === 4 ? "true" : "false"}
+          onClick={() => {
+            setActiveTab(4);
+          }}
+          active={activeTab === 4 ? 'true' : 'false'}
         >
-          <RowCentered gap={"8px"}>
+          <RowCentered gap={'8px'}>
             <Security />
             <Typography>Defences</Typography>
           </RowCentered>
         </ResourceTab>
         <ResourceTab
-          onClick={() => setActiveTab(5)}
-          active={activeTab === 5 ? "true" : "false"}
+          onClick={() => {
+            setActiveTab(5);
+          }}
+          active={activeTab === 5 ? 'true' : 'false'}
         >
-          <RowCentered gap={"8px"}>
+          <RowCentered gap={'8px'}>
             <Explore />
             <Typography>Universe</Typography>
           </RowCentered>

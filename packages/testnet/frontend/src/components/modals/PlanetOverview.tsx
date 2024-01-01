@@ -1,34 +1,34 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import DialogContent from "@mui/material/DialogContent";
-import CloseIcon from "@mui/icons-material/Close";
-import styled from "styled-components";
-import { CircularProgress } from "@mui/material";
-import { DefenceLevels, Resources, ShipsLevels } from "../../shared/types";
+import * as React from 'react'
+import Box from '@mui/material/Box'
+import Modal from '@mui/material/Modal'
+import DialogContent from '@mui/material/DialogContent'
+import CloseIcon from '@mui/icons-material/Close'
+import styled from 'styled-components'
+import { CircularProgress } from '@mui/material'
+import { type DefenceLevels, type Resources, type ShipsLevels } from '../../shared/types'
 import {
   useSpendableResources,
-  useCollectibleResources,
-} from "../../hooks/ResourcesHooks";
-import { useShipsLevels, useDefencesLevels } from "../../hooks/LevelsHooks";
-import { numberWithCommas } from "../../shared/utils";
+  useCollectibleResources
+} from '../../hooks/ResourcesHooks'
+import { useShipsLevels, useDefencesLevels } from '../../hooks/LevelsHooks'
+import { numberWithCommas } from '../../shared/utils'
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
   fontSize: 20,
-  color: "#E7ECEE",
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  backgroundColor: "#1a2025",
+  color: '#E7ECEE',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  backgroundColor: '#1a2025',
   borderRadius: 16,
-  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
-  padding: "16px 32px",
-  display: "flex",
-  flexDirection: "column",
-  width: "35%",
-});
+  boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
+  padding: '16px 32px',
+  display: 'flex',
+  flexDirection: 'column',
+  width: '35%'
+})
 
 const StyledDialogContent = styled(DialogContent)`
   color: #f8f8ff;
@@ -36,13 +36,13 @@ const StyledDialogContent = styled(DialogContent)`
   grid-template-columns: 1fr 1fr; // Two columns for the main content
   gap: 20px;
   padding: 20px; // Padding inside the dialog content
-`;
+`
 
 const GridSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-
+  opacity: 0.8;
   h4 {
     font-size: 18px; // Reduced font size for the title
     margin-bottom: 8px;
@@ -52,13 +52,13 @@ const GridSection = styled.div`
     font-size: 16px; // Reduced font size for the content
     margin: 0;
   }
-`;
+`
 
 const DetailGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr; // Two columns for the details
   gap: 10px;
-`;
+`
 
 const CloseStyledIcon = styled(CloseIcon)`
   cursor: pointer;
@@ -70,15 +70,15 @@ const CloseStyledIcon = styled(CloseIcon)`
   &:hover {
     color: #ffffff;
   },
-`;
+`
 
-const SubTitle = styled("h5")`
-  border-bottom: 1px solid;
-`;
+const SubTitle = styled('h5')`
+  // border-bottom: 1px solid;
+`
 
 const Value = styled.span`
   color: #23ce6b; // Set the color for values
-`;
+`
 
 const ImageContainer = styled.div`
   width: 70px;
@@ -106,49 +106,43 @@ const ImageContainer = styled.div`
     height: auto; // Maintain aspect ratio
     border-radius: 50%; // Circular shape for the image
   }
-`;
+`
 interface Props {
-  planetId: number;
-  image: string;
-  position: string;
+  planetId: number
+  image: string
+  position: string
 }
 
-export default function PlanetModal({ planetId, image, position }: Props) {
-  const spendableResources =
-    planetId !== undefined
-      ? useSpendableResources(Number(planetId))
-      : undefined;
-  const collectibleResources =
-    planetId !== undefined
-      ? useCollectibleResources(Number(planetId))
-      : undefined;
-  const shipsLevels =
-    planetId !== undefined ? useShipsLevels(Number(planetId)) : undefined;
-  const defencesLevels =
-    planetId !== undefined ? useDefencesLevels(Number(planetId)) : undefined;
+export default function PlanetModal ({ planetId, image, position }: Props) {
+  const spendableResources = useSpendableResources(Number(planetId))
+  const collectibleResources = useCollectibleResources(Number(planetId))
+  const shipsLevels = useShipsLevels(Number(planetId))
+  const defencesLevels = useDefencesLevels(Number(planetId))
 
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   const handleClose = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
 
   const handleButtonClick = () => {
-    setIsModalOpen(true);
-  };
+    setIsModalOpen(true)
+  }
 
   return (
     <div>
       <ImageContainer onClick={handleButtonClick}>
-        {image ? (
+        {image
+          ? (
           <img
             src={image}
-            alt={"planet"}
-            style={{ maxWidth: "100%", height: "auto" }}
+            alt={'planet'}
+            style={{ maxWidth: '100%', height: 'auto' }}
           />
-        ) : (
-          <CircularProgress sx={{ color: "#ffffff", opacity: "0.5" }} />
-        )}
+            )
+          : (
+          <CircularProgress sx={{ color: '#ffffff', opacity: '0.5' }} />
+            )}
       </ImageContainer>
       <Modal open={isModalOpen} onClose={handleClose} disableAutoFocus={true}>
         <StyledBox>
@@ -163,10 +157,10 @@ export default function PlanetModal({ planetId, image, position }: Props) {
               <SubTitle>Spendable Resources</SubTitle>
               {Object.keys(spendableResources ?? {}).map((key) => (
                 <h6 key={key}>
-                  {key}:{" "}
+                  {key}:{' '}
                   <Value>
                     {numberWithCommas(
-                      spendableResources![key as keyof Resources]
+                      spendableResources[key as keyof Resources]
                     )}
                   </Value>
                 </h6>
@@ -177,11 +171,11 @@ export default function PlanetModal({ planetId, image, position }: Props) {
               <SubTitle>Collectible Resources</SubTitle>
               {Object.keys(collectibleResources ?? {}).map((key) => (
                 <h6 key={key}>
-                  {key}:{" "}
+                  {key}:{' '}
                   <Value>
                     {numberWithCommas(
                       Math.round(
-                        Number(collectibleResources![key as keyof Resources]) /
+                        Number(collectibleResources[key as keyof Resources]) /
                           3600
                       )
                     )}
@@ -195,9 +189,9 @@ export default function PlanetModal({ planetId, image, position }: Props) {
               <DetailGrid>
                 {Object.keys(shipsLevels ?? {}).map((key) => (
                   <h6 key={key}>
-                    {key}:{" "}
+                    {key}:{' '}
                     <Value>
-                      {numberWithCommas(shipsLevels![key as keyof ShipsLevels])}
+                      {numberWithCommas(shipsLevels[key as keyof ShipsLevels])}
                     </Value>
                   </h6>
                 ))}
@@ -209,10 +203,10 @@ export default function PlanetModal({ planetId, image, position }: Props) {
               <DetailGrid>
                 {Object.keys(defencesLevels ?? {}).map((key) => (
                   <h6 key={key}>
-                    {key}:{" "}
+                    {key}:{' '}
                     <Value>
                       {numberWithCommas(
-                        defencesLevels![key as keyof DefenceLevels]
+                        defencesLevels[key as keyof DefenceLevels]
                       )}
                     </Value>
                   </h6>
@@ -223,5 +217,5 @@ export default function PlanetModal({ planetId, image, position }: Props) {
         </StyledBox>
       </Modal>
     </div>
-  );
+  )
 }

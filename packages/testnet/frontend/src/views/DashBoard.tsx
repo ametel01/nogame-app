@@ -1,7 +1,8 @@
-import styled from "styled-components";
-import SideBar from "../components/ui/SideBar";
-import { PlanetSection } from "../components/ui/PlanetSection";
-import { ResourcesSection } from "../panels";
+import React from 'react';
+import styled from 'styled-components';
+import SideBar from '../components/ui/SideBar';
+import { PlanetSection } from '../components/ui/PlanetSection';
+import { ResourcesSection } from '../panels';
 
 export const GameContainer = styled.div`
   display: grid;

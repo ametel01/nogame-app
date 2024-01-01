@@ -1,5 +1,6 @@
-import BigNumber from "bignumber.js";
-import { Position, TechLevels } from "../types";
+/* eslint-disable no-unused-vars */
+import BigNumber from 'bignumber.js';
+import { type Position, type TechLevels } from '../types';
 
 export const dataToNumber = (value: unknown[] | string | number | undefined) =>
   new BigNumber(value as unknown as number).toNumber();
@@ -247,7 +248,7 @@ export const plasmaRequirements = (
 
 export const numberWithCommas = (num: number) =>
   num > 999
-    ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+    ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
     : num.toString();
 
 export function convertTechLevelsToNumbers(techLevels: TechLevels): {
@@ -273,9 +274,9 @@ export function convertSecondsToTime(seconds: number): string {
   const remainingSeconds = seconds % 60;
 
   // Format the time parts to have two digits
-  const formattedHours = String(hours).padStart(2, "0");
-  const formattedMinutes = String(minutes).padStart(2, "0");
-  const formattedSeconds = String(remainingSeconds).padStart(2, "0");
+  const formattedHours = String(hours).padStart(2, '0');
+  const formattedMinutes = String(minutes).padStart(2, '0');
+  const formattedSeconds = String(remainingSeconds).padStart(2, '0');
 
   return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useTokenOf } from "../../hooks/useTokenOf";
-import AuthScreen from "../../views/LoginOrGenerate";
-import Dashboard from "../../views/DashBoard";
-import { useAccount } from "@starknet-react/core";
-import Header from "../ui/Header";
+import React, { useEffect, useState } from 'react';
+import { useTokenOf } from '../../hooks/useTokenOf';
+import AuthScreen from '../../views/LoginOrGenerate';
+import Dashboard from '../../views/DashBoard';
+import { useAccount } from '@starknet-react/core';
+import Header from '../ui/Header';
 
 const AuthController = () => {
   const { address } = useAccount();
@@ -23,7 +23,9 @@ const AuthController = () => {
     const timeoutId = setTimeout(() => {
       setWalletConnectLoading(false);
     }, 3000);
-    return () => clearTimeout(timeoutId);
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const hasGeneratedPlanets = planetId > 0;

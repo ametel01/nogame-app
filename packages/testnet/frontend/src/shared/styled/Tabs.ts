@@ -1,5 +1,5 @@
-import { Tab, Tabs, TabPanel, TabList } from "react-tabs";
-import styled from "@emotion/styled";
+import { Tab, Tabs, TabPanel, TabList } from 'react-tabs'
+import styled from '@emotion/styled'
 
 export const ResourcesTabs = styled(Tabs)`
   width: 100%;
@@ -11,16 +11,16 @@ export const ResourcesTabs = styled(Tabs)`
     position: relative; // Add relative positioning
     z-index: 1; // Increase z-index
   }
-`;
+`
 
 export const ResourcesTabList = styled(TabList)`
   border: none;
   display: flex;
   padding: 0px 24px 4px 24px; // Add some bottom padding
-`;
+`
 
 interface ResourceTabProps {
-  active: string;
+  active: string
 }
 
 export const ResourceTab = styled(Tab)<ResourceTabProps>`
@@ -37,8 +37,8 @@ export const ResourceTab = styled(Tab)<ResourceTabProps>`
   padding: 16px;
   cursor: pointer;
   border-radius: 4px 4px 0px 0px;
-  opacity: ${(props) => (props.active == "true" ? 1.0 : 0.3)};
-`;
+  opacity: ${(props) => (props.active == 'true' ? 1.0 : 0.3)};
+`
 
 export const StyledTabPanel = styled(TabPanel)`
   width: 100%;
@@ -54,4 +54,4 @@ export const StyledTabPanel = styled(TabPanel)`
     //min-height: 200px;
   }
   overflow: auto;
-`;
+`

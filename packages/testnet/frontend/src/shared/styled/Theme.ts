@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   /* CSS Reset */
@@ -49,6 +49,6 @@ export const GlobalStyle = createGlobalStyle`
       font-family: 'Share Tech Mono', sans-serif;
     }
   }
-`;
+`
 
-export default GlobalStyle;
+export default GlobalStyle

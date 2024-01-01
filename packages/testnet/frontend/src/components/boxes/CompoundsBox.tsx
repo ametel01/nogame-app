@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Input } from "@mui/joy";
-import Tooltip from "@mui/material/Tooltip";
-import useUpgrade from "../../hooks/writeHooks/useUpgrade";
-import { numberWithCommas } from "../../shared/utils";
-import { ButtonUpgrade } from "../ui/Button";
-import DescriptionModal from "../modals/Description";
-import * as Styled from "../../shared/styled/Box";
-import { Resources } from "../../shared/types";
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import { Input } from '@mui/joy'
+import Tooltip from '@mui/material/Tooltip'
+import useUpgrade from '../../hooks/writeHooks/useUpgrade'
+import { numberWithCommas, calculEnoughResources } from '../../shared/utils'
+import { ButtonUpgrade } from '../ui/Button'
+import DescriptionModal from '../modals/Description'
+import * as Styled from '../../shared/styled/Box'
+import { type Resources } from '../../shared/types'
 import {
   getCompoundCost,
-  getCumulativeEnergyChange,
-} from "../../shared/utils/Formulas";
-import { calculEnoughResources } from "../../shared/utils";
+  getCumulativeEnergyChange
+} from '../../shared/utils/Formulas'
 
 const InfoContainer = styled(Styled.InfoContainer)({
-  width: "45%",
-});
+  width: '45%'
+})
 interface CompoundsBoxProps {
-  img: string;
-  title: string;
-  level: number;
-  functionCallName: string; // Assuming this is a string, you might need to adjust if it's another type
-  description: React.ReactNode;
-  resourcesAvailable?: Resources;
+  img: string
+  title: string
+  level: number
+  functionCallName: string // Assuming this is a string, you might need to adjust if it's another type
+  description: React.ReactNode
+  resourcesAvailable?: Resources
 }
 
 const CompoundsBox: React.FC<CompoundsBoxProps> = ({
@@ -32,48 +31,48 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   level,
   functionCallName,
   description,
-  resourcesAvailable,
+  resourcesAvailable
 }) => {
-  const [quantity, setQuantity] = useState(1);
-  const [, setShowTooltip] = useState(true);
+  const [quantity, setQuantity] = useState(1)
+  const [, setShowTooltip] = useState(true)
   const [costUpdate, setCostUpdate] = useState({
     steel: 0,
     quartz: 0,
-    tritium: 0,
-  });
-  const [energyRequired, setEnergyRequired] = useState(0);
+    tritium: 0
+  })
+  const [energyRequired, setEnergyRequired] = useState(0)
 
-  const { tx, submitTx: upgrade } = useUpgrade(functionCallName, quantity);
+  const { tx, submitTx: upgrade } = useUpgrade(functionCallName, quantity)
 
-  const energy = numberWithCommas(energyRequired);
+  const energy = numberWithCommas(energyRequired)
 
   useEffect(() => {
-    const newCost = getCompoundCost(functionCallName, level + 1, quantity);
-    setCostUpdate(newCost);
-  }, [quantity, level, functionCallName]);
+    const newCost = getCompoundCost(functionCallName, level + 1, quantity)
+    setCostUpdate(newCost)
+  }, [quantity, level, functionCallName])
 
   useEffect(() => {
     const newConsumption = getCumulativeEnergyChange(
       functionCallName,
       level + 1,
       quantity
-    );
-    setEnergyRequired(newConsumption);
-  }, [quantity, level, functionCallName]);
+    )
+    setEnergyRequired(newConsumption)
+  }, [quantity, level, functionCallName])
 
   const hasEnoughResources = calculEnoughResources(
     costUpdate,
     resourcesAvailable
-  );
+  )
 
-  const currentButtonState = hasEnoughResources ? "valid" : "noResource";
-  const isDisabled = currentButtonState === "noResource";
+  const currentButtonState = hasEnoughResources ? 'valid' : 'noResource'
+  const isDisabled = currentButtonState === 'noResource'
 
   return (
     <Styled.Box>
       <Styled.ImageContainer>
         <DescriptionModal
-          onClick={() => setShowTooltip(false)}
+          onClick={() => { setShowTooltip(false) }}
           image={img}
           title={title}
           description={description}
@@ -92,9 +91,9 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.steel < costUpdate.steel
-                    ? "#AB3836"
-                    : "inherit"
-                  : "inherit",
+                    ? '#AB3836'
+                    : 'inherit'
+                  : 'inherit'
               }}
             >
               {numberWithCommas(costUpdate.steel)}
@@ -106,9 +105,9 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.quartz < costUpdate.quartz
-                    ? "#AB3836"
-                    : "inherit"
-                  : "inherit",
+                    ? '#AB3836'
+                    : 'inherit'
+                  : 'inherit'
               }}
             >
               {numberWithCommas(costUpdate.quartz)}
@@ -120,9 +119,9 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.tritium < costUpdate.tritium
-                    ? "#AB3836"
-                    : "inherit"
-                  : "inherit",
+                    ? '#AB3836'
+                    : 'inherit'
+                  : 'inherit'
               }}
             >
               {numberWithCommas(costUpdate.tritium)}
@@ -141,16 +140,16 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
               type="number"
               value={quantity}
               onChange={(e) => {
-                if (e.target.value === "") {
-                  setQuantity(0);
+                if (e.target.value === '') {
+                  setQuantity(0)
                 } else {
-                  setQuantity(parseInt(e.target.value, 10));
+                  setQuantity(parseInt(e.target.value, 10))
                 }
               }}
               size="sm"
               color="neutral"
               variant="soft"
-              style={{ width: "80px" }}
+              style={{ width: '80px' }}
             />
           </Tooltip>
         </Styled.ResourceContainer>
@@ -165,7 +164,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
         </Styled.ButtonContainer>
       </Styled.SubBox>
     </Styled.Box>
-  );
-};
+  )
+}
 
-export default CompoundsBox;
+export default CompoundsBox

@@ -1,30 +1,33 @@
-import { useState, useEffect } from "react";
-import { styled } from "@mui/system";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import CloseIcon from "@mui/icons-material/Close";
-import { Input } from "@mui/joy";
-import WarningIcon from "@mui/icons-material/Warning";
-import armadeImg from "../../assets/gameElements/ships/armade4.webp";
-import frigateImg from "../../assets/gameElements/ships/frigate4.webp";
-import carrierImg from "../../assets/gameElements/ships/carrier4.webp";
-import sparrowImg from "../../assets/gameElements/ships/sparrow4.webp";
-import scraperImg from "../../assets/gameElements/ships/scraper4.webp";
-import { StyledButton } from "../../shared/styled/Button";
-import { ShipsLevels, TechLevels } from "../../shared/types";
-import useSendFleet from "../../hooks/writeHooks/useSendFleet";
-import { useGetActiveMissions } from "../../hooks/FleetHooks";
-import { Fleet, Position } from "../../shared/types";
+import React, { useState, useEffect, useMemo } from 'react';
+import { styled } from '@mui/system';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import CloseIcon from '@mui/icons-material/Close';
+import { Input } from '@mui/joy';
+import WarningIcon from '@mui/icons-material/Warning';
+import armadeImg from '../../assets/gameElements/ships/armade4.webp';
+import frigateImg from '../../assets/gameElements/ships/frigate4.webp';
+import carrierImg from '../../assets/gameElements/ships/carrier4.webp';
+import sparrowImg from '../../assets/gameElements/ships/sparrow4.webp';
+import scraperImg from '../../assets/gameElements/ships/scraper4.webp';
+import { StyledButton } from '../../shared/styled/Button';
+import {
+  type ShipsLevels,
+  type TechLevels,
+  type Position,
+} from '../../shared/types';
+import useSendFleet from '../../hooks/writeHooks/useSendFleet';
+import { useGetActiveMissions } from '../../hooks/FleetHooks';
 import {
   calculateTotalCargoCapacity,
   getDistance,
   getFleetSpeed,
   getFlightTime,
   getFuelConsumption,
-} from "../../shared/utils/FleetUtils";
-import { convertSecondsToTime } from "../../shared/utils";
+} from '../../shared/utils/FleetUtils';
+import { convertSecondsToTime } from '../../shared/utils';
 
-type ShipName = "carrier" | "scraper" | "sparrow" | "frigate" | "armade";
+type ShipName = 'carrier' | 'scraper' | 'sparrow' | 'frigate' | 'armade';
 
 const shipImageMapping: Record<ShipName, string> = {
   carrier: carrierImg,
@@ -37,103 +40,103 @@ const shipImageMapping: Record<ShipName, string> = {
 export const StyledBox = styled(Box)({
   fontWeight: 400,
   fontSize: 20,
-  color: "#E7ECEE",
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  backgroundColor: "#1a2025",
+  color: '#E7ECEE',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  backgroundColor: '#1a2025',
   borderRadius: 16,
-  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
-  padding: "16px 32px",
-  display: "flex",
-  flexDirection: "column",
-  width: "45%",
+  boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
+  padding: '16px 32px',
+  display: 'flex',
+  flexDirection: 'column',
+  width: '45%',
 });
 
 export const CloseStyledIcon = styled(CloseIcon)({
-  cursor: "pointer",
-  padding: "0 8px",
-  fontSize: "2em",
-  position: "absolute",
+  cursor: 'pointer',
+  padding: '0 8px',
+  fontSize: '2em',
+  position: 'absolute',
   top: 8, // You can adjust this value as needed
   right: 8, // You can adjust this value as needed
-  transition: "boxShadow 0.3s ease", // Smooth transition for the shadow on hover
+  transition: 'boxShadow 0.3s ease', // Smooth transition for the shadow on hover
 
-  "&:hover": {
-    boxShadow: "0px 0px 10px 3px rgba(0, 0, 0, 0.2)", // Circle shadow effect
-    borderRadius: "50%", // Ensures the shadow takes a circular form
+  '&:hover': {
+    boxShadow: '0px 0px 10px 3px rgba(0, 0, 0, 0.2)', // Circle shadow effect
+    borderRadius: '50%', // Ensures the shadow takes a circular form
   },
 });
 
-export const HeaderDiv = styled("div")({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
+export const HeaderDiv = styled('div')({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
 });
 
-const StyledUl = styled("ul")({
-  padding: "8px",
+const StyledUl = styled('ul')({
+  padding: '8px',
   flexGrow: 1,
 });
 
-const Text = styled("span")({
+const Text = styled('span')({
   flexGrow: 1,
-  textAlign: "center",
-  fontSize: "16px",
+  textAlign: 'center',
+  fontSize: '16px',
 });
 
-const FlexContainer = styled("div")({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  borderRadius: "8px",
-  gap: "4px",
-  margin: "8px",
-  flexDirection: "row",
+const FlexContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  borderRadius: '8px',
+  gap: '4px',
+  margin: '8px',
+  flexDirection: 'row',
 });
 
-const WarningContainer = styled("div")({
-  display: "flex",
-  borderRadius: "8px",
-  gap: "4px",
+const WarningContainer = styled('div')({
+  display: 'flex',
+  borderRadius: '8px',
+  gap: '4px',
   // margin: "8px",
-  justifyContent: "center",
-  alignItems: "center",
-  marginTop: "16px",
-  marginBottom: "32px",
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: '16px',
+  marginBottom: '32px',
 });
 
-const InputButtonContainer = styled("div")({
-  display: "flex",
-  alignItems: "center",
-  gap: "4px",
+const InputButtonContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
 });
 
-const TravelInfoContainer = styled("div")({
-  alignSelf: "flex-start",
-  marginTop: "32px",
-  marginLeft: "20px",
-  fontSize: "16px",
+const TravelInfoContainer = styled('div')({
+  alignSelf: 'flex-start',
+  marginTop: '32px',
+  marginLeft: '20px',
+  fontSize: '16px',
 });
 
-const TravelInfoRow = styled("div")({
-  marginBottom: "24px",
+const TravelInfoRow = styled('div')({
+  marginBottom: '24px',
 });
 
-const TravelInfoData = styled("span")({
-  color: "#23CE6B",
-  marginLeft: "16px",
+const TravelInfoData = styled('span')({
+  color: '#23CE6B',
+  marginLeft: '16px',
 });
 
-const ShipImage = styled("img")({
-  width: "40px",
-  height: "40px",
-  margin: "0 4px",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  borderRadius: "8px",
-  marginRight: "8px",
+const ShipImage = styled('img')({
+  width: '40px',
+  height: '40px',
+  margin: '0 4px',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  borderRadius: '8px',
+  marginRight: '8px',
 });
 
 interface Props {
@@ -186,20 +189,23 @@ export function ButtonAttackPlanet({
     setIsModalOpen(false);
   };
 
-  const destinationArray = destination.split("/");
+  const destinationArray = destination.split('/');
 
   const position: Position = {
     system: Number(destinationArray[0]),
     orbit: Number(destinationArray[1]),
   };
 
-  const fleet: Fleet = {
-    carrier: quantities.carrier || 0,
-    scraper: quantities.scraper || 0,
-    sparrow: quantities.sparrow || 0,
-    frigate: quantities.frigate || 0,
-    armade: quantities.armade || 0,
-  };
+  const fleet = useMemo(
+    () => ({
+      carrier: quantities.carrier || 0,
+      scraper: quantities.scraper || 0,
+      sparrow: quantities.sparrow || 0,
+      frigate: quantities.frigate || 0,
+      armade: quantities.armade || 0,
+    }),
+    [quantities]
+  );
 
   const distance = ownPosition ? getDistance(ownPosition, position) : 0;
 
@@ -208,11 +214,11 @@ export function ButtonAttackPlanet({
     setTravelTime(getFlightTime(speed, distance));
     setFuelConsumption(getFuelConsumption(fleet, distance));
     setCargoCapacity(calculateTotalCargoCapacity(fleet));
-  }, [fleet, ownPosition]);
+  }, [distance, fleet, ownPosition, techs]);
 
-  const { submitTx } = useSendFleet(fleet, position, false);
+  const { writeAsync } = useSendFleet(fleet, position, false);
 
-  const ships = ["carrier", "scraper", "sparrow", "frigate", "armade"];
+  const ships = ['carrier', 'scraper', 'sparrow', 'frigate', 'armade'];
 
   const isAnyShipOverLimit = ships.some(
     (ship) => quantities[ship] > ownFleet[ship as keyof typeof ownFleet]
@@ -236,7 +242,7 @@ export function ButtonAttackPlanet({
             onClick={handleButtonClick}
             fullWidth={true}
             sx={{
-              background: "#4A63AA",
+              background: '#4A63AA',
             }}
           >
             Initiate Mission
@@ -249,8 +255,8 @@ export function ButtonAttackPlanet({
               </HeaderDiv>
               <FlexContainer
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "flex-start",
+                  flexDirection: 'row',
+                  justifyContent: 'flex-start',
                 }}
               >
                 <div>
@@ -258,18 +264,18 @@ export function ButtonAttackPlanet({
                     {ships.map((ship) => (
                       <FlexContainer key={ship}>
                         <ShipImage
-                          src={shipImageMapping[ship as ShipName] || ""}
+                          src={shipImageMapping[ship as ShipName] || ''}
                           alt={ship}
                         />
                         <Text
                           style={{
-                            marginRight: "32px",
-                            textTransform: "capitalize",
+                            marginRight: '32px',
+                            textTransform: 'capitalize',
                             color:
                               quantities[ship] >
                               ownFleet[ship as keyof typeof ownFleet]
-                                ? "#AB3836"
-                                : "#F8F8FF",
+                                ? '#AB3836'
+                                : '#F8F8FF',
                           }}
                         >
                           {ship} (
@@ -281,8 +287,8 @@ export function ButtonAttackPlanet({
                                 ) -
                                   (quantities[ship] || 0) <
                                 0
-                                  ? "#AB3836"
-                                  : "#23CE6B",
+                                  ? '#AB3836'
+                                  : '#23CE6B',
                             }}
                           >
                             {Number(ownFleet[ship as keyof typeof ownFleet]) -
@@ -296,7 +302,7 @@ export function ButtonAttackPlanet({
                             value={quantities[ship] || 0}
                             onChange={(e) => {
                               const value =
-                                e.target.value === ""
+                                e.target.value === ''
                                   ? 0
                                   : parseInt(e.target.value, 10);
                               setQuantities({ ...quantities, [ship]: value });
@@ -304,7 +310,7 @@ export function ButtonAttackPlanet({
                             size="sm"
                             color="neutral"
                             variant="soft"
-                            style={{ width: "80px" }}
+                            style={{ width: '80px' }}
                           />
                         </InputButtonContainer>
                       </FlexContainer>
@@ -317,13 +323,13 @@ export function ButtonAttackPlanet({
                     Destination: <TravelInfoData>{destination}</TravelInfoData>
                   </TravelInfoRow>
                   <TravelInfoRow>
-                    Travel time:{" "}
+                    Travel time:{' '}
                     <TravelInfoData>
                       {convertSecondsToTime(travelTime)}
                     </TravelInfoData>
                   </TravelInfoRow>
                   <TravelInfoRow>
-                    Time arrival:{" "}
+                    Time arrival:{' '}
                     <TravelInfoData>
                       {timeOfArrival
                         ? timeOfArrival.toLocaleTimeString()
@@ -331,32 +337,32 @@ export function ButtonAttackPlanet({
                     </TravelInfoData>
                   </TravelInfoRow>
                   <TravelInfoRow>
-                    Fuel consumption:{" "}
+                    Fuel consumption:{' '}
                     <TravelInfoData>{fuelConsumption}</TravelInfoData>
                   </TravelInfoRow>
                   <TravelInfoRow>
-                    Total number of ships:{" "}
+                    Total number of ships:{' '}
                     <TravelInfoData>{totalShips}</TravelInfoData>
                   </TravelInfoRow>
                   <TravelInfoRow>
-                    Cargo capacity:{" "}
+                    Cargo capacity:{' '}
                     <TravelInfoData>{cargoCapacity}</TravelInfoData>
                   </TravelInfoRow>
                 </TravelInfoContainer>
               </FlexContainer>
               <WarningContainer>
-                <WarningIcon sx={{ color: "#E67E51" }} />
-                <Text style={{ marginLeft: "8px", color: "#E67E51" }}>
+                <WarningIcon sx={{ color: '#E67E51' }} />
+                <Text style={{ marginLeft: '8px', color: '#E67E51' }}>
                   Attention! You are initiating a galactic assault. The target
                   planet will receive an alert that your starfleet is on its
                   trajectory.
                 </Text>
               </WarningContainer>
               <StyledButton
-                onClick={submitTx}
+                onClick={() => writeAsync()}
                 fullWidth
                 style={{
-                  background: isAnyShipOverLimit ? "#3B3F53" : "#4A63AA",
+                  background: isAnyShipOverLimit ? '#3B3F53' : '#4A63AA',
                 }}
                 disabled={isAnyShipOverLimit || isMissionLimitReached}
               >
@@ -371,7 +377,7 @@ export function ButtonAttackPlanet({
           disabled
           fullWidth={true}
           sx={{
-            background: "#3B3F53",
+            background: '#3B3F53',
           }}
         >
           Own Planet
@@ -382,7 +388,7 @@ export function ButtonAttackPlanet({
           fullWidth={true}
           disabled
           sx={{
-            background: "#E67E51",
+            background: '#E67E51',
           }}
         >
           Noob Protected

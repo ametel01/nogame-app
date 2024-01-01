@@ -1,5 +1,5 @@
-import React from "react";
-import { DefencesStats } from "../../constants/Stats";
+import React from 'react'
+import { DefencesStats } from '../../constants/Stats'
 import {
   PopoverBox,
   PopoverHeaderDiv,
@@ -8,21 +8,21 @@ import {
   PopoverGridContainer,
   PopoverRequirements,
   PopoverInfoData,
-  PopoverLabel,
-} from "../../shared/styled/PopoverStyle";
+  PopoverLabel
+} from '../../shared/styled/PopoverStyle'
 
-import blasterImg from "../../assets/gameElements/defences/blaster4.webp";
-import beamImg from "../../assets/gameElements/defences/beam4.webp";
-import astralLauncherImg from "../../assets/gameElements/defences/astral4.webp";
-import plasmaImg from "../../assets/gameElements/defences/plasma4.webp";
+import blasterImg from '../../assets/gameElements/defences/blaster4.webp'
+import beamImg from '../../assets/gameElements/defences/beam4.webp'
+import astralLauncherImg from '../../assets/gameElements/defences/astral4.webp'
+import plasmaImg from '../../assets/gameElements/defences/plasma4.webp'
 
 // Component props
 interface DescriptionComponentProps {
-  title: string;
-  image: string;
-  description: React.ReactNode;
-  stats: React.ReactNode;
-  requirements: React.ReactNode;
+  title: string
+  image: string
+  description: React.ReactNode
+  stats: React.ReactNode
+  requirements: React.ReactNode
 }
 
 const DescriptionComponent = ({
@@ -30,45 +30,45 @@ const DescriptionComponent = ({
   image,
   description,
   stats,
-  requirements,
+  requirements
 }: DescriptionComponentProps) => {
   return (
     <PopoverBox>
       <PopoverHeaderDiv>{title}</PopoverHeaderDiv>
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-start",
-          marginBottom: "24px",
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          marginBottom: '24px'
         }}
       >
         {/* Image */}
         <img
           src={image}
           alt={`${title}`}
-          style={{ width: "240px", marginRight: "16px", borderRadius: "8px" }}
+          style={{ width: '240px', marginRight: '16px', borderRadius: '8px' }}
         />
         {/* Description and Requirements */}
         <div>
           <PopoverTextBox>{description}</PopoverTextBox>
-          <div style={{ margin: "8px" }}>Requirements:</div>
+          <div style={{ margin: '8px' }}>Requirements:</div>
           <PopoverRequirements>{requirements}</PopoverRequirements>
         </div>
       </div>
       {/* Stats */}
       {stats}
     </PopoverBox>
-  );
-};
+  )
+}
 
 interface StatsProps {
-  cargo?: number;
-  speed?: number;
-  consumption?: number;
-  hull: number;
-  shield: number;
-  weapon: number;
+  cargo?: number
+  speed?: number
+  consumption?: number
+  hull: number
+  shield: number
+  weapon: number
 }
 
 const StatsComponent = ({
@@ -77,34 +77,40 @@ const StatsComponent = ({
   consumption,
   hull,
   shield,
-  weapon,
+  weapon
 }: StatsProps) => {
   return (
     <PopoverGridContainer>
-      {cargo ? (
+      {cargo
+        ? (
         <>
           <PopoverInfoRow>
             <PopoverLabel>Cargo Capacity:</PopoverLabel>
             <PopoverInfoData>{cargo}</PopoverInfoData>
           </PopoverInfoRow>
         </>
-      ) : null}
-      {speed ? (
+          )
+        : null}
+      {speed
+        ? (
         <>
           <PopoverInfoRow>
             <PopoverLabel>Base Speed: </PopoverLabel>
             <PopoverInfoData>{speed}</PopoverInfoData>
           </PopoverInfoRow>
         </>
-      ) : null}
-      {consumption ? (
+          )
+        : null}
+      {consumption
+        ? (
         <>
           <PopoverInfoRow>
             <PopoverLabel>Consumption: </PopoverLabel>
             <PopoverInfoData>{consumption}</PopoverInfoData>
           </PopoverInfoRow>
         </>
-      ) : null}
+          )
+        : null}
       <PopoverInfoRow>
         <PopoverLabel>Base Hull: </PopoverLabel>
         <PopoverInfoData>{hull}</PopoverInfoData>
@@ -118,8 +124,8 @@ const StatsComponent = ({
         <PopoverInfoData>{weapon}</PopoverInfoData>
       </PopoverInfoRow>
     </PopoverGridContainer>
-  );
-};
+  )
+}
 
 export const BlasterDescription = () => (
   <DescriptionComponent
@@ -133,7 +139,7 @@ export const BlasterDescription = () => (
       </>
     }
   />
-);
+)
 export const BeamDescription = () => (
   <DescriptionComponent
     title="Beam"
@@ -148,7 +154,7 @@ export const BeamDescription = () => (
       </>
     }
   />
-);
+)
 export const AstralDescription = () => (
   <DescriptionComponent
     title="Astral Launcher"
@@ -164,7 +170,7 @@ export const AstralDescription = () => (
       </>
     }
   />
-);
+)
 export const PlasmaDescription = () => (
   <DescriptionComponent
     title="Plasma Projector"
@@ -178,4 +184,4 @@ export const PlasmaDescription = () => (
       </>
     }
   />
-);
+)

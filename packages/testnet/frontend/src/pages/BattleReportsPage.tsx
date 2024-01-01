@@ -1,7 +1,8 @@
-import { useAccount } from "@starknet-react/core";
-import { useTokenOf } from "../hooks/useTokenOf";
-import BattleReports from "../components/battlereports/BattleReport";
-import Header from "../components/ui/Header";
+import React from 'react';
+import { useAccount } from '@starknet-react/core';
+import { useTokenOf } from '../hooks/useTokenOf';
+import BattleReports from '../components/battlereports/BattleReport';
+import Header from '../components/ui/Header';
 
 const BattleReportsPage = () => {
   const { address } = useAccount();

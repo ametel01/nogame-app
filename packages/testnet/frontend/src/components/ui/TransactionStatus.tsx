@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useWaitForTransaction } from "@starknet-react/core";
-import Modal from "@mui/material/Modal";
-import CircularProgress from "@mui/material/CircularProgress";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { StyledBox, HeaderDiv } from "../buttons/ButtonAttackPlanet";
+import React, { useEffect, useState } from 'react';
+import { useWaitForTransaction } from '@starknet-react/core';
+import Modal from '@mui/material/Modal';
+import CircularProgress from '@mui/material/CircularProgress';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { StyledBox, HeaderDiv } from '../buttons/ButtonAttackPlanet';
 
 interface Props {
   name: string;
@@ -20,9 +20,9 @@ export function TransactionStatus({ name, tx }: Props) {
 
   useEffect(() => {
     // Type guard to check if data is of the type with 'finality_status'
-    if (data && "finality_status" in data) {
+    if (data && 'finality_status' in data) {
       // Now TypeScript knows 'finality_status' is a valid property
-      if (data.finality_status === "ACCEPTED_ON_L2") {
+      if (data.finality_status === 'ACCEPTED_ON_L2') {
         console.log(data.finality_status);
         setTransactionSuccess(true);
       }
@@ -36,13 +36,13 @@ export function TransactionStatus({ name, tx }: Props) {
   };
 
   const loadingBody = (
-    <div style={{ margin: "10px", padding: "10px" }}>
-      <StyledBox style={{ width: "35%" }}>
-        <HeaderDiv style={{ display: "flex", justifyContent: "center" }}>
-          {name} transaction submitted
+    <div style={{ margin: '10px', padding: '10px' }}>
+      <StyledBox style={{ width: '35%' }}>
+        <HeaderDiv style={{ display: 'flex', justifyContent: 'center' }}>
+          {name} Tx is being submitted
         </HeaderDiv>
         <div
-          style={{ display: "flex", justifyContent: "center", margin: "30px" }}
+          style={{ display: 'flex', justifyContent: 'center', margin: '30px' }}
         >
           <CircularProgress size={32} />
         </div>
@@ -51,34 +51,34 @@ export function TransactionStatus({ name, tx }: Props) {
   );
 
   const successBody = (
-    <div style={{ margin: "10px", padding: "10px" }}>
-      <StyledBox style={{ width: "40%" }}>
-        <HeaderDiv style={{ display: "flex", justifyContent: "center" }}>
-          {name} transaction accepted on L2
+    <div style={{ margin: '10px', padding: '10px' }}>
+      <StyledBox style={{ width: '40%' }}>
+        <HeaderDiv style={{ display: 'flex', justifyContent: 'center' }}>
+          {name} Tx Accepted On L2
         </HeaderDiv>
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100px",
-            margin: "10px",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100px',
+            margin: '10px',
           }}
         >
           <CheckCircleIcon
             style={{
-              fontSize: "64px",
-              color: "green",
+              fontSize: '64px',
+              color: 'green',
             }}
           />
         </div>
         {/* Additional message about potential delay in data update */}
         <div
           style={{
-            textAlign: "center",
-            marginTop: "20px",
-            fontSize: "14px",
-            color: "gray",
+            textAlign: 'center',
+            marginTop: '20px',
+            fontSize: '14px',
+            color: 'gray',
           }}
         >
           Note: The displayed data might take several seconds to update. Try

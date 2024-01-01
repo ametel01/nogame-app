@@ -1,4 +1,5 @@
-import { StyledTabPanel } from "./styleds";
+import React from 'react';
+import { StyledTabPanel } from './styleds';
 import {
   calculEnoughResources,
   carrierRequirements,
@@ -7,7 +8,7 @@ import {
   sparrowRequirements,
   frigateRequirements,
   armadeRequirements,
-} from "../shared/utils";
+} from '../shared/utils';
 import {
   CarrierDescription,
   CelestiaDescription,
@@ -15,24 +16,29 @@ import {
   SparrowDescription,
   FrigateDescription,
   ArmadeDescription,
-} from "../components/descriptions/DockyardPopover";
-import { ShipsCost, Resources, ShipsLevels, TechLevels } from "../shared/types";
-import DockyardBox from "../components/boxes/DockyardBox";
-import armadeImg from "../assets/gameElements/ships/armade_not_available.webp";
-import frigateImg from "../assets/gameElements/ships/frigate_not_available.webp";
-import carrierImg from "../assets/gameElements/ships/carrier4.webp";
-import sparrowImg from "../assets/gameElements/ships/sparrow4.webp";
-import scraperImg from "../assets/gameElements/ships/scraper4.webp";
-import celestiaImg from "../assets/gameElements/ships/celestia4.webp";
+} from '../components/descriptions/DockyardPopover';
+import {
+  type ShipsCost,
+  type Resources,
+  type ShipsLevels,
+  type TechLevels,
+} from '../shared/types';
+import DockyardBox from '../components/boxes/DockyardBox';
+import armadeImg from '../assets/gameElements/ships/armade_not_available.webp';
+import frigateImg from '../assets/gameElements/ships/frigate_not_available.webp';
+import carrierImg from '../assets/gameElements/ships/carrier4.webp';
+import sparrowImg from '../assets/gameElements/ships/sparrow4.webp';
+import scraperImg from '../assets/gameElements/ships/scraper4.webp';
+import celestiaImg from '../assets/gameElements/ships/celestia4.webp';
 
-type ShipConfigType = {
+interface ShipConfigType {
   description: React.ReactNode;
   img: string;
   title: string;
   functionCallName: string;
   shipName: keyof ShipsLevels;
   requirements: boolean;
-};
+}
 
 interface Props {
   spendableResources?: Resources;
@@ -56,49 +62,49 @@ export const DockyardTabPanel = ({
     {
       description: <CarrierDescription />,
       img: carrierImg,
-      title: "Carrier",
-      functionCallName: "carrier",
-      shipName: "carrier",
+      title: 'Carrier',
+      functionCallName: 'carrier',
+      shipName: 'carrier',
       requirements: carrierRequirements(dockyardLevel, techLevels),
     },
     {
       description: <CelestiaDescription />,
       img: celestiaImg,
-      title: "Celestia",
-      functionCallName: "celestia",
-      shipName: "celestia",
+      title: 'Celestia',
+      functionCallName: 'celestia',
+      shipName: 'celestia',
       requirements: celestiaRequirements(dockyardLevel, techLevels),
     },
     {
       description: <ScraperDescription />,
       img: scraperImg,
-      title: "Scraper",
-      functionCallName: "scraper",
-      shipName: "scraper",
+      title: 'Scraper',
+      functionCallName: 'scraper',
+      shipName: 'scraper',
       requirements: scraperRequirements(dockyardLevel, techLevels),
     },
     {
       description: <SparrowDescription />,
       img: sparrowImg,
-      title: "Sparrow",
-      functionCallName: "sparrow",
-      shipName: "sparrow",
+      title: 'Sparrow',
+      functionCallName: 'sparrow',
+      shipName: 'sparrow',
       requirements: sparrowRequirements(dockyardLevel, techLevels),
     },
     {
       description: <FrigateDescription />,
       img: frigateImg,
-      title: "Frigate",
-      functionCallName: "frigate",
-      shipName: "frigate",
+      title: 'Frigate',
+      functionCallName: 'frigate',
+      shipName: 'frigate',
       requirements: frigateRequirements(dockyardLevel, techLevels),
     },
     {
       description: <ArmadeDescription />,
       img: armadeImg,
-      title: "Armade",
-      functionCallName: "armade",
-      shipName: "armade",
+      title: 'Armade',
+      functionCallName: 'armade',
+      shipName: 'armade',
       requirements: armadeRequirements(dockyardLevel, techLevels),
     },
   ];
@@ -113,7 +119,7 @@ export const DockyardTabPanel = ({
           title={ship.title}
           functionCallName={ship.functionCallName}
           level={
-            ship.title === "Celestia"
+            ship.title === 'Celestia'
               ? Number(celestia)
               : Number(shipsLevels?.[ship.shipName])
           }
@@ -131,4 +137,4 @@ export const DockyardTabPanel = ({
   );
 };
 
-DockyardTabPanel.tabsRole = "TabPanel";
+DockyardTabPanel.tabsRole = 'TabPanel';

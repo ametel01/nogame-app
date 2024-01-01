@@ -1,28 +1,29 @@
-import { StyledTabPanel } from "./styleds";
+import React from 'react';
+import { StyledTabPanel } from './styleds';
 import {
-  DefenceCost,
-  DefenceLevels,
-  Resources,
-  TechLevels,
-} from "../shared/types";
-import DefencesBox from "../components/boxes/DefencesBox";
+  type DefenceCost,
+  type DefenceLevels,
+  type Resources,
+  type TechLevels,
+} from '../shared/types';
+import DefencesBox from '../components/boxes/DefencesBox';
 import {
   calculEnoughResources,
   blasterRequirements,
   beamRequirements,
   astralRequirements,
   plasmaRequirements,
-} from "../shared/utils";
-import blasterImg from "../assets/gameElements/defences/blaster4.webp";
-import beamImg from "../assets/gameElements/defences/beam4.webp";
-import astralLauncherImg from "../assets/gameElements/defences/astral_not_availa.webp";
-import plasmaImg from "../assets/gameElements/defences/plasma_not_available.webp";
+} from '../shared/utils';
+import blasterImg from '../assets/gameElements/defences/blaster4.webp';
+import beamImg from '../assets/gameElements/defences/beam4.webp';
+import astralLauncherImg from '../assets/gameElements/defences/astral_not_availa.webp';
+import plasmaImg from '../assets/gameElements/defences/plasma_not_available.webp';
 import {
   BlasterDescription,
   BeamDescription,
   AstralDescription,
   PlasmaDescription,
-} from "../components/descriptions/DefencesPopover";
+} from '../components/descriptions/DefencesPopover';
 
 interface Props {
   spendableResources?: Resources;
@@ -44,8 +45,8 @@ export const DefenceTabPanel = ({
     {
       description: <BlasterDescription />,
       img: blasterImg,
-      title: "Blaster",
-      functionCallName: "blaster",
+      title: 'Blaster',
+      functionCallName: 'blaster',
       level: defenceLevels?.blaster,
       cost: defenceCost?.blaster,
       requirements: blasterRequirements(dockyardLevel),
@@ -53,8 +54,8 @@ export const DefenceTabPanel = ({
     {
       description: <BeamDescription />,
       img: beamImg,
-      title: "Beam",
-      functionCallName: "beam",
+      title: 'Beam',
+      functionCallName: 'beam',
       level: defenceLevels?.beam,
       cost: defenceCost?.beam,
       requirements: beamRequirements(dockyardLevel, techLevels),
@@ -62,8 +63,8 @@ export const DefenceTabPanel = ({
     {
       description: <AstralDescription />,
       img: astralLauncherImg,
-      title: "Astral Launcher",
-      functionCallName: "astral_launcher",
+      title: 'Astral Launcher',
+      functionCallName: 'astral_launcher',
       level: defenceLevels?.astral,
       cost: defenceCost?.astral,
       requirements: astralRequirements(dockyardLevel, techLevels),
@@ -71,8 +72,8 @@ export const DefenceTabPanel = ({
     {
       description: <PlasmaDescription />,
       img: plasmaImg,
-      title: "Plasma Projector",
-      functionCallName: "plasma_projector",
+      title: 'Plasma Projector',
+      functionCallName: 'plasma_projector',
       level: defenceLevels?.plasma,
       cost: defenceCost?.plasma,
       requirements: plasmaRequirements(dockyardLevel, techLevels),
@@ -103,4 +104,4 @@ export const DefenceTabPanel = ({
   );
 };
 
-DefenceTabPanel.tabsRole = "TabPanel";
+DefenceTabPanel.tabsRole = 'TabPanel';

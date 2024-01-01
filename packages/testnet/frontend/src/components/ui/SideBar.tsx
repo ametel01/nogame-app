@@ -1,7 +1,8 @@
-import styled from "styled-components";
-import LogoAndRankContainer from "./LogoutAndRankContainer";
-import ResourcesContainer from "./ResourcesContainer";
-import { UseCollectResources } from "../buttons/CollectResources";
+import React from 'react';
+import styled from 'styled-components';
+import LogoAndRankContainer from './LogoutAndRankContainer';
+import ResourcesContainer from './ResourcesContainer';
+import { UseCollectResources } from '../buttons/CollectResources';
 
 const BodyContainer = styled.div`
   display: flex;

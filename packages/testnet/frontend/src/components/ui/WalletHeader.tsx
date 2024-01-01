@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const HeaderWalletContainer = styled.div`
   color: #c5c6c7;
@@ -16,7 +17,7 @@ interface WalletHeaderProps {
 const WalletHeader = ({ account }: WalletHeaderProps) => {
   const shortenedAddress = account
     ? `${account.substring(0, 6)}...${account.substring(61)}`
-    : "null";
+    : 'null';
 
   return <HeaderWalletContainer>{shortenedAddress}</HeaderWalletContainer>;
 };

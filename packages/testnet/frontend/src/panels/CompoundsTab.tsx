@@ -1,17 +1,18 @@
-import { StyledTabPanel } from "./styleds";
-import steelImg from "../assets/gameElements/compounds/steel4.webp";
-import quartzImg from "../assets/gameElements/compounds/quartz4.webp";
-import tritiumImg from "../assets/gameElements/compounds/tritium4.webp";
-import energyImg from "../assets/gameElements/compounds/energy4.webp";
-import labImg from "../assets/gameElements/compounds/lab4.webp";
-import dockyardImg from "../assets/gameElements/compounds/dockyard4.webp";
+import React from 'react';
+import { StyledTabPanel } from './styleds';
+import steelImg from '../assets/gameElements/compounds/steel4.webp';
+import quartzImg from '../assets/gameElements/compounds/quartz4.webp';
+import tritiumImg from '../assets/gameElements/compounds/tritium4.webp';
+import energyImg from '../assets/gameElements/compounds/energy4.webp';
+import labImg from '../assets/gameElements/compounds/lab4.webp';
+import dockyardImg from '../assets/gameElements/compounds/dockyard4.webp';
 import {
   // CompoundsCostUpgrade,
-  CompoundsLevels,
-  EnergyCost,
-  Resources,
-} from "../shared/types";
-import CompoundsBox from "../components/boxes/CompoundsBox";
+  type CompoundsLevels,
+  type EnergyCost,
+  type Resources,
+} from '../shared/types';
+import CompoundsBox from '../components/boxes/CompoundsBox';
 import {
   EnergyPlantDescription,
   QuartzMineDescription,
@@ -19,16 +20,16 @@ import {
   TritiumMineDescription,
   LabDescription,
   DockyardDescription,
-} from "../components/descriptions/CompoundsPopover";
+} from '../components/descriptions/CompoundsPopover';
 
-type CompoundConfigType = {
+interface CompoundConfigType {
   description: React.ReactNode;
   img: string;
   title: string;
   functionCallName: string;
   compoundName: keyof CompoundsLevels;
   energyKey: keyof EnergyCost;
-};
+}
 
 interface Props {
   spendableResources?: Resources;
@@ -46,56 +47,56 @@ export const CompoundsTabPanel = ({
         <SteelMineDescription currentLevel={compoundsLevels.steel} />
       ),
       img: steelImg,
-      title: "Steel Mine",
-      functionCallName: "steel_mine",
-      compoundName: "steel",
-      energyKey: "steel",
+      title: 'Steel Mine',
+      functionCallName: 'steel_mine',
+      compoundName: 'steel',
+      energyKey: 'steel',
     },
     {
       description: (
         <QuartzMineDescription currentLevel={compoundsLevels.quartz} />
       ),
       img: quartzImg,
-      title: "Quartz Mine",
-      functionCallName: "quartz_mine",
-      compoundName: "quartz",
-      energyKey: "quartz",
+      title: 'Quartz Mine',
+      functionCallName: 'quartz_mine',
+      compoundName: 'quartz',
+      energyKey: 'quartz',
     },
     {
       description: (
         <TritiumMineDescription currentLevel={compoundsLevels.tritium} />
       ),
       img: tritiumImg,
-      title: "Tritium Mine",
-      functionCallName: "tritium_mine",
-      compoundName: "tritium",
-      energyKey: "tritium",
+      title: 'Tritium Mine',
+      functionCallName: 'tritium_mine',
+      compoundName: 'tritium',
+      energyKey: 'tritium',
     },
     {
       description: (
         <EnergyPlantDescription currentLevel={compoundsLevels.energy} />
       ),
       img: energyImg,
-      title: "Energy Plant",
-      functionCallName: "energy_plant",
-      compoundName: "energy",
-      energyKey: "energy",
+      title: 'Energy Plant',
+      functionCallName: 'energy_plant',
+      compoundName: 'energy',
+      energyKey: 'energy',
     },
     {
       description: <LabDescription />,
       img: labImg,
-      title: "Research Lab",
-      functionCallName: "lab",
-      compoundName: "lab",
-      energyKey: "null",
+      title: 'Research Lab',
+      functionCallName: 'lab',
+      compoundName: 'lab',
+      energyKey: 'null',
     },
     {
       description: <DockyardDescription />,
       img: dockyardImg,
-      title: "Dockyard",
-      functionCallName: "dockyard",
-      compoundName: "dockyard",
-      energyKey: "null",
+      title: 'Dockyard',
+      functionCallName: 'dockyard',
+      compoundName: 'dockyard',
+      energyKey: 'null',
     },
   ];
 
@@ -120,4 +121,4 @@ export const CompoundsTabPanel = ({
   );
 };
 
-CompoundsTabPanel.tabsRole = "TabPanel";
+CompoundsTabPanel.tabsRole = 'TabPanel';

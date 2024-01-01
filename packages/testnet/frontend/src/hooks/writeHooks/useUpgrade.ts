@@ -1,9 +1,6 @@
-import { useCallback } from "react";
-import { useContract } from "@starknet-react/core";
-import { useContractWrite } from "@starknet-react/core";
-import { useTransactionManager } from "../useTransactionManager";
-import { GAMEADDRESS } from "../../constants/addresses";
-import game from "../../constants/nogame.json";
+import { useContract, useContractWrite } from '@starknet-react/core';
+import { GAMEADDRESS } from '../../constants/addresses';
+import game from '../../constants/nogame.json';
 
 export default function useUpgrade(unitName: string, amount: number) {
   const { contract } = useContract({
@@ -19,12 +16,5 @@ export default function useUpgrade(unitName: string, amount: number) {
     calls: [contract?.populateTransaction[`${unitName}_upgrade`]!(amount)],
   });
 
-  const { add } = useTransactionManager();
-
-  const submitTx = useCallback(async () => {
-    const tx = await writeAsync();
-    add(tx.transaction_hash);
-  }, [writeAsync]);
-
-  return { submitTx, isPending, tx };
+  return { writeAsync, isPending, tx };
 }

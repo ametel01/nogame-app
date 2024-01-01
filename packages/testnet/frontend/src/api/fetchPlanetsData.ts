@@ -1,4 +1,4 @@
-import { PlanetDetails, Position } from "../shared/types";
+import { type PlanetDetails, type Position } from '../shared/types';
 
 interface ApiPlanetData {
   planet_id: number;
@@ -13,9 +13,9 @@ const fetchPlanetsData = async (): Promise<PlanetDetails[]> => {
   const nodeEnv = import.meta.env.MODE;
   console.log(nodeEnv);
   const apiUrl =
-    nodeEnv === "production"
-      ? "https://www.api.testnet.no-game.xyz/universe"
-      : "http://localhost:3001/universe";
+    nodeEnv === 'production'
+      ? 'https://www.api.testnet.no-game.xyz/universe'
+      : 'http://localhost:3001/universe';
 
   try {
     const response = await fetch(apiUrl);
@@ -25,7 +25,7 @@ const fetchPlanetsData = async (): Promise<PlanetDetails[]> => {
     const data = await response.json();
 
     if (data.length === 0) {
-      throw new Error("No data found in universe.");
+      throw new Error('No data found in universe.');
     }
 
     return data.map((planet: ApiPlanetData) => ({
@@ -34,12 +34,12 @@ const fetchPlanetsData = async (): Promise<PlanetDetails[]> => {
       position: {
         system: planet.system,
         orbit: planet.orbit,
-      } as Position,
+      } satisfies Position,
       points: planet.total_points,
       lastActive: new Date(planet.last_active).getTime() / 1000, // Unix timestamp in seconds
     }));
   } catch (error) {
-    console.error("Error fetching universe data:", error);
+    console.error('Error fetching universe data:', error);
     throw error;
   }
 };

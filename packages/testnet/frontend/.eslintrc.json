@@ -3,20 +3,35 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  "overrides": [{
-    "files": ["tests/*"], // Or *.test.js
-    "rules": {
-      "no-undef": "off",
-      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]    }
-  }
-],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "eslint:recommended",
+    "prettier"
+  ],
+  "globals": {
+    "JSX": "readonly"
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": "./tsconfig.json",
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "plugins": ["react", "@typescript-eslint"],
-  "root": true,
-  "rules": {}
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "react/prop-types": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Automatically detect the react version
+    }
+  }
 }
