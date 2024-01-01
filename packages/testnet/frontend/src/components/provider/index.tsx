@@ -1,4 +1,5 @@
-import React, { sepolia } from '@starknet-react/chains';
+import React from 'react';
+import { sepolia } from '@starknet-react/chains';
 import {
   StarknetConfig,
   argent,

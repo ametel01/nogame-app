@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import styled from 'styled-components';
 import { Typography } from '@mui/material';
@@ -22,8 +22,9 @@ import {
   useGetCelestiaAvailable,
   useGetCelestiaProduction,
 } from '../../hooks/EnergyHooks';
-import { useCompoundsLevels } from '../../hooks/LevelsHooks';
 import CompoundsFormulas from '../../shared/utils/Formulas';
+import { CompoundsLevels } from '../../shared/types';
+import fetchUpgradesData from '../../api/fetchUpgradesData';
 
 const Container = styled.div`
   display: flex;
@@ -196,11 +197,26 @@ interface ResourceContainerArgs {
 }
 
 const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
+  const [compoundsLevels, setCompoundsLevels] =
+    useState<CompoundsLevels | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchUpgradesData({ planetId });
+        setCompoundsLevels(data.compoundsLevels);
+      } catch (error) {
+        console.error('Error fetching upgrades data:', error);
+        // Handle the error appropriately
+      }
+    };
+
+    fetchData();
+  }, [planetId]);
+
   const spendable = useSpendableResources(planetId);
 
   const collectible = useCollectibleResources(planetId);
-
-  const compoundsLevels = useCompoundsLevels(planetId);
 
   const solarEnergy = compoundsLevels
     ? CompoundsFormulas.energyProduction(Number(compoundsLevels.energy))
@@ -210,13 +226,13 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
   const energyFromCelestia = Number(celestia) * Number(celestiaProduction);
 
   const steelConsumption = CompoundsFormulas.steelConsumption(
-    Number(compoundsLevels.steel)
+    Number(compoundsLevels?.steel)
   );
   const quartzConsumption = CompoundsFormulas.quartzConsumption(
-    Number(compoundsLevels.quartz)
+    Number(compoundsLevels?.quartz)
   );
   const tritiumConsumption = CompoundsFormulas.tritiumConsumption(
-    Number(compoundsLevels.tritium)
+    Number(compoundsLevels?.tritium)
   );
   const netEnergy =
     solarEnergy +

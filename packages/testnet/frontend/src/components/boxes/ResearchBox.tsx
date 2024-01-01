@@ -39,7 +39,7 @@ const ResearchBox = ({
   const [quantity, setQuantity] = useState(1);
   const [showTooltip, setShowTooltip] = useState(true);
 
-  const { tx, submitTx: upgrade } = useUpgrade(functionCallName, quantity);
+  const { tx, writeAsync: upgrade } = useUpgrade(functionCallName, quantity);
 
   const baseCostKey = techCostMapping[functionCallName] || functionCallName;
   const baseCosts = baseTechCost[baseCostKey];

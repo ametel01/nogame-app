@@ -41,7 +41,7 @@ const DockyardBox = ({
   const [quantity, setQuantity] = useState(0);
   const [showTooltip, setShowTooltip] = useState(true);
 
-  const { tx, submitTx: build } = useBuild(functionCallName, quantity);
+  const { tx, writeAsync: build } = useBuild(functionCallName, quantity);
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {

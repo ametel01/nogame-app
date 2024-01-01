@@ -210,7 +210,7 @@ export function ButtonCollectDebris({
     setFuelConsumption(getFuelConsumption(fleet, distance));
   }, [distance, fleet, techs]);
 
-  const { submitTx } = useSendFleet(fleet, position, true);
+  const { writeAsync } = useSendFleet(fleet, position, true);
 
   const isShipOverLimit = totalShips > ownFleet.scraper;
 
@@ -307,7 +307,7 @@ export function ButtonCollectDebris({
           </TravelInfoContainer>
         </Container>
         <StyledButton
-          onClick={submitTx}
+          onClick={() => writeAsync()}
           fullWidth
           style={{
             background: isShipOverLimit ? '#3B3F53' : '#4A63AA',
