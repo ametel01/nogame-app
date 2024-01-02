@@ -26,6 +26,7 @@ import {
   getFuelConsumption,
 } from '../../shared/utils/FleetUtils';
 import { convertSecondsToTime } from '../../shared/utils';
+import { TransactionStatus } from '../ui/TransactionStatus';
 
 type ShipName = 'carrier' | 'scraper' | 'sparrow' | 'frigate' | 'armade';
 
@@ -165,6 +166,8 @@ function ButtonAttackPlanet({
   const [travelTime, setTravelTime] = useState(0);
   const [fuelConsumption, setFuelConsumption] = useState(0);
   const [cargoCapacity, setCargoCapacity] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isButtotClicked, setisButtotClicked] = useState(false);
 
   const missions = useGetActiveMissions(planetId);
   const isMissionLimitReached =
@@ -178,8 +181,6 @@ function ButtonAttackPlanet({
     },
     0
   );
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
     setIsModalOpen(true);
@@ -216,7 +217,7 @@ function ButtonAttackPlanet({
     setCargoCapacity(calculateTotalCargoCapacity(fleet));
   }, [distance, fleet, ownPosition, techs]);
 
-  const { writeAsync } = useSendFleet(fleet, position, false);
+  const { writeAsync, data } = useSendFleet(fleet, position, false);
 
   const ships = ['carrier', 'scraper', 'sparrow', 'frigate', 'armade'];
 
@@ -233,6 +234,10 @@ function ButtonAttackPlanet({
       setTimeOfArrival(arrival);
     }
   }, [travelTime]);
+
+  const handleSendClick = () => {
+    writeAsync(), setIsModalOpen(false), setisButtotClicked(true);
+  };
 
   return (
     <div>
@@ -359,7 +364,7 @@ function ButtonAttackPlanet({
                 </Text>
               </WarningContainer>
               <StyledButton
-                onClick={() => writeAsync()}
+                onClick={handleSendClick}
                 fullWidth
                 style={{
                   background: isAnyShipOverLimit ? '#3B3F53' : '#4A63AA',
@@ -370,6 +375,9 @@ function ButtonAttackPlanet({
               </StyledButton>
             </StyledBox>
           </Modal>
+          {isButtotClicked && (
+            <TransactionStatus name="Sent Fleet" tx={data?.transaction_hash} />
+          )}
         </>
       )}
       {!disabled && noRequirements && (

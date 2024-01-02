@@ -116,6 +116,7 @@ export const MissionRow = memo(
             }}
             size="small"
             sx={{ background: '#4A63AA' }}
+            fullWidth
           >
             {mission.is_debris ? 'Collect' : 'Attack'}
           </StyledButton>

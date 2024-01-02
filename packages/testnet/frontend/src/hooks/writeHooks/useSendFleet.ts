@@ -12,11 +12,11 @@ export default function useSendFleet(
     abi: game.abi,
     address: GAMEADDRESS,
   });
-  const { writeAsync, isPending } = useContractWrite({
+  const { writeAsync, data } = useContractWrite({
     calls: [
       contract?.populateTransaction.send_fleet!(fleet, position, isDebris),
     ],
   });
 
-  return { writeAsync, isPending };
+  return { writeAsync, data };
 }
