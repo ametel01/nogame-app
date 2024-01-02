@@ -16,7 +16,7 @@ interface WalletHeaderProps {
 
 const WalletHeader = ({ account }: WalletHeaderProps) => {
   const shortenedAddress = account
-    ? `${account.substring(0, 6)}...${account.substring(61)}`
+    ? `${account.substring(0, 6)}...${account.substring(-4)}`
     : 'null';
 
   return <HeaderWalletContainer>{shortenedAddress}</HeaderWalletContainer>;
