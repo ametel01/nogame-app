@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import * as Styled from '../../shared/styled/Box';
 import { CircularProgress } from '@mui/material';
@@ -17,7 +17,6 @@ import {
 import { DebrisFieldView } from '../ui/DebrisFieldView';
 import { useTechsLevels } from '../../hooks/LevelsHooks';
 import { usePlanetPosition } from '../../hooks/usePlanetPosition';
-import { useMemo } from 'react';
 
 const InfoContainer = styled(Styled.InfoContainer)({
   width: '45%',

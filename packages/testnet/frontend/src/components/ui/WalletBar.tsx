@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useAccount, useConnect } from '@starknet-react/core';
-import { useMemo } from 'react';
 
 function WalletConnected() {
   const { address } = useAccount();

@@ -93,6 +93,19 @@ const fleetReducer = (state: FleetState, action: FleetAction): FleetState => {
       newDecays[action.payload.index] = action.payload.decay;
       return { ...state, decayPercentages: newDecays };
     }
+    case 'UPDATE_MISSION': {
+      const newCountdowns = [...state.countdowns];
+      const newDecays = [...state.decayPercentages];
+
+      newCountdowns[action.payload.index] = action.payload.countdown;
+      newDecays[action.payload.index] = action.payload.decay;
+
+      return {
+        ...state,
+        countdowns: newCountdowns,
+        decayPercentages: newDecays,
+      };
+    }
     default:
       return state;
   }
@@ -141,11 +154,6 @@ export const FleetMovements = ({ planetId }: Props) => {
     const currentTime = Date.now();
     const differenceInSeconds = (arrivalTime - currentTime) / 1000;
 
-    // For debugging: log the times and calculated difference
-    console.log('Arrival time:', arrivalTime);
-    console.log('Current time:', currentTime);
-    console.log('Difference in seconds:', differenceInSeconds);
-
     if (differenceInSeconds <= 0) {
       return 'Arrived';
     }
@@ -158,16 +166,11 @@ export const FleetMovements = ({ planetId }: Props) => {
   }, []);
 
   useEffect(() => {
-    console.log('useEffect called'); // Check if useEffect is called
-    console.log('missions inside useEffect', missions); // Check the missions array inside useEffect
     // Array to keep track of interval IDs
     const intervalIDs: ReturnType<typeof setInterval>[] = [];
 
     missions.forEach((mission, index) => {
-      console.log('missions inside useEffect', missions);
-
       if (missions.length === 0) {
-        console.log('No missions to set intervals for');
         return;
       }
       const intervalID = setInterval(() => {
@@ -197,7 +200,6 @@ export const FleetMovements = ({ planetId }: Props) => {
 
     // Clear intervals when the component unmounts or when missions change
     return () => {
-      console.log('Cleaning up intervals');
       intervalIDs.forEach(clearInterval);
     };
   }, [getTimeDifference, missions]);
