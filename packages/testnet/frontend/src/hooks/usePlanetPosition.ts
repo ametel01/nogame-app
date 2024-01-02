@@ -9,7 +9,7 @@ const DefaultPosition = {
 };
 
 export function usePlanetPosition(planetId: number | undefined) {
-  const isValidPlanetId = planetId !== undefined && !isNaN(planetId);
+  const isValidPlanetId = planetId !== undefined;
 
   const { data } = useContractRead({
     address: GAMEADDRESS,

@@ -121,6 +121,7 @@ const UniverseViewBox = ({
     return `${Math.floor(differenceInSeconds / 86400)} days ago`;
   }, [lastActive]);
 
+  console.log(ownPlanetPosition);
   const ownPositionNumberised = useMemo(
     () => convertPositionToNumbers(ownPlanetPosition),
     [ownPlanetPosition]

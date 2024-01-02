@@ -24,7 +24,7 @@ const GridRow = styled.div`
 
 export const MissionText = styled('div')({
   color: '#23CE6B',
-  padding: '10px',
+  padding: '4px',
   textShadow: '0 0 5px rgba(152, 251, 152, 0.7)', // Glow effect
 });
 
@@ -40,15 +40,8 @@ const FleetIcon = styled.img.attrs({
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
-  gap: 10px;
+  // display: flex;
   align-items: center;
-  justify-content: space-between;
-  button {
-    &:hover {
-      border-color: #4a63aa;
-    }
-  }
 `;
 
 interface MissionRowProps {
@@ -89,6 +82,8 @@ export const MissionRow = memo(
       </FleetTooltipContent>
     );
 
+    const isArrived = Number(mission.time_arrival) * 1000 >= Date.now();
+
     return (
       <GridRow key={index}>
         <MissionText>
@@ -106,23 +101,25 @@ export const MissionRow = memo(
           </Tooltip>
         </MissionText>
         <ButtonContainer>
+        {isArrived ? 
           <StyledButton
-            size="small"
-            sx={{ background: '#E67E51' }}
+          size="small"
+          sx={{ background: '#883606' }}
+            fullWidth
             onClick={onRecallClick}
           >
             Recall
-          </StyledButton>
+          </StyledButton> :
           <StyledButton
             onClick={() => {
               handleAttackClick(mission);
             }}
             size="small"
             sx={{ background: '#4A63AA' }}
-            disabled={Number(mission.time_arrival) * 1000 + 240 >= Date.now()}
           >
             {mission.is_debris ? 'Collect' : 'Attack'}
           </StyledButton>
+      }
         </ButtonContainer>
       </GridRow>
     );

@@ -32,21 +32,21 @@ export const StyledBox = styled(Box)({
   padding: '16px 32px',
   display: 'flex',
   flexDirection: 'column',
-  width: '70%',
+  width: '60%',
 });
 
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
+  gap: 8px;
   background-size: cover;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 8px;
+  border-radius: 8px;
 `;
 
 export const FixedLengthText = styled('div')({
   flex: 1,
-  padding: '0 10px',
+  padding: '0 4px',
 });
 
 export const MissionText = styled('div')({
