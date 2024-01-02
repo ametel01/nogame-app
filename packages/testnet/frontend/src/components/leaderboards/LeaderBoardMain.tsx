@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
+import { formatAccount } from '../../shared/utils';
 
 const Table = styled.table`
   width: 100%;
@@ -120,7 +121,7 @@ const LeadearBoardMain = ({ planetId }: Props) => {
               <Data>{index + 1}</Data>
               <Data>
                 {entry.account
-                  ? `${entry.account.substring(
+                  ? `${formatAccount(entry.account).substring(
                       0,
                       6
                     )}...${entry.account.substring(entry.account.length - 4)}`

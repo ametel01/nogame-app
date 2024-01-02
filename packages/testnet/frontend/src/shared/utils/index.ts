@@ -280,3 +280,11 @@ export function convertSecondsToTime(seconds: number): string {
 
   return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
+
+export const formatAccount = (account: string) => {
+  if (account.startsWith('0x')) {
+    // Remove zeros immediately following '0x'
+    return account.replace(/^0x0*/, '0x');
+  }
+  return account;
+};
