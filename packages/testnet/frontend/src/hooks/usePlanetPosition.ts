@@ -3,7 +3,7 @@ import { GAMEADDRESS } from '../constants/addresses';
 import gameContract from '../constants/nogame.json';
 import { type Position } from '../shared/types';
 
-const DefaultPosition = {
+export const DefaultPosition: Position = {
   system: 0,
   orbit: 0,
 };
@@ -22,5 +22,5 @@ export function usePlanetPosition(planetId: number | undefined) {
     return DefaultPosition;
   }
 
-  return data as unknown as Position;
+  return data as Position;
 }
