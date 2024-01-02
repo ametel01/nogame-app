@@ -151,7 +151,7 @@ interface Props {
   planetId: number;
 }
 
-export function ButtonAttackPlanet({
+function ButtonAttackPlanet({
   disabled,
   noRequirements,
   isNoobProtected,
@@ -397,3 +397,5 @@ export function ButtonAttackPlanet({
     </div>
   );
 }
+
+export default ButtonAttackPlanet;

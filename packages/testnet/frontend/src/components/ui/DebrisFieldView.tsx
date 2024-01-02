@@ -20,7 +20,7 @@ interface Props {
   ownPosition?: Position;
 }
 
-export function DebrisFieldView({
+function DebrisFieldView({
   planetId,
   position,
   ownFleet,
@@ -116,3 +116,5 @@ export function DebrisFieldView({
     </Box>
   );
 }
+
+export default DebrisFieldView;

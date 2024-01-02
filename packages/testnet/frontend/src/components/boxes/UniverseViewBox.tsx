@@ -1,21 +1,18 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as Styled from '../../shared/styled/Box';
 import { CircularProgress } from '@mui/material';
-import { ButtonAttackPlanet } from '../buttons/ButtonAttackPlanet';
+import ButtonAttackPlanet from '../buttons/ButtonAttackPlanet';
 import {
+  TechLevels,
   type DefenceLevels,
   type Resources,
   type ShipsLevels,
 } from '../../shared/types';
 import PlanetModal from '../modals/PlanetOverview';
-import {
-  convertPositionToNumbers,
-  convertTechLevelsToNumbers,
-  numberWithCommas,
-} from '../../shared/utils';
-import { DebrisFieldView } from '../ui/DebrisFieldView';
-import { useTechsLevels } from '../../hooks/LevelsHooks';
+import { convertPositionToNumbers, numberWithCommas } from '../../shared/utils';
+import DebrisFieldView from '../ui/DebrisFieldView';
+import fetchUpgradesData from '../../api/fetchUpgradesData';
 import { usePlanetPosition } from '../../hooks/usePlanetPosition';
 
 const InfoContainer = styled(Styled.InfoContainer)({
@@ -24,11 +21,11 @@ const InfoContainer = styled(Styled.InfoContainer)({
 
 export const Box = styled('div')({
   justifyContent: 'space-evenly',
-  alignItems: 'center', // Ensures vertically center aligned
-  padding: '0 5px', // Reduce horizontal padding slightly
+  alignItems: 'center',
+  padding: '0 5px',
   width: '100%',
   maxHeight: '70px',
-  height: '100%', // Ensuring the Box takes full height up to the max-height
+  height: '100%',
   display: 'flex',
   flexDirection: 'row',
   marginBottom: '10px',
@@ -39,22 +36,20 @@ export const Box = styled('div')({
 });
 
 export const ImageContainer = styled('div')({
-  flexShrink: 0, // Ensure the images don't shrink
-  display: 'flex', // To center the image vertically
-  alignItems: 'center', // Centering the image inside this container
-  width: '60px', // reduced width
-  flex: '0 0 auto', // Allows this container to not shrink and to not grow beyond its content size
-  margin: '0 10px', // Gives horizontal space
-  marginRight: '5px', // Reduce margin to push elements closer
-  marginLeft: '0', // Remove the left margin
+  flexShrink: 0,
+  display: 'flex',
+  alignItems: 'center',
+  width: '60px',
+  flex: '0 0 auto',
+  margin: '0 10px',
+  marginRight: '5px',
+  marginLeft: '0',
 });
 
 interface Props {
   planetId: number;
-  // address: string;
   img: string | undefined;
   owner?: string;
-  functionCallName?: string;
   position: string;
   debris?: { steel: number; quartz: number };
   points: number;
@@ -81,62 +76,55 @@ const UniverseViewBox = ({
   isNoobProtected,
   lastActive,
 }: Props) => {
-  const boxStyle = highlighted
-    ? {
-        border: '1px solid #23CE6B',
-      }
-    : {};
+  const [techLevels, setTechLevels] = useState<TechLevels | null>(null);
+  const boxStyle = highlighted ? { border: '1px solid #23CE6B' } : {};
 
-  const isButtonDisabled = highlighted;
-  // TODO: implement StarkName once on mainnet
-  const techs = useTechsLevels(Number(ownPlanetId));
+  // Calculate the time difference in seconds
+  const timeNow = new Date().getTime() / 1000;
+  const timeDifference = timeNow - lastActive;
+  const oneWeekInSeconds = 7 * 24 * 60 * 60;
+
+  // Override isNoobProtected based on the lastActive time
+  const updatedIsNoobProtected =
+    isNoobProtected && timeDifference < oneWeekInSeconds;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchUpgradesData({ planetId });
+        setTechLevels(data.techLevels);
+      } catch (error) {
+        console.error('Error fetching upgrades data:', error);
+        // Handle the error appropriately
+      }
+    };
+
+    fetchData();
+  }, [planetId]);
   const ownPlanetPosition = usePlanetPosition(Number(ownPlanetId));
 
-  const getLastActiveTime = (lastActiveTimestamp: number) => {
-    if (!lastActiveTimestamp) return 'Unknown';
-
-    // Convert lastActiveTimestamp from seconds to milliseconds
-    const lastActiveDate = new Date(lastActiveTimestamp * 1000);
-
-    // Adjust for the 8-hour difference
+  const getLastActiveTime = useMemo(() => {
+    if (!lastActive) return 'Unknown';
+    const lastActiveDate = new Date(lastActive * 1000);
     const adjustedLastActiveDate = new Date(
       lastActiveDate.getTime() + 8 * 60 * 60 * 1000
     );
-
-    // Get the current time
     const now = new Date();
-
     const differenceInSeconds = Math.floor(
       (now.getTime() - adjustedLastActiveDate.getTime()) / 1000
     );
 
-    if (differenceInSeconds < 3600) {
-      // Less than 1 hour
+    if (differenceInSeconds < 3600)
       return `${Math.floor(differenceInSeconds / 60)} min ago`;
-    } else if (differenceInSeconds < 86400) {
-      // Less than 24 hours
+    if (differenceInSeconds < 86400)
       return `${Math.floor(differenceInSeconds / 3600)} hours ago`;
-    } else {
-      // More than 24 hours
-      return `${Math.floor(differenceInSeconds / 86400)} days ago`;
-    }
-  };
+    return `${Math.floor(differenceInSeconds / 86400)} days ago`;
+  }, [lastActive]);
 
-  const lastActiveString = useMemo(
-    () => getLastActiveTime(lastActive),
-    [lastActive]
+  const ownPositionNumberised = useMemo(
+    () => convertPositionToNumbers(ownPlanetPosition),
+    [ownPlanetPosition]
   );
-
-  // Derived states or memoized values should handle the conditional logic
-  const techsNumberised = useMemo(() => {
-    return techs ? convertTechLevelsToNumbers(techs) : undefined;
-  }, [techs]);
-
-  const ownPositionNumberised = useMemo(() => {
-    return ownPlanetPosition
-      ? convertPositionToNumbers(ownPlanetPosition)
-      : undefined;
-  }, [ownPlanetPosition]);
 
   return (
     <Styled.Box style={boxStyle}>
@@ -164,7 +152,7 @@ const UniverseViewBox = ({
               LAST ACTIVE
             </Styled.ResourceTitle>
             <Styled.NumberContainer style={{ fontSize: '14px' }}>
-              {lastActiveString}
+              {getLastActiveTime}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
@@ -184,16 +172,16 @@ const UniverseViewBox = ({
           planetId={planetId}
           position={position}
           ownFleet={ownFleet}
-          techs={techsNumberised}
+          techs={techLevels!}
           ownPosition={ownPositionNumberised}
         />
         <Styled.ButtonContainer>
           <ButtonAttackPlanet
-            noRequirements={isButtonDisabled}
-            isNoobProtected={isNoobProtected}
+            noRequirements={highlighted}
+            isNoobProtected={updatedIsNoobProtected}
             destination={position}
             ownFleet={ownFleet!}
-            techs={techsNumberised}
+            techs={techLevels!}
             ownPosition={ownPositionNumberised}
             planetId={planetId}
           />
