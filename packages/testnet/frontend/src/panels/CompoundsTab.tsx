@@ -83,7 +83,7 @@ export const CompoundsTabPanel = ({
       energyKey: 'energy',
     },
     {
-      description: <LabDescription />,
+      description: <LabDescription currentLevel={compoundsLevels.lab} />,
       img: labImg,
       title: 'Research Lab',
       functionCallName: 'lab',
@@ -91,7 +91,9 @@ export const CompoundsTabPanel = ({
       energyKey: 'null',
     },
     {
-      description: <DockyardDescription />,
+      description: (
+        <DockyardDescription currentLevel={compoundsLevels.dockyard} />
+      ),
       img: dockyardImg,
       title: 'Dockyard',
       functionCallName: 'dockyard',

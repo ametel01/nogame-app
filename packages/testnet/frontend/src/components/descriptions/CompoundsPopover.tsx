@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Input } from '@mui/joy'
-import CompoundsFormulas from '../../shared/utils/Formulas'
-import Box from '@mui/material/Box'
-import steelImg from '../../assets/gameElements/compounds/steel4.webp'
-import quartzImg from '../../assets/gameElements/compounds/quartz4.webp'
-import tritiumImg from '../../assets/gameElements/compounds/tritium4.webp'
-import energyImg from '../../assets/gameElements/compounds/energy4.webp'
-import labImg from '../../assets/gameElements/compounds/lab4.webp'
-import dockyardImg from '../../assets/gameElements/compounds/dockyard4.webp'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Input } from '@mui/joy';
+import CompoundsFormulas from '../../shared/utils/Formulas';
+import Box from '@mui/material/Box';
+import steelImg from '../../assets/gameElements/compounds/steel4.webp';
+import quartzImg from '../../assets/gameElements/compounds/quartz4.webp';
+import tritiumImg from '../../assets/gameElements/compounds/tritium4.webp';
+import energyImg from '../../assets/gameElements/compounds/energy4.webp';
+import labImg from '../../assets/gameElements/compounds/lab4.webp';
+import dockyardImg from '../../assets/gameElements/compounds/dockyard4.webp';
+import { numberWithCommas } from '../../shared/utils';
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -23,78 +24,78 @@ export const StyledBox = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   width: '25%',
-  textTransform: 'capitalize'
-})
+  textTransform: 'capitalize',
+});
 
 const HeaderDiv = styled('div')({
   fontSize: 20,
   marginBottom: '16px',
-  textTransform: 'uppercase'
-})
+  textTransform: 'uppercase',
+});
 
 const InfoRow = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginBottom: '16px'
-})
+  marginBottom: '16px',
+});
 
 const InfoData = styled('span')({
-  color: '#23CE6B'
-})
+  color: '#23CE6B',
+});
 
 const StyledImage = styled('img')({
   width: '100%',
   height: 'auto',
   marginBottom: '32px',
-  borderRadius: '8px'
-})
+  borderRadius: '8px',
+});
 
-const Label = styled('span')({})
+const Label = styled('span')({});
 
 interface Cost {
-  steel: number
-  quartz: number
-  tritium: number
+  steel: number;
+  quartz: number;
+  tritium: number;
 }
 
-function useMineInformation (
+function useMineInformation(
   level: number,
   costFunc: (arg0: number) => Cost,
   productionFunc?: (arg0: number) => number,
   consumptionFunc?: (arg0: number) => number
 ) {
-  const production = productionFunc ? productionFunc(level) : undefined
-  const cost = costFunc(level)
-  const consumption = consumptionFunc ? consumptionFunc(level) : undefined
+  const production = productionFunc ? productionFunc(level) : undefined;
+  const cost = costFunc(level);
+  const consumption = consumptionFunc ? consumptionFunc(level) : undefined;
 
-  return { production, cost, consumption }
+  return { production, cost, consumption };
 }
 
 interface DescriptionProps {
-  title: string
-  image: string
-  currentLevel?: number
-  costFunc: (arg0: number) => Cost
-  productionFunc?: (arg0: number) => number
-  consumptionFunc?: (arg0: number) => number
+  title: string;
+  image: string;
+  currentLevel?: number;
+  costFunc: (arg0: number) => Cost;
+  productionFunc?: (arg0: number) => number;
+  consumptionFunc?: (arg0: number) => number;
 }
 
-function CompoundDescription ({
+function CompoundDescription({
   title,
   image,
   productionFunc,
   costFunc,
   consumptionFunc,
-  currentLevel
+  currentLevel,
 }: DescriptionProps) {
-  const [level, setLevel] = useState(currentLevel!)
+  const [level, setLevel] = useState(currentLevel!);
   const { production, cost, consumption } = useMineInformation(
     level,
     costFunc,
     productionFunc,
     consumptionFunc
-  )
+  );
 
   return (
     <div>
@@ -106,7 +107,10 @@ function CompoundDescription ({
           <Input
             type="number"
             value={level}
-            onChange={(e) => { setLevel(Number(e.target.value)) }}
+            defaultValue={currentLevel}
+            onChange={(e) => {
+              setLevel(Number(e.target.value));
+            }}
             // size="small"
             color="neutral"
             variant="soft"
@@ -115,42 +119,40 @@ function CompoundDescription ({
         </InfoRow>
         <InfoRow>
           <Label>Cost Steel:</Label>
-          <InfoData>{cost.steel}</InfoData>
+          <InfoData>{numberWithCommas(cost.steel)}</InfoData>
         </InfoRow>
         <InfoRow>
           <Label>Cost Quartz:</Label>
-          <InfoData>{cost.quartz}</InfoData>
+          <InfoData>{numberWithCommas(cost.quartz)}</InfoData>
         </InfoRow>
-        {cost.tritium != 0
-          ? (
+        {cost.tritium != 0 ? (
           <InfoRow>
             <Label>Cost Tritium:</Label>
-            <InfoData>{cost.tritium}</InfoData>
+            <InfoData>{numberWithCommas(cost.tritium)}</InfoData>
           </InfoRow>
-            )
-          : null}
+        ) : null}
         {productionFunc && (
           <InfoRow>
             <Label>Hourly Production:</Label>
-            <InfoData>{production}</InfoData>
+            <InfoData>{numberWithCommas(production!)}</InfoData>
           </InfoRow>
         )}
         {consumptionFunc && (
           <InfoRow>
             <Label>Energy Consumption:</Label>
-            <InfoData>{consumption}</InfoData>
+            <InfoData>{numberWithCommas(consumption!)}</InfoData>
           </InfoRow>
         )}
       </StyledBox>
     </div>
-  )
+  );
 }
 
 interface MineDescriptionProps {
-  currentLevel?: number
+  currentLevel?: number;
 }
 
-export function SteelMineDescription ({ currentLevel }: MineDescriptionProps) {
+export function SteelMineDescription({ currentLevel }: MineDescriptionProps) {
   return (
     <CompoundDescription
       title="Steel Mine"
@@ -160,10 +162,10 @@ export function SteelMineDescription ({ currentLevel }: MineDescriptionProps) {
       costFunc={CompoundsFormulas.steelCost}
       consumptionFunc={CompoundsFormulas.steelConsumption}
     />
-  )
+  );
 }
 
-export function QuartzMineDescription ({ currentLevel }: MineDescriptionProps) {
+export function QuartzMineDescription({ currentLevel }: MineDescriptionProps) {
   return (
     <CompoundDescription
       title="Quartz Mine"
@@ -173,10 +175,10 @@ export function QuartzMineDescription ({ currentLevel }: MineDescriptionProps) {
       costFunc={CompoundsFormulas.quartzCost}
       consumptionFunc={CompoundsFormulas.quartzConsumption}
     />
-  )
+  );
 }
 
-export function TritiumMineDescription ({ currentLevel }: MineDescriptionProps) {
+export function TritiumMineDescription({ currentLevel }: MineDescriptionProps) {
   return (
     <CompoundDescription
       title="Tritium Mine"
@@ -186,10 +188,10 @@ export function TritiumMineDescription ({ currentLevel }: MineDescriptionProps) 
       costFunc={CompoundsFormulas.tritiumCost}
       consumptionFunc={CompoundsFormulas.tritiumConsumption}
     />
-  )
+  );
 }
 
-export function EnergyPlantDescription ({ currentLevel }: MineDescriptionProps) {
+export function EnergyPlantDescription({ currentLevel }: MineDescriptionProps) {
   return (
     <CompoundDescription
       title="Energy Plant"
@@ -198,24 +200,26 @@ export function EnergyPlantDescription ({ currentLevel }: MineDescriptionProps) 
       productionFunc={CompoundsFormulas.energyProduction}
       costFunc={CompoundsFormulas.energyCost}
     />
-  )
+  );
 }
 
-export function LabDescription () {
+export function LabDescription({ currentLevel }: MineDescriptionProps) {
   return (
     <CompoundDescription
       title="Research Lab"
       image={labImg}
+      currentLevel={currentLevel}
       costFunc={CompoundsFormulas.labCost}
     />
-  )
+  );
 }
-export function DockyardDescription () {
+export function DockyardDescription({ currentLevel }: MineDescriptionProps) {
   return (
     <CompoundDescription
       title="Dockyard"
       image={dockyardImg}
+      currentLevel={currentLevel}
       costFunc={CompoundsFormulas.dockyardCost}
     />
-  )
+  );
 }
