@@ -116,24 +116,38 @@ interface ActionProps {
   onAction: () => void;
 }
 
-const CollectDebrisAction = ({ missionId, onAction }: ActionProps) => {
-  const { writeAsync: collectDebris } = useCollectDebris(missionId);
-  useEffect(() => {
-    collectDebris();
-    onAction();
-  }, [collectDebris, onAction]);
+const AttackPlanetAction = ({
+  missionId,
+  onAction,
+  triggerAction,
+}: ActionProps & { triggerAction: boolean }) => {
+  const { writeAsync: attackPlanet } = useAttackPlanet(missionId);
 
-  return null; // This component does not render anything
+  useEffect(() => {
+    if (triggerAction) {
+      attackPlanet();
+      onAction();
+    }
+  }, [attackPlanet, onAction, triggerAction]);
+
+  return null;
 };
 
-const AttackPlanetAction = ({ missionId, onAction }: ActionProps) => {
-  const { writeAsync: attackPlanet } = useAttackPlanet(missionId);
-  useEffect(() => {
-    attackPlanet();
-    onAction();
-  }, [attackPlanet, onAction]);
+const CollectDebrisAction = ({
+  missionId,
+  onAction,
+  triggerAction,
+}: ActionProps & { triggerAction: boolean }) => {
+  const { writeAsync: collectDebris } = useCollectDebris(missionId);
 
-  return null; // This component does not render anything
+  useEffect(() => {
+    if (triggerAction) {
+      collectDebris();
+      onAction();
+    }
+  }, [collectDebris, onAction, triggerAction]);
+
+  return null;
 };
 
 interface Props {
@@ -149,6 +163,7 @@ export const FleetMovements = ({ planetId }: Props) => {
     countdowns: [],
     decayPercentages: [],
   });
+  const [triggerAction, setTriggerAction] = useState(false);
 
   const getTimeDifference = useCallback((arrivalTime: number) => {
     const currentTime = Date.now();
@@ -210,6 +225,13 @@ export const FleetMovements = ({ planetId }: Props) => {
 
   const handleAttackClick = useCallback((mission: Mission) => {
     setSelectedMission(mission);
+    setTriggerAction(true); // Set to trigger the action
+  }, []);
+
+  // Reset the trigger after the action is invoked
+  const onActionComplete = useCallback(() => {
+    setSelectedMission(null);
+    setTriggerAction(false);
   }, []);
 
   return (
@@ -269,16 +291,14 @@ export const FleetMovements = ({ planetId }: Props) => {
         (selectedMission.is_debris ? (
           <CollectDebrisAction
             missionId={selectedMission.id}
-            onAction={() => {
-              setSelectedMission(null);
-            }}
+            onAction={onActionComplete}
+            triggerAction={triggerAction}
           />
         ) : (
           <AttackPlanetAction
             missionId={selectedMission.id}
-            onAction={() => {
-              setSelectedMission(null);
-            }}
+            onAction={onActionComplete}
+            triggerAction={triggerAction}
           />
         ))}
     </div>

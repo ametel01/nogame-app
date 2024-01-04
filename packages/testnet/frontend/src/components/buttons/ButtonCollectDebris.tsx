@@ -251,7 +251,7 @@ export function ButtonCollectDebris({
                 <InputButtonContainer>
                   <Input
                     type="number"
-                    value={quantities.scraper || ''}
+                    value={quantities.scraper || 0}
                     onChange={handleInputChange}
                     size="sm"
                     color="neutral"
@@ -291,16 +291,20 @@ export function ButtonCollectDebris({
             <TravelDetailColumn>
               <TravelInfoName>
                 Tritium consumption:{' '}
-                <TravelInfoValue>{fuelConsumption}</TravelInfoValue>
+                <TravelInfoValue>
+                  {numberWithCommas(fuelConsumption)}
+                </TravelInfoValue>
               </TravelInfoName>
               <TravelInfoName>
                 Total number of ships:{' '}
-                <TravelInfoValue>{String(totalShips)}</TravelInfoValue>
+                <TravelInfoValue>
+                  {numberWithCommas(totalShips)}
+                </TravelInfoValue>
               </TravelInfoName>
               <TravelInfoName>
                 Cargo Capacity:{' '}
                 <TravelInfoValue>
-                  {String(totalShips * SCRAPER.cargo)}
+                  {numberWithCommas(totalShips * SCRAPER.cargo)}
                 </TravelInfoValue>
               </TravelInfoName>
             </TravelDetailColumn>

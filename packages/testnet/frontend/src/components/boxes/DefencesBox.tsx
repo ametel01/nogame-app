@@ -38,7 +38,7 @@ const DefencesBox = ({
   description,
   resourcesAvailable,
 }: Props) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [showTooltip, setShowTooltip] = useState(true);
 
   const { tx, writeAsync: build } = useBuild(functionCallName, quantity);
@@ -156,17 +156,17 @@ const DefencesBox = ({
             <Input
               type="number"
               value={quantity}
-              onChange={(e) => {
-                if (e.target.value === '') {
-                  setQuantity(0);
-                } else {
-                  setQuantity(parseInt(e.target.value, 10));
-                }
-              }}
+              defaultValue={1}
               size="sm"
               color="neutral"
               variant="soft"
               style={{ width: '80px' }}
+              onChange={(e) => {
+                const newValue = parseInt(e.target.value, 10);
+                if (!isNaN(newValue) && newValue > 0) {
+                  setQuantity(newValue);
+                }
+              }}
             />
           </Tooltip>
         </Styled.ResourceContainer>

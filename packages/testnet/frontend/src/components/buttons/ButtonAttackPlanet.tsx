@@ -27,6 +27,7 @@ import {
 } from '../../shared/utils/FleetUtils';
 import { convertSecondsToTime } from '../../shared/utils';
 import { TransactionStatus } from '../ui/TransactionStatus';
+import { numberWithCommas } from '../../shared/utils';
 
 type ShipName = 'carrier' | 'scraper' | 'sparrow' | 'frigate' | 'armade';
 
@@ -239,6 +240,14 @@ function ButtonAttackPlanet({
     writeAsync(), setIsModalOpen(false), setisButtotClicked(true);
   };
 
+  function handleChange(ship: string, event: { target: { value: string } }) {
+    let value = parseInt(event.target.value, 10);
+    if (isNaN(value) || value < 0) {
+      value = 0;
+    }
+    setQuantities({ ...quantities, [ship]: value });
+  }
+
   return (
     <div>
       {!disabled && !noRequirements && !isNoobProtected && (
@@ -305,13 +314,7 @@ function ButtonAttackPlanet({
                           <Input
                             type="number"
                             value={quantities[ship] || 0}
-                            onChange={(e) => {
-                              const value =
-                                e.target.value === ''
-                                  ? 0
-                                  : parseInt(e.target.value, 10);
-                              setQuantities({ ...quantities, [ship]: value });
-                            }}
+                            onChange={(e) => handleChange(ship, e)}
                             size="sm"
                             color="neutral"
                             variant="soft"
@@ -343,15 +346,21 @@ function ButtonAttackPlanet({
                   </TravelInfoRow>
                   <TravelInfoRow>
                     Fuel consumption:{' '}
-                    <TravelInfoData>{fuelConsumption}</TravelInfoData>
+                    <TravelInfoData>
+                      {numberWithCommas(fuelConsumption)}
+                    </TravelInfoData>
                   </TravelInfoRow>
                   <TravelInfoRow>
                     Total number of ships:{' '}
-                    <TravelInfoData>{totalShips}</TravelInfoData>
+                    <TravelInfoData>
+                      {numberWithCommas(totalShips)}
+                    </TravelInfoData>
                   </TravelInfoRow>
                   <TravelInfoRow>
                     Cargo capacity:{' '}
-                    <TravelInfoData>{cargoCapacity}</TravelInfoData>
+                    <TravelInfoData>
+                      {numberWithCommas(cargoCapacity)}
+                    </TravelInfoData>
                   </TravelInfoRow>
                 </TravelInfoContainer>
               </FlexContainer>
