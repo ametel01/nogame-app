@@ -25,7 +25,7 @@ const GridRow = styled.div`
 export const MissionText = styled('div')({
   color: '#23CE6B',
   padding: '4px',
-  textShadow: '0 0 5px rgba(152, 251, 152, 0.7)', // Glow effect
+  textShadow: '0 0 2px rgba(152, 251, 152, 0.7)', // Glow effect
 });
 
 const FleetIcon = styled.img.attrs({
