@@ -1,13 +1,11 @@
-import * as React from 'react'
-import Button from '@mui/material/Button'
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
-import Modal from '@mui/material/Modal'
-import CloseIcon from '@mui/icons-material/Close'
-import Box from '@mui/material/Box'
-import { styled } from '@mui/system'
-import { useConnect, type Connector } from '@starknet-react/core'
-import argentIcon from '../../assets/uiIcons/argent.png'
-import braavosIcon from '../../assets/uiIcons/braavos.png'
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import Modal from '@mui/material/Modal';
+import CloseIcon from '@mui/icons-material/Close';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/system';
+import { useConnect, type Connector } from '@starknet-react/core';
 
 const StyledBox = styled(Box)({
   fontWeight: 600,
@@ -17,22 +15,23 @@ const StyledBox = styled(Box)({
   left: '50%',
   transform: 'translate(-50%, -50%)',
   backgroundColor: '#1B1E2A',
-  border: '1px solid #0A0C16',
+  border: '1px solid #282C3E',
   borderRadius: 16,
   boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
   padding: '24px 12px',
   // display: "grid",
   display: 'flex',
   flexDirection: 'column',
-  width: '30%'
-})
+  width: '30%',
+});
 
 const HeaderDiv = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginBottom: '12px'
-})
+  marginBottom: '12px',
+  fontWeight: 'bold',
+});
 
 const CloseStyledIcon = styled(CloseIcon)({
   cursor: 'pointer',
@@ -45,72 +44,91 @@ const CloseStyledIcon = styled(CloseIcon)({
 
   '&:hover': {
     boxShadow: '0px 0px 10px 3px rgba(0, 0, 0, 0.2)', // Circle shadow effect
-    borderRadius: '50%' // Ensures the shadow takes a circular form
-  }
-})
+    borderRadius: '50%', // Ensures the shadow takes a circular form
+  },
+});
 
 const StyledUl = styled('ul')({
   padding: '8px',
-  flexGrow: 1
-})
+  flexGrow: 1,
+});
 
 const StyledLi = styled('li')({
   listStyleType: 'none',
-  margin: '8px'
-})
+  margin: '8px',
+});
 
 const ConnectorIcon = styled('img')({
-  width: '20px'
-})
+  width: '20px',
+});
 
 const ConnectorText = styled('span')({
   flexGrow: 1,
   textAlign: 'center',
-  fontWeight: '500'
-})
+  fontWeight: '500',
+});
 
 const DisclaimerText = styled('div')({
   fontSize: '12px',
   fontWeight: '400',
-  width: '70%',
+  width: '100%',
   margin: '2px auto',
-  textAlign: 'center'
-})
+  textAlign: 'center',
+});
 
-const StyledButton = styled(Button)({
+const ToolbarButton = styled(Button)({
   width: '100%',
   borderRadius: 8,
   padding: '8px 32px',
   textTransform: 'capitalize',
   letterSpacing: '0.1em',
-  backgroundColor: '#2A2D3A', // Slightly lighter background for the button
-  border: '1px solid #0F111A', // Darker border for definition
+  backgroundColor: '#24397F', // Slightly lighter background for the button
+  border: '1px solid #28408F', // Darker border for definition
   display: 'flex',
   color: '#F4F3EE',
   justifyContent: 'center',
   '&:hover': {
-    background: '#212530' // Slightly lighter than #1B1E2A for a subtle hover effect
-  }
-})
+    background: '#1F3370', // Slightly lighter than #1B1E2A for a subtle hover effect
+  },
+});
 
-export default function ConnectWallet () {
-  const [open, setOpen] = React.useState(false)
-  const toggleModal = () => { setOpen((prevState) => !prevState) }
-  const handleClose = () => { setOpen(false) }
-  const { connect, connectors } = useConnect()
+const WalletButton = styled(Button)({
+  width: '100%',
+  borderRadius: 8,
+  padding: '8px 32px',
+  textTransform: 'capitalize',
+  letterSpacing: '0.1em',
+  backgroundColor: '#282C3E', // Slightly lighter background for the button
+  display: 'flex',
+  color: '#F4F3EE',
+  justifyContent: 'center',
+  '&:hover': {
+    background: '##282C3E', // Slightly lighter than #1B1E2A for a subtle hover effect
+  },
+});
+
+export default function ConnectWallet() {
+  const [open, setOpen] = React.useState(false);
+  const toggleModal = () => {
+    setOpen((prevState) => !prevState);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const { connect, connectors } = useConnect();
 
   const handleConnect = (connector: Connector) => {
-    connect({ connector })
-  }
+    connect({ connector });
+  };
 
   return (
     <>
-      <StyledButton
+      <ToolbarButton
         startIcon={<AccountBalanceWalletIcon />}
         onClick={toggleModal}
       >
         Connect Wallet
-      </StyledButton>
+      </ToolbarButton>
       <Modal
         open={open}
         onClose={toggleModal}
@@ -119,33 +137,21 @@ export default function ConnectWallet () {
       >
         <StyledBox>
           <HeaderDiv>
-            CONNECT A WALLET
+            Connect a Wallet
             <CloseStyledIcon onClick={handleClose} />
           </HeaderDiv>
           <StyledUl>
             {connectors.map((connector) => (
               <StyledLi key={connector.id}>
-                <StyledButton
+                <WalletButton
                   size="large"
-                  onClick={() => { handleConnect(connector) }}
+                  onClick={() => {
+                    handleConnect(connector);
+                  }}
                 >
-                  {connector.id === 'argentX' ? (
-                    <>
-                      <ConnectorIcon src={argentIcon} alt="argent" />
-                      <ConnectorText>{connector.name}</ConnectorText>
-                    </>
-                  ) : (
-                    <>
-                      <ConnectorIcon src={braavosIcon} alt="braavos" />
-                      <ConnectorText>{connector.name}</ConnectorText>
-                      {/* <ConnectorIcon
-                        src={connector.icon.light}
-                        alt={connector.id}
-                      />
-                      <ConnectorText>{connector.id}</ConnectorText> */}
-                    </>
-                  )}
-                </StyledButton>
+                  <ConnectorIcon src={connector.icon.dark} alt="argent" />
+                  <ConnectorText>{connector.name}</ConnectorText>
+                </WalletButton>
               </StyledLi>
             ))}
           </StyledUl>
@@ -156,5 +162,5 @@ export default function ConnectWallet () {
         </StyledBox>
       </Modal>
     </>
-  )
+  );
 }

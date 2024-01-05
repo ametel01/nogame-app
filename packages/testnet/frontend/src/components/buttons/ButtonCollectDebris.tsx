@@ -21,6 +21,7 @@ import {
   getFuelConsumption,
 } from '../../shared/utils/FleetUtils';
 import { convertSecondsToTime, numberWithCommas } from '../../shared/utils';
+import { TransactionStatus } from '../ui/TransactionStatus';
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -173,7 +174,8 @@ export function ButtonCollectDebris({
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [travelTime, setTravelTime] = useState(0);
   const [fuelConsumption, setFuelConsumption] = useState(0);
-  const [isModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isButtotClicked, setIsButtonClicked] = useState(false);
   const totalShips = quantities.scraper || 0;
 
   const handleInputChange = (e: { target: { value: string } }) => {
@@ -210,7 +212,7 @@ export function ButtonCollectDebris({
     setFuelConsumption(getFuelConsumption(fleet, distance));
   }, [distance, fleet, techs]);
 
-  const { writeAsync } = useSendFleet(fleet, position, true);
+  const { writeAsync, data } = useSendFleet(fleet, position, true);
 
   const isShipOverLimit = totalShips > ownFleet.scraper;
 
@@ -224,103 +226,113 @@ export function ButtonCollectDebris({
     }
   }, [travelTime]);
 
+  const handleButtonClick = () => {
+    writeAsync(), setIsModalOpen(false), setIsButtonClicked(true);
+  };
+
   return (
-    <Modal open={isModalOpen} onClose={onClose}>
-      <StyledBox>
-        <HeaderDiv>
-          SELECT SHIPS
-          <CloseStyledIcon onClick={onClose} />
-        </HeaderDiv>
-        <Container>
-          <div>
-            <StyledUl>
-              <FlexContainer>
-                <ShipImage src={scraperImg} alt="scraper" />
-                <Text totalShips={totalShips} ownFleet={ownFleet}>
-                  scraper (
-                  <span
-                    style={{
-                      color:
-                        totalShips > ownFleet.scraper ? '#AB3836' : '#F8F8FF',
-                    }}
-                  >
-                    {String(availableScrapers)}
-                  </span>
-                  )
-                </Text>
-                <InputButtonContainer>
-                  <Input
-                    type="number"
-                    value={quantities.scraper || 0}
-                    onChange={handleInputChange}
-                    size="sm"
-                    color="neutral"
-                    variant="soft"
-                    style={{ width: '80px' }}
-                  />
-                </InputButtonContainer>
-                <TotalDebrisText>
-                  Total Debris{' '}
-                  <TotalDebrisValue>
-                    {numberWithCommas(
-                      Number(debrisField.steel) + Number(debrisField.quartz)
-                    )}
-                  </TotalDebrisValue>
-                </TotalDebrisText>
-              </FlexContainer>
-            </StyledUl>
-          </div>
-          <TravelInfoContainer>
-            <TravelDetailColumn>
-              <TravelInfoName>
-                Destination: <TravelInfoValue>{positionString}</TravelInfoValue>
-              </TravelInfoName>
-              <TravelInfoName>
-                Travel time:{' '}
-                <TravelInfoValue>
-                  {convertSecondsToTime(travelTime)}
-                </TravelInfoValue>
-              </TravelInfoName>
-              <TravelInfoName>
-                Time arrival:{' '}
-                <TravelInfoValue>
-                  {timeOfArrival ? timeOfArrival.toLocaleTimeString() : null}
-                </TravelInfoValue>
-              </TravelInfoName>
-            </TravelDetailColumn>
-            <TravelDetailColumn>
-              <TravelInfoName>
-                Tritium consumption:{' '}
-                <TravelInfoValue>
-                  {numberWithCommas(fuelConsumption)}
-                </TravelInfoValue>
-              </TravelInfoName>
-              <TravelInfoName>
-                Total number of ships:{' '}
-                <TravelInfoValue>
-                  {numberWithCommas(totalShips)}
-                </TravelInfoValue>
-              </TravelInfoName>
-              <TravelInfoName>
-                Cargo Capacity:{' '}
-                <TravelInfoValue>
-                  {numberWithCommas(totalShips * SCRAPER.cargo)}
-                </TravelInfoValue>
-              </TravelInfoName>
-            </TravelDetailColumn>
-          </TravelInfoContainer>
-        </Container>
-        <StyledButton
-          onClick={() => writeAsync()}
-          fullWidth
-          style={{
-            background: isShipOverLimit ? '#3B3F53' : '#4A63AA',
-          }}
-          disabled={isShipOverLimit}
-        >
-          Send Debris Collection
-        </StyledButton>
-      </StyledBox>
-    </Modal>
+    <>
+      <Modal open={isModalOpen} onClose={onClose}>
+        <StyledBox>
+          <HeaderDiv>
+            SELECT SHIPS
+            <CloseStyledIcon onClick={onClose} />
+          </HeaderDiv>
+          <Container>
+            <div>
+              <StyledUl>
+                <FlexContainer>
+                  <ShipImage src={scraperImg} alt="scraper" />
+                  <Text totalShips={totalShips} ownFleet={ownFleet}>
+                    scraper (
+                    <span
+                      style={{
+                        color:
+                          totalShips > ownFleet.scraper ? '#AB3836' : '#F8F8FF',
+                      }}
+                    >
+                      {String(availableScrapers)}
+                    </span>
+                    )
+                  </Text>
+                  <InputButtonContainer>
+                    <Input
+                      type="number"
+                      value={quantities.scraper || 0}
+                      onChange={handleInputChange}
+                      size="sm"
+                      color="neutral"
+                      variant="soft"
+                      style={{ width: '80px' }}
+                    />
+                  </InputButtonContainer>
+                  <TotalDebrisText>
+                    Total Debris{' '}
+                    <TotalDebrisValue>
+                      {numberWithCommas(
+                        Number(debrisField.steel) + Number(debrisField.quartz)
+                      )}
+                    </TotalDebrisValue>
+                  </TotalDebrisText>
+                </FlexContainer>
+              </StyledUl>
+            </div>
+            <TravelInfoContainer>
+              <TravelDetailColumn>
+                <TravelInfoName>
+                  Destination:{' '}
+                  <TravelInfoValue>{positionString}</TravelInfoValue>
+                </TravelInfoName>
+                <TravelInfoName>
+                  Travel time:{' '}
+                  <TravelInfoValue>
+                    {convertSecondsToTime(travelTime)}
+                  </TravelInfoValue>
+                </TravelInfoName>
+                <TravelInfoName>
+                  Time arrival:{' '}
+                  <TravelInfoValue>
+                    {timeOfArrival ? timeOfArrival.toLocaleTimeString() : null}
+                  </TravelInfoValue>
+                </TravelInfoName>
+              </TravelDetailColumn>
+              <TravelDetailColumn>
+                <TravelInfoName>
+                  Tritium consumption:{' '}
+                  <TravelInfoValue>
+                    {numberWithCommas(fuelConsumption)}
+                  </TravelInfoValue>
+                </TravelInfoName>
+                <TravelInfoName>
+                  Total number of ships:{' '}
+                  <TravelInfoValue>
+                    {numberWithCommas(totalShips)}
+                  </TravelInfoValue>
+                </TravelInfoName>
+                <TravelInfoName>
+                  Cargo Capacity:{' '}
+                  <TravelInfoValue>
+                    {numberWithCommas(totalShips * SCRAPER.cargo)}
+                  </TravelInfoValue>
+                </TravelInfoName>
+              </TravelDetailColumn>
+            </TravelInfoContainer>
+          </Container>
+          <StyledButton
+            onClick={handleButtonClick}
+            fullWidth
+            style={{
+              background: isShipOverLimit ? '#3B3F53' : '#4A63AA',
+            }}
+            disabled={isShipOverLimit}
+          >
+            Send Debris Collection
+          </StyledButton>
+        </StyledBox>
+      </Modal>
+      {isButtotClicked && (
+        <TransactionStatus name="Collect Debris" tx={data?.transaction_hash} />
+      )}
+    </>
   );
 }
