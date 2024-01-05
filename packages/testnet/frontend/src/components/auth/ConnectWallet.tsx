@@ -5,7 +5,11 @@ import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/system';
-import { useConnect, type Connector } from '@starknet-react/core';
+import { useConnect } from '@starknet-react/core';
+import argenWallet from '../../assets/uiIcons/argent.png';
+import braavosWallet from '../../assets/uiIcons/braavos.svg';
+import ArgentMobileWalletIcon from './ArgentMobileWallet';
+import ArgentWebWalletIcon from './ArgentWebWallet';
 
 const StyledBox = styled(Box)({
   fontWeight: 600,
@@ -22,7 +26,7 @@ const StyledBox = styled(Box)({
   // display: "grid",
   display: 'flex',
   flexDirection: 'column',
-  width: '30%',
+  width: '32%',
 });
 
 const HeaderDiv = styled('div')({
@@ -56,10 +60,6 @@ const StyledUl = styled('ul')({
 const StyledLi = styled('li')({
   listStyleType: 'none',
   margin: '8px',
-});
-
-const ConnectorIcon = styled('img')({
-  width: '20px',
 });
 
 const ConnectorText = styled('span')({
@@ -107,6 +107,21 @@ const WalletButton = styled(Button)({
   },
 });
 
+const getConnectorIcon = (connectorId: string) => {
+  switch (connectorId) {
+    case 'braavos':
+      return braavosWallet;
+    case 'argentX':
+      return argenWallet;
+    case 'argentWebWallet':
+      return <ArgentWebWalletIcon />; // Assuming you use the same icon for argentWebWallet
+    case 'argentMobile':
+      return <ArgentMobileWalletIcon />; // This is a React component
+    default:
+      return null; // Default case if the connectorId doesn't match any known ids
+  }
+};
+
 export default function ConnectWallet() {
   const [open, setOpen] = React.useState(false);
   const toggleModal = () => {
@@ -117,9 +132,13 @@ export default function ConnectWallet() {
   };
   const { connect, connectors } = useConnect();
 
-  const handleConnect = (connector: Connector) => {
-    connect({ connector });
-  };
+  React.useEffect(() => {
+    console.log('Connectors updated:', connectors);
+
+    connectors.forEach((connector) => {
+      console.log(`${connector.id} icon:`, connector.icon.dark);
+    });
+  }, [connectors]);
 
   return (
     <>
@@ -141,19 +160,32 @@ export default function ConnectWallet() {
             <CloseStyledIcon onClick={handleClose} />
           </HeaderDiv>
           <StyledUl>
-            {connectors.map((connector) => (
-              <StyledLi key={connector.id}>
-                <WalletButton
-                  size="large"
-                  onClick={() => {
-                    handleConnect(connector);
-                  }}
-                >
-                  <ConnectorIcon src={connector.icon.dark} alt="argent" />
-                  <ConnectorText>{connector.name}</ConnectorText>
-                </WalletButton>
-              </StyledLi>
-            ))}
+            {connectors && connectors.length > 0 ? (
+              connectors.map((connector) => {
+                const ConnectorIcon = getConnectorIcon(connector.id);
+                return (
+                  <StyledLi key={connector.id}>
+                    <WalletButton
+                      size="large"
+                      onClick={() => connect({ connector })}
+                    >
+                      {typeof ConnectorIcon === 'string' ? (
+                        <img
+                          src={ConnectorIcon}
+                          alt={connector.id}
+                          style={{ width: '20px' }}
+                        />
+                      ) : (
+                        ConnectorIcon // This is the case where the icon is a React component
+                      )}
+                      <ConnectorText>{connector.id}</ConnectorText>
+                    </WalletButton>
+                  </StyledLi>
+                );
+              })
+            ) : (
+              <div>No connectors available</div>
+            )}
           </StyledUl>
           <DisclaimerText>
             By connecting your wallet, you acknowledge and accept all risks and
