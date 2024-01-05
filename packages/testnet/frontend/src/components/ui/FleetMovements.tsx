@@ -156,7 +156,14 @@ interface Props {
 
 export const FleetMovements = ({ planetId }: Props) => {
   const rawMissions = useGetActiveMissions(planetId);
-  const missions = useMemo(() => rawMissions || [], [rawMissions]);
+  const missions = useMemo(() => {
+    if (!rawMissions) return [];
+
+    return [...rawMissions].sort((a, b) => {
+      return Number(a.time_arrival) - Number(b.time_arrival);
+    });
+  }, [rawMissions]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
   const [state, dispatch] = useReducer(fleetReducer, {
