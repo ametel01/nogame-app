@@ -104,7 +104,7 @@ const UniverseViewBox = ({
   const ownPlanetPosition = usePlanetPosition(Number(ownPlanetId));
 
   const getLastActiveTime = useMemo(() => {
-    if (!lastActive) return 'Unknown';
+    if (!lastActive || timeDifference > oneWeekInSeconds) return 'Inactive';
     const lastActiveDate = new Date(lastActive * 1000);
     const adjustedLastActiveDate = new Date(
       lastActiveDate.getTime() + 8 * 60 * 60 * 1000
@@ -119,7 +119,7 @@ const UniverseViewBox = ({
     if (differenceInSeconds < 86400)
       return `${Math.floor(differenceInSeconds / 3600)} hours ago`;
     return `${Math.floor(differenceInSeconds / 86400)} days ago`;
-  }, [lastActive]);
+  }, [lastActive, oneWeekInSeconds, timeDifference]);
 
   console.log(ownPlanetPosition);
   const ownPositionNumberised = useMemo(

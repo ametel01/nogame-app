@@ -101,26 +101,27 @@ export const MissionRow = memo(
           </Tooltip>
         </MissionText>
         <ButtonContainer>
-        {isArrived ? 
-          <StyledButton
-          size="small"
-          sx={{ background: '#883606' }}
-            fullWidth
-            onClick={onRecallClick}
-          >
-            Recall
-          </StyledButton> :
-          <StyledButton
-            onClick={() => {
-              handleAttackClick(mission);
-            }}
-            size="small"
-            sx={{ background: '#4A63AA' }}
-            fullWidth
-          >
-            {mission.is_debris ? 'Collect' : 'Attack'}
-          </StyledButton>
-      }
+          {isArrived ? (
+            <StyledButton
+              size="small"
+              sx={{ background: '#C47E33' }}
+              fullWidth
+              onClick={onRecallClick}
+            >
+              Recall
+            </StyledButton>
+          ) : (
+            <StyledButton
+              onClick={() => {
+                handleAttackClick(mission);
+              }}
+              size="small"
+              sx={{ background: '#4A63AA' }}
+              fullWidth
+            >
+              {mission.is_debris ? 'Collect' : 'Attack'}
+            </StyledButton>
+          )}
         </ButtonContainer>
       </GridRow>
     );
