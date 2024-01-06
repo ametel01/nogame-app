@@ -1,4 +1,4 @@
-import { type Resources } from '../shared/types'
+import { type Resources } from '../shared/types';
 
 export const baseTechCost: Record<string, Resources> = {
   digital: { steel: 0, quartz: 400, tritium: 600 },
@@ -12,7 +12,18 @@ export const baseTechCost: Record<string, Resources> = {
   spacetime: { steel: 0, quartz: 4000, tritium: 2000 },
   beam: { steel: 200, quartz: 100, tritium: 0 },
   ion: { steel: 1000, quartz: 300, tritium: 100 },
-  plasma: { steel: 2000, quartz: 4000, tritium: 1000 }
+  plasma: { steel: 2000, quartz: 4000, tritium: 1000 },
+};
+
+export function getBaseShipsCost() {
+  return {
+    celestia: { steel: 0, quartz: 2000, tritium: 500 },
+    carrier: { steel: 2000, quartz: 2000, tritium: 0 },
+    scraper: { steel: 10000, quartz: 6000, tritium: 2000 },
+    sparrow: { steel: 3000, quartz: 1000, tritium: 0 },
+    frigate: { steel: 20000, quartz: 7000, tritium: 200 },
+    armade: { steel: 45000, quartz: 15000, tritium: 0 },
+  };
 }
 
 export const baseShipCost: Record<string, Resources> = {
@@ -21,16 +32,25 @@ export const baseShipCost: Record<string, Resources> = {
   scraper: { steel: 10000, quartz: 6000, tritium: 2000 },
   sparrow: { steel: 3000, quartz: 1000, tritium: 0 },
   frigate: { steel: 20000, quartz: 7000, tritium: 200 },
-  armade: { steel: 45000, quartz: 15000, tritium: 0 }
+  armade: { steel: 45000, quartz: 15000, tritium: 0 },
+};
+
+export function getBaseDefenceCost() {
+  return {
+    blaster: { steel: 2000, quartz: 0, tritium: 0 },
+    beam: { steel: 6000, quartz: 2000, tritium: 0 },
+    astral: { steel: 20000, quartz: 15000, tritium: 0 },
+    plasma: { steel: 50000, quartz: 50000, tritium: 0 },
+  };
 }
 export const baseDefenceCost: Record<string, Resources> = {
   blaster: { steel: 2000, quartz: 0, tritium: 0 },
   beam: { steel: 6000, quartz: 2000, tritium: 0 },
   astral: { steel: 20000, quartz: 15000, tritium: 0 },
-  plasma: { steel: 50000, quartz: 50000, tritium: 0 }
-}
+  plasma: { steel: 50000, quartz: 50000, tritium: 0 },
+};
 
-type BaseTechCostKey = keyof typeof baseTechCost
+type BaseTechCostKey = keyof typeof baseTechCost;
 
 // Mapping from functionCallName to baseTechCost key
 export const techCostMapping: Record<string, BaseTechCostKey> = {
@@ -45,5 +65,5 @@ export const techCostMapping: Record<string, BaseTechCostKey> = {
   spacetime_warp: 'spacetime',
   beam_technology: 'beam',
   ion_systems: 'ion',
-  plasma_engineering: 'plasma'
-}
+  plasma_engineering: 'plasma',
+};

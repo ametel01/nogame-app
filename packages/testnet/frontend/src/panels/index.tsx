@@ -20,7 +20,6 @@ import { DefenceTabPanel } from './DefencesTab';
 import { CompoundsTabPanel } from './CompoundsTab';
 import { useSpendableResources } from '../hooks/ResourcesHooks';
 import { useDefencesLevels, useShipsLevels } from '../hooks/LevelsHooks';
-import { useDefencesCost, useShipsCost } from '../hooks/CostsHooks';
 import { UniverseViewTabPanel } from './UniverseViewTab';
 import { useGetCelestiaAvailable } from '../hooks/EnergyHooks';
 import {
@@ -34,6 +33,7 @@ import {
 } from '../shared/types';
 import { Typography } from '@mui/material';
 import fetchUpgradesData from '../api/fetchUpgradesData';
+import { getBaseShipsCost, getBaseDefenceCost } from '../constants/costs';
 
 interface ResourcesSectionArgs {
   planetId: number;
@@ -62,10 +62,10 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   // Data Retrieval Hooks
   const spendableResources = useSpendableResources(planetId);
   const shipsLevels = useShipsLevels(planetId);
-  const shipsCost = useShipsCost();
+  const shipsCost = getBaseShipsCost();
   const defencesLevels = useDefencesLevels(planetId);
   const celestiaAvailable = useGetCelestiaAvailable(planetId);
-  const defencesCost = useDefencesCost();
+  const defencesCost = getBaseDefenceCost();
 
   if (!compoundsLevels || !techLevels) {
     // Centered CircularProgress
