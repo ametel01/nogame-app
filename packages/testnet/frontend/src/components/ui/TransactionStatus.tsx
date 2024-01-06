@@ -23,13 +23,10 @@ export function TransactionStatus({ name, tx }: Props) {
     if (data && 'finality_status' in data) {
       // Now TypeScript knows 'finality_status' is a valid property
       if (data.finality_status === 'ACCEPTED_ON_L2') {
-        console.log(data.finality_status);
         setTransactionSuccess(true);
       }
     }
   }, [data]);
-
-  console.log(data);
 
   const handleModalClose = () => {
     setShowModal(false);

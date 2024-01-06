@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import * as Styled from '../../shared/styled/Box';
 import { CircularProgress } from '@mui/material';
@@ -12,7 +12,6 @@ import {
 import PlanetModal from '../modals/PlanetOverview';
 import { convertPositionToNumbers, numberWithCommas } from '../../shared/utils';
 import DebrisFieldView from '../ui/DebrisFieldView';
-import fetchUpgradesData from '../../api/fetchUpgradesData';
 import { usePlanetPosition } from '../../hooks/usePlanetPosition';
 
 const InfoContainer = styled(Styled.InfoContainer)({
@@ -60,6 +59,7 @@ interface Props {
   defences?: DefenceLevels;
   ownPlanetId: number;
   ownFleet?: ShipsLevels;
+  ownTechs?: TechLevels;
   isNoobProtected?: boolean;
   lastActive: number;
 }
@@ -73,10 +73,10 @@ const UniverseViewBox = ({
   highlighted,
   ownPlanetId,
   ownFleet,
+  ownTechs,
   isNoobProtected,
   lastActive,
 }: Props) => {
-  const [techLevels, setTechLevels] = useState<TechLevels | null>(null);
   const boxStyle = highlighted ? { border: '1px solid #23CE6B' } : {};
 
   // Calculate the time difference in seconds
@@ -88,19 +88,6 @@ const UniverseViewBox = ({
   const updatedIsNoobProtected =
     isNoobProtected && timeDifference < oneWeekInSeconds;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchUpgradesData({ planetId });
-        setTechLevels(data.techLevels);
-      } catch (error) {
-        console.error('Error fetching upgrades data:', error);
-        // Handle the error appropriately
-      }
-    };
-
-    fetchData();
-  }, [planetId]);
   const ownPlanetPosition = usePlanetPosition(Number(ownPlanetId));
 
   const getLastActiveTime = useMemo(() => {
@@ -121,7 +108,6 @@ const UniverseViewBox = ({
     return `${Math.floor(differenceInSeconds / 86400)} days ago`;
   }, [lastActive, oneWeekInSeconds, timeDifference]);
 
-  console.log(ownPlanetPosition);
   const ownPositionNumberised = useMemo(
     () => convertPositionToNumbers(ownPlanetPosition),
     [ownPlanetPosition]
@@ -173,7 +159,7 @@ const UniverseViewBox = ({
           planetId={planetId}
           position={position}
           ownFleet={ownFleet}
-          techs={techLevels!}
+          techs={ownTechs}
           ownPosition={ownPositionNumberised}
         />
         <Styled.ButtonContainer>
@@ -182,7 +168,7 @@ const UniverseViewBox = ({
             isNoobProtected={updatedIsNoobProtected}
             destination={position}
             ownFleet={ownFleet!}
-            techs={techLevels!}
+            techs={ownTechs}
             ownPosition={ownPositionNumberised}
             planetId={planetId}
           />

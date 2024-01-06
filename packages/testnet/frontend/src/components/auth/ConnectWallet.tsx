@@ -132,14 +132,6 @@ export default function ConnectWallet() {
   };
   const { connect, connectors } = useConnect();
 
-  React.useEffect(() => {
-    console.log('Connectors updated:', connectors);
-
-    connectors.forEach((connector) => {
-      console.log(`${connector.id} icon:`, connector.icon.dark);
-    });
-  }, [connectors]);
-
   return (
     <>
       <ToolbarButton

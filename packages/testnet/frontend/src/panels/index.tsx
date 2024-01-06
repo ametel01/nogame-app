@@ -170,7 +170,7 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
           compoundsLevels.dockyard,
           techLevels
         )}
-      {activeTab === 5 && renderUniversePanel(planetId)}
+      {activeTab === 5 && renderUniversePanel(planetId, techLevels)}
     </ResourcesTabs>
   );
 };
@@ -236,6 +236,6 @@ function renderDefencesPanel(
   );
 }
 
-function renderUniversePanel(planetId: number) {
-  return <UniverseViewTabPanel ownPlanetId={planetId} />;
+function renderUniversePanel(planetId: number, techLevels: TechLevels) {
+  return <UniverseViewTabPanel ownPlanetId={planetId} ownTechs={techLevels} />;
 }

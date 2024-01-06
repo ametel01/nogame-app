@@ -8,6 +8,7 @@ import {
   type Resources,
   type ShipsLevels,
   type PlanetDetails,
+  TechLevels,
 } from '../shared/types';
 import { useAccount } from '@starknet-react/core';
 import { useShipsLevels } from '../hooks/LevelsHooks';
@@ -18,9 +19,14 @@ import fetchPlanetsData from '../api/fetchPlanetsData';
 interface UniverseBoxItemProps {
   ownPlanetId: number;
   planet: PlanetDetails;
+  ownTechs?: TechLevels;
 }
 
-const UniverseBoxItem = ({ ownPlanetId, planet }: UniverseBoxItemProps) => {
+const UniverseBoxItem = ({
+  ownPlanetId,
+  planet,
+  ownTechs,
+}: UniverseBoxItemProps) => {
   const { address: address_data } = useAccount();
   const address = address_data || '';
   const highlighted = parseInt(address, 16) === parseInt(planet.account, 16);
@@ -64,6 +70,7 @@ const UniverseBoxItem = ({ ownPlanetId, planet }: UniverseBoxItemProps) => {
       highlighted={highlighted}
       ownPlanetId={ownPlanetId}
       ownFleet={ownFleet}
+      ownTechs={ownTechs}
       isNoobProtected={isNoobProtected}
       lastActive={Number(planet.lastActive)}
     />
@@ -73,6 +80,7 @@ const UniverseBoxItem = ({ ownPlanetId, planet }: UniverseBoxItemProps) => {
 interface UniverseViewTabPanelProps {
   spendable?: Resources;
   collectible?: Resources;
+  ownTechs?: TechLevels;
   fleet?: ShipsLevels;
   defences?: DefenceLevels;
   ownPlanetId: number;
@@ -80,6 +88,7 @@ interface UniverseViewTabPanelProps {
 
 export const UniverseViewTabPanel = ({
   ownPlanetId,
+  ownTechs,
   ...rest
 }: UniverseViewTabPanelProps) => {
   const [planetsData, setPlanetsData] = useState<PlanetDetails[]>([]);
@@ -132,6 +141,7 @@ export const UniverseViewTabPanel = ({
       {selectedPlanets.map((planet, index) => (
         <UniverseBoxItem
           ownPlanetId={ownPlanetId}
+          ownTechs={ownTechs}
           key={index}
           planet={planet}
         />

@@ -209,10 +209,12 @@ function ButtonAttackPlanet({
     [quantities]
   );
 
+  console.log(techs?.thrust);
+
   const distance = ownPosition ? getDistance(ownPosition, position) : 0;
 
   useEffect(() => {
-    const speed: number = getFleetSpeed(fleet, techs!);
+    const speed: number = techs ? getFleetSpeed(fleet, techs) : 0;
     setTravelTime(getFlightTime(speed, distance));
     setFuelConsumption(getFuelConsumption(fleet, distance));
     setCargoCapacity(calculateTotalCargoCapacity(fleet));

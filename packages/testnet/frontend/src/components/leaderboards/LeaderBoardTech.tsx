@@ -68,10 +68,6 @@ const LeadearBoardTech = ({ planetId }: Props) => {
         }
         const data = await response.json();
         setLeaderboard(data);
-
-        data.forEach((entry: FetchData) => {
-          console.log(entry.total_spent);
-        });
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);

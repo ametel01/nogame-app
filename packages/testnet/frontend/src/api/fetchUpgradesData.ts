@@ -1,18 +1,18 @@
-import { type CompoundsLevels, type TechLevels } from '../shared/types'
+import { type CompoundsLevels, type TechLevels } from '../shared/types';
 
 const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
-  const nodeEnv = import.meta.env.MODE
+  const nodeEnv = import.meta.env.MODE;
   const apiUrl =
     nodeEnv === 'production'
       ? `https://www.api.testnet.no-game.xyz/upgrades-levels?planet_id=${planetId}`
-      : `http://localhost:3001/upgrades-levels?planet_id=${planetId}`
+      : `http://localhost:3001/upgrades-levels?planet_id=${planetId}`;
 
   try {
-    const response = await fetch(apiUrl)
+    const response = await fetch(apiUrl);
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const data = await response.json()
+    const data = await response.json();
 
     if (data.length === 0) {
       // Return default objects with all fields set to 0
@@ -34,8 +34,8 @@ const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
         beam_tech: 0,
         plasma_tech: 0,
         shield: 0,
-        weapons: 0
-      }
+        weapons: 0,
+      };
 
       const compoundsLevels: CompoundsLevels = {
         steel: defaultLevels.steel,
@@ -43,8 +43,8 @@ const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
         tritium: defaultLevels.tritium,
         energy: defaultLevels.energy,
         dockyard: defaultLevels.dockyard,
-        lab: defaultLevels.lab
-      }
+        lab: defaultLevels.lab,
+      };
 
       const techLevels: TechLevels = {
         armour: defaultLevels.armour,
@@ -58,13 +58,13 @@ const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
         beam: defaultLevels.beam_tech,
         plasma: defaultLevels.plasma_tech,
         shield: defaultLevels.shield,
-        weapons: defaultLevels.weapons
-      }
+        weapons: defaultLevels.weapons,
+      };
 
-      return { compoundsLevels, techLevels }
+      return { compoundsLevels, techLevels };
     }
 
-    const upgrades = data[0] // Assuming the first item is the one we need
+    const upgrades = data[0]; // Assuming the first item is the one we need
 
     const compoundsLevels: CompoundsLevels = {
       steel: upgrades.steel || 0,
@@ -72,8 +72,8 @@ const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
       tritium: upgrades.tritium || 0,
       energy: upgrades.energy_plant || 0,
       dockyard: upgrades.dockyard || 0,
-      lab: upgrades.lab || 0
-    }
+      lab: upgrades.lab || 0,
+    };
 
     const techLevels: TechLevels = {
       armour: upgrades.armour || 0,
@@ -87,14 +87,26 @@ const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
       beam: upgrades.beam_tech || 0,
       plasma: upgrades.plasma_tech || 0,
       shield: upgrades.shield || 0,
-      weapons: upgrades.weapons || 0
-    }
+      weapons: upgrades.weapons || 0,
+    };
 
-    return { compoundsLevels, techLevels }
+    return { compoundsLevels, techLevels };
   } catch (error) {
-    console.error('Error fetching upgrades data:', error)
-    throw error
+    console.error('Error fetching upgrades data:', error);
+    throw error;
   }
-}
+};
 
-export default fetchUpgradesData
+export const checkITechsAreNotZero = (techLevels: TechLevels) => {
+  // Iterate over the values of the techLevels object
+  for (const level of Object.values(techLevels)) {
+    // If any tech level is not zero, return false
+    if (level !== 0) {
+      return true;
+    }
+  }
+  // If all tech levels are zero, return true
+  return false;
+};
+
+export default fetchUpgradesData;
