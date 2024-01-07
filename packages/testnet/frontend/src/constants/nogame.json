@@ -6,6 +6,20 @@
       "interface_name": "nogame::game::interface::INoGame"
     },
     {
+      "type": "enum",
+      "name": "core::bool",
+      "variants": [
+        {
+          "name": "False",
+          "type": "()"
+        },
+        {
+          "name": "True",
+          "type": "()"
+        }
+      ]
+    },
+    {
       "type": "struct",
       "name": "nogame::libraries::types::Fleet",
       "members": [
@@ -42,20 +56,6 @@
         {
           "name": "orbit",
           "type": "core::integer::u8"
-        }
-      ]
-    },
-    {
-      "type": "enum",
-      "name": "core::bool",
-      "variants": [
-        {
-          "name": "False",
-          "type": "()"
-        },
-        {
-          "name": "True",
-          "type": "()"
         }
       ]
     },
@@ -115,36 +115,6 @@
     },
     {
       "type": "struct",
-      "name": "nogame::libraries::types::CompoundsLevels",
-      "members": [
-        {
-          "name": "steel",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "quartz",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "tritium",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "energy",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "lab",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "dockyard",
-          "type": "core::integer::u8"
-        }
-      ]
-    },
-    {
-      "type": "struct",
       "name": "nogame::libraries::types::CompoundsCost",
       "members": [
         {
@@ -193,144 +163,6 @@
     },
     {
       "type": "struct",
-      "name": "nogame::libraries::types::TechLevels",
-      "members": [
-        {
-          "name": "energy",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "digital",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "beam",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "armour",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "ion",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "plasma",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "weapons",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "shield",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "spacetime",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "combustion",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "thrust",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "warp",
-          "type": "core::integer::u8"
-        }
-      ]
-    },
-    {
-      "type": "struct",
-      "name": "nogame::libraries::types::TechsCost",
-      "members": [
-        {
-          "name": "energy",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "digital",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "beam",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "armour",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "ion",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "plasma",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "weapons",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "shield",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "spacetime",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "combustion",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "thrust",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "warp",
-          "type": "nogame::libraries::types::ERC20s"
-        }
-      ]
-    },
-    {
-      "type": "struct",
-      "name": "nogame::libraries::types::ShipsCost",
-      "members": [
-        {
-          "name": "carrier",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "celestia",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "scraper",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "sparrow",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "frigate",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "armade",
-          "type": "nogame::libraries::types::ERC20s"
-        }
-      ]
-    },
-    {
-      "type": "struct",
       "name": "nogame::libraries::types::DefencesLevels",
       "members": [
         {
@@ -352,28 +184,6 @@
         {
           "name": "plasma",
           "type": "core::integer::u32"
-        }
-      ]
-    },
-    {
-      "type": "struct",
-      "name": "nogame::libraries::types::DefencesCost",
-      "members": [
-        {
-          "name": "blaster",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "beam",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "astral",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "plasma",
-          "type": "nogame::libraries::types::ERC20s"
         }
       ]
     },
@@ -454,10 +264,6 @@
               "type": "core::starknet::contract_address::ContractAddress"
             },
             {
-              "name": "rand",
-              "type": "core::starknet::contract_address::ContractAddress"
-            },
-            {
               "name": "eth",
               "type": "core::starknet::contract_address::ContractAddress"
             },
@@ -472,6 +278,10 @@
             {
               "name": "token_price",
               "type": "core::integer::u128"
+            },
+            {
+              "name": "is_testnet",
+              "type": "core::bool"
             }
           ],
           "outputs": [],
@@ -491,11 +301,28 @@
         },
         {
           "type": "function",
-          "name": "version",
-          "inputs": [],
+          "name": "generate_mint_key",
+          "inputs": [
+            {
+              "name": "secret",
+              "type": "core::felt252"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "get_mint_key",
+          "inputs": [
+            {
+              "name": "account",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
           "outputs": [
             {
-              "type": "core::integer::u8"
+              "type": "core::felt252"
             }
           ],
           "state_mutability": "view"
@@ -520,7 +347,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -532,7 +359,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -544,7 +371,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -556,7 +383,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -568,7 +395,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -580,7 +407,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -592,7 +419,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -604,7 +431,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -616,7 +443,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -628,7 +455,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -640,7 +467,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -652,7 +479,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -664,7 +491,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -676,7 +503,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -688,7 +515,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -700,7 +527,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -712,7 +539,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -724,7 +551,7 @@
           "inputs": [
             {
               "name": "quantity",
-              "type": "core::integer::u32"
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -1011,22 +838,6 @@
         },
         {
           "type": "function",
-          "name": "get_last_active",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u16"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "core::integer::u64"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
           "name": "get_spendable_resources",
           "inputs": [
             {
@@ -1085,22 +896,6 @@
           "outputs": [
             {
               "type": "core::integer::u128"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_compounds_levels",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u16"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::CompoundsLevels"
             }
           ],
           "state_mutability": "view"
@@ -1171,38 +966,6 @@
         },
         {
           "type": "function",
-          "name": "get_techs_levels",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u16"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::TechLevels"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_techs_upgrade_cost",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u16"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::TechsCost"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
           "name": "get_ships_levels",
           "inputs": [
             {
@@ -1213,17 +976,6 @@
           "outputs": [
             {
               "type": "nogame::libraries::types::Fleet"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_ships_cost",
-          "inputs": [],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::ShipsCost"
             }
           ],
           "state_mutability": "view"
@@ -1256,17 +1008,6 @@
           "outputs": [
             {
               "type": "nogame::libraries::types::DefencesLevels"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_defences_cost",
-          "inputs": [],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::DefencesCost"
             }
           ],
           "state_mutability": "view"
@@ -1342,58 +1083,6 @@
             }
           ],
           "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_travel_time",
-          "inputs": [
-            {
-              "name": "origin",
-              "type": "nogame::libraries::types::PlanetPosition"
-            },
-            {
-              "name": "destination",
-              "type": "nogame::libraries::types::PlanetPosition"
-            },
-            {
-              "name": "fleet",
-              "type": "nogame::libraries::types::Fleet"
-            },
-            {
-              "name": "techs",
-              "type": "nogame::libraries::types::TechLevels"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "core::integer::u64"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_fuel_consumption",
-          "inputs": [
-            {
-              "name": "origin",
-              "type": "nogame::libraries::types::PlanetPosition"
-            },
-            {
-              "name": "destination",
-              "type": "nogame::libraries::types::PlanetPosition"
-            },
-            {
-              "name": "fleet",
-              "type": "nogame::libraries::types::Fleet"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "core::integer::u128"
-            }
-          ],
-          "state_mutability": "view"
         }
       ]
     },
@@ -1410,6 +1099,11 @@
         {
           "name": "id",
           "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "position",
+          "type": "nogame::libraries::types::PlanetPosition",
           "kind": "data"
         },
         {
@@ -1430,6 +1124,16 @@
           "kind": "data"
         },
         {
+          "name": "compound_name",
+          "type": "core::felt252",
+          "kind": "data"
+        },
+        {
+          "name": "quantity",
+          "type": "core::integer::u8",
+          "kind": "data"
+        },
+        {
           "name": "spent",
           "type": "nogame::libraries::types::ERC20s",
           "kind": "data"
@@ -1444,6 +1148,16 @@
         {
           "name": "planet_id",
           "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "tech_name",
+          "type": "core::felt252",
+          "kind": "data"
+        },
+        {
+          "name": "quantity",
+          "type": "core::integer::u8",
           "kind": "data"
         },
         {
@@ -1464,6 +1178,16 @@
           "kind": "data"
         },
         {
+          "name": "ship_name",
+          "type": "core::felt252",
+          "kind": "data"
+        },
+        {
+          "name": "quantity",
+          "type": "core::integer::u32",
+          "kind": "data"
+        },
+        {
           "name": "spent",
           "type": "nogame::libraries::types::ERC20s",
           "kind": "data"
@@ -1478,6 +1202,16 @@
         {
           "name": "planet_id",
           "type": "core::integer::u16",
+          "kind": "data"
+        },
+        {
+          "name": "defence_name",
+          "type": "core::felt252",
+          "kind": "data"
+        },
+        {
+          "name": "quantity",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1530,6 +1264,16 @@
           "kind": "data"
         },
         {
+          "name": "attacker_position",
+          "type": "nogame::libraries::types::PlanetPosition",
+          "kind": "data"
+        },
+        {
+          "name": "attacker_initial_fleet",
+          "type": "nogame::libraries::types::Fleet",
+          "kind": "data"
+        },
+        {
           "name": "attacker_fleet_loss",
           "type": "nogame::libraries::types::Fleet",
           "kind": "data"
@@ -1540,13 +1284,33 @@
           "kind": "data"
         },
         {
+          "name": "defender_position",
+          "type": "nogame::libraries::types::PlanetPosition",
+          "kind": "data"
+        },
+        {
+          "name": "defender_initial_fleet",
+          "type": "nogame::libraries::types::Fleet",
+          "kind": "data"
+        },
+        {
           "name": "defender_fleet_loss",
           "type": "nogame::libraries::types::Fleet",
           "kind": "data"
         },
         {
+          "name": "initial_defences",
+          "type": "nogame::libraries::types::DefencesLevels",
+          "kind": "data"
+        },
+        {
           "name": "defences_loss",
           "type": "nogame::libraries::types::DefencesLevels",
+          "kind": "data"
+        },
+        {
+          "name": "loot",
+          "type": "nogame::libraries::types::ERC20s",
           "kind": "data"
         },
         {

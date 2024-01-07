@@ -3,16 +3,20 @@ import { styled } from '@mui/system';
 
 export const StyledButton = styled(Button)(() => ({
   borderRadius: 8,
-  fontWeight: 500,
+  fontWeight: 600,
   fontSize: 14,
   textTransform: 'capitalize',
   size: 'large',
   color: '#F4F3EE',
+  backgroundColor: '#4A63AA',
   // border: '1px solid #2E3A45',
   letterSpacing: '0.1em',
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   '&:hover': {
-    background: '#2E434C', // Darkened starry blue for hover state
+    background: '#2E434C',
+  },
+  '&:disabled': {
+    backgroundColor: '#3B3F53',
   },
 }));
 

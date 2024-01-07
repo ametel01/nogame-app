@@ -1,25 +1,25 @@
-import React from 'react'
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import { HeaderButton } from '../../shared/styled/Button'
-import { styled } from '@mui/material/styles'
-import { FleetMovements } from './FleetMovements'
-import { Link } from 'react-router-dom'
-import LogoutIcon from '@mui/icons-material/Logout'
-import { useAccount, useDisconnect } from '@starknet-react/core'
-import IconButton from '@mui/material/IconButton'
-import LeaderboardIcon from '@mui/icons-material/Leaderboard'
-import SummarizeIcon from '@mui/icons-material/Summarize'
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import WalletHeader from './WalletHeader'
+import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import { HeaderButton } from '../../shared/styled/Button';
+import { styled } from '@mui/material/styles';
+import { FleetMovements } from './FleetMovements';
+import { Link } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useAccount, useDisconnect } from '@starknet-react/core';
+import IconButton from '@mui/material/IconButton';
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import WalletHeader from './WalletHeader';
 
 const HeaderWrapper = styled(AppBar)({
   backgroundColor: '#1a2025', // Dark background for space theme
   margin: 0,
   padding: 0,
   boxShadow: 'none',
-  borderBottom: '1px solid #1a2025' // Subtle border for a sleek look
-})
+  borderBottom: '1px solid #1a2025', // Subtle border for a sleek look
+});
 
 const StyledToolbar = styled(Toolbar)({
   height: '24px',
@@ -28,24 +28,24 @@ const StyledToolbar = styled(Toolbar)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between', // Align items with space between
-  background: 'rgba(0, 0, 0, 0.2)'
-})
+  background: 'rgba(0, 0, 0, 0.2)',
+});
 
 const Spacer = styled('div')({
-  flex: '1'
-})
+  flex: '1',
+});
 
 interface Props {
-  planetId: number
+  planetId: number;
 }
 
 const Header = ({ planetId }: Props) => {
-  const { address: account } = useAccount()
-  const { disconnect } = useDisconnect()
+  const { address: account } = useAccount();
+  const { disconnect } = useDisconnect();
 
   const handleLogoutClick = () => {
-    disconnect()
-  }
+    disconnect();
+  };
 
   return (
     <HeaderWrapper position="static">
@@ -57,13 +57,22 @@ const Header = ({ planetId }: Props) => {
             marginRight: '16px',
             color: '#c5c6c7',
             fontWeight: 'bold',
-            opacity: '0.8'
+            opacity: '0.8',
           }}
         >
           <LogoutIcon style={{ transform: 'rotate(180deg)' }} />
         </IconButton>
         <WalletHeader account={account} />
         <Spacer />
+        <HeaderButton variant="text">
+          <DashboardIcon fontSize="small" sx={{ marginRight: '4px' }} />
+          <Link
+            to="/pioneer"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            Pioneer NFT
+          </Link>
+        </HeaderButton>
         <HeaderButton variant="text">
           <DashboardIcon fontSize="small" sx={{ marginRight: '4px' }} />
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -94,7 +103,7 @@ const Header = ({ planetId }: Props) => {
         </HeaderButton>
       </StyledToolbar>
     </HeaderWrapper>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

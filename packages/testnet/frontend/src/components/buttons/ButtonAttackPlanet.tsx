@@ -209,8 +209,6 @@ function ButtonAttackPlanet({
     [quantities]
   );
 
-  console.log(techs?.thrust);
-
   const distance = ownPosition ? getDistance(ownPosition, position) : 0;
 
   useEffect(() => {
