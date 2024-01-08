@@ -174,7 +174,7 @@ export const sparrowRequirements = (
   techs: TechLevels | undefined
 ) => {
   return dockyardLevel
-    ? dockyardLevel >= 2 && techs
+    ? dockyardLevel >= 1 && techs
       ? techs?.combustion >= 1
       : false
     : false;
