@@ -79,32 +79,6 @@ const RotatedLogoutIcon = styled(LogoutIcon)`
   margin-right: 8px;
 `;
 
-// const InfoBox = styled("div")(() => ({
-//   display: "flex",
-//   alignItems: "center", // Align items to the top of the flex container
-//   position: "absolute",
-//   top: "20px", // Set top position
-//   left: "20px", // Set left position
-//   width: "400px",
-//   height: "120px",
-//   backgroundColor: "rgba(34, 36, 45, 0.8)",
-//   opacity: "0.8",
-//   letterSpacing: "inherit",
-//   padding: "10px",
-//   borderRadius: "8px",
-//   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
-//   fontSize: "14px",
-//   overflow: "auto",
-//   textAlign: "left",
-// }));
-
-// const StyledInfoIcon = styled(WarningIcon)`
-//   color: #ffd700;
-//   opacity: 0.9;
-//   margin: 10px;
-//   align-self: center;
-// `;
-
 interface AuthScreenProps {
   address?: string;
   loading: boolean;

@@ -161,7 +161,7 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
         renderLabPanel(totalResources, techLevels, Number(compoundsLevels.lab))}
       {activeTab === 3 &&
         renderDockyardTab(
-          spendableResources,
+          totalResources,
           shipsLevels,
           shipsCost,
           compoundsLevels.dockyard,

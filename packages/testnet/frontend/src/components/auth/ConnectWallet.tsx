@@ -26,7 +26,7 @@ const StyledBox = styled(Box)({
   // display: "grid",
   display: 'flex',
   flexDirection: 'column',
-  width: '32%',
+  width: '30%',
 });
 
 const HeaderDiv = styled('div')({
@@ -65,7 +65,7 @@ const StyledLi = styled('li')({
 const ConnectorText = styled('span')({
   flexGrow: 1,
   textAlign: 'center',
-  fontWeight: '500',
+  fontWeight: 'bold',
 });
 
 const DisclaimerText = styled('div')({
@@ -80,15 +80,16 @@ const ToolbarButton = styled(Button)({
   width: '100%',
   borderRadius: 8,
   padding: '8px 32px',
+  fontWeight: 'bold',
   textTransform: 'capitalize',
   letterSpacing: '0.1em',
-  backgroundColor: '#24397F', // Slightly lighter background for the button
+  backgroundColor: '#4A63AA', // Slightly lighter background for the button
   border: '1px solid #28408F', // Darker border for definition
   display: 'flex',
   color: '#F4F3EE',
   justifyContent: 'center',
   '&:hover': {
-    background: '#1F3370', // Slightly lighter than #1B1E2A for a subtle hover effect
+    background: '#445C9C', // Slightly lighter than #1B1E2A for a subtle hover effect
   },
 });
 
@@ -103,7 +104,7 @@ const WalletButton = styled(Button)({
   color: '#F4F3EE',
   justifyContent: 'center',
   '&:hover': {
-    background: '##282C3E', // Slightly lighter than #1B1E2A for a subtle hover effect
+    background: '#202332', // Slightly lighter than #1B1E2A for a subtle hover effect
   },
 });
 
@@ -160,12 +161,13 @@ export default function ConnectWallet() {
                     <WalletButton
                       size="large"
                       onClick={() => connect({ connector })}
+                      sx={{ height: '3.5em' }}
                     >
                       {typeof ConnectorIcon === 'string' ? (
                         <img
                           src={ConnectorIcon}
                           alt={connector.id}
-                          style={{ width: '20px' }}
+                          style={{ width: '24px' }}
                         />
                       ) : (
                         ConnectorIcon // This is the case where the icon is a React component
