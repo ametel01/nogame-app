@@ -18,7 +18,10 @@ import { DockyardTabPanel } from './DockyardTab';
 import { DefenceTabPanel } from './DefencesTab';
 
 import { CompoundsTabPanel } from './CompoundsTab';
-import { useSpendableResources } from '../hooks/ResourcesHooks';
+import {
+  useCollectibleResources,
+  useSpendableResources,
+} from '../hooks/ResourcesHooks';
 import { useDefencesLevels, useShipsLevels } from '../hooks/LevelsHooks';
 import { UniverseViewTabPanel } from './UniverseViewTab';
 import { useGetCelestiaAvailable } from '../hooks/EnergyHooks';
@@ -61,13 +64,14 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   }, [planetId]);
   // Data Retrieval Hooks
   const spendableResources = useSpendableResources(planetId);
+  const collectibleResource = useCollectibleResources(planetId);
   const shipsLevels = useShipsLevels(planetId);
   const shipsCost = getBaseShipsCost();
   const defencesLevels = useDefencesLevels(planetId);
   const celestiaAvailable = useGetCelestiaAvailable(planetId);
   const defencesCost = getBaseDefenceCost();
 
-  if (!compoundsLevels || !techLevels) {
+  if (!compoundsLevels || !techLevels || !collectibleResource) {
     // Centered CircularProgress
     return (
       <div
@@ -86,6 +90,12 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
       </div>
     );
   }
+
+  const totalResources: Resources = {
+    steel: spendableResources.steel + collectibleResource.steel,
+    quartz: spendableResources.quartz + collectibleResource.quartz,
+    tritium: spendableResources.tritium + collectibleResource.tritium,
+  };
 
   return (
     <ResourcesTabs>
@@ -146,13 +156,9 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
           </RowCentered>
         </ResourceTab>
       </ResourcesTabList>
-      {activeTab === 1 && renderCompounds(spendableResources, compoundsLevels)}
+      {activeTab === 1 && renderCompounds(totalResources, compoundsLevels)}
       {activeTab === 2 &&
-        renderLabPanel(
-          spendableResources,
-          techLevels,
-          Number(compoundsLevels.lab)
-        )}
+        renderLabPanel(totalResources, techLevels, Number(compoundsLevels.lab))}
       {activeTab === 3 &&
         renderDockyardTab(
           spendableResources,
@@ -164,7 +170,7 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
         )}
       {activeTab === 4 &&
         renderDefencesPanel(
-          spendableResources,
+          totalResources,
           defencesLevels,
           defencesCost,
           compoundsLevels.dockyard,
