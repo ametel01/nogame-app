@@ -1,17 +1,21 @@
-import * as React from 'react'
-import Box from '@mui/material/Box'
-import Modal from '@mui/material/Modal'
-import DialogContent from '@mui/material/DialogContent'
-import CloseIcon from '@mui/icons-material/Close'
-import styled from 'styled-components'
-import { CircularProgress } from '@mui/material'
-import { type DefenceLevels, type Resources, type ShipsLevels } from '../../shared/types'
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import DialogContent from '@mui/material/DialogContent';
+import CloseIcon from '@mui/icons-material/Close';
+import styled from 'styled-components';
+import { CircularProgress } from '@mui/material';
+import {
+  type DefenceLevels,
+  type Resources,
+  type ShipsLevels,
+} from '../../shared/types';
 import {
   useSpendableResources,
-  useCollectibleResources
-} from '../../hooks/ResourcesHooks'
-import { useShipsLevels, useDefencesLevels } from '../../hooks/LevelsHooks'
-import { numberWithCommas } from '../../shared/utils'
+  useCollectibleResources,
+} from '../../hooks/ResourcesHooks';
+import { useShipsLevels, useDefencesLevels } from '../../hooks/LevelsHooks';
+import { numberWithCommas } from '../../shared/utils';
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -27,8 +31,8 @@ export const StyledBox = styled(Box)({
   padding: '16px 32px',
   display: 'flex',
   flexDirection: 'column',
-  width: '35%'
-})
+  width: '35%',
+});
 
 const StyledDialogContent = styled(DialogContent)`
   color: #f8f8ff;
@@ -36,7 +40,7 @@ const StyledDialogContent = styled(DialogContent)`
   grid-template-columns: 1fr 1fr; // Two columns for the main content
   gap: 20px;
   padding: 20px; // Padding inside the dialog content
-`
+`;
 
 const GridSection = styled.div`
   display: flex;
@@ -52,13 +56,13 @@ const GridSection = styled.div`
     font-size: 16px; // Reduced font size for the content
     margin: 0;
   }
-`
+`;
 
 const DetailGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr; // Two columns for the details
   gap: 10px;
-`
+`;
 
 const CloseStyledIcon = styled(CloseIcon)`
   cursor: pointer;
@@ -70,15 +74,15 @@ const CloseStyledIcon = styled(CloseIcon)`
   &:hover {
     color: #ffffff;
   },
-`
+`;
 
 const SubTitle = styled('h5')`
   // border-bottom: 1px solid;
-`
+`;
 
 const Value = styled.span`
   color: #23ce6b; // Set the color for values
-`
+`;
 
 const ImageContainer = styled.div`
   width: 70px;
@@ -106,43 +110,41 @@ const ImageContainer = styled.div`
     height: auto; // Maintain aspect ratio
     border-radius: 50%; // Circular shape for the image
   }
-`
+`;
 interface Props {
-  planetId: number
-  image: string
-  position: string
+  planetId: number;
+  image: string;
+  position: string;
 }
 
-export default function PlanetModal ({ planetId, image, position }: Props) {
-  const spendableResources = useSpendableResources(Number(planetId))
-  const collectibleResources = useCollectibleResources(Number(planetId))
-  const shipsLevels = useShipsLevels(Number(planetId))
-  const defencesLevels = useDefencesLevels(Number(planetId))
+export default function PlanetModal({ planetId, image, position }: Props) {
+  const spendableResources = useSpendableResources(Number(planetId));
+  const collectibleResources = useCollectibleResources(Number(planetId));
+  const shipsLevels = useShipsLevels(Number(planetId));
+  const defencesLevels = useDefencesLevels(Number(planetId));
 
-  const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleClose = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   const handleButtonClick = () => {
-    setIsModalOpen(true)
-  }
+    setIsModalOpen(true);
+  };
 
   return (
     <div>
       <ImageContainer onClick={handleButtonClick}>
-        {image
-          ? (
+        {image ? (
           <img
             src={image}
             alt={'planet'}
             style={{ maxWidth: '100%', height: 'auto' }}
           />
-            )
-          : (
+        ) : (
           <CircularProgress sx={{ color: '#ffffff', opacity: '0.5' }} />
-            )}
+        )}
       </ImageContainer>
       <Modal open={isModalOpen} onClose={handleClose} disableAutoFocus={true}>
         <StyledBox>
@@ -175,8 +177,7 @@ export default function PlanetModal ({ planetId, image, position }: Props) {
                   <Value>
                     {numberWithCommas(
                       Math.round(
-                        Number(collectibleResources[key as keyof Resources]) /
-                          3600
+                        Number(collectibleResources[key as keyof Resources])
                       )
                     )}
                   </Value>
@@ -217,5 +218,5 @@ export default function PlanetModal ({ planetId, image, position }: Props) {
         </StyledBox>
       </Modal>
     </div>
-  )
+  );
 }
