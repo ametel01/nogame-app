@@ -16,7 +16,6 @@ import Modal from '@mui/material/Modal';
 import styled from 'styled-components';
 import { calculateFleetLoss } from '../../shared/utils/Formulas';
 import { type Mission } from '../../shared/types';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { HeaderButton } from '../../shared/styled/Button';
 import { MissionRow } from './MissionRow';
 
@@ -248,10 +247,6 @@ export const FleetMovements = ({ planetId }: Props) => {
           toggleModal(true);
         }}
       >
-        <RocketLaunchIcon
-          fontSize="small"
-          sx={{ color: '#c5c6c7', marginRight: '4px' }}
-        />
         FLEET MOVEMENTS
       </HeaderButton>
 

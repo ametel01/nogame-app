@@ -122,8 +122,8 @@ const PioneerKey = ({ address, planetId }: Props) => {
               www.no-game.xyz
             </a>{' '}
             and connect your <HighlightedText>mainnet wallet</HighlightedText>,
-            then provide your <HighlightedText>planet ID</HighlightedText>,
-            <HighlightedText>sepolia wallet address</HighlightedText> , the{' '}
+            then provide your <HighlightedText>planet ID</HighlightedText>,{' '}
+            <HighlightedText>sepolia wallet address</HighlightedText>, the{' '}
             <HighlightedText>secret number</HighlightedText> you have entered
             and the <HighlightedText>key</HighlightedText> that you will
             generate with this transaction.

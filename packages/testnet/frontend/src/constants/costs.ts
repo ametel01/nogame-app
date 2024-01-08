@@ -1,18 +1,18 @@
 import { type Resources } from '../shared/types';
 
 export const baseTechCost: Record<string, Resources> = {
-  digital: { steel: 0, quartz: 400, tritium: 600 },
+  energy: { steel: 0, quartz: 800, tritium: 400 },
+  digital: { steel: 0, quartz: 800, tritium: 400 },
+  beam: { steel: 0, quartz: 400, tritium: 200 },
+  armour: { steel: 1000, quartz: 0, tritium: 0 },
+  ion: { steel: 1000, quartz: 300, tritium: 1000 },
+  plasma: { steel: 2000, quartz: 4000, tritium: 1000 },
   weapon: { steel: 800, quartz: 200, tritium: 0 },
   shield: { steel: 200, quartz: 600, tritium: 0 },
-  armour: { steel: 1000, quartz: 0, tritium: 0 },
-  energy: { steel: 0, quartz: 800, tritium: 400 },
+  spacetime: { steel: 0, quartz: 4000, tritium: 2000 },
   combustion: { steel: 400, quartz: 0, tritium: 600 },
   thrust: { steel: 2000, quartz: 4000, tritium: 600 },
   warp: { steel: 10000, quartz: 20000, tritium: 6000 },
-  spacetime: { steel: 0, quartz: 4000, tritium: 2000 },
-  beam: { steel: 200, quartz: 100, tritium: 0 },
-  ion: { steel: 1000, quartz: 300, tritium: 100 },
-  plasma: { steel: 2000, quartz: 4000, tritium: 1000 },
 };
 
 export function getBaseShipsCost() {

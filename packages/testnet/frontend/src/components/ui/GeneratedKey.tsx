@@ -58,7 +58,7 @@ const GeneratedKey = ({ address, planetId }: Props) => {
     args: [address ? address : ''],
   });
 
-  const hexData = data ? `0x${data.toString(16)}` : 'Loading...';
+  const hexData = data ? `0x${data.toString(16)}` : 'Key Not Generated Yet';
   const [tooltipKeyOpen, setTooltipKeyOpen] = useState(false);
   const [tooltipPlanetIdOpen, setTooltipPlanetIdOpen] = useState(false);
   const [tooltipAddressOpen, setTooltipAddressOpen] = useState(false);
@@ -83,11 +83,11 @@ const GeneratedKey = ({ address, planetId }: Props) => {
       <div>
         <KeyInfoLabel>Mint Key</KeyInfoLabel>
         <KeyInfoValue>
-          {hexData != 'Loading...'
+          {hexData != 'Key Not Generated'
             ? `${hexData.substring(0, 6)}...${hexData.substring(
                 hexData.length - 4
               )}`
-            : 'Loading...'}
+            : 'Key Not Generated'}
         </KeyInfoValue>
         <Tooltip title="Copied!" open={tooltipKeyOpen} arrow>
           <CustomIconButton

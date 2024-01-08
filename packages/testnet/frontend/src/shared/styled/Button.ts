@@ -21,13 +21,17 @@ export const StyledButton = styled(Button)(() => ({
 }));
 
 export const HeaderButton = styled(Button)({
-  margin: '16px',
-  marginLeft: '0px',
+  margin: '0 8px', // Even spacing on both sides
   color: '#c5c6c7',
-  opacity: '0.8',
-  fontWeight: 'bold', // More pronounced buttons
-  letterSpacing: '1px', // Space-themed typography style
+  fontWeight: 'bold',
+  letterSpacing: '0.05em', // Adjust for readability
   '&:hover': {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Hover effect
+    backgroundColor: 'rgba(255, 255, 255, 0.08)', // Subtle hover effect
+    color: '#FFF', // Brighter text on hover for contrast
+  },
+  '& .MuiButton-label': {
+    // Target the label within the button
+    textTransform: 'none', // Prevent uppercase text-transform
+    fontSize: '1rem', // Standard font size
   },
 });

@@ -8,26 +8,21 @@ import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAccount, useDisconnect } from '@starknet-react/core';
 import IconButton from '@mui/material/IconButton';
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-import SummarizeIcon from '@mui/icons-material/Summarize';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import WalletHeader from './WalletHeader';
 
 const HeaderWrapper = styled(AppBar)({
-  backgroundColor: '#1a2025', // Dark background for space theme
+  backgroundColor: '#1a2025',
   margin: 0,
   padding: 0,
   boxShadow: 'none',
-  borderBottom: '1px solid #1a2025', // Subtle border for a sleek look
 });
 
 const StyledToolbar = styled(Toolbar)({
-  height: '24px',
-  padding: '0px 16px',
-  minHeight: '8px',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between', // Align items with space between
+  justifyContent: 'space-between',
+  padding: '0 16px', // Consistent padding
+  minHeight: '48px', // Standard height for toolbar
   background: 'rgba(0, 0, 0, 0.2)',
 });
 
@@ -64,8 +59,7 @@ const Header = ({ planetId }: Props) => {
         </IconButton>
         <WalletHeader account={account} />
         <Spacer />
-        <HeaderButton variant="text">
-          <DashboardIcon fontSize="small" sx={{ marginRight: '4px' }} />
+        <HeaderButton>
           <Link
             to="/pioneer"
             style={{ textDecoration: 'none', color: 'inherit' }}
@@ -73,15 +67,14 @@ const Header = ({ planetId }: Props) => {
             Pioneer NFT
           </Link>
         </HeaderButton>
+        <Spacer />
         <HeaderButton variant="text">
-          <DashboardIcon fontSize="small" sx={{ marginRight: '4px' }} />
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
             DashBoard
           </Link>
         </HeaderButton>
         <FleetMovements planetId={planetId || 0} />
         <HeaderButton variant="text">
-          <SummarizeIcon fontSize="small" sx={{ marginRight: '4px' }} />
           <Link
             to="/battlereports"
             style={{ textDecoration: 'none', color: 'inherit' }}
@@ -93,7 +86,6 @@ const Header = ({ planetId }: Props) => {
           variant="text"
           sx={{ display: 'flex', alignItems: 'center' }}
         >
-          <LeaderboardIcon fontSize="small" sx={{ marginRight: '4px' }} />
           <Link
             to="/leaderboard"
             style={{ textDecoration: 'none', color: 'inherit' }}

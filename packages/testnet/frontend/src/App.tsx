@@ -14,16 +14,10 @@ function App() {
         <GlobalStyle />
         <Router>
           <Routes>
-            <Route path="/" element={<AuthController />}></Route>
+            <Route path="/" element={<AuthController />} />
             <Route path="/pioneer" element={<PioneerNFTPage />}></Route>
-            <Route
-              path="/leaderboard"
-              element={<GeneralLeaderboardPage />}
-            ></Route>
-            <Route
-              path="/battlereports"
-              element={<BattleReportsPage />}
-            ></Route>
+            <Route path="/leaderboard" element={<GeneralLeaderboardPage />} />
+            <Route path="/battlereports" element={<BattleReportsPage />} />
           </Routes>
         </Router>
       </StarknetProvider>
