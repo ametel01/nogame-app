@@ -10,7 +10,7 @@ import { RowCentered } from '../components/ui/Row';
 import ConnectWalletButton from '../components/auth/ConnectWallet';
 import { GeneratePlanet } from '../components/buttons/GeneratePlanet';
 import { useGetPlanetPrice } from '../hooks/useGetPlanetPrice';
-// import WarningIcon from "@mui/icons-material/Warning";
+import RotatingLogo from '../components/ui/RotatingLogo';
 
 const MainWrapper = styled(ColumnCenter)`
   height: 100vh;
@@ -171,7 +171,7 @@ const GeneratePlanetView = ({ address }: PlanetViewProp) => {
   };
 
   if (price === undefined) {
-    return <CircularProgress />;
+    return <RotatingLogo />;
   }
 
   return (
@@ -196,7 +196,7 @@ const GeneratePlanetView = ({ address }: PlanetViewProp) => {
         {price !== undefined ? (
           (Number(price) / 10 ** 18).toFixed(6)
         ) : (
-          <CircularProgress size={24} />
+          <CircularProgress size={24} style={{ color: 'red' }} />
         )}{' '}
         ETH
       </PriceText>

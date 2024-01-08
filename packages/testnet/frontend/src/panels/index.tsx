@@ -71,7 +71,12 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   const celestiaAvailable = useGetCelestiaAvailable(planetId);
   const defencesCost = getBaseDefenceCost();
 
-  if (!compoundsLevels || !techLevels || !collectibleResource) {
+  if (
+    !compoundsLevels ||
+    !techLevels ||
+    !spendableResources ||
+    !collectibleResource
+  ) {
     // Centered CircularProgress
     return (
       <div
@@ -84,7 +89,17 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
       >
         <ResourcesTabs>
           <ResourcesTabList>
-            <CircularProgress />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh',
+                width: '100vh',
+              }}
+            >
+              <CircularProgress />
+            </div>
           </ResourcesTabList>
         </ResourcesTabs>
       </div>
@@ -92,9 +107,9 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   }
 
   const totalResources: Resources = {
-    steel: spendableResources.steel + collectibleResource.steel,
-    quartz: spendableResources.quartz + collectibleResource.quartz,
-    tritium: spendableResources.tritium + collectibleResource.tritium,
+    steel: spendableResources.steel + (collectibleResource?.steel ?? 0),
+    quartz: spendableResources.quartz + (collectibleResource?.quartz ?? 0),
+    tritium: spendableResources.tritium + (collectibleResource?.tritium ?? 0),
   };
 
   return (
