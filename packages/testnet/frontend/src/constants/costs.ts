@@ -21,7 +21,7 @@ export function getBaseShipsCost() {
     carrier: { steel: 2000, quartz: 2000, tritium: 0 },
     scraper: { steel: 10000, quartz: 6000, tritium: 2000 },
     sparrow: { steel: 3000, quartz: 1000, tritium: 0 },
-    frigate: { steel: 20000, quartz: 7000, tritium: 200 },
+    frigate: { steel: 20000, quartz: 7000, tritium: 2000 },
     armade: { steel: 45000, quartz: 15000, tritium: 0 },
   };
 }

@@ -93,7 +93,6 @@ export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center',
                 height: '100vh',
                 width: '100vh',
               }}
