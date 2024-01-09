@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { CircularProgress } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import RotatingLogo from '../ui/RotatingLogo';
 
 const ContentWrapper = styled.div`
   margin-top: 24px;
@@ -183,7 +183,7 @@ const BattleReports = ({ planetId }: Props) => {
   };
 
   if (isLoading) {
-    return <CircularProgress />;
+    return <RotatingLogo />;
   }
 
   if (error || battleReports.length === 0) {
