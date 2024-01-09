@@ -59,18 +59,17 @@ const Header = ({ planetId }: Props) => {
         </IconButton>
         <WalletHeader account={account} />
         <Spacer />
+        <HeaderButton variant="text">
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            DashBoard
+          </Link>
+        </HeaderButton>
         <HeaderButton>
           <Link
             to="/pioneer"
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
             Pioneer NFT
-          </Link>
-        </HeaderButton>
-        <Spacer />
-        <HeaderButton variant="text">
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            DashBoard
           </Link>
         </HeaderButton>
         <FleetMovements planetId={planetId || 0} />
