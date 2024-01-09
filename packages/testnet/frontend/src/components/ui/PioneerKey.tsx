@@ -8,7 +8,7 @@ import { GAMEADDRESS } from '../../constants/addresses';
 import game from '../../constants/nogame.json';
 import { StyledButton } from '../../shared/styled/Button';
 import { TransactionStatus } from '../../components/ui/TransactionStatus';
-import nftImage from '../../assets/logos/nogame-pioneer.png';
+import nftImage from '../../assets/logos/nogame-pioneer.webp';
 
 const StyledBox = styled(Box)({
   display: 'flex',
