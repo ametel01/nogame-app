@@ -4,7 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import * as Styled from '../../shared/styled/Box';
 import { ButtonBuild } from '../ui/Button';
 import { numberWithCommas } from '../../shared/utils';
-import useBuild from '../../hooks/writeHooks/useBuild';
+import { useShipBuild } from '../../hooks/writeHooks/useBuild';
 import { Input } from '@mui/joy';
 import DescriptionModal from '../modals/Description';
 import { type Resources } from '../../shared/types';
@@ -16,7 +16,7 @@ const InfoContainer = styled(Styled.InfoContainer)({
 interface Props {
   img: string;
   title: string;
-  functionCallName: string;
+  functionCallName: number;
   level?: number;
   costUpdate?: { steel: number; quartz: number; tritium: number };
   hasEnoughResources?: boolean;
@@ -41,7 +41,7 @@ const DockyardBox = ({
   const [quantity, setQuantity] = useState(1);
   const [showTooltip, setShowTooltip] = useState(true);
 
-  const { tx, writeAsync: build } = useBuild(functionCallName, quantity);
+  const { tx, writeAsync: build } = useShipBuild(functionCallName, quantity);
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {

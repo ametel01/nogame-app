@@ -7,10 +7,10 @@ import energyImg from '../assets/gameElements/compounds/energy4.webp';
 import labImg from '../assets/gameElements/compounds/lab4.webp';
 import dockyardImg from '../assets/gameElements/compounds/dockyard4.webp';
 import {
-  // CompoundsCostUpgrade,
   type CompoundsLevels,
   type EnergyCost,
   type Resources,
+  UpgradeType,
 } from '../shared/types';
 import CompoundsBox from '../components/boxes/CompoundsBox';
 import {
@@ -26,7 +26,7 @@ interface CompoundConfigType {
   description: React.ReactNode;
   img: string;
   title: string;
-  functionCallName: string;
+  functionCallName: number;
   compoundName: keyof CompoundsLevels;
   energyKey: keyof EnergyCost;
 }
@@ -48,7 +48,7 @@ export const CompoundsTabPanel = ({
       ),
       img: steelImg,
       title: 'Steel Mine',
-      functionCallName: 'steel_mine',
+      functionCallName: UpgradeType.SteelMine,
       compoundName: 'steel',
       energyKey: 'steel',
     },
@@ -58,7 +58,7 @@ export const CompoundsTabPanel = ({
       ),
       img: quartzImg,
       title: 'Quartz Mine',
-      functionCallName: 'quartz_mine',
+      functionCallName: UpgradeType.QuartzMine,
       compoundName: 'quartz',
       energyKey: 'quartz',
     },
@@ -68,7 +68,7 @@ export const CompoundsTabPanel = ({
       ),
       img: tritiumImg,
       title: 'Tritium Mine',
-      functionCallName: 'tritium_mine',
+      functionCallName: UpgradeType.TritiumMine,
       compoundName: 'tritium',
       energyKey: 'tritium',
     },
@@ -78,7 +78,7 @@ export const CompoundsTabPanel = ({
       ),
       img: energyImg,
       title: 'Energy Plant',
-      functionCallName: 'energy_plant',
+      functionCallName: UpgradeType.EnergyPlant,
       compoundName: 'energy',
       energyKey: 'energy',
     },
@@ -86,7 +86,7 @@ export const CompoundsTabPanel = ({
       description: <LabDescription currentLevel={compoundsLevels.lab} />,
       img: labImg,
       title: 'Research Lab',
-      functionCallName: 'lab',
+      functionCallName: UpgradeType.Lab,
       compoundName: 'lab',
       energyKey: 'null',
     },
@@ -96,7 +96,7 @@ export const CompoundsTabPanel = ({
       ),
       img: dockyardImg,
       title: 'Dockyard',
-      functionCallName: 'dockyard',
+      functionCallName: UpgradeType.Dockyard,
       compoundName: 'dockyard',
       energyKey: 'null',
     },

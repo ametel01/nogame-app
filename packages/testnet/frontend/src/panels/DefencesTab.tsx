@@ -5,6 +5,7 @@ import {
   type DefenceLevels,
   type Resources,
   type TechLevels,
+  BuildType,
 } from '../shared/types';
 import DefencesBox from '../components/boxes/DefencesBox';
 import {
@@ -46,7 +47,7 @@ export const DefenceTabPanel = ({
       description: <BlasterDescription />,
       img: blasterImg,
       title: 'Blaster',
-      functionCallName: 'blaster',
+      functionCallName: BuildType.Blaster,
       level: defenceLevels?.blaster,
       cost: defenceCost?.blaster,
       requirements: blasterRequirements(dockyardLevel),
@@ -55,7 +56,7 @@ export const DefenceTabPanel = ({
       description: <BeamDescription />,
       img: beamImg,
       title: 'Beam',
-      functionCallName: 'beam',
+      functionCallName: BuildType.Beam,
       level: defenceLevels?.beam,
       cost: defenceCost?.beam,
       requirements: beamRequirements(dockyardLevel, techLevels),
@@ -64,7 +65,7 @@ export const DefenceTabPanel = ({
       description: <AstralDescription />,
       img: astralLauncherImg,
       title: 'Astral Launcher',
-      functionCallName: 'astral_launcher',
+      functionCallName: BuildType.Astral,
       level: defenceLevels?.astral,
       cost: defenceCost?.astral,
       requirements: astralRequirements(dockyardLevel, techLevels),
@@ -73,7 +74,7 @@ export const DefenceTabPanel = ({
       description: <PlasmaDescription />,
       img: plasmaImg,
       title: 'Plasma Projector',
-      functionCallName: 'plasma_projector',
+      functionCallName: BuildType.Plasma,
       level: defenceLevels?.plasma,
       cost: defenceCost?.plasma,
       requirements: plasmaRequirements(dockyardLevel, techLevels),

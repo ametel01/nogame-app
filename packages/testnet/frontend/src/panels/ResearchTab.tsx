@@ -4,6 +4,7 @@ import {
   type Resources,
   type TechLevels,
   type TechEntities,
+  UpgradeType,
 } from '../shared/types';
 import ResearchBox from '../components/boxes/ResearchBox';
 import {
@@ -53,7 +54,7 @@ interface ResearchConfigType {
   description: React.ReactNode;
   img: string;
   title: string;
-  functionCallName: string;
+  functionCallName: number;
   techName: TechEntities; // <-- make sure of this type
   requirements: boolean;
 }
@@ -75,7 +76,7 @@ export const ResearchTabPanel = ({
       description: <EnergyDescription />,
       img: energyImg,
       title: 'Energy Innovation',
-      functionCallName: 'energy_innovation',
+      functionCallName: UpgradeType.EnergyTech,
       techName: 'energy',
       requirements: energyRequirements(labLevel),
     },
@@ -83,7 +84,7 @@ export const ResearchTabPanel = ({
       description: <ComputerDescription />,
       img: digitalImg,
       title: 'Digital Systems',
-      functionCallName: 'digital_systems',
+      functionCallName: UpgradeType.Digital,
       techName: 'digital',
       requirements: digitalRequirements(labLevel),
     },
@@ -91,7 +92,7 @@ export const ResearchTabPanel = ({
       description: <BeamDescription />,
       img: beamImg,
       title: 'Beam Technology',
-      functionCallName: 'beam_technology',
+      functionCallName: UpgradeType.BeamTech,
       techName: 'beam',
       requirements: beamTechRequirements(labLevel, techLevels),
     },
@@ -99,7 +100,7 @@ export const ResearchTabPanel = ({
       description: <IonDescription />,
       img: ionImg,
       title: 'Ion Systems',
-      functionCallName: 'ion_systems',
+      functionCallName: UpgradeType.Ion,
       techName: 'ion',
       requirements: ionRequirements(labLevel, techLevels),
     },
@@ -107,7 +108,7 @@ export const ResearchTabPanel = ({
       description: <PlasmaDescription />,
       img: plasmaImg,
       title: 'Plasma Engineering',
-      functionCallName: 'plasma_engineering',
+      functionCallName: UpgradeType.PlasmaTech,
       techName: 'plasma',
       requirements: plasmaTechRequirements(labLevel, techLevels),
     },
@@ -115,7 +116,7 @@ export const ResearchTabPanel = ({
       description: <SpacetimeDescription />,
       img: spacetimeImg,
       title: 'Spacetime Technology',
-      functionCallName: 'spacetime_warp',
+      functionCallName: UpgradeType.Warp,
       techName: 'spacetime',
       requirements: spacetimeRequirements(labLevel, techLevels),
     },
@@ -123,7 +124,7 @@ export const ResearchTabPanel = ({
       description: <CombustionDescription />,
       img: combustionImg,
       title: 'Combustion Drive',
-      functionCallName: 'combustive_engine',
+      functionCallName: UpgradeType.Combustion,
       techName: 'combustion',
       requirements: combustionRequirements(labLevel, techLevels),
     },
@@ -131,7 +132,7 @@ export const ResearchTabPanel = ({
       description: <ThrustDescription />,
       img: thrustImg,
       title: 'Thrust Propulsion',
-      functionCallName: 'thrust_propulsion',
+      functionCallName: UpgradeType.Thrust,
       techName: 'thrust',
       requirements: thrustRequirements(labLevel, techLevels),
     },
@@ -139,7 +140,7 @@ export const ResearchTabPanel = ({
       description: <WarpDescription />,
       img: warpEnginImg,
       title: 'Warp Drive',
-      functionCallName: 'warp_drive',
+      functionCallName: UpgradeType.Warp,
       techName: 'warp',
       requirements: warpRequirements(labLevel, techLevels),
     },
@@ -147,7 +148,7 @@ export const ResearchTabPanel = ({
       description: <ArmourDescription />,
       img: armourImg,
       title: 'Armour Innovation',
-      functionCallName: 'armour_innovation',
+      functionCallName: UpgradeType.Armour,
       techName: 'armour',
       requirements: armourRequirements(labLevel),
     },
@@ -155,7 +156,7 @@ export const ResearchTabPanel = ({
       description: <WeaponsDescription />,
       img: weaponsImg,
       title: 'Weapons Development',
-      functionCallName: 'weapons_development',
+      functionCallName: UpgradeType.Weapons,
       techName: 'weapons',
       requirements: weaponsRequirements(labLevel),
     },
@@ -163,7 +164,7 @@ export const ResearchTabPanel = ({
       description: <ShieldDescription />,
       img: shieldImg,
       title: 'Shields Technology',
-      functionCallName: 'shield_tech',
+      functionCallName: UpgradeType.Shield,
       techName: 'shield',
       requirements: shieldRequirements(labLevel, techLevels),
     },

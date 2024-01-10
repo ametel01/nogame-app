@@ -20,6 +20,130 @@
       ]
     },
     {
+      "type": "enum",
+      "name": "nogame::libraries::types::UpgradeType",
+      "variants": [
+        {
+          "name": "SteelMine",
+          "type": "()"
+        },
+        {
+          "name": "QuartzMine",
+          "type": "()"
+        },
+        {
+          "name": "TritiumMine",
+          "type": "()"
+        },
+        {
+          "name": "EnergyPlant",
+          "type": "()"
+        },
+        {
+          "name": "Lab",
+          "type": "()"
+        },
+        {
+          "name": "Dockyard",
+          "type": "()"
+        },
+        {
+          "name": "EnergyTech",
+          "type": "()"
+        },
+        {
+          "name": "Digital",
+          "type": "()"
+        },
+        {
+          "name": "BeamTech",
+          "type": "()"
+        },
+        {
+          "name": "Armour",
+          "type": "()"
+        },
+        {
+          "name": "Ion",
+          "type": "()"
+        },
+        {
+          "name": "PlasmaTech",
+          "type": "()"
+        },
+        {
+          "name": "Weapons",
+          "type": "()"
+        },
+        {
+          "name": "Shield",
+          "type": "()"
+        },
+        {
+          "name": "Spacetime",
+          "type": "()"
+        },
+        {
+          "name": "Combustion",
+          "type": "()"
+        },
+        {
+          "name": "Thrust",
+          "type": "()"
+        },
+        {
+          "name": "Warp",
+          "type": "()"
+        }
+      ]
+    },
+    {
+      "type": "enum",
+      "name": "nogame::libraries::types::BuildType",
+      "variants": [
+        {
+          "name": "Carrier",
+          "type": "()"
+        },
+        {
+          "name": "Scraper",
+          "type": "()"
+        },
+        {
+          "name": "Celestia",
+          "type": "()"
+        },
+        {
+          "name": "Sparrow",
+          "type": "()"
+        },
+        {
+          "name": "Frigate",
+          "type": "()"
+        },
+        {
+          "name": "Armade",
+          "type": "()"
+        },
+        {
+          "name": "Blaster",
+          "type": "()"
+        },
+        {
+          "name": "Beam",
+          "type": "()"
+        },
+        {
+          "name": "Astral",
+          "type": "()"
+        },
+        {
+          "name": "Plasma",
+          "type": "()"
+        }
+      ]
+    },
+    {
       "type": "struct",
       "name": "nogame::libraries::types::Fleet",
       "members": [
@@ -98,54 +222,6 @@
     {
       "type": "struct",
       "name": "nogame::libraries::types::ERC20s",
-      "members": [
-        {
-          "name": "steel",
-          "type": "core::integer::u128"
-        },
-        {
-          "name": "quartz",
-          "type": "core::integer::u128"
-        },
-        {
-          "name": "tritium",
-          "type": "core::integer::u128"
-        }
-      ]
-    },
-    {
-      "type": "struct",
-      "name": "nogame::libraries::types::CompoundsCost",
-      "members": [
-        {
-          "name": "steel",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "quartz",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "tritium",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "energy",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "lab",
-          "type": "nogame::libraries::types::ERC20s"
-        },
-        {
-          "name": "dockyard",
-          "type": "nogame::libraries::types::ERC20s"
-        }
-      ]
-    },
-    {
-      "type": "struct",
-      "name": "nogame::libraries::types::EnergyCost",
       "members": [
         {
           "name": "steel",
@@ -268,7 +344,7 @@
               "type": "core::starknet::contract_address::ContractAddress"
             },
             {
-              "name": "receiver",
+              "name": "owner",
               "type": "core::starknet::contract_address::ContractAddress"
             },
             {
@@ -343,8 +419,12 @@
         },
         {
           "type": "function",
-          "name": "steel_mine_upgrade",
+          "name": "process_compound_upgrade",
           "inputs": [
+            {
+              "name": "component",
+              "type": "nogame::libraries::types::UpgradeType"
+            },
             {
               "name": "quantity",
               "type": "core::integer::u8"
@@ -355,8 +435,12 @@
         },
         {
           "type": "function",
-          "name": "quartz_mine_upgrade",
+          "name": "process_tech_upgrade",
           "inputs": [
+            {
+              "name": "component",
+              "type": "nogame::libraries::types::UpgradeType"
+            },
             {
               "name": "quantity",
               "type": "core::integer::u8"
@@ -367,200 +451,12 @@
         },
         {
           "type": "function",
-          "name": "tritium_mine_upgrade",
+          "name": "process_ship_build",
           "inputs": [
             {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "energy_plant_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "dockyard_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "lab_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "energy_innovation_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "digital_systems_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "beam_technology_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "armour_innovation_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "ion_systems_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "plasma_engineering_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "weapons_development_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "shield_tech_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "spacetime_warp_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "combustive_engine_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "thrust_propulsion_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "warp_drive_upgrade",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "carrier_build",
-          "inputs": [
+              "name": "component",
+              "type": "nogame::libraries::types::BuildType"
+            },
             {
               "name": "quantity",
               "type": "core::integer::u32"
@@ -571,104 +467,12 @@
         },
         {
           "type": "function",
-          "name": "scraper_build",
+          "name": "process_defence_build",
           "inputs": [
             {
-              "name": "quantity",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "celestia_build",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "sparrow_build",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "frigate_build",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "armade_build",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "blaster_build",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "beam_build",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "astral_launcher_build",
-          "inputs": [
-            {
-              "name": "quantity",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "plasma_projector_build",
-          "inputs": [
+              "name": "component",
+              "type": "nogame::libraries::types::BuildType"
+            },
             {
               "name": "quantity",
               "type": "core::integer::u32"
@@ -732,17 +536,6 @@
           ],
           "outputs": [],
           "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "get_receiver",
-          "inputs": [],
-          "outputs": [
-            {
-              "type": "core::starknet::contract_address::ContractAddress"
-            }
-          ],
-          "state_mutability": "view"
         },
         {
           "type": "function",
@@ -886,86 +679,6 @@
         },
         {
           "type": "function",
-          "name": "get_energy_available",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u16"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "core::integer::u128"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_compounds_upgrade_cost",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u16"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::CompoundsCost"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_energy_for_upgrade",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u16"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::EnergyCost"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_energy_gain_after_upgrade",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u16"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "core::integer::u128"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_celestia_production",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u16"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "core::integer::u16"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
           "name": "get_ships_levels",
           "inputs": [
             {
@@ -1083,6 +796,47 @@
             }
           ],
           "state_mutability": "view"
+        }
+      ]
+    },
+    {
+      "type": "impl",
+      "name": "OwnableImpl",
+      "interface_name": "openzeppelin::access::ownable::interface::IOwnable"
+    },
+    {
+      "type": "interface",
+      "name": "openzeppelin::access::ownable::interface::IOwnable",
+      "items": [
+        {
+          "type": "function",
+          "name": "owner",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "transfer_ownership",
+          "inputs": [
+            {
+              "name": "new_owner",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "renounce_ownership",
+          "inputs": [],
+          "outputs": [],
+          "state_mutability": "external"
         }
       ]
     },
@@ -1344,15 +1098,62 @@
     },
     {
       "type": "event",
-      "name": "nogame::game::main::NoGame::Upgraded",
+      "name": "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
       "kind": "struct",
       "members": [
         {
-          "name": "implementation",
+          "name": "class_hash",
           "type": "core::starknet::class_hash::ClassHash",
           "kind": "data"
         }
       ]
+    },
+    {
+      "type": "event",
+      "name": "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+      "kind": "enum",
+      "variants": [
+        {
+          "name": "Upgraded",
+          "type": "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Upgraded",
+          "kind": "nested"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "previous_owner",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        },
+        {
+          "name": "new_owner",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+      "kind": "enum",
+      "variants": [
+        {
+          "name": "OwnershipTransferred",
+          "type": "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+          "kind": "nested"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "openzeppelin::security::reentrancyguard::ReentrancyGuardComponent::Event",
+      "kind": "enum",
+      "variants": []
     },
     {
       "type": "event",
@@ -1400,9 +1201,19 @@
           "kind": "nested"
         },
         {
-          "name": "Upgraded",
-          "type": "nogame::game::main::NoGame::Upgraded",
-          "kind": "nested"
+          "name": "UpgradeableEvent",
+          "type": "openzeppelin::upgrades::upgradeable::UpgradeableComponent::Event",
+          "kind": "flat"
+        },
+        {
+          "name": "OwnableEvent",
+          "type": "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+          "kind": "flat"
+        },
+        {
+          "name": "ReentrancyGuardEvent",
+          "type": "openzeppelin::security::reentrancyguard::ReentrancyGuardComponent::Event",
+          "kind": "flat"
         }
       ]
     }

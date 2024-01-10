@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Input } from '@mui/joy';
 import Tooltip from '@mui/material/Tooltip';
-import useUpgrade from '../../hooks/writeHooks/useUpgrade';
+import { useCompoundUpgrade } from '../../hooks/writeHooks/useUpgrade';
 import { numberWithCommas, calculEnoughResources } from '../../shared/utils';
 import { ButtonUpgrade } from '../ui/Button';
 import DescriptionModal from '../modals/Description';
@@ -20,7 +20,7 @@ interface CompoundsBoxProps {
   img: string;
   title: string;
   level: number;
-  functionCallName: string; // Assuming this is a string, you might need to adjust if it's another type
+  functionCallName: number;
   description: React.ReactNode;
   resourcesAvailable?: Resources;
 }
@@ -42,7 +42,10 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   });
   const [energyRequired, setEnergyRequired] = useState(0);
 
-  const { tx, writeAsync: upgrade } = useUpgrade(functionCallName, quantity);
+  const { tx, writeAsync: upgrade } = useCompoundUpgrade(
+    functionCallName,
+    quantity
+  );
 
   const energy = numberWithCommas(energyRequired);
 

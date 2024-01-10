@@ -5,11 +5,12 @@ import { Input } from '@mui/joy';
 import * as Styled from '../../shared/styled/Box';
 import { ButtonUpgrade } from '../ui/Button';
 import { numberWithCommas, calculEnoughResources } from '../../shared/utils';
-import useUpgrade from '../../hooks/writeHooks/useUpgrade';
+import { useTechUpgrade } from '../../hooks/writeHooks/useUpgrade';
 import DescriptionModal from '../modals/Description';
 import { type TechLevels, type Resources } from '../../shared/types';
 import { getCumulativeTechCost } from '../../shared/utils/Formulas';
 import { baseTechCost, techCostMapping } from '../../constants/costs';
+
 const InfoContainer = styled(Styled.InfoContainer)({
   width: '45%',
 });
@@ -17,7 +18,7 @@ const InfoContainer = styled(Styled.InfoContainer)({
 interface Props {
   img: string;
   title: string;
-  functionCallName: string;
+  functionCallName: number;
   level?: number;
   requirementsMet?: boolean;
   description: ReactNode;
@@ -39,7 +40,10 @@ const ResearchBox = ({
   const [quantity, setQuantity] = useState(1);
   const [showTooltip, setShowTooltip] = useState(true);
 
-  const { tx, writeAsync: upgrade } = useUpgrade(functionCallName, quantity);
+  const { tx, writeAsync: upgrade } = useTechUpgrade(
+    functionCallName,
+    quantity
+  );
 
   const baseCostKey = techCostMapping[functionCallName] || functionCallName;
   const baseCosts = baseTechCost[baseCostKey];
