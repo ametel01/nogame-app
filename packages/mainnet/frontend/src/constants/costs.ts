@@ -1,7 +1,5 @@
 import { Resources } from '../shared/types';
 
-export const uniSpeed = 5;
-
 export const baseTechCost: { [key: string]: Resources } = {
   digital: { steel: 0, quartz: 400, tritium: 600 },
   weapon: { steel: 800, quartz: 200, tritium: 0 },

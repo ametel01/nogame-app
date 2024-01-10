@@ -12,7 +12,7 @@ import {
 } from '../shared/types';
 import { useAccount } from '@starknet-react/core';
 import { useShipsLevels } from '../hooks/LevelsHooks';
-import { useGetIsNoobProtected } from '../hooks/FleetHooks';
+import { useGetIsNoobProtected, useLastActive } from '../hooks/FleetHooks';
 import { getPlanetImage, type ImageId } from '../shared/utils/getPlanetImage';
 import fetchPlanetsData from '../api/fetchPlanetsData';
 
@@ -35,6 +35,8 @@ const UniverseBoxItem = ({
     Number(ownPlanetId),
     planet.planetId
   );
+
+  const lastActive = useLastActive(planet.planetId);
 
   const ownFleetData = useShipsLevels(Number(ownPlanetId));
   const ownFleet: ShipsLevels = ownFleetData || {
@@ -72,7 +74,7 @@ const UniverseBoxItem = ({
       ownFleet={ownFleet}
       ownTechs={ownTechs}
       isNoobProtected={isNoobProtected}
-      lastActive={Number(planet.lastActive)}
+      lastActive={Number(lastActive)}
     />
   );
 };
@@ -120,7 +122,6 @@ export const UniverseViewTabPanel = ({
         console.error('Error fetching planets data:', error);
       });
   }, [ownPlanetId]);
-  console.log(planetsData);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const selectedPlanets = planetsData.slice(

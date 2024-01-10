@@ -699,6 +699,22 @@
         },
         {
           "type": "function",
+          "name": "get_last_active",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u64"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
           "name": "get_compounds_levels",
           "inputs": [
             {

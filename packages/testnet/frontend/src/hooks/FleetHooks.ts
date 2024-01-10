@@ -29,6 +29,16 @@ export function useGetMissionDetails(
   return data as unknown as Mission;
 }
 
+export function useLastActive(planetId?: number): number {
+  const { data } = useContractRead({
+    address: GAMEADDRESS,
+    abi: game.abi,
+    functionName: 'get_last_active',
+    args: [planetId ? planetId : 0],
+  });
+  return data as unknown as number;
+}
+
 export function useGetHostileMissions(planetId: number): HostileMission[] {
   const { data } = useContractRead({
     address: GAMEADDRESS,

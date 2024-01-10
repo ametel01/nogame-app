@@ -79,6 +79,7 @@ const UniverseViewBox = ({
 }: Props) => {
   const boxStyle = highlighted ? { border: '1px solid #23CE6B' } : {};
 
+  console.log(lastActive);
   // Calculate the time difference in seconds
   const timeNow = new Date().getTime() / 1000;
   const timeDifference = timeNow - lastActive;
@@ -91,20 +92,28 @@ const UniverseViewBox = ({
   const ownPlanetPosition = usePlanetPosition(Number(ownPlanetId));
 
   const getLastActiveTime = useMemo(() => {
-    if (!lastActive || timeDifference > oneWeekInSeconds) return 'Inactive';
+    if (!lastActive || timeDifference > oneWeekInSeconds) {
+      return 'Inactive';
+    }
+
+    // Convert the Unix timestamp to a JavaScript Date object
     const lastActiveDate = new Date(lastActive * 1000);
-    const adjustedLastActiveDate = new Date(
-      lastActiveDate.getTime() + 8 * 60 * 60 * 1000
-    );
     const now = new Date();
+
+    // Calculate the difference in seconds
     const differenceInSeconds = Math.floor(
-      (now.getTime() - adjustedLastActiveDate.getTime()) / 1000
+      (now.getTime() - lastActiveDate.getTime()) / 1000
     );
 
-    if (differenceInSeconds < 3600)
+    // Format the time difference
+    if (differenceInSeconds < 3600) {
+      // Less than an hour
       return `${Math.floor(differenceInSeconds / 60)} min ago`;
-    if (differenceInSeconds < 86400)
+    }
+    if (differenceInSeconds < 86400) {
+      // Less than a day
       return `${Math.floor(differenceInSeconds / 3600)} hours ago`;
+    }
     return `${Math.floor(differenceInSeconds / 86400)} days ago`;
   }, [lastActive, oneWeekInSeconds, timeDifference]);
 
