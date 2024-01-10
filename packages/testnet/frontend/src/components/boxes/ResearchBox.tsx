@@ -105,7 +105,7 @@ const ResearchBox = ({
         <InfoContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>STAGE</Styled.ResourceTitle>
-            <Styled.NumberContainer>{String(level)}</Styled.NumberContainer>
+            <Styled.NumberContainer>{level}</Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>STEEL</Styled.ResourceTitle>

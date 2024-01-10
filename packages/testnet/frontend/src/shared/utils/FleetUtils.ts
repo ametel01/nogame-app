@@ -41,7 +41,6 @@ export function getFleetSpeed(fleet: Fleet, techs: TechLevels) {
     techLevel: number,
     multiplier: number
   ) => {
-    console.log(baseSpeed, techLevel);
     return baseSpeed + (baseSpeed * techLevel * multiplier) / 10;
   };
 

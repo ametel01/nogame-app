@@ -32,6 +32,9 @@ export const CompoundsFormulas = {
   },
 
   energyProduction(level: number) {
+    if (level === 0) {
+      return 0;
+    }
     return Math.round(
       20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
     );
@@ -68,18 +71,27 @@ export const CompoundsFormulas = {
   },
 
   steelConsumption(level: number) {
+    if (level === 0) {
+      return 0;
+    }
     return Math.round(
       10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
     );
   },
 
   quartzConsumption(level: number) {
+    if (level === 0) {
+      return 0;
+    }
     return Math.round(
       10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
     );
   },
 
   tritiumConsumption(level: number) {
+    if (level === 0) {
+      return 0;
+    }
     return Math.round(
       20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
     );

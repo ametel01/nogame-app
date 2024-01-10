@@ -207,6 +207,90 @@
     },
     {
       "type": "struct",
+      "name": "nogame::libraries::types::CompoundsLevels",
+      "members": [
+        {
+          "name": "steel",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "quartz",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "tritium",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "energy",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "lab",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "dockyard",
+          "type": "core::integer::u8"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::TechLevels",
+      "members": [
+        {
+          "name": "energy",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "digital",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "beam",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "armour",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "ion",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "plasma",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "weapons",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "shield",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "spacetime",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "combustion",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "thrust",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "warp",
+          "type": "core::integer::u8"
+        }
+      ]
+    },
+    {
+      "type": "struct",
       "name": "nogame::libraries::types::Debris",
       "members": [
         {
@@ -609,6 +693,38 @@
           "outputs": [
             {
               "type": "core::integer::u16"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_compounds_levels",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::CompoundsLevels"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_tech_levels",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::TechLevels"
             }
           ],
           "state_mutability": "view"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { RowCentered } from '../components/ui/Row';
 import CircularProgress from '@mui/material/CircularProgress';
 import {
@@ -22,7 +22,12 @@ import {
   useCollectibleResources,
   useSpendableResources,
 } from '../hooks/ResourcesHooks';
-import { useDefencesLevels, useShipsLevels } from '../hooks/LevelsHooks';
+import {
+  useCompoundsLevels,
+  useDefencesLevels,
+  useShipsLevels,
+  useTechLevels,
+} from '../hooks/LevelsHooks';
 import { UniverseViewTabPanel } from './UniverseViewTab';
 import { useGetCelestiaAvailable } from '../hooks/EnergyHooks';
 import {
@@ -35,7 +40,6 @@ import {
   type DefenceLevels,
 } from '../shared/types';
 import { Typography } from '@mui/material';
-import fetchUpgradesData from '../api/fetchUpgradesData';
 import { getBaseShipsCost, getBaseDefenceCost } from '../constants/costs';
 
 interface ResourcesSectionArgs {
@@ -44,25 +48,27 @@ interface ResourcesSectionArgs {
 
 export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   const [activeTab, setActiveTab] = useState(1);
-  const [compoundsLevels, setCompoundsLevels] =
-    useState<CompoundsLevels | null>(null);
-  const [techLevels, setTechLevels] = useState<TechLevels | null>(null);
+  // const [compoundsLevels, setCompoundsLevels] =
+  //   useState<CompoundsLevels | null>(null);
+  // const [techLevels, setTechLevels] = useState<TechLevels | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchUpgradesData({ planetId });
-        setCompoundsLevels(data.compoundsLevels);
-        setTechLevels(data.techLevels);
-      } catch (error) {
-        console.error('Error fetching upgrades data:', error);
-        // Handle the error appropriately
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const data = await fetchUpgradesData({ planetId });
+  //       setCompoundsLevels(data.compoundsLevels);
+  //       setTechLevels(data.techLevels);
+  //     } catch (error) {
+  //       console.error('Error fetching upgrades data:', error);
+  //       // Handle the error appropriately
+  //     }
+  //   };
 
-    fetchData();
-  }, [planetId]);
+  //   fetchData();
+  // }, [planetId]);
   // Data Retrieval Hooks
+  const compoundsLevels = useCompoundsLevels(planetId);
+  const techLevels = useTechLevels(planetId);
   const spendableResources = useSpendableResources(planetId);
   const collectibleResource = useCollectibleResources(planetId);
   const shipsLevels = useShipsLevels(planetId);

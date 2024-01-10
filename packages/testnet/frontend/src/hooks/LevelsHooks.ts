@@ -2,7 +2,34 @@ import { GAMEADDRESS } from '../constants/addresses';
 import game from '../constants/nogame.json';
 
 import { useContractRead } from '@starknet-react/core';
-import { type DefenceLevels, type ShipsLevels } from '../shared/types';
+import {
+  TechLevels,
+  type DefenceLevels,
+  type ShipsLevels,
+} from '../shared/types';
+import { CompoundsLevels } from '../shared/types';
+
+export function useCompoundsLevels(
+  planetId: number | undefined
+): CompoundsLevels {
+  const { data } = useContractRead({
+    address: GAMEADDRESS,
+    abi: game.abi,
+    functionName: 'get_compounds_levels',
+    args: [planetId!],
+  });
+  return data as unknown as CompoundsLevels;
+}
+
+export function useTechLevels(planetId: number | undefined): TechLevels {
+  const { data } = useContractRead({
+    address: GAMEADDRESS,
+    abi: game.abi,
+    functionName: 'get_tech_levels',
+    args: [planetId!],
+  });
+  return data as unknown as TechLevels;
+}
 
 export function useShipsLevels(planetId: number | undefined): ShipsLevels {
   const { data } = useContractRead({

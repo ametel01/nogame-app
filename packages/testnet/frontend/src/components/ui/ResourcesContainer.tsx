@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import styled from 'styled-components';
 import { Typography } from '@mui/material';
@@ -23,8 +23,7 @@ import {
   useGetCelestiaProduction,
 } from '../../hooks/EnergyHooks';
 import CompoundsFormulas from '../../shared/utils/Formulas';
-import { CompoundsLevels } from '../../shared/types';
-import fetchUpgradesData from '../../api/fetchUpgradesData';
+import { useCompoundsLevels } from '../../hooks/LevelsHooks';
 
 const Container = styled.div`
   display: flex;
@@ -197,22 +196,7 @@ interface ResourceContainerArgs {
 }
 
 const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
-  const [compoundsLevels, setCompoundsLevels] =
-    useState<CompoundsLevels | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchUpgradesData({ planetId });
-        setCompoundsLevels(data.compoundsLevels);
-      } catch (error) {
-        console.error('Error fetching upgrades data:', error);
-        // Handle the error appropriately
-      }
-    };
-
-    fetchData();
-  }, [planetId]);
+  const compoundsLevels = useCompoundsLevels(planetId);
 
   const spendable = useSpendableResources(planetId);
 
@@ -222,7 +206,8 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
     ? CompoundsFormulas.energyProduction(Number(compoundsLevels.energy))
     : 0;
   const celestia = useGetCelestiaAvailable(planetId);
-  const celestiaProduction = useGetCelestiaProduction(planetId);
+  const rawCelestia = useGetCelestiaProduction(planetId);
+  const celestiaProduction = rawCelestia ? rawCelestia : 0;
   const energyFromCelestia = Number(celestia) * Number(celestiaProduction);
 
   const steelConsumption = CompoundsFormulas.steelConsumption(
@@ -234,6 +219,7 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
   const tritiumConsumption = CompoundsFormulas.tritiumConsumption(
     Number(compoundsLevels?.tritium)
   );
+
   const netEnergy =
     solarEnergy +
     energyFromCelestia -
