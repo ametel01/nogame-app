@@ -65,9 +65,11 @@ function useMineInformation(
   productionFunc?: (arg0: number) => number,
   consumptionFunc?: (arg0: number) => number
 ) {
-  const production = productionFunc ? productionFunc(level) : undefined;
+  const production = productionFunc ? productionFunc(Number(level)) : undefined;
   const cost = costFunc(level);
-  const consumption = consumptionFunc ? consumptionFunc(level) : undefined;
+  const consumption = consumptionFunc
+    ? consumptionFunc(Number(level))
+    : undefined;
 
   return { production, cost, consumption };
 }
@@ -89,7 +91,7 @@ function CompoundDescription({
   consumptionFunc,
   currentLevel,
 }: DescriptionProps) {
-  const [level, setLevel] = useState(currentLevel!);
+  const [level, setLevel] = useState(Number(currentLevel!));
   const { production, cost, consumption } = useMineInformation(
     level,
     costFunc,

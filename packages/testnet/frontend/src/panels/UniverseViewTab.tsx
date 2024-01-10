@@ -119,7 +119,8 @@ export const UniverseViewTabPanel = ({
       .catch((error) => {
         console.error('Error fetching planets data:', error);
       });
-  }, [ownPlanetId]); // Add ownPlanetId as a dependency to recalculate if it changes
+  }, [ownPlanetId]);
+  console.log(planetsData);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const selectedPlanets = planetsData.slice(

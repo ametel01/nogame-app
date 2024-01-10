@@ -172,7 +172,7 @@ function ButtonAttackPlanet({
 
   const missions = useGetActiveMissions(planetId);
   const isMissionLimitReached =
-    missions && techs && missions.length === techs.digital + 1;
+    missions && techs && missions.length === Number(techs.digital) + 1;
 
   const totalShips = Object.entries(quantities).reduce(
     (acc, [ship, quantity]) => {
