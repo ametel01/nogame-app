@@ -1,20 +1,20 @@
-import { useState } from "react";
-import styled from "styled-components";
-import Tooltip from "@mui/material/Tooltip";
-import { Input } from "@mui/joy";
-import * as Styled from "../../shared/styled/Box";
-import { ButtonUpgrade } from "../ui/Button";
-import { numberWithCommas } from "../../shared/utils";
-import { ReactNode, useMemo } from "react";
-import useUpgrade from "../../hooks/writeHooks/useUpgrade";
-import ImagePopover from "../modals/Description";
-import { TechLevels } from "../../shared/types";
-import { Resources } from "../../shared/types";
-import { getCumulativeTechCost } from "../../shared/utils/Formulas";
-import { baseTechCost, techCostMapping } from "../../constants/costs";
-import { calculEnoughResources } from "../../shared/utils";
+import { useState } from 'react';
+import styled from 'styled-components';
+import Tooltip from '@mui/material/Tooltip';
+import { Input } from '@mui/joy';
+import * as Styled from '../../shared/styled/Box';
+import { ButtonUpgrade } from '../ui/Button';
+import { numberWithCommas } from '../../shared/utils';
+import { ReactNode, useMemo } from 'react';
+import useUpgrade from '../../hooks/writeHooks/useUpgrade';
+import ImagePopover from '../modals/Description';
+import { TechLevels } from '../../shared/types';
+import { Resources } from '../../shared/types';
+import { getCumulativeTechCost } from '../../shared/utils/Formulas';
+import { baseTechCost } from '../../constants/costs';
+import { calculEnoughResources } from '../../shared/utils';
 const InfoContainer = styled(Styled.InfoContainer)({
-  width: "45%",
+  width: '45%',
 });
 
 interface Props {
@@ -28,7 +28,7 @@ interface Props {
   resourcesAvailable: Resources;
 }
 
-type ButtonState = "valid" | "noResource" | "noRequirements";
+type ButtonState = 'valid' | 'noResource' | 'noRequirements';
 
 const ResearchBox = ({
   img,
@@ -43,8 +43,7 @@ const ResearchBox = ({
 
   const { tx, submitTx: upgrade } = useUpgrade(functionCallName, quantity);
 
-  const baseCostKey = techCostMapping[functionCallName] || functionCallName;
-  const baseCosts = baseTechCost[baseCostKey];
+  const baseCosts = baseTechCost[functionCallName];
   // Calculate the cumulative cost of the upgrade
   const upgradeCost = useMemo(() => {
     if (quantity > 0 && level != undefined) {
@@ -67,17 +66,17 @@ const ResearchBox = ({
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {
-      return "noRequirements";
+      return 'noRequirements';
     } else if (!hasEnoughResources) {
-      return "noResource";
+      return 'noResource';
     }
 
-    return "valid";
+    return 'valid';
   }, [hasEnoughResources, requirementsMet]);
 
-  const hasRequirements = buttonState === "noRequirements";
+  const hasRequirements = buttonState === 'noRequirements';
 
-  const isDisabled = buttonState === "noResource";
+  const isDisabled = buttonState === 'noResource';
 
   return (
     <Styled.Box>
@@ -97,9 +96,9 @@ const ResearchBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.steel < upgradeCost.steel
-                    ? "red"
-                    : "inherit"
-                  : "inherit",
+                    ? 'red'
+                    : 'inherit'
+                  : 'inherit',
               }}
             >
               {numberWithCommas(upgradeCost.steel)}
@@ -111,9 +110,9 @@ const ResearchBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.quartz < upgradeCost.quartz
-                    ? "red"
-                    : "inherit"
-                  : "inherit",
+                    ? 'red'
+                    : 'inherit'
+                  : 'inherit',
               }}
             >
               {numberWithCommas(upgradeCost.quartz)}
@@ -125,9 +124,9 @@ const ResearchBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.tritium < upgradeCost.tritium
-                    ? "red"
-                    : "inherit"
-                  : "inherit",
+                    ? 'red'
+                    : 'inherit'
+                  : 'inherit',
               }}
             >
               {numberWithCommas(upgradeCost.tritium)}
@@ -140,7 +139,7 @@ const ResearchBox = ({
               type="number"
               value={quantity}
               onChange={(e) => {
-                if (e.target.value === "") {
+                if (e.target.value === '') {
                   setQuantity(0);
                 } else {
                   setQuantity(parseInt(e.target.value, 10));
@@ -149,7 +148,7 @@ const ResearchBox = ({
               size="sm"
               color="neutral"
               variant="soft"
-              style={{ width: "80px" }}
+              style={{ width: '80px' }}
             />
           </Tooltip>
         </Styled.ResourceContainer>

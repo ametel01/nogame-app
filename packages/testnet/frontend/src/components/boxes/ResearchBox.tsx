@@ -9,7 +9,7 @@ import { useTechUpgrade } from '../../hooks/writeHooks/useUpgrade';
 import DescriptionModal from '../modals/Description';
 import { type TechLevels, type Resources } from '../../shared/types';
 import { getCumulativeTechCost } from '../../shared/utils/Formulas';
-import { baseTechCost, techCostMapping } from '../../constants/costs';
+import { baseTechCost } from '../../constants/costs';
 
 const InfoContainer = styled(Styled.InfoContainer)({
   width: '45%',
@@ -45,8 +45,7 @@ const ResearchBox = ({
     quantity
   );
 
-  const baseCostKey = techCostMapping[functionCallName] || functionCallName;
-  const baseCosts = baseTechCost[baseCostKey];
+  const baseCosts = baseTechCost[functionCallName];
   // Calculate the cumulative cost of the upgrade
   const upgradeCost = useMemo(() => {
     if (quantity > 0 && level != undefined) {
