@@ -5,41 +5,41 @@ export interface Resources {
 }
 
 export type CompoundsEntities =
-  | "steel"
-  | "quartz"
-  | "tritium"
-  | "energy"
-  | "dockyard"
-  | "lab";
+  | 'steel'
+  | 'quartz'
+  | 'tritium'
+  | 'energy'
+  | 'dockyard'
+  | 'lab';
 export type ShipsEntities =
-  | "carrier"
-  | "scraper"
-  | "celestia"
-  | "sparrow"
-  | "frigate"
-  | "armade";
-type DefencesEntities = "blaster" | "beam" | "astral" | "plasma";
+  | 'carrier'
+  | 'scraper'
+  | 'celestia'
+  | 'sparrow'
+  | 'frigate'
+  | 'armade';
+type DefencesEntities = 'blaster' | 'beam' | 'astral' | 'plasma';
 export type TechEntities =
-  | "armour"
-  | "combustion"
-  | "digital"
-  | "energy"
-  | "warp"
-  | "spacetime"
-  | "thrust"
-  | "ion"
-  | "beam"
-  | "plasma"
-  | "shield"
-  | "weapons";
+  | 'armour'
+  | 'combustion'
+  | 'digital'
+  | 'energy'
+  | 'warp'
+  | 'spacetime'
+  | 'thrust'
+  | 'ion'
+  | 'beam'
+  | 'plasma'
+  | 'shield'
+  | 'weapons';
 
 export type EnergyEntities =
-  | "steel"
-  | "quartz"
-  | "tritium"
-  | "energy"
-  | "celestia"
-  | "null";
+  | 'steel'
+  | 'quartz'
+  | 'tritium'
+  | 'energy'
+  | 'celestia'
+  | 'null';
 
 export type EnergyCost = { [key in EnergyEntities]: number };
 export type CompoundsCostUpgrade = { [key in CompoundsEntities]: Resources };

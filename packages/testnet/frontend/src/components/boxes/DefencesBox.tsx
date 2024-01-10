@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Input } from '@mui/joy';
 import DescriptionModal from '../modals/Description';
 import { ButtonBuild } from '../ui/Button';
-import useBuild from '../../hooks/writeHooks/useBuild';
+import { useDefenceBuild } from '../../hooks/writeHooks/useBuild';
 import { numberWithCommas } from '../../shared/utils';
 import * as Styled from '../../shared/styled/Box';
 import { type Resources } from '../../shared/types';
@@ -16,7 +16,7 @@ const InfoContainer = styled(Styled.InfoContainer)({
 interface Props {
   img: string;
   title: string;
-  functionCallName: string;
+  functionCallName: number;
   level?: number;
   costUpdate?: { steel: number; quartz: number; tritium: number };
   hasEnoughResources?: boolean;
@@ -41,7 +41,7 @@ const DefencesBox = ({
   const [quantity, setQuantity] = useState(1);
   const [showTooltip, setShowTooltip] = useState(true);
 
-  const { tx, writeAsync: build } = useBuild(functionCallName, quantity);
+  const { tx, writeAsync: build } = useDefenceBuild(functionCallName, quantity);
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {

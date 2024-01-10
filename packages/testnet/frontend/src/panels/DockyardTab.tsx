@@ -22,6 +22,7 @@ import {
   type Resources,
   type ShipsLevels,
   type TechLevels,
+  BuildType,
 } from '../shared/types';
 import DockyardBox from '../components/boxes/DockyardBox';
 import armadeImg from '../assets/gameElements/ships/armade_not_available.webp';
@@ -35,7 +36,7 @@ interface ShipConfigType {
   description: React.ReactNode;
   img: string;
   title: string;
-  functionCallName: string;
+  functionCallName: number;
   shipName: keyof ShipsLevels;
   requirements: boolean;
 }
@@ -63,7 +64,7 @@ export const DockyardTabPanel = ({
       description: <CarrierDescription />,
       img: carrierImg,
       title: 'Carrier',
-      functionCallName: 'carrier',
+      functionCallName: BuildType.Carrier,
       shipName: 'carrier',
       requirements: carrierRequirements(dockyardLevel, techLevels),
     },
@@ -71,7 +72,7 @@ export const DockyardTabPanel = ({
       description: <CelestiaDescription />,
       img: celestiaImg,
       title: 'Celestia',
-      functionCallName: 'celestia',
+      functionCallName: BuildType.Celestia,
       shipName: 'celestia',
       requirements: celestiaRequirements(dockyardLevel, techLevels),
     },
@@ -79,7 +80,7 @@ export const DockyardTabPanel = ({
       description: <ScraperDescription />,
       img: scraperImg,
       title: 'Scraper',
-      functionCallName: 'scraper',
+      functionCallName: BuildType.Scraper,
       shipName: 'scraper',
       requirements: scraperRequirements(dockyardLevel, techLevels),
     },
@@ -87,7 +88,7 @@ export const DockyardTabPanel = ({
       description: <SparrowDescription />,
       img: sparrowImg,
       title: 'Sparrow',
-      functionCallName: 'sparrow',
+      functionCallName: BuildType.Sparrow,
       shipName: 'sparrow',
       requirements: sparrowRequirements(dockyardLevel, techLevels),
     },
@@ -95,7 +96,7 @@ export const DockyardTabPanel = ({
       description: <FrigateDescription />,
       img: frigateImg,
       title: 'Frigate',
-      functionCallName: 'frigate',
+      functionCallName: BuildType.Frigate,
       shipName: 'frigate',
       requirements: frigateRequirements(dockyardLevel, techLevels),
     },
@@ -103,7 +104,7 @@ export const DockyardTabPanel = ({
       description: <ArmadeDescription />,
       img: armadeImg,
       title: 'Armade',
-      functionCallName: 'armade',
+      functionCallName: BuildType.Armade,
       shipName: 'armade',
       requirements: armadeRequirements(dockyardLevel, techLevels),
     },
