@@ -1,4 +1,6 @@
-import { Resources } from "../shared/types";
+import { Resources } from '../shared/types';
+
+export const uniSpeed = 5;
 
 export const baseTechCost: { [key: string]: Resources } = {
   digital: { steel: 0, quartz: 400, tritium: 600 },
@@ -34,16 +36,16 @@ type BaseTechCostKey = keyof typeof baseTechCost;
 
 // Mapping from functionCallName to baseTechCost key
 export const techCostMapping: { [key: string]: BaseTechCostKey } = {
-  digital_systems: "digital",
-  weapons_development: "weapon",
-  shield_tech: "shield",
-  armour_innovation: "armour",
-  energy_innovation: "energy",
-  combustive_engine: "combustion",
-  thrust_propulsion: "thrust",
-  warp_drive: "warp",
-  spacetime_warp: "spacetime",
-  beam_technology: "beam",
-  ion_systems: "ion",
-  plasma_engineering: "plasma",
+  digital_systems: 'digital',
+  weapons_development: 'weapon',
+  shield_tech: 'shield',
+  armour_innovation: 'armour',
+  energy_innovation: 'energy',
+  combustive_engine: 'combustion',
+  thrust_propulsion: 'thrust',
+  warp_drive: 'warp',
+  spacetime_warp: 'spacetime',
+  beam_technology: 'beam',
+  ion_systems: 'ion',
+  plasma_engineering: 'plasma',
 };

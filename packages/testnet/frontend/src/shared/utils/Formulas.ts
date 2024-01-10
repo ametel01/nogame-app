@@ -17,18 +17,25 @@ function calculateCost(
   return { steel, quartz, tritium };
 }
 
+const UNI_SPEED = 5;
 // Functions grouped in a single object
 export const CompoundsFormulas = {
   steelProduction(level: number) {
-    return Math.round(30 * level * Math.pow(GROWTH_FACTOR_LINEAR, level));
+    return (
+      Math.round(30 * level * Math.pow(GROWTH_FACTOR_LINEAR, level)) * UNI_SPEED
+    );
   },
 
   quartzProduction(level: number) {
-    return Math.round(20 * level * Math.pow(GROWTH_FACTOR_LINEAR, level));
+    return (
+      Math.round(20 * level * Math.pow(GROWTH_FACTOR_LINEAR, level)) * UNI_SPEED
+    );
   },
 
   tritiumProduction(level: number) {
-    return Math.round(10 * level * Math.pow(GROWTH_FACTOR_LINEAR, level));
+    return (
+      Math.round(10 * level * Math.pow(GROWTH_FACTOR_LINEAR, level)) * UNI_SPEED
+    );
   },
 
   energyProduction(level: number) {
