@@ -3,7 +3,7 @@ import { type Resources } from '../shared/types';
 export const baseTechCost: Record<string, Resources> = {
   energy: { steel: 0, quartz: 800, tritium: 400 },
   digital: { steel: 0, quartz: 800, tritium: 400 },
-  beam: { steel: 0, quartz: 400, tritium: 200 },
+  beam: { steel: 0, quartz: 800, tritium: 400 },
   armour: { steel: 1000, quartz: 0, tritium: 0 },
   ion: { steel: 1000, quartz: 300, tritium: 1000 },
   plasma: { steel: 2000, quartz: 4000, tritium: 1000 },
