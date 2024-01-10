@@ -17,7 +17,7 @@ import {
 
 // pink-capable-snake-964.mypinata.cloud/ipfs/QmZkpEbRphWPcZEmLZV7Z9C5jUvMUvPbRHYE42NMrgArQQ/
 const IPFS_BASE_URL = 'https://pink-capable-snake-964.mypinata.cloud/ipfs';
-const METADATA_URL = `${IPFS_BASE_URL}/Qmb7QkVbF5qhPgkyBAJeZSiR7k5ApoP22Hy2cKuaETavHg`;
+const METADATA_URL = `${IPFS_BASE_URL}/QmPJqE6QtPx84fx6ZRT1HE3Bd2kS4s19DnJ1mFGdnTn8Ga`;
 // const IMG_MODULO = 10;
 
 const DebugRowCentered = styled(RowCentered)`
@@ -159,6 +159,8 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
         .catch(console.error);
     }
   }, [planetId, metadata, address]);
+
+  console.log(metadata);
 
   const imgId = Number(position?.orbit);
   const planetImageUrl = getPlanetImage(imgId.toString() as unknown as ImageId);
