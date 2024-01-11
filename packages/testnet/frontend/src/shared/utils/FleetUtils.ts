@@ -49,17 +49,17 @@ export function getFleetSpeed(fleet: Fleet, techs: TechLevels) {
     const speed =
       techs.thrust >= 4
         ? calculateSpeed(baseSpeed * 2, techs.thrust - 4, 2)
-        : calculateSpeed(baseSpeed, techs.combustion, 1);
+        : calculateSpeed(baseSpeed, Number(techs.combustion), 1);
     minSpeed = Math.min(minSpeed, speed);
   }
 
   if (fleet.scraper > 0) {
-    const speed = calculateSpeed(SCRAPER.speed, techs.combustion, 1);
+    const speed = calculateSpeed(SCRAPER.speed, Number(techs.combustion), 1);
     minSpeed = Math.min(minSpeed, speed);
   }
 
   if (fleet.sparrow > 0) {
-    const speed = calculateSpeed(SPARROW.speed, techs.combustion, 1);
+    const speed = calculateSpeed(SPARROW.speed, Number(techs.combustion), 1);
     minSpeed = Math.min(minSpeed, speed);
   }
 
