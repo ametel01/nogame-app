@@ -110,7 +110,7 @@ const PioneerKey = ({ address, planetId }: Props) => {
             Generate a key to mint the exclusive{' '}
             <HighlightedText> NoGame Pioneer NFT</HighlightedText>. To be
             eligible, you must have{' '}
-            <HighlightedText>earned at least 100 points</HighlightedText> during
+            <HighlightedText>earned at least 300 points</HighlightedText> during
             the game. Enter a <HighlightedText>unique number</HighlightedText>{' '}
             and remember it, as it will be required to claim the NFT on{' '}
             <HighlightedText>starknet mainnet</HighlightedText>. Visit{' '}
