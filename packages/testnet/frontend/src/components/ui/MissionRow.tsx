@@ -82,7 +82,7 @@ export const MissionRow = memo(
       </FleetTooltipContent>
     );
 
-    const isArrived = Number(mission.time_arrival) * 1000 >= Date.now();
+    const isArrived = (Number(mission.time_arrival) + 320) * 1000 >= Date.now();
 
     return (
       <GridRow key={index}>
