@@ -79,7 +79,6 @@ const UniverseViewBox = ({
 }: Props) => {
   const boxStyle = highlighted ? { border: '1px solid #23CE6B' } : {};
 
-  console.log(lastActive);
   // Calculate the time difference in seconds
   const timeNow = new Date().getTime() / 1000;
   const timeDifference = timeNow - lastActive;

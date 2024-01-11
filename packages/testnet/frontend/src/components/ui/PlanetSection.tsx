@@ -160,8 +160,6 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
     }
   }, [planetId, metadata, address]);
 
-  console.log(metadata);
-
   const imgId = Number(position?.orbit);
   const planetImageUrl = getPlanetImage(imgId.toString() as unknown as ImageId);
 

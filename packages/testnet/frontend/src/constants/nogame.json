@@ -843,6 +843,22 @@
         },
         {
           "type": "function",
+          "name": "get_celestia_production",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u16"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u16"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
           "name": "get_defences_levels",
           "inputs": [
             {
