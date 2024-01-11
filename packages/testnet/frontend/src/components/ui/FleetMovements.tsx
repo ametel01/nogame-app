@@ -173,7 +173,7 @@ export const FleetMovements = ({ planetId }: Props) => {
 
   const getTimeDifference = useCallback((arrivalTime: number) => {
     const currentTime = Date.now();
-    const differenceInSeconds = (arrivalTime - currentTime) / 1000;
+    const differenceInSeconds = (arrivalTime - currentTime) / 1000 + 320;
 
     if (differenceInSeconds <= 0) {
       return 'Arrived';
