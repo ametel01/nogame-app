@@ -48,7 +48,7 @@ export function getFleetSpeed(fleet: Fleet, techs: TechLevels) {
     const baseSpeed = CARRIER.speed;
     const speed =
       techs.thrust >= 4
-        ? calculateSpeed(baseSpeed * 2, techs.thrust - 4, 2)
+        ? calculateSpeed(baseSpeed * 2, Number(techs.thrust) - 4, 2)
         : calculateSpeed(baseSpeed, Number(techs.combustion), 1);
     minSpeed = Math.min(minSpeed, speed);
   }
@@ -67,14 +67,14 @@ export function getFleetSpeed(fleet: Fleet, techs: TechLevels) {
     const baseSpeed = FRIGATE.speed;
     const speed =
       techs.thrust >= 4
-        ? calculateSpeed(baseSpeed, techs.thrust - 4, 2)
-        : calculateSpeed(baseSpeed, techs.combustion, 1);
+        ? calculateSpeed(baseSpeed, Number(techs.thrust) - 4, 2)
+        : calculateSpeed(baseSpeed, Number(techs.combustion), 1);
     minSpeed = Math.min(minSpeed, speed);
   }
 
   if (fleet.armade > 0) {
     const baseSpeed = ARMADE.speed;
-    const speed = calculateSpeed(baseSpeed, techs.warp - 3, 3);
+    const speed = calculateSpeed(baseSpeed, Number(techs.warp) - 3, 3);
     minSpeed = Math.min(minSpeed, speed);
   }
 
