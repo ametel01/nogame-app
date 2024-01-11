@@ -2,7 +2,7 @@ import { type Resources } from '../shared/types';
 
 export const baseTechCost: Record<number, Resources> = {
   6: { steel: 0, quartz: 800, tritium: 400 },
-  7: { steel: 0, quartz: 800, tritium: 400 },
+  7: { steel: 0, quartz: 400, tritium: 600 },
   8: { steel: 0, quartz: 800, tritium: 400 },
   9: { steel: 1000, quartz: 0, tritium: 0 },
   10: { steel: 1000, quartz: 300, tritium: 1000 },

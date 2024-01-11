@@ -2,7 +2,11 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 import Tooltip from '@mui/material/Tooltip';
 import { type Mission } from '../../shared/types';
-import { useRecallFleet } from '../../hooks/FleetHooks';
+import {
+  useAttackPlanet,
+  useRecallFleet,
+  useCollectDebris,
+} from '../../hooks/FleetHooks';
 import { usePlanetPosition } from '../../hooks/usePlanetPosition';
 import fleetIcon from '../../assets/uiIcons/Fleet.svg';
 import { StyledButton } from '../../shared/styled/Button';
@@ -49,22 +53,17 @@ interface MissionRowProps {
   index: number;
   countdown: string;
   decayPercentage: number;
-  handleAttackClick: (mission: Mission) => void;
 }
 
 export const MissionRow = memo(
-  ({
-    mission,
-    index,
-    countdown,
-    decayPercentage,
-    handleAttackClick,
-  }: MissionRowProps) => {
+  ({ mission, index, countdown, decayPercentage }: MissionRowProps) => {
     const position = usePlanetPosition(Number(mission.destination));
     const destination = position
       ? `${Number(position.system)} / ${Number(position.orbit)}`
       : 'Unknown';
     const { writeAsync: recallFleet } = useRecallFleet(mission.id);
+    const { writeAsync: attackPlanet } = useAttackPlanet(mission.id);
+    const { writeAsync: collectDebris } = useCollectDebris(mission.id);
 
     const onRecallClick = React.useCallback(() => {
       recallFleet().then(() => {
@@ -113,7 +112,9 @@ export const MissionRow = memo(
           ) : (
             <StyledButton
               onClick={() => {
-                handleAttackClick(mission);
+                {
+                  mission.is_debris ? collectDebris() : attackPlanet();
+                }
               }}
               size="small"
               sx={{ background: '#4A63AA' }}

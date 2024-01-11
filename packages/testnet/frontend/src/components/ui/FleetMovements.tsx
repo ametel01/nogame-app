@@ -6,16 +6,11 @@ import React, {
   useMemo,
 } from 'react';
 
-import {
-  useAttackPlanet,
-  useGetActiveMissions,
-  useCollectDebris,
-} from '../../hooks/FleetHooks';
+import { useGetActiveMissions } from '../../hooks/FleetHooks';
 import { Box } from '@mui/system';
 import Modal from '@mui/material/Modal';
 import styled from 'styled-components';
 import { calculateFleetLoss } from '../../shared/utils/Formulas';
-import { type Mission } from '../../shared/types';
 import { HeaderButton } from '../../shared/styled/Button';
 import { MissionRow } from './MissionRow';
 
@@ -110,45 +105,6 @@ const fleetReducer = (state: FleetState, action: FleetAction): FleetState => {
   }
 };
 
-interface ActionProps {
-  missionId: number;
-  onAction: () => void;
-}
-
-const AttackPlanetAction = ({
-  missionId,
-  onAction,
-  triggerAction,
-}: ActionProps & { triggerAction: boolean }) => {
-  const { writeAsync: attackPlanet } = useAttackPlanet(missionId);
-
-  useEffect(() => {
-    if (triggerAction) {
-      attackPlanet();
-      onAction();
-    }
-  }, [attackPlanet, onAction, triggerAction]);
-
-  return null;
-};
-
-const CollectDebrisAction = ({
-  missionId,
-  onAction,
-  triggerAction,
-}: ActionProps & { triggerAction: boolean }) => {
-  const { writeAsync: collectDebris } = useCollectDebris(missionId);
-
-  useEffect(() => {
-    if (triggerAction) {
-      collectDebris();
-      onAction();
-    }
-  }, [collectDebris, onAction, triggerAction]);
-
-  return null;
-};
-
 interface Props {
   planetId: number;
 }
@@ -164,12 +120,10 @@ export const FleetMovements = ({ planetId }: Props) => {
   }, [rawMissions]);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
   const [state, dispatch] = useReducer(fleetReducer, {
     countdowns: [],
     decayPercentages: [],
   });
-  const [triggerAction, setTriggerAction] = useState(false);
 
   const getTimeDifference = useCallback((arrivalTime: number) => {
     const currentTime = Date.now();
@@ -229,17 +183,6 @@ export const FleetMovements = ({ planetId }: Props) => {
     setIsOpen(open);
   }, []);
 
-  const handleAttackClick = useCallback((mission: Mission) => {
-    setSelectedMission(mission);
-    setTriggerAction(true); // Set to trigger the action
-  }, []);
-
-  // Reset the trigger after the action is invoked
-  const onActionComplete = useCallback(() => {
-    setSelectedMission(null);
-    setTriggerAction(false);
-  }, []);
-
   return (
     <div>
       <HeaderButton
@@ -282,27 +225,11 @@ export const FleetMovements = ({ planetId }: Props) => {
                 index={index}
                 countdown={state.countdowns[index]}
                 decayPercentage={state.decayPercentages[index]}
-                handleAttackClick={handleAttackClick}
               />
             ))}
           </GridContainer>
         </StyledBox>
       </Modal>
-
-      {selectedMission &&
-        (selectedMission.is_debris ? (
-          <CollectDebrisAction
-            missionId={selectedMission.id}
-            onAction={onActionComplete}
-            triggerAction={triggerAction}
-          />
-        ) : (
-          <AttackPlanetAction
-            missionId={selectedMission.id}
-            onAction={onActionComplete}
-            triggerAction={triggerAction}
-          />
-        ))}
     </div>
   );
 };
