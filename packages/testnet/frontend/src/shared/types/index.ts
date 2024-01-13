@@ -197,3 +197,58 @@ export function getBuildType(name: number): CairoCustomEnum | undefined {
       return new CairoCustomEnum({ Plasma: {} });
   }
 }
+
+export const callTypeOptions = {
+  compound: [
+    { value: 0, label: 'Steel Mine' },
+    { value: 1, label: 'Quartz Mine' },
+    { value: 2, label: 'Tritium Mine' },
+    { value: 3, label: 'Energy Plant' },
+    { value: 4, label: 'Research Lab' },
+    { value: 5, label: 'Dockyard' },
+  ],
+  tech: [
+    { value: 6, label: 'Energy Tech' },
+    { value: 7, label: 'Digital Systems' },
+    { value: 8, label: 'Beam Tech' },
+    { value: 9, label: 'Armor Tech' },
+    { value: 10, label: 'Ion Tech' },
+    { value: 11, label: 'Plasma Tech' },
+    { value: 12, label: 'Weapons Tech' },
+    { value: 13, label: 'Shield Tech' },
+    { value: 14, label: 'Spacetime Tech' },
+    { value: 15, label: 'Combustion Engine' },
+    { value: 16, label: 'Thrust Propulsion' },
+    { value: 17, label: 'Warp Drive' },
+  ],
+  ship: [
+    { value: 0, label: 'Carrier' },
+    { value: 1, label: 'Scraper' },
+    { value: 2, label: 'Celestia' },
+    { value: 3, label: 'Sparrow' },
+    { value: 4, label: 'Frigate' },
+    { value: 5, label: 'Armade' },
+  ],
+  defence: [
+    { value: 6, label: 'Blaster' },
+    { value: 7, label: 'Beam' },
+    { value: 8, label: 'Astral Launcher' },
+    { value: 9, label: 'Plasma Projector' },
+  ],
+};
+
+type UpgradeTypeKeys = keyof typeof UpgradeType;
+type BuildTypeKeys = keyof typeof BuildType;
+
+export function getUpgradeNameById(id: number, isBuild: boolean) {
+  if (isBuild == false) {
+    const reversedMapping = (
+      Object.keys(UpgradeType) as UpgradeTypeKeys[]
+    ).find((key) => UpgradeType[key] === id);
+    return reversedMapping;
+  }
+  const reversedMapping = (Object.keys(BuildType) as BuildTypeKeys[]).find(
+    (key) => BuildType[key] === id
+  );
+  return reversedMapping;
+}

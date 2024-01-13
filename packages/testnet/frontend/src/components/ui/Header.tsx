@@ -9,6 +9,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useAccount, useDisconnect } from '@starknet-react/core';
 import IconButton from '@mui/material/IconButton';
 import WalletHeader from './WalletHeader';
+import { MultiCallTransaction } from '../../multicall/MultiCallTransaction';
 
 const HeaderWrapper = styled(AppBar)({
   backgroundColor: '#1a2025',
@@ -73,6 +74,7 @@ const Header = ({ planetId }: Props) => {
           </Link>
         </HeaderButton>
         <FleetMovements planetId={planetId || 0} />
+        <MultiCallTransaction />
         <HeaderButton variant="text">
           <Link
             to="/battlereports"

@@ -77,7 +77,7 @@ export const HeaderDiv = styled('div')({
   alignItems: 'center',
 });
 
-const StyledUl = styled('ul')({
+export const StyledUl = styled('ul')({
   padding: '8px',
   flexGrow: 1,
 });
@@ -88,7 +88,7 @@ const Text = styled('span')({
   fontSize: '16px',
 });
 
-const FlexContainer = styled('div')({
+export const FlexContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-start',
