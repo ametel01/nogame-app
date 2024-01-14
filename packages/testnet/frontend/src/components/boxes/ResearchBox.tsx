@@ -10,6 +10,7 @@ import DescriptionModal from '../modals/Description';
 import { type TechLevels, type Resources } from '../../shared/types';
 import { getCumulativeTechCost } from '../../shared/utils/Formulas';
 import { baseTechCost } from '../../constants/costs';
+import AddTransactionIcon from '../../multicall/AddTransactionIcon';
 
 const InfoContainer = styled(Styled.InfoContainer)({
   width: '45%',
@@ -169,6 +170,12 @@ const ResearchBox = ({
             />
           </Tooltip>
         </Styled.ResourceContainer>
+        <AddTransactionIcon
+          callType="compound"
+          unitName={functionCallName}
+          quantity={quantity}
+          disabled={hasRequirements || !hasEnoughResources}
+        />
         <Styled.ButtonContainer>
           <ButtonUpgrade
             name={`Upgrade ${title}`}

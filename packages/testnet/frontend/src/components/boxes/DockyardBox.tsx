@@ -8,6 +8,7 @@ import { useShipBuild } from '../../hooks/writeHooks/useBuild';
 import { Input } from '@mui/joy';
 import DescriptionModal from '../modals/Description';
 import { type Resources } from '../../shared/types';
+import AddTransactionIcon from '../../multicall/AddTransactionIcon';
 
 const InfoContainer = styled(Styled.InfoContainer)({
   width: '45%',
@@ -166,6 +167,12 @@ const DockyardBox = ({
             />
           </Tooltip>
         </Styled.ResourceContainer>
+        <AddTransactionIcon
+          callType="ship"
+          unitName={functionCallName}
+          quantity={quantity}
+          disabled={hasRequirements || !hasEnoughResources}
+        />
         <Styled.ButtonContainer>
           <ButtonBuild
             name={`Build ${quantity} ${title}`}

@@ -7,6 +7,7 @@ import { numberWithCommas, calculEnoughResources } from '../../shared/utils';
 import { ButtonUpgrade } from '../ui/Button';
 import DescriptionModal from '../modals/Description';
 import * as Styled from '../../shared/styled/Box';
+import AddTransactionIcon from '../../multicall/AddTransactionIcon';
 import { type Resources } from '../../shared/types';
 import {
   getCompoundCost,
@@ -158,6 +159,12 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
             />
           </Tooltip>
         </Styled.ResourceContainer>
+        <AddTransactionIcon
+          callType="compound"
+          unitName={functionCallName}
+          quantity={quantity}
+          disabled={isDisabled}
+        />
         <Styled.ButtonContainer>
           <ButtonUpgrade
             name={`Upgrade ${title}`}

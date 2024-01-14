@@ -74,7 +74,6 @@ const Header = ({ planetId }: Props) => {
           </Link>
         </HeaderButton>
         <FleetMovements planetId={planetId || 0} />
-        <MultiCallTransaction />
         <HeaderButton variant="text">
           <Link
             to="/battlereports"
@@ -94,6 +93,7 @@ const Header = ({ planetId }: Props) => {
             LeaderBoard
           </Link>
         </HeaderButton>
+        <MultiCallTransaction />
       </StyledToolbar>
     </HeaderWrapper>
   );

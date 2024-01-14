@@ -6,10 +6,13 @@ import GeneralLeaderboardPage from './pages/GeneralLeaderBoardPage';
 import BattleReportsPage from './pages/BattleReportsPage';
 import PioneerNFTPage from './pages/PioneerNFTPage';
 import { StarknetProvider } from './components/provider';
+import { BlockchainCallProvider } from './context/BlockchainCallContext'; // Import the provider
 
 function App() {
   return (
-    <>
+    <BlockchainCallProvider>
+      {' '}
+      {/* Wrap the application with BlockchainCallProvider */}
       <StarknetProvider>
         <GlobalStyle />
         <Router>
@@ -21,7 +24,7 @@ function App() {
           </Routes>
         </Router>
       </StarknetProvider>
-    </>
+    </BlockchainCallProvider>
   );
 }
 

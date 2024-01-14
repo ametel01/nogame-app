@@ -8,6 +8,7 @@ import { useDefenceBuild } from '../../hooks/writeHooks/useBuild';
 import { numberWithCommas } from '../../shared/utils';
 import * as Styled from '../../shared/styled/Box';
 import { type Resources } from '../../shared/types';
+import AddTransactionIcon from '../../multicall/AddTransactionIcon';
 
 const InfoContainer = styled(Styled.InfoContainer)({
   width: '45%',
@@ -170,6 +171,12 @@ const DefencesBox = ({
             />
           </Tooltip>
         </Styled.ResourceContainer>
+        <AddTransactionIcon
+          callType="defence"
+          unitName={functionCallName}
+          quantity={quantity}
+          disabled={hasRequirements || !hasEnoughResources}
+        />
         <Styled.ButtonContainer>
           <ButtonBuild
             name={`Build ${quantity} ${title}`}
