@@ -171,7 +171,7 @@ const ResearchBox = ({
           </Tooltip>
         </Styled.ResourceContainer>
         <AddTransactionIcon
-          callType="compound"
+          callType="tech"
           unitName={functionCallName}
           quantity={quantity}
           disabled={hasRequirements || !hasEnoughResources}

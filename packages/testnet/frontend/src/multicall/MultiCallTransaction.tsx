@@ -74,7 +74,13 @@ export type SingleCall = {
 
 export function MultiCallTransaction() {
   const [isOpen, setIsOpen] = useState(false);
-  const { selectedCalls, singleCalls, removeCall } = useBlockchainCall();
+  const {
+    selectedCalls,
+    setSelectedCalls,
+    singleCalls,
+    setSingleCalls,
+    removeCall,
+  } = useBlockchainCall();
   const { writeAsync } = useContractWrite({ calls: selectedCalls });
 
   const handleModalClose = () => {
@@ -84,6 +90,12 @@ export function MultiCallTransaction() {
   const toggleModal = useCallback((open: boolean) => {
     setIsOpen(open);
   }, []);
+
+  const handleClick = () => {
+    writeAsync();
+    setSelectedCalls([]);
+    setSingleCalls([]);
+  };
 
   return (
     <>
@@ -118,7 +130,7 @@ export function MultiCallTransaction() {
           <StyledButton
             variant="contained"
             size="large"
-            onClick={() => writeAsync()}
+            onClick={handleClick}
             color="primary"
             fullWidth
           >

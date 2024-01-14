@@ -18,6 +18,8 @@ interface BlockchainCallContextProps {
   singleCalls: SingleCall[];
   addCall: (callType: CallType, unitName: number, quantity: number) => void;
   removeCall: (index: number) => void;
+  setSelectedCalls: (calls: Call[]) => void;
+  setSingleCalls: (calls: SingleCall[]) => void;
   // ... other functions and states
 }
 
@@ -26,6 +28,8 @@ const defaultContextValue: BlockchainCallContextProps = {
   singleCalls: [],
   addCall: () => {},
   removeCall: () => {},
+  setSelectedCalls: () => {},
+  setSingleCalls: () => {},
 };
 
 const BlockchainCallContext =
@@ -101,7 +105,14 @@ export const BlockchainCallProvider: React.FC<PropsWithChildren<object>> = ({
 
   return (
     <BlockchainCallContext.Provider
-      value={{ selectedCalls, singleCalls, addCall, removeCall }}
+      value={{
+        selectedCalls,
+        setSelectedCalls,
+        singleCalls,
+        setSingleCalls,
+        addCall,
+        removeCall,
+      }}
     >
       {children}
     </BlockchainCallContext.Provider>
