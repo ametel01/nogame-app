@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Typography } from '@mui/material';
 import { useContractRead } from '@starknet-react/core';
 import nogameLogo from '../../assets/logos/NoGameLogo.webp';
-// import { numberWithCommas } from "../../shared/utils";
+import { BlockTag } from 'starknet';
 import { GAMEADDRESS } from '../../constants/addresses';
 import game from '../../constants/nogame.json';
 import { numberWithCommas } from '../../shared/utils';
@@ -67,6 +67,7 @@ const LogoAndRankContainer = ({ planetId }: Props) => {
     functionName: 'get_planet_points',
     args: [Number(planetId)],
     watch: false,
+    blockIdentifier: BlockTag.pending,
   });
 
   const score = useMemo(() => {

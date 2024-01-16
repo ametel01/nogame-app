@@ -6,6 +6,7 @@ import game from '../../constants/nogame.json';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { BlockTag } from 'starknet';
 
 const KeyInfoContainer = styled.div({
   width: '100%',
@@ -56,6 +57,7 @@ const GeneratedKey = ({ address, planetId }: Props) => {
     abi: game.abi,
     functionName: 'get_mint_key',
     args: [address ? address : ''],
+    blockIdentifier: BlockTag.pending,
   });
 
   const hexData = data ? `0x${data.toString(16)}` : 'Key Not Generated Yet';

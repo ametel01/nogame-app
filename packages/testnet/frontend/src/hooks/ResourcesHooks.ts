@@ -32,6 +32,7 @@ export function useCollectibleResources(planetId: number) {
     abi: game.abi,
     functionName: 'get_collectible_resources',
     args: isValidPlanetId ? [planetId] : undefined,
+    blockIdentifier: BlockTag.pending,
   });
 
   if (!isValidPlanetId) {
