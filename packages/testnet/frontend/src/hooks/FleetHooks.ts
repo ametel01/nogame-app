@@ -1,6 +1,7 @@
 import { InvokeFunctionResponse } from 'starknet';
 import { ContractWriteVariables } from '@starknet-react/core';
 import { GAMEADDRESS } from '../constants/addresses';
+import { BlockTag } from 'starknet';
 import game from '../constants/nogame.json';
 import {
   useContractRead,
@@ -25,6 +26,7 @@ export function useGetMissionDetails(
     abi: game.abi,
     functionName: 'get_mission_details',
     args: [planetId, missionId],
+    blockIdentifier: BlockTag.pending,
   });
   return data as unknown as Mission;
 }
@@ -35,6 +37,7 @@ export function useLastActive(planetId?: number): number {
     abi: game.abi,
     functionName: 'get_last_active',
     args: [planetId ? planetId : 0],
+    blockIdentifier: BlockTag.pending,
   });
   return data as unknown as number;
 }
@@ -45,6 +48,7 @@ export function useGetHostileMissions(planetId: number): HostileMission[] {
     abi: game.abi,
     functionName: 'get_hostile_missions',
     args: [planetId],
+    blockIdentifier: BlockTag.pending,
   });
   return data as unknown as HostileMission[];
 }
@@ -55,6 +59,7 @@ export function useGetActiveMissions(planetId: number): Mission[] {
     abi: game.abi,
     functionName: 'get_active_missions',
     args: [Number(planetId)],
+    blockIdentifier: BlockTag.pending,
   });
   return data as unknown as Mission[];
 }
@@ -68,6 +73,7 @@ export function useGetIsNoobProtected(
     abi: game.abi,
     functionName: 'is_noob_protected',
     args: [planetOne, planteTwo],
+    blockIdentifier: BlockTag.pending,
   });
   return data as unknown as boolean;
 }
@@ -78,6 +84,7 @@ export function useGetLastActive(planetId: number): number {
     abi: game.abi,
     functionName: 'get_last_active',
     args: [planetId],
+    blockIdentifier: BlockTag.pending,
   });
   return data as unknown as number;
 }

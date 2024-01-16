@@ -944,6 +944,30 @@
             }
           ],
           "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "simulate_attack",
+          "inputs": [
+            {
+              "name": "attacker_fleet",
+              "type": "nogame::libraries::types::Fleet"
+            },
+            {
+              "name": "defender_fleet",
+              "type": "nogame::libraries::types::Fleet"
+            },
+            {
+              "name": "defences",
+              "type": "nogame::libraries::types::DefencesLevels"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "(nogame::libraries::types::Fleet, nogame::libraries::types::Fleet, nogame::libraries::types::DefencesLevels)"
+            }
+          ],
+          "state_mutability": "view"
         }
       ]
     },

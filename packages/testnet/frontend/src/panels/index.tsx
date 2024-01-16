@@ -48,25 +48,6 @@ interface ResourcesSectionArgs {
 
 export const ResourcesSection = ({ planetId }: ResourcesSectionArgs) => {
   const [activeTab, setActiveTab] = useState(1);
-  // const [compoundsLevels, setCompoundsLevels] =
-  //   useState<CompoundsLevels | null>(null);
-  // const [techLevels, setTechLevels] = useState<TechLevels | null>(null);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await fetchUpgradesData({ planetId });
-  //       setCompoundsLevels(data.compoundsLevels);
-  //       setTechLevels(data.techLevels);
-  //     } catch (error) {
-  //       console.error('Error fetching upgrades data:', error);
-  //       // Handle the error appropriately
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [planetId]);
-  // Data Retrieval Hooks
   const compoundsLevels = useCompoundsLevels(planetId);
   const techLevels = useTechLevels(planetId);
   const spendableResources = useSpendableResources(planetId);
