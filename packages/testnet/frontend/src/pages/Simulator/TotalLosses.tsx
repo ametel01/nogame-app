@@ -49,6 +49,7 @@ interface Props {
   attackerFleet: Fleet;
   defenderFleet: Fleet;
   defences: DefenceLevels;
+  attackerDefeated: boolean;
 }
 
 type Cost = {
@@ -61,6 +62,7 @@ export const TotalLosses = ({
   attackerFleet,
   defenderFleet,
   defences,
+  attackerDefeated,
 }: Props) => {
   const [attackerLosses, setAttackerLosses] = useState<Cost>({
     steel: 0,
@@ -192,6 +194,11 @@ export const TotalLosses = ({
         </TableColoredCell>
         <TableColoredCell>{0}</TableColoredCell>
       </TableGrid>
+      {attackerDefeated ? (
+        <TableHeader style={{ marginTop: '20px' }}>Defender Wins!</TableHeader>
+      ) : (
+        <TableHeader style={{ marginTop: '20px' }}>Attacker Wins!</TableHeader>
+      )}
     </StyledContainer>
   );
 };

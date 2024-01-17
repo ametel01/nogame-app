@@ -56,6 +56,12 @@ export const LossValue = styled.span`
   text-align: center;
 `;
 
+function isFleetEmpty(before: Fleet, after: Fleet) {
+  return Object.keys(after).every(
+    (key) => after[key as keyof Fleet] === before[key as keyof Fleet]
+  );
+}
+
 const FormattedSimulationResult = ({
   attackerFleet,
   defenderFleet,
@@ -117,6 +123,8 @@ const FormattedSimulationResult = ({
     </LoadingContainer>;
   }
 
+  const isAttackerDefeated = isFleetEmpty(attackerFleet, attackerLosses);
+
   const LossesDisplay = ({
     title,
     losses,
@@ -136,7 +144,7 @@ const FormattedSimulationResult = ({
       ))}
     </>
   );
-
+  console.log(attackerFleet, attackerLosses);
   return (
     <ColumnsContainer>
       <SectionContainer>
@@ -152,6 +160,7 @@ const FormattedSimulationResult = ({
         attackerFleet={attackerLosses}
         defenderFleet={defenderLosses}
         defences={defencesLosses}
+        attackerDefeated={isAttackerDefeated}
       />
     </ColumnsContainer>
   );
