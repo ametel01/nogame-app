@@ -30,13 +30,16 @@ const TableGrid = styled.div`
 const TableRegularCell = styled.div`
   padding: 5px 5px;
   border-bottom: 1px solid #34495e;
+  width: 100px;
 `;
 
 const TableCell = styled.div`
+  width: 100px;
   padding: 5px 5px;
 `;
 
 const TableColoredCell = styled.div`
+  width: 100px;
   color: #23ce6b;
   padding: 5px 5px;
 `;
