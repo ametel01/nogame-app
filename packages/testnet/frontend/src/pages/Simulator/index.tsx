@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Fleet, DefenceLevels } from '../../shared/types';
-import { useSimulation } from '../../hooks/useSimulation';
 import FormattedSimulationResult from './FormatSimulationResult';
 import Header from '../../components/ui/Header';
 import { useAccount } from '@starknet-react/core';
@@ -94,8 +93,8 @@ export const BattleSimulator = () => {
   const [defenderFleet, setDefenderFleet] = useState<Fleet>(baseFleet);
   const [defences, setDefences] = useState<DefenceLevels>(baseDefences);
 
-  const response = useSimulation(attackerFleet, defenderFleet, defences);
-  console.log('response', response);
+  // const response = useSimulation(attackerFleet, defenderFleet, defences);
+  // console.log('response', response);
 
   const handleInputChange = (
     fleetType: 'attacker' | 'defender',

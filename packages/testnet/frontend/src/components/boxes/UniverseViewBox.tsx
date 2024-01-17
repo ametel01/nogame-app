@@ -51,7 +51,7 @@ interface Props {
   owner?: string;
   position: string;
   debris?: { steel: number; quartz: number };
-  points: number;
+  points: string | number;
   highlighted: boolean;
   spendable?: Resources;
   collectible?: Resources;
@@ -151,9 +151,9 @@ const UniverseViewBox = ({
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>POINTS</Styled.ResourceTitle>
+            <Styled.ResourceTitle>RANKING</Styled.ResourceTitle>
             <Styled.NumberContainer style={{ fontSize: '14px' }}>
-              {numberWithCommas(Number(points))}
+              {isNaN(Number(points)) ? '-' : numberWithCommas(Number(points))}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>

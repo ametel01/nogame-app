@@ -15,6 +15,7 @@ import { useShipsLevels } from '../hooks/LevelsHooks';
 import { useGetIsNoobProtected, useLastActive } from '../hooks/FleetHooks';
 import { getPlanetImage, type ImageId } from '../shared/utils/getPlanetImage';
 import fetchPlanetsData from '../api/fetchPlanetsData';
+import { useGetPlanetRanking } from '../components/leaderboards/utils';
 
 interface UniverseBoxItemProps {
   ownPlanetId: number;
@@ -36,6 +37,8 @@ const UniverseBoxItem = ({
     planet.planetId
   );
 
+  const planetRanking = useGetPlanetRanking(planet.planetId);
+  console.log(planetRanking);
   const lastActive = useLastActive(planet.planetId);
 
   const ownFleetData = useShipsLevels(Number(ownPlanetId));
@@ -68,7 +71,7 @@ const UniverseBoxItem = ({
       img={img}
       owner={shortenedAddress}
       position={formattedPosition}
-      points={planet.points}
+      points={planetRanking}
       highlighted={highlighted}
       ownPlanetId={ownPlanetId}
       ownFleet={ownFleet}

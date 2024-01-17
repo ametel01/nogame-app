@@ -144,7 +144,7 @@ const FormattedSimulationResult = ({
       ))}
     </>
   );
-  console.log(attackerFleet, attackerLosses);
+
   return (
     <ColumnsContainer>
       <SectionContainer>
