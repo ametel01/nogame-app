@@ -37,7 +37,7 @@ export const ColumnsContainer = styled.div`
 
 const Label = styled.label`
   color: white;
-  width: 150px; // Fixed width of 150px
+  width: 170px; // Fixed width of 150px
   display: inline-block; // Necessary to apply width to inline elements like Typography
   text-align: left; // Ensure the text is aligned to the left within the fixed width
   letter-spacing: 0.1rem;
