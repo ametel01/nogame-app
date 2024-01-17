@@ -4,12 +4,7 @@ import game from '../constants/nogame.json';
 import { Fleet } from '../shared/types';
 import { DefenceLevels } from '../shared/types/index';
 import { BlockTag } from 'starknet';
-
-export type SimulationResult = {
-  attackerLosses: Fleet;
-  defenderLosses: Fleet;
-  defencesLosses: DefenceLevels;
-};
+import { SimulationResult } from '../shared/types';
 
 export const useSimulation = (
   attcker: Fleet,
@@ -24,5 +19,7 @@ export const useSimulation = (
     blockIdentifier: BlockTag.pending,
   });
 
-  return data as SimulationResult;
+  const result = data as SimulationResult;
+
+  return { result };
 };

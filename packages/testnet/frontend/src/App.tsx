@@ -7,6 +7,7 @@ import BattleReportsPage from './pages/BattleReportsPage';
 import PioneerNFTPage from './pages/PioneerNFTPage';
 import { StarknetProvider } from './components/provider';
 import { BlockchainCallProvider } from './context/BlockchainCallContext'; // Import the provider
+import { BattleSimulator } from './pages/Simulator';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/pioneer" element={<PioneerNFTPage />}></Route>
             <Route path="/leaderboard" element={<GeneralLeaderboardPage />} />
             <Route path="/battlereports" element={<BattleReportsPage />} />
+            <Route path="/simulator" element={<BattleSimulator />} />
           </Routes>
         </Router>
       </StarknetProvider>

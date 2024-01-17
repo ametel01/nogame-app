@@ -20,7 +20,8 @@ export type ShipsEntities =
   | 'sparrow'
   | 'frigate'
   | 'armade';
-type DefencesEntities = 'blaster' | 'beam' | 'astral' | 'plasma';
+type DefencesEntities = 'celestia' | 'blaster' | 'beam' | 'astral' | 'plasma';
+type DefencesCostEntities = 'blaster' | 'beam' | 'astral' | 'plasma';
 export type TechEntities =
   | 'armour'
   | 'combustion'
@@ -50,7 +51,7 @@ export type CompoundsLevels = { [key in CompoundsEntities]: number };
 export type ShipsCost = { [key in ShipsEntities]: Resources };
 export type ShipsLevels = { [key in ShipsEntities]: number };
 
-export type DefenceCost = { [key in DefencesEntities]: Resources };
+export type DefenceCost = { [key in DefencesCostEntities]: Resources };
 export type DefenceLevels = { [key in DefencesEntities]: number };
 
 export type TechCost = { [key in TechEntities]: Resources };
@@ -252,3 +253,21 @@ export function getUpgradeNameById(id: number, isBuild: boolean) {
   );
   return reversedMapping;
 }
+
+export type SimulationResult = {
+  attacker_carrier: number;
+  attacker_scraper: number;
+  attacker_sparrow: number;
+  attacker_frigate: number;
+  attacker_armade: number;
+  defender_carrier: number;
+  defender_scraper: number;
+  defender_sparrow: number;
+  defender_frigate: number;
+  defender_armade: number;
+  celestia: number;
+  blaster: number;
+  beam: number;
+  astral: number;
+  plasma: number;
+};

@@ -93,6 +93,17 @@ const Header = ({ planetId }: Props) => {
             LeaderBoard
           </Link>
         </HeaderButton>
+        <HeaderButton
+          variant="text"
+          sx={{ display: 'flex', alignItems: 'center' }}
+        >
+          <Link
+            to="/simulator"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            Simulator
+          </Link>
+        </HeaderButton>
         <MultiCallTransaction />
       </StyledToolbar>
     </HeaderWrapper>
