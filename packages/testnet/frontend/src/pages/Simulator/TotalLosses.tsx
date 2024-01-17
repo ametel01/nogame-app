@@ -36,6 +36,7 @@ const TableRegularCell = styled.div`
 const TableCell = styled.div`
   width: 100px;
   padding: 5px 5px;
+  text-align: left;
 `;
 
 const TableColoredCell = styled.div`
@@ -171,6 +172,25 @@ export const TotalLosses = ({
         <TableColoredCell>
           {numberWithCommas(defenderLosses.tritium)}
         </TableColoredCell>
+      </TableGrid>
+      <TableGrid>
+        <TableRegularCell></TableRegularCell>
+        <TableRegularCell></TableRegularCell>
+        <TableRegularCell></TableRegularCell>
+        <TableRegularCell></TableRegularCell>
+
+        <TableCell>Debris</TableCell>
+        <TableColoredCell>
+          {numberWithCommas(
+            Math.round((defenderLosses.steel + attackerLosses.steel) / 3)
+          )}
+        </TableColoredCell>
+        <TableColoredCell>
+          {numberWithCommas(
+            Math.round((defenderLosses.quartz + attackerLosses.quartz) / 3)
+          )}
+        </TableColoredCell>
+        <TableColoredCell>{0}</TableColoredCell>
       </TableGrid>
     </StyledContainer>
   );
