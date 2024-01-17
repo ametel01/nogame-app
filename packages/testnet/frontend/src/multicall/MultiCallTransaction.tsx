@@ -15,7 +15,7 @@ const StyledModal = styled(Modal)`
 `;
 
 const StyledModalContent = styled.div`
-  background-color: #263238;
+  background-color: #1a2025;
   color: #cfd8dc;
   border-radius: 8px;
   padding: 20px;
