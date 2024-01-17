@@ -93,9 +93,6 @@ export const BattleSimulator = () => {
   const [defenderFleet, setDefenderFleet] = useState<Fleet>(baseFleet);
   const [defences, setDefences] = useState<DefenceLevels>(baseDefences);
 
-  // const response = useSimulation(attackerFleet, defenderFleet, defences);
-  // console.log('response', response);
-
   const handleInputChange = (
     fleetType: 'attacker' | 'defender',
     shipType: keyof Fleet,

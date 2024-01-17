@@ -16,6 +16,7 @@ import { useGetIsNoobProtected, useLastActive } from '../hooks/FleetHooks';
 import { getPlanetImage, type ImageId } from '../shared/utils/getPlanetImage';
 import fetchPlanetsData from '../api/fetchPlanetsData';
 import { useGetPlanetRanking } from '../components/leaderboards/utils';
+import { useCalculateWinsAndLosses } from '../components/battlereports/utils';
 
 interface UniverseBoxItemProps {
   ownPlanetId: number;
@@ -38,7 +39,9 @@ const UniverseBoxItem = ({
   );
 
   const planetRanking = useGetPlanetRanking(planet.planetId);
-  console.log(planetRanking);
+
+  const winLoss = useCalculateWinsAndLosses(planet.planetId);
+  console.log(winLoss);
   const lastActive = useLastActive(planet.planetId);
 
   const ownFleetData = useShipsLevels(Number(ownPlanetId));
@@ -78,6 +81,7 @@ const UniverseBoxItem = ({
       ownTechs={ownTechs}
       isNoobProtected={isNoobProtected}
       lastActive={Number(lastActive)}
+      winLoss={[winLoss.wins, winLoss.losses]}
     />
   );
 };

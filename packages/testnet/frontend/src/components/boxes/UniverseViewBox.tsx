@@ -62,6 +62,7 @@ interface Props {
   ownTechs?: TechLevels;
   isNoobProtected?: boolean;
   lastActive: number;
+  winLoss: [number, number];
 }
 
 const UniverseViewBox = ({
@@ -76,6 +77,7 @@ const UniverseViewBox = ({
   ownTechs,
   isNoobProtected,
   lastActive,
+  winLoss,
 }: Props) => {
   const boxStyle = highlighted ? { border: '1px solid #23CE6B' } : {};
 
@@ -151,11 +153,22 @@ const UniverseViewBox = ({
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
           <Styled.ResourceContainer>
-            <Styled.ResourceTitle>RANKING</Styled.ResourceTitle>
+            <Styled.ResourceTitle>RANK</Styled.ResourceTitle>
             <Styled.NumberContainer style={{ fontSize: '14px' }}>
               {isNaN(Number(points)) ? '-' : numberWithCommas(Number(points))}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
+          <Styled.ResourceContainer>
+            <Styled.ResourceTitle style={{ width: '200%' }}>
+              WIN/LOSS
+            </Styled.ResourceTitle>
+            <Styled.NumberContainer style={{ fontSize: '14px' }}>
+              <span style={{ color: '#23CE6B' }}>{winLoss[0]}</span>
+              <span style={{ color: 'inherit' }}> / </span>
+              <span style={{ color: '#AB3836' }}>{winLoss[1]}</span>
+            </Styled.NumberContainer>
+          </Styled.ResourceContainer>
+
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POSITION</Styled.ResourceTitle>
             <Styled.NumberContainer style={{ fontSize: '14px' }}>

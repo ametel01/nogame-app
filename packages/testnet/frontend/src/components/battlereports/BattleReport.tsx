@@ -91,7 +91,7 @@ interface Debris {
   quartz: number;
 }
 
-interface FetchData {
+export interface FetchData {
   battle_id: number;
   time: string;
   attacker_planet_id: number;
