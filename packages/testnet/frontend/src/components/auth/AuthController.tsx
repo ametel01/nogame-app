@@ -9,8 +9,6 @@ const AuthController = () => {
   const { address } = useAccount();
   const [walletConnectLoading, setWalletConnectLoading] = useState(true);
 
-  // useTokenOf should handle `undefined` address internally
-  // by perhaps returning { planetId: undefined, isLoading: true } initially
   const { planetId, isLoading: isTokenOfLoading } = useTokenOf(address);
 
   useEffect(() => {
