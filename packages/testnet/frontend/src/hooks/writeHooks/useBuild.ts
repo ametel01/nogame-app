@@ -2,7 +2,7 @@ import { useContract, useContractWrite } from '@starknet-react/core';
 import { InvokeFunctionResponse } from 'starknet';
 import { GAMEADDRESS } from '../../constants/addresses';
 import game from '../../constants/nogame.json';
-import { getBuildType } from '../../shared/types';
+import { getBuildType, getColonyBuildType } from '../../shared/types';
 
 // Define a type for the return value of useBuild
 interface UseBuildReturnType {
@@ -37,20 +37,28 @@ export function useShipBuild(
 
 export function useDefenceBuild(
   unitName: number,
-  quantity: number
+  quantity: number,
+  colonyId: number
 ): UseBuildReturnType {
   const { contract } = useContract({
     abi: game.abi,
     address: GAMEADDRESS,
   });
 
-  const name = getBuildType(unitName);
+  const name =
+    colonyId === 0 ? getBuildType(unitName) : getColonyBuildType(unitName);
 
   const calls = [
-    contract?.populateTransaction['process_defence_build']!(
-      name ? name : 20,
-      quantity
-    ),
+    colonyId === 0
+      ? contract?.populateTransaction['process_defence_build']!(
+          name ? name : 20,
+          quantity
+        )
+      : contract?.populateTransaction['process_colony_unit_build']!(
+          colonyId,
+          name ? name : 20,
+          quantity
+        ),
   ];
 
   const { writeAsync, data: tx } = useContractWrite({

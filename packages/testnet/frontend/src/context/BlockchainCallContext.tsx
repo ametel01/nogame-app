@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { Call } from 'starknet';
 import { SingleCall, CallType } from '../multicall/MultiCallTransaction';
-import { getUpgradeNameById } from '../shared/types';
+import { getColonyUpgradeType, getUpgradeNameById } from '../shared/types';
 import { useContract } from '@starknet-react/core';
 import game from '../constants/nogame.json';
 import { GAMEADDRESS } from '../constants/addresses';
@@ -16,7 +16,12 @@ import { getUpgradeType, getBuildType } from '../shared/types';
 interface BlockchainCallContextProps {
   selectedCalls: Call[];
   singleCalls: SingleCall[];
-  addCall: (callType: CallType, unitName: number, quantity: number) => void;
+  addCall: (
+    callType: CallType,
+    unitName: number,
+    quantity: number,
+    colonyId?: number
+  ) => void;
   removeCall: (index: number) => void;
   setSelectedCalls: (calls: Call[]) => void;
   setSingleCalls: (calls: SingleCall[]) => void;
@@ -49,14 +54,20 @@ export const BlockchainCallProvider: React.FC<PropsWithChildren<object>> = ({
   const createCall = (
     callType: CallType,
     unitName: number,
-    quantity: number
+    quantity: number,
+    colonyId?: number
   ): Call => {
     switch (callType) {
       case 'compound':
-        return contract?.populateTransaction['process_compound_upgrade']!(
-          getUpgradeType(unitName)!,
-          quantity
-        );
+        if (!colonyId) {
+          return contract?.populateTransaction['process_compound_upgrade']!(
+            getUpgradeType(unitName)!,
+            quantity
+          );
+        }
+        return contract?.populateTransaction[
+          'process_colony_compound_upgrade'
+        ]!(colonyId, getColonyUpgradeType(unitName)!, quantity);
       case 'tech':
         return contract?.populateTransaction['process_tech_upgrade']!(
           getUpgradeType(unitName)!,
@@ -77,8 +88,13 @@ export const BlockchainCallProvider: React.FC<PropsWithChildren<object>> = ({
     }
   };
 
-  const addCall = (callType: CallType, unitName: number, quantity: number) => {
-    const call = createCall(callType as CallType, unitName, quantity);
+  const addCall = (
+    callType: CallType,
+    unitName: number,
+    quantity: number,
+    colonyId?: number
+  ) => {
+    const call = createCall(callType as CallType, unitName, quantity, colonyId);
     setSelectedCalls([...selectedCalls, call]);
 
     const singleCall: SingleCall = {

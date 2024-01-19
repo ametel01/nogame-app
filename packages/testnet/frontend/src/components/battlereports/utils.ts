@@ -52,9 +52,6 @@ export function useCalculateWinsAndLosses(planetId: number) {
   const [winLoss, setWinLoss] = useState({ wins: 0, losses: 0 });
 
   const { battleReports, isLoading, error } = useGetBattleReportsData(planetId);
-  console.log(battleReports);
-  console.log(error);
-
   useEffect(() => {
     if (!isLoading && !error && battleReports) {
       let wins = 0;
@@ -63,7 +60,6 @@ export function useCalculateWinsAndLosses(planetId: number) {
       for (const report of battleReports) {
         const totalLoot =
           report.loot.steel + report.loot.quartz + report.loot.tritium;
-        console.log(totalLoot);
 
         if (report.attacker_planet_id === planetId && totalLoot > 0) {
           wins++;

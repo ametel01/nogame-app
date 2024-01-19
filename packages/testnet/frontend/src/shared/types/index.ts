@@ -99,6 +99,31 @@ export interface HostileMission {
   number_of_ships: number;
 }
 
+export const ColonyUpgradeType = {
+  SteelMine: 0,
+  QuartzMine: 1,
+  TritiumMine: 2,
+  EnergyPlant: 3,
+  Dockyard: 4,
+};
+
+export function getColonyUpgradeType(
+  name: number
+): CairoCustomEnum | undefined {
+  switch (name) {
+    case 0:
+      return new CairoCustomEnum({ SteelMine: {} });
+    case 1:
+      return new CairoCustomEnum({ QuartzMine: {} });
+    case 2:
+      return new CairoCustomEnum({ TritiumMine: {} });
+    case 3:
+      return new CairoCustomEnum({ EnergyPlant: {} });
+    case 4:
+      return new CairoCustomEnum({ Dockyard: {} });
+  }
+}
+
 export const UpgradeType = {
   SteelMine: 0,
   QuartzMine: 1,
@@ -158,6 +183,26 @@ export function getUpgradeType(name: number): CairoCustomEnum | undefined {
       return new CairoCustomEnum({ Thrust: {} });
     case 17:
       return new CairoCustomEnum({ Warp: {} });
+  }
+}
+
+export const ColonyBuildType = {
+  Blaster: 0,
+  Beam: 1,
+  Astral: 2,
+  Plasma: 3,
+};
+
+export function getColonyBuildType(name: number): CairoCustomEnum | undefined {
+  switch (name) {
+    case 0:
+      return new CairoCustomEnum({ Blaster: {} });
+    case 1:
+      return new CairoCustomEnum({ Beam: {} });
+    case 2:
+      return new CairoCustomEnum({ Astral: {} });
+    case 3:
+      return new CairoCustomEnum({ Plasma: {} });
   }
 }
 

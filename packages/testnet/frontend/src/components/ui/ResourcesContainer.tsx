@@ -18,12 +18,17 @@ import {
   // useEnergyAvailable,
   useSpendableResources,
 } from '../../hooks/ResourcesHooks';
-import {
-  useGetCelestiaAvailable,
-  useGetCelestiaProduction,
-} from '../../hooks/EnergyHooks';
-import CompoundsFormulas from '../../shared/utils/Formulas';
+import { useGetCelestiaAvailable } from '../../hooks/EnergyHooks';
+import CompoundsFormulas, {
+  getCelestiaProduction,
+} from '../../shared/utils/Formulas';
 import { useCompoundsLevels } from '../../hooks/LevelsHooks';
+import {
+  useGetColonyCompounds,
+  useGetColonyDefences,
+  useGetColonyResources,
+} from '../../hooks/ColoniesHooks';
+import { Position } from '../../shared/types';
 
 const Container = styled.div`
   display: flex;
@@ -193,32 +198,56 @@ const Resource = ({ spendable, collectible, img, title, address }: Props) => {
 
 interface ResourceContainerArgs {
   planetId: number;
+  selectedColonyId: number;
+  planetPosition: Position;
 }
 
-const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
+const ResourcesContainer = ({
+  planetId,
+  selectedColonyId,
+  planetPosition,
+}: ResourceContainerArgs) => {
   const compoundsLevels = useCompoundsLevels(planetId);
+  const colonyCompounds = useGetColonyCompounds(planetId, selectedColonyId);
 
   const spendable = useSpendableResources(planetId);
 
   const collectible = useCollectibleResources(planetId);
+  const colonyCollectible = useGetColonyResources(planetId, selectedColonyId);
 
-  const solarEnergy = compoundsLevels
-    ? CompoundsFormulas.energyProduction(Number(compoundsLevels.energy))
-    : 0;
+  console.log('collectible', collectible);
+  console.log('colonyCollectible', colonyCollectible);
+
+  const solarEnergy =
+    selectedColonyId === 0
+      ? compoundsLevels
+        ? CompoundsFormulas.energyProduction(Number(compoundsLevels.energy))
+        : 0
+      : CompoundsFormulas.energyProduction(Number(colonyCompounds?.energy));
+
   const celestia = useGetCelestiaAvailable(planetId);
-  const rawCelestia = useGetCelestiaProduction(planetId);
-  const celestiaProduction = rawCelestia ? rawCelestia : 0;
-  const energyFromCelestia = Number(celestia) * Number(celestiaProduction);
+  const colonyCelestia = useGetColonyDefences(planetId, selectedColonyId);
 
-  const steelConsumption = CompoundsFormulas.steelConsumption(
-    Number(compoundsLevels?.steel)
-  );
-  const quartzConsumption = CompoundsFormulas.quartzConsumption(
-    Number(compoundsLevels?.quartz)
-  );
-  const tritiumConsumption = CompoundsFormulas.tritiumConsumption(
-    Number(compoundsLevels?.tritium)
-  );
+  const celestiaProduction = getCelestiaProduction(planetPosition?.orbit);
+  const energyFromCelestia =
+    selectedColonyId === 0
+      ? Number(celestia) * celestiaProduction
+      : Number(colonyCelestia?.celestia) * celestiaProduction;
+
+  const steelConsumption =
+    selectedColonyId === 0
+      ? CompoundsFormulas.steelConsumption(Number(compoundsLevels?.steel))
+      : CompoundsFormulas.steelConsumption(Number(colonyCompounds?.steel));
+
+  const quartzConsumption =
+    selectedColonyId === 0
+      ? CompoundsFormulas.quartzConsumption(Number(compoundsLevels?.quartz))
+      : CompoundsFormulas.quartzConsumption(Number(colonyCompounds?.quartz));
+
+  const tritiumConsumption =
+    selectedColonyId === 0
+      ? CompoundsFormulas.tritiumConsumption(Number(compoundsLevels?.tritium))
+      : CompoundsFormulas.tritiumConsumption(Number(colonyCompounds?.tritium));
 
   const netEnergy =
     solarEnergy +
@@ -235,7 +264,7 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
     }
   }, [spendable]);
 
-  const collectibleResources = useMemo(() => {
+  const motherCollectibleResources = useMemo(() => {
     if (collectible) {
       return {
         steel: numberWithCommas(Math.round(Number(collectible.steel))),
@@ -245,6 +274,20 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
     }
   }, [collectible]);
 
+  const colonyCollectibleResources = useMemo(() => {
+    if (colonyCollectible) {
+      return {
+        steel: numberWithCommas(Math.round(Number(colonyCollectible.steel))),
+        quartz: numberWithCommas(Math.round(Number(colonyCollectible.quartz))),
+        tritium: numberWithCommas(
+          Math.round(Number(colonyCollectible.tritium))
+        ),
+      };
+    }
+  }, [colonyCollectible]);
+
+  console.log(selectedColonyId);
+
   return (
     <div>
       <Resource
@@ -252,21 +295,33 @@ const ResourcesContainer = ({ planetId }: ResourceContainerArgs) => {
         address={STEELADDRESS}
         img={ironImg}
         spendable={spendableResources?.steel}
-        collectible={collectibleResources?.steel}
+        collectible={
+          selectedColonyId === 0
+            ? motherCollectibleResources?.steel
+            : colonyCollectibleResources?.steel
+        }
       />
       <Resource
         title="Quartz"
         address={QUARTZADDRESS}
         img={quartzImg}
         spendable={spendableResources?.quartz}
-        collectible={collectibleResources?.quartz}
+        collectible={
+          selectedColonyId == 0
+            ? motherCollectibleResources?.quartz
+            : colonyCollectibleResources?.quartz
+        }
       />
       <Resource
         title="Tritium"
         address={TRITIUMADDRESS}
         img={tritiumImg}
         spendable={spendableResources?.tritium}
-        collectible={collectibleResources?.tritium}
+        collectible={
+          selectedColonyId == 0
+            ? motherCollectibleResources?.tritium
+            : colonyCollectibleResources?.tritium
+        }
       />
       <Energy
         title="Energy"

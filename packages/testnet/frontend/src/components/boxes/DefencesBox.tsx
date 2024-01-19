@@ -24,6 +24,7 @@ interface Props {
   requirementsMet?: boolean;
   description: React.ReactNode;
   resourcesAvailable: Resources;
+  colonyId: number;
 }
 
 type ButtonState = 'valid' | 'noResource' | 'noRequirements';
@@ -38,11 +39,16 @@ const DefencesBox = ({
   requirementsMet,
   description,
   resourcesAvailable,
+  colonyId,
 }: Props) => {
   const [quantity, setQuantity] = useState(1);
   const [showTooltip, setShowTooltip] = useState(true);
 
-  const { tx, writeAsync: build } = useDefenceBuild(functionCallName, quantity);
+  const { tx, writeAsync: build } = useDefenceBuild(
+    functionCallName,
+    quantity,
+    colonyId
+  );
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {

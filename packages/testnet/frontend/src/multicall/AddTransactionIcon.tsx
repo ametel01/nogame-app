@@ -10,6 +10,7 @@ interface AddTransactionIconProps {
   unitName: number;
   quantity: number;
   disabled: boolean;
+  colonyId?: number;
 }
 
 const StyledAddCircleIcon = styled(AddCircleIcon)<{ disabled: boolean }>`
@@ -27,12 +28,13 @@ const AddTransactionIcon: React.FC<AddTransactionIconProps> = ({
   unitName,
   quantity,
   disabled,
+  colonyId,
 }) => {
   const { addCall } = useBlockchainCall();
 
   const handleAddTransaction = () => {
     if (!disabled) {
-      addCall(callType, unitName, quantity);
+      addCall(callType, unitName, quantity, colonyId);
     }
   };
 

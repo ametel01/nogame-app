@@ -137,14 +137,16 @@ export const getPlanetImageUrl = (imgId: number | undefined) =>
 
 interface PlanetImageArgs {
   planetId: number;
+  selectedColonyId: number;
 }
 
-const PlanetImage = ({ planetId }: PlanetImageArgs) => {
+const PlanetImage = ({ planetId, selectedColonyId }: PlanetImageArgs) => {
   const { address } = useAccount();
   const [metadata, setMetadata] = useState<Metadata | null>(null);
   const [metadataUrl, setMetadataUrl] = useState('');
 
   const position = usePlanetPosition(planetId);
+  const colonyPosition = usePlanetPosition(planetId * 1000 + selectedColonyId);
 
   useEffect(() => {
     if (address && !metadata) {
@@ -160,7 +162,10 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
     }
   }, [planetId, metadata, address]);
 
-  const imgId = Number(position?.orbit);
+  const imgId =
+    selectedColonyId === 0
+      ? Number(position?.orbit)
+      : Number(colonyPosition?.orbit);
   const planetImageUrl = getPlanetImage(imgId.toString() as unknown as ImageId);
 
   const findAttribute = (name: string) =>
@@ -204,8 +209,22 @@ const PlanetImage = ({ planetId }: PlanetImageArgs) => {
           <RadarTextStyle>
             <PlanetInfoKey>PLANET POSITION</PlanetInfoKey>
             <PlanetPositionRowStyled>
-              <PlanetInfoRow label="System" value={Number(position?.system)} />
-              <PlanetInfoRow label="Orbit" value={Number(position?.orbit)} />
+              <PlanetInfoRow
+                label="System"
+                value={
+                  selectedColonyId === 0
+                    ? Number(position?.system)
+                    : Number(colonyPosition?.system)
+                }
+              />
+              <PlanetInfoRow
+                label="Orbit"
+                value={
+                  selectedColonyId === 0
+                    ? Number(position?.orbit)
+                    : Number(colonyPosition?.orbit)
+                }
+              />
             </PlanetPositionRowStyled>
           </RadarTextStyle>
         </PlanetPositionGroup>
@@ -231,12 +250,16 @@ const PlanetInfoRow: FC<{
 
 interface PlanetSectionArgs {
   planetId: number;
+  selctedColonyId: number;
 }
 
-export const PlanetSection = ({ planetId }: PlanetSectionArgs) => (
+export const PlanetSection = ({
+  planetId,
+  selctedColonyId,
+}: PlanetSectionArgs) => (
   <DebugRowCentered>
     <MainContainer>
-      <PlanetImage planetId={planetId} />
+      <PlanetImage planetId={planetId} selectedColonyId={selctedColonyId} />
     </MainContainer>
   </DebugRowCentered>
 );

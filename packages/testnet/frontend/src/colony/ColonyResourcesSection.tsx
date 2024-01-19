@@ -1,65 +1,44 @@
 import React, { useState } from 'react';
 import { RowCentered } from '../components/ui/Row';
 import CircularProgress from '@mui/material/CircularProgress';
-import {
-  PrecisionManufacturing,
-  Biotech,
-  Rocket,
-  Security,
-  Explore,
-} from '@mui/icons-material';
+import { PrecisionManufacturing, Security } from '@mui/icons-material';
 import {
   ResourceTab,
   ResourcesTabs,
   ResourcesTabList,
 } from '../shared/styled/Tabs';
-import { ResearchTabPanel } from './ResearchTab';
-import { DockyardTabPanel } from './DockyardTab';
-import { DefenceTabPanel } from './DefencesTab';
-
-import { CompoundsTabPanel } from './CompoundsTab';
-import {
-  useCollectibleResources,
-  useSpendableResources,
-} from '../hooks/ResourcesHooks';
-import {
-  useCompoundsLevels,
-  useDefencesLevels,
-  useShipsLevels,
-  useTechLevels,
-} from '../hooks/LevelsHooks';
-import { UniverseViewTabPanel } from './UniverseViewTab';
-import { useGetCelestiaAvailable } from '../hooks/EnergyHooks';
+import { useTechLevels } from '../hooks/LevelsHooks';
 import {
   type CompoundsLevels,
   type Resources,
   type TechLevels,
-  type ShipsCost,
-  type ShipsLevels,
   type DefenceCost,
   type DefenceLevels,
 } from '../shared/types';
 import { Typography } from '@mui/material';
-import { getBaseShipsCost, getBaseDefenceCost } from '../constants/costs';
+import { getBaseDefenceCost } from '../constants/costs';
+import { DefenceTabPanel } from '../panels/DefencesTab';
+import { ColonyCompoundTabPanel } from './ColonyTab';
 
 interface ResourcesSectionArgs {
   planetId: number;
   colonyId: number;
+  spendableResources: Resources;
+  collectibleResource: Resources;
+  compoundsLevels: CompoundsLevels;
+  defencesLevels: DefenceLevels;
 }
 
-export const ResourcesSection = ({
+export const ColonyResourcesSection = ({
   planetId,
   colonyId,
+  spendableResources,
+  collectibleResource,
+  compoundsLevels,
+  defencesLevels,
 }: ResourcesSectionArgs) => {
   const [activeTab, setActiveTab] = useState(1);
-  const compoundsLevels = useCompoundsLevels(planetId);
   const techLevels = useTechLevels(planetId);
-  const spendableResources = useSpendableResources(planetId);
-  const collectibleResource = useCollectibleResources(planetId);
-  const shipsLevels = useShipsLevels(planetId);
-  const shipsCost = getBaseShipsCost();
-  const defencesLevels = useDefencesLevels(planetId);
-  const celestiaAvailable = useGetCelestiaAvailable(planetId);
   const defencesCost = getBaseDefenceCost();
 
   if (
@@ -120,28 +99,6 @@ export const ResourcesSection = ({
           onClick={() => {
             setActiveTab(2);
           }}
-          active={activeTab === 2 ? 'true' : 'false'}
-        >
-          <RowCentered gap={'8px'}>
-            <Biotech />
-            <Typography>Research Lab</Typography>
-          </RowCentered>
-        </ResourceTab>
-        <ResourceTab
-          onClick={() => {
-            setActiveTab(3);
-          }}
-          active={activeTab === 3 ? 'true' : 'false'}
-        >
-          <RowCentered gap={'8px'}>
-            <Rocket />
-            <Typography>Dockyard</Typography>
-          </RowCentered>
-        </ResourceTab>
-        <ResourceTab
-          onClick={() => {
-            setActiveTab(4);
-          }}
           active={activeTab === 4 ? 'true' : 'false'}
         >
           <RowCentered gap={'8px'}>
@@ -149,32 +106,10 @@ export const ResourcesSection = ({
             <Typography>Defences</Typography>
           </RowCentered>
         </ResourceTab>
-        <ResourceTab
-          onClick={() => {
-            setActiveTab(5);
-          }}
-          active={activeTab === 5 ? 'true' : 'false'}
-        >
-          <RowCentered gap={'8px'}>
-            <Explore />
-            <Typography>Universe</Typography>
-          </RowCentered>
-        </ResourceTab>
       </ResourcesTabList>
       {activeTab === 1 &&
         renderCompounds(colonyId, totalResources, compoundsLevels)}
       {activeTab === 2 &&
-        renderLabPanel(totalResources, techLevels, Number(compoundsLevels.lab))}
-      {activeTab === 3 &&
-        renderDockyardTab(
-          totalResources,
-          shipsLevels,
-          shipsCost,
-          compoundsLevels.dockyard,
-          techLevels,
-          celestiaAvailable
-        )}
-      {activeTab === 4 &&
         renderDefencesPanel(
           totalResources,
           defencesLevels,
@@ -183,7 +118,6 @@ export const ResourcesSection = ({
           techLevels,
           colonyId
         )}
-      {activeTab === 5 && renderUniversePanel(planetId, techLevels)}
     </ResourcesTabs>
   );
 };
@@ -194,44 +128,10 @@ function renderCompounds(
   compounds: CompoundsLevels
 ) {
   return (
-    <CompoundsTabPanel
+    <ColonyCompoundTabPanel
+      colonyId={colonyId}
       spendableResources={spendable}
       compoundsLevels={compounds}
-      colonyId={colonyId}
-    />
-  );
-}
-
-function renderLabPanel(
-  spendable: Resources,
-  techs: TechLevels,
-  labLevel: number
-) {
-  return (
-    <ResearchTabPanel
-      spendableResources={spendable}
-      techLevels={techs}
-      labLevel={labLevel}
-    />
-  );
-}
-
-function renderDockyardTab(
-  spendable: Resources,
-  ships: ShipsLevels,
-  shipCost: ShipsCost,
-  dockyard: number,
-  techs: TechLevels,
-  celestia: number
-) {
-  return (
-    <DockyardTabPanel
-      spendableResources={spendable}
-      shipsLevels={ships}
-      shipsCost={shipCost}
-      dockyardLevel={dockyard}
-      techLevels={techs}
-      celestia={celestia}
     />
   );
 }
@@ -254,8 +154,4 @@ function renderDefencesPanel(
       colonyId={colonyId}
     />
   );
-}
-
-function renderUniversePanel(planetId: number, techLevels: TechLevels) {
-  return <UniverseViewTabPanel ownPlanetId={planetId} ownTechs={techLevels} />;
 }

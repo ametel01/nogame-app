@@ -20,6 +20,20 @@
       ]
     },
     {
+      "type": "struct",
+      "name": "core::integer::u256",
+      "members": [
+        {
+          "name": "low",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "high",
+          "type": "core::integer::u128"
+        }
+      ]
+    },
+    {
       "type": "enum",
       "name": "nogame::libraries::types::UpgradeType",
       "variants": [
@@ -144,6 +158,58 @@
       ]
     },
     {
+      "type": "enum",
+      "name": "nogame::libraries::types::ColonyUpgradeType",
+      "variants": [
+        {
+          "name": "SteelMine",
+          "type": "()"
+        },
+        {
+          "name": "QuartzMine",
+          "type": "()"
+        },
+        {
+          "name": "TritiumMine",
+          "type": "()"
+        },
+        {
+          "name": "EnergyPlant",
+          "type": "()"
+        },
+        {
+          "name": "Dockyard",
+          "type": "()"
+        }
+      ]
+    },
+    {
+      "type": "enum",
+      "name": "nogame::libraries::types::ColonyBuildType",
+      "variants": [
+        {
+          "name": "Celestia",
+          "type": "()"
+        },
+        {
+          "name": "Blaster",
+          "type": "()"
+        },
+        {
+          "name": "Beam",
+          "type": "()"
+        },
+        {
+          "name": "Astral",
+          "type": "()"
+        },
+        {
+          "name": "Plasma",
+          "type": "()"
+        }
+      ]
+    },
+    {
       "type": "struct",
       "name": "nogame::libraries::types::Fleet",
       "members": [
@@ -175,7 +241,7 @@
       "members": [
         {
           "name": "system",
-          "type": "core::integer::u16"
+          "type": "core::integer::u32"
         },
         {
           "name": "orbit",
@@ -353,7 +419,7 @@
       "members": [
         {
           "name": "id",
-          "type": "core::integer::u16"
+          "type": "core::integer::u32"
         },
         {
           "name": "time_start",
@@ -361,7 +427,7 @@
         },
         {
           "name": "destination",
-          "type": "core::integer::u16"
+          "type": "core::integer::u32"
         },
         {
           "name": "time_arrival",
@@ -383,7 +449,7 @@
       "members": [
         {
           "name": "origin",
-          "type": "core::integer::u16"
+          "type": "core::integer::u32"
         },
         {
           "name": "id_at_origin",
@@ -395,72 +461,6 @@
         },
         {
           "name": "number_of_ships",
-          "type": "core::integer::u32"
-        }
-      ]
-    },
-    {
-      "type": "struct",
-      "name": "nogame::libraries::types::SimulationResult",
-      "members": [
-        {
-          "name": "attacker_carrier",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "attacker_scraper",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "attacker_sparrow",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "attacker_frigate",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "attacker_armade",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "defender_carrier",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "defender_scraper",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "defender_sparrow",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "defender_frigate",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "defender_armade",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "celestia",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "blaster",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "beam",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "astral",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "plasma",
           "type": "core::integer::u32"
         }
       ]
@@ -562,8 +562,32 @@
         },
         {
           "type": "function",
+          "name": "generate_colony",
+          "inputs": [
+            {
+              "name": "price",
+              "type": "core::integer::u256"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
           "name": "collect_resources",
           "inputs": [],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "collect_colony_resources",
+          "inputs": [
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            }
+          ],
           "outputs": [],
           "state_mutability": "external"
         },
@@ -622,6 +646,46 @@
             {
               "name": "component",
               "type": "nogame::libraries::types::BuildType"
+            },
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "process_colony_compound_upgrade",
+          "inputs": [
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            },
+            {
+              "name": "name",
+              "type": "nogame::libraries::types::ColonyUpgradeType"
+            },
+            {
+              "name": "quantity",
+              "type": "core::integer::u8"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "process_colony_unit_build",
+          "inputs": [
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            },
+            {
+              "name": "name",
+              "type": "nogame::libraries::types::ColonyBuildType"
             },
             {
               "name": "quantity",
@@ -715,18 +779,7 @@
           "inputs": [],
           "outputs": [
             {
-              "type": "core::integer::u16"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_generated_planets_positions",
-          "inputs": [],
-          "outputs": [
-            {
-              "type": "core::array::Array::<nogame::libraries::types::PlanetPosition>"
+              "type": "core::integer::u32"
             }
           ],
           "state_mutability": "view"
@@ -737,7 +790,7 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
@@ -758,7 +811,7 @@
           ],
           "outputs": [
             {
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "state_mutability": "view"
@@ -769,7 +822,7 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
@@ -781,11 +834,47 @@
         },
         {
           "type": "function",
+          "name": "get_planet_colonies",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::array::Array::<(core::integer::u8, nogame::libraries::types::PlanetPosition)>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
           "name": "get_compounds_levels",
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::CompoundsLevels"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_colony_compounds",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [
@@ -801,7 +890,7 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
@@ -817,7 +906,7 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
@@ -833,7 +922,7 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
@@ -849,7 +938,27 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::ERC20s"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_colony_collectible_resources",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [
@@ -865,7 +974,7 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
@@ -881,7 +990,7 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
@@ -897,7 +1006,7 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
@@ -913,12 +1022,12 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
             {
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "state_mutability": "view"
@@ -929,7 +1038,27 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::DefencesLevels"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_colony_defences_levels",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [
@@ -945,11 +1074,11 @@
           "inputs": [
             {
               "name": "planet1_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             },
             {
               "name": "planet2_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
@@ -965,7 +1094,7 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             },
             {
               "name": "mission_id",
@@ -985,7 +1114,7 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
@@ -1001,36 +1130,12 @@
           "inputs": [
             {
               "name": "planet_id",
-              "type": "core::integer::u16"
+              "type": "core::integer::u32"
             }
           ],
           "outputs": [
             {
               "type": "core::array::Array::<nogame::libraries::types::Mission>"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "simulate_attack",
-          "inputs": [
-            {
-              "name": "attacker_fleet",
-              "type": "nogame::libraries::types::Fleet"
-            },
-            {
-              "name": "defender_fleet",
-              "type": "nogame::libraries::types::Fleet"
-            },
-            {
-              "name": "defences",
-              "type": "nogame::libraries::types::DefencesLevels"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::SimulationResult"
             }
           ],
           "state_mutability": "view"
@@ -1079,6 +1184,73 @@
       ]
     },
     {
+      "type": "impl",
+      "name": "ColonyViewImpl",
+      "interface_name": "nogame::colony::colony::IColonyView"
+    },
+    {
+      "type": "interface",
+      "name": "nogame::colony::colony::IColonyView",
+      "items": [
+        {
+          "type": "function",
+          "name": "get_colonies_for_planet",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::array::Array::<(core::integer::u8, nogame::libraries::types::PlanetPosition)>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_colony_coumpounds",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::CompoundsLevels"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_colony_defences",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::DefencesLevels"
+            }
+          ],
+          "state_mutability": "view"
+        }
+      ]
+    },
+    {
       "type": "constructor",
       "name": "constructor",
       "inputs": []
@@ -1090,7 +1262,7 @@
       "members": [
         {
           "name": "id",
-          "type": "core::integer::u16",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1112,12 +1284,7 @@
       "members": [
         {
           "name": "planet_id",
-          "type": "core::integer::u16",
-          "kind": "data"
-        },
-        {
-          "name": "compound_name",
-          "type": "core::felt252",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1139,12 +1306,7 @@
       "members": [
         {
           "name": "planet_id",
-          "type": "core::integer::u16",
-          "kind": "data"
-        },
-        {
-          "name": "tech_name",
-          "type": "core::felt252",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1166,12 +1328,7 @@
       "members": [
         {
           "name": "planet_id",
-          "type": "core::integer::u16",
-          "kind": "data"
-        },
-        {
-          "name": "ship_name",
-          "type": "core::felt252",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1193,12 +1350,7 @@
       "members": [
         {
           "name": "planet_id",
-          "type": "core::integer::u16",
-          "kind": "data"
-        },
-        {
-          "name": "defence_name",
-          "type": "core::felt252",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1225,12 +1377,12 @@
         },
         {
           "name": "origin",
-          "type": "core::integer::u16",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
           "name": "destination",
-          "type": "core::integer::u16",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1252,7 +1404,7 @@
         },
         {
           "name": "attacker",
-          "type": "core::integer::u16",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1272,7 +1424,7 @@
         },
         {
           "name": "defender",
-          "type": "core::integer::u16",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1324,7 +1476,7 @@
         },
         {
           "name": "debris_field_id",
-          "type": "core::integer::u16",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1395,6 +1547,12 @@
     },
     {
       "type": "event",
+      "name": "nogame::colony::colony::ColonyComponent::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "event",
       "name": "nogame::game::main::NoGame::Event",
       "kind": "enum",
       "variants": [
@@ -1451,6 +1609,11 @@
         {
           "name": "ReentrancyGuardEvent",
           "type": "openzeppelin::security::reentrancyguard::ReentrancyGuardComponent::Event",
+          "kind": "flat"
+        },
+        {
+          "name": "ColonyEvent",
+          "type": "nogame::colony::colony::ColonyComponent::Event",
           "kind": "flat"
         }
       ]

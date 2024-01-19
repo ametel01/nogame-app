@@ -14,19 +14,37 @@ const StyledBox = styled(Box)(() => ({
   alignItems: 'center', // center vertically
 }));
 
-export function UseCollectResources() {
+interface Props {
+  selectedColonyId: number;
+}
+
+export function UseCollectResources({ selectedColonyId }: Props) {
   const [isClicked, setIsClicked] = useState(false);
+  console.log('selectedColonyId', selectedColonyId);
 
   const { contract } = useContract({
     abi: game.abi,
     address: GAMEADDRESS,
   });
-  const { writeAsync, data } = useContractWrite({
+  const { writeAsync: motherCollect, data: motherData } = useContractWrite({
     calls: [contract?.populateTransaction.collect_resources?.()],
   });
 
-  const handleOnClick = () => {
-    void writeAsync();
+  const { writeAsync: colonyCollect, data: colonyData } = useContractWrite({
+    calls: [
+      contract?.populateTransaction.collect_colony_resources?.(
+        selectedColonyId
+      ),
+    ],
+  });
+
+  const handleMotherOnClick = () => {
+    void motherCollect();
+    setIsClicked(true);
+  };
+
+  const handleColonyOnClick = () => {
+    void colonyCollect();
     setIsClicked(true);
   };
 
@@ -36,7 +54,9 @@ export function UseCollectResources() {
         <StyledButton
           fullWidth
           style={{ margin: '4px', background: '#4A63AA' }}
-          onClick={handleOnClick}
+          onClick={
+            selectedColonyId === 0 ? handleMotherOnClick : handleColonyOnClick
+          }
           variant="contained"
         >
           Collect Resources
@@ -45,7 +65,11 @@ export function UseCollectResources() {
       {isClicked ? (
         <TransactionStatus
           name="Collect Resources"
-          tx={data?.transaction_hash}
+          tx={
+            selectedColonyId === 0
+              ? motherData?.transaction_hash
+              : colonyData?.transaction_hash
+          }
         />
       ) : (
         <></>

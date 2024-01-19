@@ -24,6 +24,7 @@ interface CompoundsBoxProps {
   functionCallName: number;
   description: React.ReactNode;
   resourcesAvailable?: Resources;
+  colonyId: number;
 }
 
 const CompoundsBox: React.FC<CompoundsBoxProps> = ({
@@ -33,6 +34,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   functionCallName,
   description,
   resourcesAvailable,
+  colonyId,
 }) => {
   const [quantity, setQuantity] = useState(1);
   const [, setShowTooltip] = useState(true);
@@ -45,7 +47,8 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
 
   const { tx, writeAsync: upgrade } = useCompoundUpgrade(
     functionCallName,
-    quantity
+    quantity,
+    colonyId
   );
 
   const energy = numberWithCommas(energyRequired);
@@ -164,6 +167,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
           unitName={functionCallName}
           quantity={quantity}
           disabled={isDisabled}
+          colonyId={colonyId}
         />
         <Styled.ButtonContainer>
           <ButtonUpgrade

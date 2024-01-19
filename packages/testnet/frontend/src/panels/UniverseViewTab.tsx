@@ -41,7 +41,6 @@ const UniverseBoxItem = ({
   const planetRanking = useGetPlanetRanking(planet.planetId);
 
   const winLoss = useCalculateWinsAndLosses(planet.planetId);
-  console.log(winLoss);
   const lastActive = useLastActive(planet.planetId);
 
   const ownFleetData = useShipsLevels(Number(ownPlanetId));

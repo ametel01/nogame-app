@@ -32,6 +32,7 @@ interface Props {
   defenceCost?: DefenceCost;
   dockyardLevel?: number;
   techLevels?: TechLevels;
+  colonyId: number;
 }
 
 export const DefenceTabPanel = ({
@@ -40,6 +41,7 @@ export const DefenceTabPanel = ({
   defenceCost,
   dockyardLevel,
   techLevels,
+  colonyId,
   ...rest
 }: Props) => {
   const defencesConfig = [
@@ -99,6 +101,7 @@ export const DefenceTabPanel = ({
           }
           requirementsMet={defence.requirements}
           resourcesAvailable={spendableResources!}
+          colonyId={colonyId}
         />
       ))}
     </StyledTabPanel>

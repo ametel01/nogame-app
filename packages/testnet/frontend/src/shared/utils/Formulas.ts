@@ -226,4 +226,30 @@ export const getCumulativeTechCost = (
   return totalCost;
 };
 
+export function getCelestiaProduction(orbit: number): number {
+  switch (orbit) {
+    case 1:
+      return 48;
+    case 2:
+      return 41;
+    case 3:
+      return 36;
+    case 4:
+      return 32;
+    case 5:
+      return 27;
+    case 6:
+      return 24;
+    case 7:
+      return 21;
+    case 8:
+      return 17;
+    case 9:
+      return 14;
+    case 10:
+      return 11;
+  }
+  return 0;
+}
+
 export default CompoundsFormulas;
