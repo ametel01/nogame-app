@@ -1,69 +1,17 @@
-import React, { useMemo } from 'react';
-import styled from 'styled-components';
-import * as Styled from '../../shared/styled/Box';
-import { CircularProgress } from '@mui/material';
-import ButtonAttackPlanet from '../buttons/ButtonAttackPlanet';
 import {
-  TechLevels,
-  type DefenceLevels,
-  type Resources,
-  type ShipsLevels,
-} from '../../shared/types';
-import PlanetModal from '../modals/PlanetOverview';
-import { convertPositionToNumbers, numberWithCommas } from '../../shared/utils';
-import DebrisFieldView from '../ui/DebrisFieldView';
-import { usePlanetPosition } from '../../hooks/usePlanetPosition';
-
-const InfoContainer = styled(Styled.InfoContainer)({
-  width: '45%',
-});
-
-export const Box = styled('div')({
-  justifyContent: 'space-evenly',
-  alignItems: 'center',
-  padding: '0 5px',
-  width: '100%',
-  maxHeight: '70px',
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'row',
-  marginBottom: '10px',
-  backgroundColor: '#1A2025',
-  borderRadius: '8px',
-  overflow: 'hidden',
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-});
-
-export const ImageContainer = styled('div')({
-  flexShrink: 0,
-  display: 'flex',
-  alignItems: 'center',
-  width: '60px',
-  flex: '0 0 auto',
-  margin: '0 10px',
-  marginRight: '5px',
-  marginLeft: '0',
-});
-
-interface Props {
-  planetId: number;
-  img: string | undefined;
-  owner?: string;
-  position: string;
-  debris?: { steel: number; quartz: number };
-  points: string | number;
-  highlighted: boolean;
-  spendable?: Resources;
-  collectible?: Resources;
-  fleet?: ShipsLevels;
-  defences?: DefenceLevels;
-  ownPlanetId: number;
-  ownFleet?: ShipsLevels;
-  ownTechs?: TechLevels;
-  isNoobProtected?: boolean;
-  lastActive: number;
-  winLoss: [number, number];
-}
+  React,
+  useMemo,
+  Styled,
+  usePlanetPosition,
+  convertPositionToNumbers,
+  PlanetModal,
+  CircularProgress,
+  numberWithCommas,
+  DebrisFieldView,
+  ButtonAttackPlanet,
+  UniverseBoxProps as Props,
+} from '.';
+import { InfoContainer } from './styled';
 
 const UniverseViewBox = ({
   planetId,

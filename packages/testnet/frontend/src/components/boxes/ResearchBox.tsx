@@ -1,33 +1,22 @@
-import React, { useState, type ReactNode, useMemo } from 'react';
-import styled from 'styled-components';
-import Tooltip from '@mui/material/Tooltip';
-import { Input } from '@mui/joy';
-import * as Styled from '../../shared/styled/Box';
-import { ButtonUpgrade } from '../ui/Button';
-import { numberWithCommas, calculEnoughResources } from '../../shared/utils';
-import { useTechUpgrade } from '../../hooks/writeHooks/useUpgrade';
-import DescriptionModal from '../modals/Description';
-import { type TechLevels, type Resources } from '../../shared/types';
-import { getCumulativeTechCost } from '../../shared/utils/Formulas';
-import { baseTechCost } from '../../constants/costs';
-import AddTransactionIcon from '../../multicall/AddTransactionIcon';
-
-const InfoContainer = styled(Styled.InfoContainer)({
-  width: '45%',
-});
-
-interface Props {
-  img: string;
-  title: string;
-  functionCallName: number;
-  level?: number;
-  requirementsMet?: boolean;
-  description: ReactNode;
-  techs: TechLevels;
-  resourcesAvailable: Resources;
-}
-
-type ButtonState = 'valid' | 'noResource' | 'noRequirements';
+import {
+  React,
+  useMemo,
+  useState,
+  Styled,
+  useTechUpgrade,
+  baseTechCost,
+  getCumulativeTechCost,
+  calculEnoughResources,
+  DescriptionModal,
+  numberWithCommas,
+  Tooltip,
+  Input,
+  AddTransactionIcon,
+  ButtonUpgrade,
+  LabBoxProps as Props,
+  ButtonState,
+} from '.';
+import { InfoContainer } from './styled';
 
 const ResearchBox = ({
   img,

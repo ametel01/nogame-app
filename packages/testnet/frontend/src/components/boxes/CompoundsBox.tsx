@@ -1,33 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Input } from '@mui/joy';
-import Tooltip from '@mui/material/Tooltip';
-import { useCompoundUpgrade } from '../../hooks/writeHooks/useUpgrade';
-import { numberWithCommas, calculEnoughResources } from '../../shared/utils';
-import { ButtonUpgrade } from '../ui/Button';
-import DescriptionModal from '../modals/Description';
-import * as Styled from '../../shared/styled/Box';
-import AddTransactionIcon from '../../multicall/AddTransactionIcon';
-import { type Resources } from '../../shared/types';
 import {
+  React,
+  useState,
+  useEffect,
+  Styled,
+  useCompoundUpgrade,
+  numberWithCommas,
   getCompoundCost,
   getCumulativeEnergyChange,
-} from '../../shared/utils/Formulas';
+  calculEnoughResources,
+  DescriptionModal,
+  Tooltip,
+  Input,
+  AddTransactionIcon,
+  ButtonUpgrade,
+  CompoundsBoxProps as Props,
+} from '.';
+import { InfoContainer } from './styled';
 
-const InfoContainer = styled(Styled.InfoContainer)({
-  width: '45%',
-});
-interface CompoundsBoxProps {
-  img: string;
-  title: string;
-  level: number;
-  functionCallName: number;
-  description: React.ReactNode;
-  resourcesAvailable?: Resources;
-  colonyId: number;
-}
-
-const CompoundsBox: React.FC<CompoundsBoxProps> = ({
+const CompoundsBox = ({
   img,
   title,
   level,
@@ -35,7 +25,7 @@ const CompoundsBox: React.FC<CompoundsBoxProps> = ({
   description,
   resourcesAvailable,
   colonyId,
-}) => {
+}: Props) => {
   const [quantity, setQuantity] = useState(1);
   const [, setShowTooltip] = useState(true);
   const [costUpdate, setCostUpdate] = useState({

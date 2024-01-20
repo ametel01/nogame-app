@@ -1,33 +1,19 @@
-import React, { useMemo, useState } from 'react';
-import Tooltip from '@mui/material/Tooltip';
-import styled from 'styled-components';
-import { Input } from '@mui/joy';
-import DescriptionModal from '../modals/Description';
-import { ButtonBuild } from '../ui/Button';
-import { useDefenceBuild } from '../../hooks/writeHooks/useBuild';
-import { numberWithCommas } from '../../shared/utils';
-import * as Styled from '../../shared/styled/Box';
-import { type Resources } from '../../shared/types';
-import AddTransactionIcon from '../../multicall/AddTransactionIcon';
-
-const InfoContainer = styled(Styled.InfoContainer)({
-  width: '45%',
-});
-
-interface Props {
-  img: string;
-  title: string;
-  functionCallName: number;
-  level?: number;
-  costUpdate?: { steel: number; quartz: number; tritium: number };
-  hasEnoughResources?: boolean;
-  requirementsMet?: boolean;
-  description: React.ReactNode;
-  resourcesAvailable: Resources;
-  colonyId: number;
-}
-
-type ButtonState = 'valid' | 'noResource' | 'noRequirements';
+import {
+  React,
+  useMemo,
+  useState,
+  Styled,
+  useDefenceBuild,
+  ButtonState,
+  numberWithCommas,
+  DescriptionModal,
+  Tooltip,
+  Input,
+  AddTransactionIcon,
+  ButtonBuild,
+  DefenceBoxProps as Props,
+} from '.';
+import { InfoContainer } from './styled';
 
 const DefencesBox = ({
   img,

@@ -1,32 +1,19 @@
-import React, { type ReactNode, useMemo, useState } from 'react';
-import styled from 'styled-components';
-import Tooltip from '@mui/material/Tooltip';
-import * as Styled from '../../shared/styled/Box';
-import { ButtonBuild } from '../ui/Button';
-import { numberWithCommas } from '../../shared/utils';
-import { useShipBuild } from '../../hooks/writeHooks/useBuild';
-import { Input } from '@mui/joy';
-import DescriptionModal from '../modals/Description';
-import { type Resources } from '../../shared/types';
-import AddTransactionIcon from '../../multicall/AddTransactionIcon';
-
-const InfoContainer = styled(Styled.InfoContainer)({
-  width: '45%',
-});
-
-interface Props {
-  img: string;
-  title: string;
-  functionCallName: number;
-  level?: number;
-  costUpdate?: { steel: number; quartz: number; tritium: number };
-  hasEnoughResources?: boolean;
-  requirementsMet?: boolean;
-  description: ReactNode;
-  resourcesAvailable: Resources;
-}
-
-type ButtonState = 'valid' | 'noResource' | 'noRequirements';
+import {
+  React,
+  useMemo,
+  useState,
+  Styled,
+  useShipBuild,
+  numberWithCommas,
+  DescriptionModal,
+  Tooltip,
+  Input,
+  AddTransactionIcon,
+  ButtonBuild,
+  DockyardBoxProps as Props,
+  ButtonState,
+} from '.';
+import { InfoContainer } from './styled';
 
 const DockyardBox = ({
   img,
