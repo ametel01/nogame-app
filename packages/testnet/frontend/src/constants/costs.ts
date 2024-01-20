@@ -13,6 +13,7 @@ export const baseTechCost: Record<number, Resources> = {
   15: { steel: 400, quartz: 0, tritium: 600 },
   16: { steel: 2000, quartz: 4000, tritium: 600 },
   17: { steel: 10000, quartz: 20000, tritium: 6000 },
+  18: { steel: 4000, quartz: 8000, tritium: 4000 },
 };
 
 export function getBaseShipsCost() {

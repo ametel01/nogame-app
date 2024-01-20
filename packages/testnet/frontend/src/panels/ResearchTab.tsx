@@ -34,6 +34,7 @@ import weaponsImg from '../assets/gameElements/techs/weapons4.webp';
 import digitalImg from '../assets/gameElements/techs/digital4.webp';
 import shieldImg from '../assets/gameElements/techs/shield4.webp';
 import energyImg from '../assets/gameElements/techs/energy4.webp';
+import exoImg from '../assets/gameElements/techs/exocraft.webp';
 
 import {
   ArmourDescription,
