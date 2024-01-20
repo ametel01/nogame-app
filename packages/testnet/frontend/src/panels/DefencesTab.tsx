@@ -1,39 +1,23 @@
 import React from 'react';
-import { StyledTabPanel } from './styleds';
-import {
-  type DefenceCost,
-  type DefenceLevels,
-  type Resources,
-  type TechLevels,
-  BuildType,
-} from '../shared/types';
 import DefencesBox from '../components/boxes/DefencesBox';
 import {
-  calculEnoughResources,
-  blasterRequirements,
-  beamRequirements,
-  astralRequirements,
-  plasmaRequirements,
-} from '../shared/utils';
-import blasterImg from '../assets/gameElements/defences/blaster4.webp';
-import beamImg from '../assets/gameElements/defences/beam4.webp';
-import astralLauncherImg from '../assets/gameElements/defences/astral_not_availa.webp';
-import plasmaImg from '../assets/gameElements/defences/plasma_not_available.webp';
-import {
+  DefenceProps,
   BlasterDescription,
+  blasterImg,
+  BuildType,
+  blasterRequirements,
   BeamDescription,
+  beamImg,
+  beamRequirements,
   AstralDescription,
+  astralLauncherImg,
+  astralRequirements,
   PlasmaDescription,
-} from '../components/descriptions/DefencesPopover';
-
-interface Props {
-  spendableResources?: Resources;
-  defenceLevels?: DefenceLevels;
-  defenceCost?: DefenceCost;
-  dockyardLevel?: number;
-  techLevels?: TechLevels;
-  colonyId: number;
-}
+  plasmaImg,
+  plasmaRequirements,
+  StyledTabPanel,
+  calculEnoughResources,
+} from '.';
 
 export const DefenceTabPanel = ({
   spendableResources,
@@ -43,7 +27,7 @@ export const DefenceTabPanel = ({
   techLevels,
   colonyId,
   ...rest
-}: Props) => {
+}: DefenceProps) => {
   const defencesConfig = [
     {
       description: <BlasterDescription />,

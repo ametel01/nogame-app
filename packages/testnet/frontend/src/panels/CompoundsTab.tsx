@@ -1,48 +1,31 @@
 import React from 'react';
-import { StyledTabPanel } from './styleds';
-import steelImg from '../assets/gameElements/compounds/steel4.webp';
-import quartzImg from '../assets/gameElements/compounds/quartz4.webp';
-import tritiumImg from '../assets/gameElements/compounds/tritium4.webp';
-import energyImg from '../assets/gameElements/compounds/energy4.webp';
-import labImg from '../assets/gameElements/compounds/lab4.webp';
-import dockyardImg from '../assets/gameElements/compounds/dockyard4.webp';
-import {
-  type CompoundsLevels,
-  type EnergyCost,
-  type Resources,
-  UpgradeType,
-} from '../shared/types';
+
 import CompoundsBox from '../components/boxes/CompoundsBox';
 import {
-  EnergyPlantDescription,
-  QuartzMineDescription,
+  CompoundConfigType,
+  CompoundProps,
   SteelMineDescription,
+  steelImg,
+  UpgradeType,
+  QuartzMineDescription,
+  quartzImg,
   TritiumMineDescription,
+  tritiumImg,
+  EnergyPlantDescription,
+  energyImg,
   LabDescription,
+  labImg,
   DockyardDescription,
-} from '../components/descriptions/CompoundsPopover';
-
-interface CompoundConfigType {
-  description: React.ReactNode;
-  img: string;
-  title: string;
-  functionCallName: number;
-  compoundName: keyof CompoundsLevels;
-  energyKey: keyof EnergyCost;
-}
-
-interface Props {
-  colonyId: number;
-  spendableResources?: Resources;
-  compoundsLevels: CompoundsLevels;
-}
+  dockyardImg,
+  StyledTabPanel,
+} from '.';
 
 export const CompoundsTabPanel = ({
   spendableResources,
   compoundsLevels,
   colonyId,
   ...rest
-}: Props) => {
+}: CompoundProps) => {
   const compoundsConfig: CompoundConfigType[] = [
     {
       description: (

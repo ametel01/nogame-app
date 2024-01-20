@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import SideBar from '../components/ui/SideBar';
 import { PlanetSection } from '../components/ui/PlanetSection';
-import { ResourcesSection } from '../panels';
+import { ResourcesSection } from '../panels/MainTabPanel';
 import { SelectChangeEvent } from '@mui/material';
 import ColonyDashboard from '../colony/ColonyDashboard';
 import { usePlanetPosition } from '../hooks/usePlanetPosition';

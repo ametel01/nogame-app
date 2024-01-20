@@ -1,34 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-import UniverseViewBox from '../components/boxes/UniverseViewBox';
-import { StyledTabPanel } from './styleds';
 import {
-  type DefenceLevels,
-  type Resources,
-  type ShipsLevels,
-  type PlanetDetails,
+  UniverseProps,
+  useAccount,
+  useGetIsNoobProtected,
+  useGetPlanetRanking,
+  useCalculateWinsAndLosses,
+  useLastActive,
+  useShipsLevels,
+  ShipsLevels,
+  getPlanetImage,
+  ImageId,
+  UniverseViewBox,
+  Resources,
   TechLevels,
-} from '../shared/types';
-import { useAccount } from '@starknet-react/core';
-import { useShipsLevels } from '../hooks/LevelsHooks';
-import { useGetIsNoobProtected, useLastActive } from '../hooks/FleetHooks';
-import { getPlanetImage, type ImageId } from '../shared/utils/getPlanetImage';
-import fetchPlanetsData from '../api/fetchPlanetsData';
-import { useGetPlanetRanking } from '../components/leaderboards/utils';
-import { useCalculateWinsAndLosses } from '../components/battlereports/utils';
+  DefenceLevels,
+  PlanetDetails,
+  fetchPlanetsData,
+  StyledTabPanel,
+  Stack,
+  Pagination,
+} from '.';
 
-interface UniverseBoxItemProps {
-  ownPlanetId: number;
-  planet: PlanetDetails;
-  ownTechs?: TechLevels;
-}
-
-const UniverseBoxItem = ({
-  ownPlanetId,
-  planet,
-  ownTechs,
-}: UniverseBoxItemProps) => {
+const UniverseBoxItem = ({ ownPlanetId, planet, ownTechs }: UniverseProps) => {
   const { address: address_data } = useAccount();
   const address = address_data || '';
   const highlighted = parseInt(address, 16) === parseInt(planet.account, 16);

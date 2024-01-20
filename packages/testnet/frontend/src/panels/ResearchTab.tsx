@@ -1,81 +1,58 @@
 import React from 'react';
-import { StyledTabPanel } from './styleds';
 import {
-  type Resources,
-  type TechLevels,
-  type TechEntities,
-  UpgradeType,
-} from '../shared/types';
-import ResearchBox from '../components/boxes/ResearchBox';
-import {
-  armourRequirements,
-  beamTechRequirements,
-  combustionRequirements,
-  digitalRequirements,
-  energyRequirements,
-  ionRequirements,
-  plasmaTechRequirements,
-  shieldRequirements,
-  spacetimeRequirements,
-  thrustRequirements,
-  warpRequirements,
-  weaponsRequirements,
-} from '../shared/utils';
-
-import armourImg from '../assets/gameElements/techs/armour4.webp';
-import beamImg from '../assets/gameElements/techs/beam4.webp';
-import ionImg from '../assets/gameElements/techs/ion_not_available.webp';
-import plasmaImg from '../assets/gameElements/techs/plasma_not_available.webp';
-import spacetimeImg from '../assets/gameElements/techs/spacetime_not_available.webp';
-import warpEnginImg from '../assets/gameElements/techs/warp_not_available.webp';
-import combustionImg from '../assets/gameElements/techs/combustion4.webp';
-import thrustImg from '../assets/gameElements/techs/thrust4.webp';
-import weaponsImg from '../assets/gameElements/techs/weapons4.webp';
-import digitalImg from '../assets/gameElements/techs/digital4.webp';
-import shieldImg from '../assets/gameElements/techs/shield4.webp';
-import energyImg from '../assets/gameElements/techs/energy4.webp';
-import exoImg from '../assets/gameElements/techs/exocraft.webp';
-
-import {
+  EnergyDescription,
+  energyTechImg,
   ArmourDescription,
   BeamDescription,
   CombustionDescription,
   ComputerDescription,
-  EnergyDescription,
   IonDescription,
   PlasmaDescription,
   ShieldDescription,
   SpacetimeDescription,
+  StyledTabPanel,
   ThrustDescription,
+  UpgradeType,
   WarpDescription,
   WeaponsDescription,
-} from '../components/descriptions/LabPopover';
-
-interface ResearchConfigType {
-  description: React.ReactNode;
-  img: string;
-  title: string;
-  functionCallName: number;
-  techName: TechEntities; // <-- make sure of this type
-  requirements: boolean;
-}
-
-interface Props {
-  spendableResources: Resources;
-  techLevels?: TechLevels;
-  labLevel?: number;
-}
+  armourImg,
+  armourRequirements,
+  beamImg,
+  beamTechRequirements,
+  combustionImg,
+  combustionRequirements,
+  digitalImg,
+  digitalRequirements,
+  energyRequirements,
+  ionImg,
+  ionRequirements,
+  plasmaImg,
+  plasmaTechRequirements,
+  shieldImg,
+  shieldRequirements,
+  spacetimeImg,
+  spacetimeRequirements,
+  thrustImg,
+  thrustRequirements,
+  warpEnginImg,
+  warpRequirements,
+  weaponsImg,
+  weaponsRequirements,
+  LabProps,
+  ResearchConfigType,
+} from '.';
+import ResearchBox from '../components/boxes/ResearchBox';
 
 export const ResearchTabPanel = ({
   spendableResources,
   techLevels,
   labLevel,
   ...rest
-}: Props) => {
+}: LabProps) => {
   const researchConfig: ResearchConfigType[] = [
     {
       description: <EnergyDescription />,
-      img: energyImg,
+      img: energyTechImg,
       title: 'Energy Innovation',
       functionCallName: UpgradeType.EnergyTech,
       techName: 'energy',

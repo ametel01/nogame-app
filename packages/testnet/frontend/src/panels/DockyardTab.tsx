@@ -1,54 +1,30 @@
 import React from 'react';
-import { StyledTabPanel } from './styleds';
+import DockyardBox from '../components/boxes/DockyardBox';
 import {
-  calculEnoughResources,
-  carrierRequirements,
-  celestiaRequirements,
-  scraperRequirements,
-  sparrowRequirements,
-  frigateRequirements,
-  armadeRequirements,
-} from '../shared/utils';
-import {
+  ArmadeDescription,
+  BuildType,
   CarrierDescription,
   CelestiaDescription,
-  ScraperDescription,
-  SparrowDescription,
+  DockyardProps,
   FrigateDescription,
-  ArmadeDescription,
-} from '../components/descriptions/DockyardPopover';
-import {
-  type ShipsCost,
-  type Resources,
-  type ShipsLevels,
-  type TechLevels,
-  BuildType,
-} from '../shared/types';
-import DockyardBox from '../components/boxes/DockyardBox';
-import armadeImg from '../assets/gameElements/ships/armade_not_available.webp';
-import frigateImg from '../assets/gameElements/ships/frigate_not_available.webp';
-import carrierImg from '../assets/gameElements/ships/carrier4.webp';
-import sparrowImg from '../assets/gameElements/ships/sparrow4.webp';
-import scraperImg from '../assets/gameElements/ships/scraper4.webp';
-import celestiaImg from '../assets/gameElements/ships/celestia4.webp';
-
-interface ShipConfigType {
-  description: React.ReactNode;
-  img: string;
-  title: string;
-  functionCallName: number;
-  shipName: keyof ShipsLevels;
-  requirements: boolean;
-}
-
-interface Props {
-  spendableResources?: Resources;
-  shipsLevels?: ShipsLevels;
-  shipsCost?: ShipsCost;
-  dockyardLevel?: number;
-  techLevels?: TechLevels;
-  celestia?: number;
-}
+  ScraperDescription,
+  ShipConfigType,
+  SparrowDescription,
+  StyledTabPanel,
+  armadeImg,
+  armadeRequirements,
+  calculEnoughResources,
+  carrierImg,
+  carrierRequirements,
+  celestiaImg,
+  celestiaRequirements,
+  frigateImg,
+  frigateRequirements,
+  scraperImg,
+  scraperRequirements,
+  sparrowImg,
+  sparrowRequirements,
+} from '.';
 
 export const DockyardTabPanel = ({
   spendableResources,
@@ -58,7 +34,7 @@ export const DockyardTabPanel = ({
   techLevels,
   celestia,
   ...rest
-}: Props) => {
+}: DockyardProps) => {
   const shipsConfig: ShipConfigType[] = [
     {
       description: <CarrierDescription />,
