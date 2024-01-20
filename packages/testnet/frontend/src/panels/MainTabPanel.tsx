@@ -1,51 +1,40 @@
-import React, { useState } from 'react';
-import { RowCentered } from '../components/ui/Row';
-import CircularProgress from '@mui/material/CircularProgress';
 import {
+  React,
+  useState,
+  useCompoundsLevels,
+  useTechLevels,
+  useSpendableResources,
+  useCollectibleResources,
+  useShipsLevels,
+  getBaseShipsCost,
+  useDefencesLevels,
+  useGetCelestiaAvailable,
+  getBaseDefenceCost,
+  ResourcesTabs,
+  ResourcesTabList,
+  CircularProgress,
+  Resources,
+  ResourceTab,
+  RowCentered,
   PrecisionManufacturing,
+  Typography,
   Biotech,
   Rocket,
   Security,
   Explore,
-} from '@mui/icons-material';
-import {
-  ResourceTab,
-  ResourcesTabs,
-  ResourcesTabList,
-} from '../shared/styled/Tabs';
-import { ResearchTabPanel } from './ResearchTab';
-import { DockyardTabPanel } from './DockyardTab';
-import { DefenceTabPanel } from './DefencesTab';
-
-import { CompoundsTabPanel } from './CompoundsTab';
-import {
-  useCollectibleResources,
-  useSpendableResources,
-} from '../hooks/ResourcesHooks';
-import {
-  useCompoundsLevels,
-  useDefencesLevels,
-  useShipsLevels,
-  useTechLevels,
-} from '../hooks/LevelsHooks';
-import { UniverseViewTabPanel } from './UniverseViewTab';
-import { useGetCelestiaAvailable } from '../hooks/EnergyHooks';
-import {
-  type CompoundsLevels,
-  type Resources,
-  type TechLevels,
-  type ShipsCost,
-  type ShipsLevels,
-  type DefenceCost,
-  type DefenceLevels,
-} from '../shared/types';
-import { Typography } from '@mui/material';
-import { getBaseShipsCost, getBaseDefenceCost } from '../constants/costs';
-
-interface ResourcesSectionArgs {
-  planetId: number;
-  colonyId: number;
-}
+  CompoundsLevels,
+  CompoundsTabPanel,
+  TechLevels,
+  ResearchTabPanel,
+  ShipsLevels,
+  ShipsCost,
+  DockyardTabPanel,
+  DefenceLevels,
+  DefenceCost,
+  DefenceTabPanel,
+  UniverseViewTabPanel,
+  ResourcesSectionArgs,
+} from '.';
 
 export const ResourcesSection = ({
   planetId,

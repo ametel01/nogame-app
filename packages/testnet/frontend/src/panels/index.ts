@@ -1,4 +1,5 @@
-// First, import the images
+import React, { useState } from 'react';
+
 import steelImg from '../assets/gameElements/compounds/steel4.webp';
 import quartzImg from '../assets/gameElements/compounds/quartz4.webp';
 import tritiumImg from '../assets/gameElements/compounds/tritium4.webp';
@@ -28,39 +29,6 @@ import blasterImg from '../assets/gameElements/defences/blaster4.webp';
 import beamCannonImg from '../assets/gameElements/defences/beam4.webp';
 import astralLauncherImg from '../assets/gameElements/defences/astral_not_availa.webp';
 import plasmaCannonImg from '../assets/gameElements/defences/plasma_not_available.webp';
-
-// Then, export the images
-export {
-  steelImg,
-  quartzImg,
-  tritiumImg,
-  energyImg,
-  labImg,
-  dockyardImg,
-  armourImg,
-  beamImg,
-  ionImg,
-  plasmaImg,
-  spacetimeImg,
-  warpEnginImg,
-  combustionImg,
-  thrustImg,
-  weaponsImg,
-  digitalImg,
-  shieldImg,
-  energyTechImg,
-  exoImg,
-  armadeImg,
-  frigateImg,
-  carrierImg,
-  sparrowImg,
-  scraperImg,
-  celestiaImg,
-  blasterImg,
-  beamCannonImg,
-  astralLauncherImg,
-  plasmaCannonImg,
-};
 
 // Re-exporting named exports directly
 export { StyledTabPanel } from './styleds';
@@ -145,7 +113,6 @@ export {
   PlasmaDescription as PlasmaCannotDescription,
 } from '../components/descriptions/DefencesPopover';
 
-import React from 'react';
 import {
   TechEntities,
   Resources,
@@ -227,11 +194,92 @@ import Stack from '@mui/material/Stack';
 import UniverseViewBox from '../components/boxes/UniverseViewBox';
 import fetchPlanetsData from '../api/fetchPlanetsData';
 
-export { Pagination, Stack, UniverseViewBox, fetchPlanetsData };
-
 export { useAccount } from '@starknet-react/core';
 export { useShipsLevels } from '../hooks/LevelsHooks';
 export { useGetIsNoobProtected, useLastActive } from '../hooks/FleetHooks';
 export { getPlanetImage, type ImageId } from '../shared/utils/getPlanetImage';
 export { useGetPlanetRanking } from '../components/leaderboards/utils';
 export { useCalculateWinsAndLosses } from '../components/battlereports/utils';
+export { RowCentered } from '../components/ui/Row';
+export {
+  ResourceTab,
+  ResourcesTabs,
+  ResourcesTabList,
+} from '../shared/styled/Tabs';
+export { ResearchTabPanel } from './ResearchTab';
+export { DockyardTabPanel } from './DockyardTab';
+export { DefenceTabPanel } from './DefencesTab';
+export { CompoundsTabPanel } from './CompoundsTab';
+export {
+  useCollectibleResources,
+  useSpendableResources,
+} from '../hooks/ResourcesHooks';
+export {
+  useCompoundsLevels,
+  useDefencesLevels,
+  useTechLevels,
+} from '../hooks/LevelsHooks';
+export { UniverseViewTabPanel } from './UniverseViewTab';
+export { useGetCelestiaAvailable } from '../hooks/EnergyHooks';
+
+import CircularProgress from '@mui/material/CircularProgress';
+import {
+  PrecisionManufacturing,
+  Biotech,
+  Rocket,
+  Security,
+  Explore,
+} from '@mui/icons-material';
+
+import { Typography } from '@mui/material';
+export { getBaseShipsCost, getBaseDefenceCost } from '../constants/costs';
+
+export {
+  React,
+  useState,
+  PrecisionManufacturing,
+  Biotech,
+  Rocket,
+  Security,
+  Explore,
+  Typography,
+  CircularProgress,
+  Pagination,
+  Stack,
+  UniverseViewBox,
+  fetchPlanetsData,
+  steelImg,
+  quartzImg,
+  tritiumImg,
+  energyImg,
+  labImg,
+  dockyardImg,
+  armourImg,
+  beamImg,
+  ionImg,
+  plasmaImg,
+  spacetimeImg,
+  warpEnginImg,
+  combustionImg,
+  thrustImg,
+  weaponsImg,
+  digitalImg,
+  shieldImg,
+  energyTechImg,
+  exoImg,
+  armadeImg,
+  frigateImg,
+  carrierImg,
+  sparrowImg,
+  scraperImg,
+  celestiaImg,
+  blasterImg,
+  beamCannonImg,
+  astralLauncherImg,
+  plasmaCannonImg,
+};
+
+export interface ResourcesSectionArgs {
+  planetId: number;
+  colonyId: number;
+}
