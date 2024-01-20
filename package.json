@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "packages/testnet/frontend",
-    "packages/testnet/backend"
+    "packages/frontend",
+    "packages/backend"
   ],
   "scripts": {
-    "testnet-dev": "concurrently \"cd packages/testnet/backend && npm run dev\" \"cd packages/testnet/frontend && npm run dev\"",
-    "testnet-build": "concurrently \"cd packages/testnet/backend && npm run build\" \"cd packages/testnet/frontend && npm run build\"",
-    "testnet-start": "concurrently \"cd packages/testnet/backend && npm start\" \"cd packages/testnet/frontend && npm run preview\"",
+    "dev": "concurrently \"cd packages/backend && npm run dev\" \"cd packages/frontend && npm run dev\"",
+    "build": "concurrently \"cd packages/backend && npm run build\" \"cd packages/frontend && npm run build\"",
+    "start": "concurrently \"cd packages/backend && npm start\" \"cd packages/frontend && npm run preview\"",
     "prepare": "husky install",
     "lint": "lerna run lint --parallel",
     "format": "lerna run format --parallel",
