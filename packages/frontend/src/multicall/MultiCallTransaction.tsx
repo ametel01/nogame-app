@@ -22,6 +22,9 @@ const StyledModalContent = styled.div`
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
   max-width: 500px;
   width: 100%;
+  overflow-y: auto; // Add this for vertical scroll
+  max-height: 40vh; // Adjust as needed
+  padding-bottom: 20px; // Optional, for extra space at the bottom
 `;
 
 const CartTitle = styled.h3`
