@@ -20,20 +20,6 @@
       ]
     },
     {
-      "type": "struct",
-      "name": "core::integer::u256",
-      "members": [
-        {
-          "name": "low",
-          "type": "core::integer::u128"
-        },
-        {
-          "name": "high",
-          "type": "core::integer::u128"
-        }
-      ]
-    },
-    {
       "type": "enum",
       "name": "nogame::libraries::types::UpgradeType",
       "variants": [
@@ -108,6 +94,10 @@
         {
           "name": "Warp",
           "type": "()"
+        },
+        {
+          "name": "Exocraft",
+          "type": "()"
         }
       ]
     },
@@ -137,58 +127,6 @@
         },
         {
           "name": "Armade",
-          "type": "()"
-        },
-        {
-          "name": "Blaster",
-          "type": "()"
-        },
-        {
-          "name": "Beam",
-          "type": "()"
-        },
-        {
-          "name": "Astral",
-          "type": "()"
-        },
-        {
-          "name": "Plasma",
-          "type": "()"
-        }
-      ]
-    },
-    {
-      "type": "enum",
-      "name": "nogame::libraries::types::ColonyUpgradeType",
-      "variants": [
-        {
-          "name": "SteelMine",
-          "type": "()"
-        },
-        {
-          "name": "QuartzMine",
-          "type": "()"
-        },
-        {
-          "name": "TritiumMine",
-          "type": "()"
-        },
-        {
-          "name": "EnergyPlant",
-          "type": "()"
-        },
-        {
-          "name": "Dockyard",
-          "type": "()"
-        }
-      ]
-    },
-    {
-      "type": "enum",
-      "name": "nogame::libraries::types::ColonyBuildType",
-      "variants": [
-        {
-          "name": "Celestia",
           "type": "()"
         },
         {
@@ -352,6 +290,10 @@
         {
           "name": "warp",
           "type": "core::integer::u8"
+        },
+        {
+          "name": "exocraft",
+          "type": "core::integer::u8"
         }
       ]
     },
@@ -466,6 +408,58 @@
       ]
     },
     {
+      "type": "enum",
+      "name": "nogame::libraries::types::ColonyUpgradeType",
+      "variants": [
+        {
+          "name": "SteelMine",
+          "type": "()"
+        },
+        {
+          "name": "QuartzMine",
+          "type": "()"
+        },
+        {
+          "name": "TritiumMine",
+          "type": "()"
+        },
+        {
+          "name": "EnergyPlant",
+          "type": "()"
+        },
+        {
+          "name": "Dockyard",
+          "type": "()"
+        }
+      ]
+    },
+    {
+      "type": "enum",
+      "name": "nogame::libraries::types::ColonyBuildType",
+      "variants": [
+        {
+          "name": "Celestia",
+          "type": "()"
+        },
+        {
+          "name": "Blaster",
+          "type": "()"
+        },
+        {
+          "name": "Beam",
+          "type": "()"
+        },
+        {
+          "name": "Astral",
+          "type": "()"
+        },
+        {
+          "name": "Plasma",
+          "type": "()"
+        }
+      ]
+    },
+    {
       "type": "interface",
       "name": "nogame::game::interface::INoGame",
       "items": [
@@ -562,32 +556,8 @@
         },
         {
           "type": "function",
-          "name": "generate_colony",
-          "inputs": [
-            {
-              "name": "price",
-              "type": "core::integer::u256"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
           "name": "collect_resources",
           "inputs": [],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "collect_colony_resources",
-          "inputs": [
-            {
-              "name": "colony_id",
-              "type": "core::integer::u8"
-            }
-          ],
           "outputs": [],
           "state_mutability": "external"
         },
@@ -646,46 +616,6 @@
             {
               "name": "component",
               "type": "nogame::libraries::types::BuildType"
-            },
-            {
-              "name": "quantity",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "process_colony_compound_upgrade",
-          "inputs": [
-            {
-              "name": "colony_id",
-              "type": "core::integer::u8"
-            },
-            {
-              "name": "name",
-              "type": "nogame::libraries::types::ColonyUpgradeType"
-            },
-            {
-              "name": "quantity",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "process_colony_unit_build",
-          "inputs": [
-            {
-              "name": "colony_id",
-              "type": "core::integer::u8"
-            },
-            {
-              "name": "name",
-              "type": "nogame::libraries::types::ColonyBuildType"
             },
             {
               "name": "quantity",
@@ -786,6 +716,22 @@
         },
         {
           "type": "function",
+          "name": "get_planet_points",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u128"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
           "name": "get_planet_position",
           "inputs": [
             {
@@ -834,47 +780,11 @@
         },
         {
           "type": "function",
-          "name": "get_planet_colonies",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "core::array::Array::<(core::integer::u8, nogame::libraries::types::PlanetPosition)>"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
           "name": "get_compounds_levels",
           "inputs": [
             {
               "name": "planet_id",
               "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::CompoundsLevels"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_colony_compounds",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u32"
-            },
-            {
-              "name": "colony_id",
-              "type": "core::integer::u8"
             }
           ],
           "outputs": [
@@ -950,42 +860,6 @@
         },
         {
           "type": "function",
-          "name": "get_colony_collectible_resources",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u32"
-            },
-            {
-              "name": "colony_id",
-              "type": "core::integer::u8"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::ERC20s"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_planet_points",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "core::integer::u128"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
           "name": "get_ships_levels",
           "inputs": [
             {
@@ -1039,26 +913,6 @@
             {
               "name": "planet_id",
               "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::DefencesLevels"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_colony_defences_levels",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u32"
-            },
-            {
-              "name": "colony_id",
-              "type": "core::integer::u8"
             }
           ],
           "outputs": [
@@ -1136,6 +990,157 @@
           "outputs": [
             {
               "type": "core::array::Array::<nogame::libraries::types::Mission>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "generate_colony",
+          "inputs": [],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "collect_colony_resources",
+          "inputs": [
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "process_colony_compound_upgrade",
+          "inputs": [
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            },
+            {
+              "name": "name",
+              "type": "nogame::libraries::types::ColonyUpgradeType"
+            },
+            {
+              "name": "quantity",
+              "type": "core::integer::u8"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "process_colony_unit_build",
+          "inputs": [
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            },
+            {
+              "name": "name",
+              "type": "nogame::libraries::types::ColonyBuildType"
+            },
+            {
+              "name": "quantity",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "get_planet_colonies",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::array::Array::<(core::integer::u8, nogame::libraries::types::PlanetPosition)>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_planet_colonies_count",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u8"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_colony_compounds",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::CompoundsLevels"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_colony_collectible_resources",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::ERC20s"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_colony_defences_levels",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::DefencesLevels"
             }
           ],
           "state_mutability": "view"

@@ -20,7 +20,6 @@ interface Props {
 
 export function UseCollectResources({ selectedColonyId }: Props) {
   const [isClicked, setIsClicked] = useState(false);
-  console.log('selectedColonyId', selectedColonyId);
 
   const { contract } = useContract({
     abi: game.abi,

@@ -12,6 +12,7 @@ import weaponsImg from '../../assets/gameElements/techs/weapons4.webp';
 import digitalImg from '../../assets/gameElements/techs/digital4.webp';
 import shieldImg from '../../assets/gameElements/techs/shield4.webp';
 import energyImg from '../../assets/gameElements/techs/energy4.webp';
+import exoImg from '../../assets/gameElements/techs/exocraft.webp';
 import {
   PopoverBox,
   PopoverHeaderDiv,
@@ -240,6 +241,20 @@ export const WeaponsDescription = () => (
     requirements={
       <>
         <li>Research Lab Level 4</li>
+      </>
+    }
+  />
+);
+
+export const ExoDescription = () => (
+  <DescriptionComponent
+    title="Exocraft Technology"
+    image={exoImg}
+    description="Recent astrophysics advancements enable equipping more ships with laboratories for deep space exploration and facilitate the colonization of additional planets. Every two-level advancement in this technology allows for the utilization of one extra planet."
+    requirements={
+      <>
+        <li>Research Lab Level 3</li>
+        <li>Thrust Propulsion Level 3</li>
       </>
     }
   />

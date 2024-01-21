@@ -112,12 +112,12 @@ const Energy = ({ available, img, title, fromCelestia }: Props) => {
         </ImageAddressContainer>
       </div>
       <TotalResourceWrapper>
-        <Tooltip
-          title={'Energy must always be positive to avoid loosing production'}
-          arrow
-          placement="top"
-        >
-          <TotalResourceContainer>
+        <TotalResourceContainer>
+          <Tooltip
+            title={'Energy must always be positive to avoid loosing production'}
+            arrow
+            placement="top"
+          >
             <div>
               <ResourceName style={{ fontSize: '10px' }}>
                 Available
@@ -130,8 +130,8 @@ const Energy = ({ available, img, title, fromCelestia }: Props) => {
                 {numberWithCommas(fromCelestia!)}
               </TotalResourceText>
             </div>
-          </TotalResourceContainer>
-        </Tooltip>
+          </Tooltip>
+        </TotalResourceContainer>
       </TotalResourceWrapper>
     </Container>
   );

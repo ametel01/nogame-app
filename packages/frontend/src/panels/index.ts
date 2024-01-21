@@ -71,6 +71,7 @@ export {
   beamRequirements,
   astralRequirements,
   plasmaRequirements,
+  exoRequirements,
 } from '../shared/utils';
 
 export {
@@ -86,6 +87,7 @@ export {
   ThrustDescription,
   WarpDescription,
   WeaponsDescription,
+  ExoDescription,
 } from '../components/descriptions/LabPopover';
 
 export {

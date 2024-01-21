@@ -4,6 +4,9 @@ import { useGetPlanetColonies } from '../hooks/ColoniesHooks';
 import { ColonyArray } from '../hooks/ColoniesHooks';
 import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
+import { GenerateColony } from '../components/buttons/GenerateColony';
+import { TechLevels } from '../shared/types/index';
+import { useTechLevels } from '../panels';
 
 interface Props {
   planetId: number;
@@ -12,7 +15,7 @@ interface Props {
 }
 
 const selectStyles = {
-  color: 'white',
+  color: '#c5c6c7',
   '& .MuiOutlinedInput-root': {
     borderRadius: '4px',
     padding: '8px 16px',
@@ -38,7 +41,7 @@ const menuProps = {
   PaperProps: {
     style: {
       backgroundColor: '#1c242c', // Set the background color for the dropdown menu
-      color: 'white', // Set the text color for the dropdown menu
+      color: '#c5c6c7', // Set the text color for the dropdown menu
       // Add any additional styles for the dropdown menu here
     },
   },
@@ -46,6 +49,14 @@ const menuProps = {
 
 const ColonySelect = ({ planetId, selectedColonyId, handleChange }: Props) => {
   const coloniesArray: ColonyArray = useGetPlanetColonies(planetId);
+  const currentColoniesCount = coloniesArray ? coloniesArray.length : 0;
+  const techs: TechLevels = useTechLevels(planetId);
+  const maxColonies = techs
+    ? Math.floor(Number(techs.exocraft) / 2) +
+      (Number(techs.exocraft) % 2 === 1 ? 1 : 0)
+    : 0;
+  const isActivated =
+    coloniesArray && techs ? currentColoniesCount < maxColonies : false;
 
   const menuItems = Array.isArray(coloniesArray)
     ? coloniesArray.map((colony, index) => {
@@ -80,6 +91,7 @@ const ColonySelect = ({ planetId, selectedColonyId, handleChange }: Props) => {
           {menuItems}
         </Select>
       </FormControl>
+      <GenerateColony isActivated={isActivated} />
     </Box>
   );
 };

@@ -38,6 +38,17 @@ export const weaponsRequirements = (labLevel: number | undefined) => {
   return labLevel ? labLevel >= 4 : false;
 };
 
+export const exoRequirements = (
+  labLevel: number | undefined,
+  techs: TechLevels | undefined
+) => {
+  return labLevel
+    ? labLevel >= 3 && techs
+      ? techs.thrust >= 3
+      : false
+    : false;
+};
+
 export const beamTechRequirements = (
   labLevel: number | undefined,
   techs: TechLevels | undefined

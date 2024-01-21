@@ -35,6 +35,7 @@ const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
         plasma_tech: 0,
         shield: 0,
         weapons: 0,
+        exocraft: 0,
       };
 
       const compoundsLevels: CompoundsLevels = {
@@ -59,6 +60,7 @@ const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
         plasma: defaultLevels.plasma_tech,
         shield: defaultLevels.shield,
         weapons: defaultLevels.weapons,
+        exocraft: defaultLevels.exocraft,
       };
 
       return { compoundsLevels, techLevels };
@@ -88,6 +90,7 @@ const fetchUpgradesData = async ({ planetId }: { planetId: number }) => {
       plasma: upgrades.plasma_tech || 0,
       shield: upgrades.shield || 0,
       weapons: upgrades.weapons || 0,
+      exocraft: upgrades.exocraft || 0,
     };
 
     return { compoundsLevels, techLevels };

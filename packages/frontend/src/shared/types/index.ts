@@ -34,7 +34,8 @@ export type TechEntities =
   | 'beam'
   | 'plasma'
   | 'shield'
-  | 'weapons';
+  | 'weapons'
+  | 'exocraft';
 
 export type EnergyEntities =
   | 'steel'
@@ -143,6 +144,7 @@ export const UpgradeType = {
   Combustion: 15,
   Thrust: 16,
   Warp: 17,
+  Exocraft: 18,
 };
 
 export function getUpgradeType(name: number): CairoCustomEnum | undefined {
@@ -183,6 +185,8 @@ export function getUpgradeType(name: number): CairoCustomEnum | undefined {
       return new CairoCustomEnum({ Thrust: {} });
     case 17:
       return new CairoCustomEnum({ Warp: {} });
+    case 18:
+      return new CairoCustomEnum({ Exocraft: {} });
   }
 }
 

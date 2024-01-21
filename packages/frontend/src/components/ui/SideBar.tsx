@@ -11,7 +11,7 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  height: 100vh;
+  height: fit-content;
   background-color: #1a2025;
 `;
 

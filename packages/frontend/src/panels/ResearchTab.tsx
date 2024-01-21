@@ -40,6 +40,9 @@ import {
   weaponsRequirements,
   LabProps,
   ResearchConfigType,
+  ExoDescription,
+  exoImg,
+  exoRequirements,
 } from '.';
 import ResearchBox from '../components/boxes/ResearchBox';
 
@@ -81,6 +84,14 @@ export const ResearchTabPanel = ({
       functionCallName: UpgradeType.Ion,
       techName: 'ion',
       requirements: ionRequirements(labLevel, techLevels),
+    },
+    {
+      description: <ExoDescription />,
+      img: exoImg,
+      title: 'Exocraft Technology',
+      functionCallName: UpgradeType.Exocraft,
+      techName: 'exocraft',
+      requirements: exoRequirements(labLevel, techLevels),
     },
     {
       description: <PlasmaDescription />,
