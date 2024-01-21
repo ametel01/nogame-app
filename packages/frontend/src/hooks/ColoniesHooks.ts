@@ -46,6 +46,24 @@ const baseDefences: DefenceLevels = {
 export type ColonyArrayElement = [bigint, { orbit: bigint; system: bigint }];
 export type ColonyArray = ColonyArrayElement[];
 
+export function useGetColoniesMotherPlanet(
+  planetId: number | undefined
+): ColonyArray {
+  const { data } = useContractRead({
+    address: GAMEADDRESS,
+    abi: game.abi,
+    functionName: 'get_colony_mother_planet',
+    args: [planetId!],
+    blockIdentifier: BlockTag.pending,
+  });
+
+  if (!planetId) {
+    return [];
+  }
+
+  return data as unknown as ColonyArray;
+}
+
 export function useGetPlanetColonies(
   planetId: number | undefined
 ): ColonyArray {

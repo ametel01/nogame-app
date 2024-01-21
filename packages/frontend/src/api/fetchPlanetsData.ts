@@ -10,12 +10,8 @@ interface ApiPlanetData {
 }
 
 const fetchPlanetsData = async (): Promise<PlanetDetails[]> => {
-  const nodeEnv = import.meta.env.MODE;
-  const apiUrl =
-    nodeEnv === 'production'
-      ? 'https://www.api.testnet.no-game.xyz/universe'
-      : 'http://localhost:3001/universe';
-
+  // const nodeEnv = import.meta.env.MODE;
+  const apiUrl = 'https://www.api.testnet.no-game.xyz/universe';
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) {

@@ -16,6 +16,11 @@ import {
 } from '../../hooks/ResourcesHooks';
 import { useShipsLevels, useDefencesLevels } from '../../hooks/LevelsHooks';
 import { numberWithCommas } from '../../shared/utils';
+import {
+  useGetColoniesMotherPlanet,
+  useGetColonyResources,
+  useGetColonyDefences,
+} from '../../hooks/ColoniesHooks';
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -123,6 +128,11 @@ export default function PlanetModal({ planetId, image, position }: Props) {
   const shipsLevels = useShipsLevels(Number(planetId));
   const defencesLevels = useDefencesLevels(Number(planetId));
 
+  const motherPlanet = Number(useGetColoniesMotherPlanet(planetId));
+  const colonyId = planetId - motherPlanet * 1000;
+  const colonyResources = useGetColonyResources(motherPlanet, colonyId);
+  const colonyDefences = useGetColonyDefences(motherPlanet, colonyId);
+
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -171,13 +181,19 @@ export default function PlanetModal({ planetId, image, position }: Props) {
 
             <GridSection>
               <SubTitle>Collectible Resources</SubTitle>
-              {Object.keys(collectibleResources ?? {}).map((key) => (
+              {Object.keys(
+                (planetId > 500 ? colonyResources : collectibleResources) ?? {}
+              ).map((key) => (
                 <h6 key={key}>
                   {key}:{' '}
                   <Value>
                     {numberWithCommas(
                       Math.round(
-                        Number(collectibleResources[key as keyof Resources])
+                        Number(
+                          (planetId > 500
+                            ? colonyResources
+                            : collectibleResources)[key as keyof Resources]
+                        )
                       )
                     )}
                   </Value>
@@ -202,12 +218,16 @@ export default function PlanetModal({ planetId, image, position }: Props) {
             <GridSection>
               <SubTitle>Defences</SubTitle>
               <DetailGrid>
-                {Object.keys(defencesLevels ?? {}).map((key) => (
+                {Object.keys(
+                  (planetId > 500 ? colonyDefences : defencesLevels) ?? {}
+                ).map((key) => (
                   <h6 key={key}>
                     {key}:{' '}
                     <Value>
                       {numberWithCommas(
-                        defencesLevels[key as keyof DefenceLevels]
+                        (planetId > 500 ? colonyDefences : defencesLevels)[
+                          key as keyof DefenceLevels
+                        ]
                       )}
                     </Value>
                   </h6>

@@ -215,9 +215,6 @@ const ResourcesContainer = ({
   const collectible = useCollectibleResources(planetId);
   const colonyCollectible = useGetColonyResources(planetId, selectedColonyId);
 
-  console.log('collectible', collectible);
-  console.log('colonyCollectible', colonyCollectible);
-
   const solarEnergy =
     selectedColonyId === 0
       ? compoundsLevels
@@ -228,7 +225,9 @@ const ResourcesContainer = ({
   const celestia = useGetCelestiaAvailable(planetId);
   const colonyCelestia = useGetColonyDefences(planetId, selectedColonyId);
 
-  const celestiaProduction = getCelestiaProduction(planetPosition?.orbit);
+  const celestiaProduction = getCelestiaProduction(
+    Number(planetPosition?.orbit)
+  );
   const energyFromCelestia =
     selectedColonyId === 0
       ? Number(celestia) * celestiaProduction
@@ -285,8 +284,6 @@ const ResourcesContainer = ({
       };
     }
   }, [colonyCollectible]);
-
-  console.log(selectedColonyId);
 
   return (
     <div>

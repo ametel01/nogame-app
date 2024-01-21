@@ -30,13 +30,13 @@ jobs:
             NODE_ENV=production
 
             # Decode and set backend .env
-            echo '${{ secrets.BACKEND_ENV_FILE }}' > packages/testnet/backend/.env
+            echo '${{ secrets.BACKEND_ENV_FILE }}' > packages/backend/.env
 
             # Decode and set frontend .env
-            echo '${{ secrets.FRONTEND_ENV_FILE }}'  > packages/testnet/frontend/.env
+            echo '${{ secrets.FRONTEND_ENV_FILE }}'  > packages/frontend/.env
 
             npm install
-            npm run testnet-build
+            npm run build
             # Restart PM2 & Nginx processes
             pm2 restart all
             sudo systemctl reload nginx

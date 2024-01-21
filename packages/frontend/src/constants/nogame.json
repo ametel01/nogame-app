@@ -1055,6 +1055,22 @@
         },
         {
           "type": "function",
+          "name": "get_colony_mother_planet",
+          "inputs": [
+            {
+              "name": "colony_planet_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u32"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
           "name": "get_planet_colonies",
           "inputs": [
             {
