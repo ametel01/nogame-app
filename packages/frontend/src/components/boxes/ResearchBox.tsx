@@ -36,6 +36,7 @@ const ResearchBox = ({
   );
 
   const baseCosts = baseTechCost[functionCallName];
+  const isExo = functionCallName === 18;
   // Calculate the cumulative cost of the upgrade
   const upgradeCost = useMemo(() => {
     if (quantity > 0 && level != undefined) {
@@ -44,12 +45,13 @@ const ResearchBox = ({
         quantity,
         baseCosts.steel,
         baseCosts.quartz,
-        baseCosts.tritium
+        baseCosts.tritium,
+        isExo
       );
       return cost;
     }
     return { steel: 0, quartz: 0, tritium: 0 };
-  }, [level, quantity, baseCosts]);
+  }, [level, quantity, baseCosts, isExo]);
 
   const hasEnoughResources = calculEnoughResources(
     upgradeCost,

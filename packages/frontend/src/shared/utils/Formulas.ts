@@ -1,3 +1,5 @@
+import { baseTechCost } from '../../constants/costs';
+
 const GROWTH_FACTOR_LINEAR = 1.1;
 const GROWTH_FACTOR_QUARTZ = 1.6;
 const GROWTH_FACTOR_STEEL = 1.5;
@@ -117,6 +119,13 @@ export function techCostFormula(
   return { steel, quartz, tritium };
 }
 
+export function exoTechFormula(level: number) {
+  const steel = Math.round(baseTechCost[18].steel * Math.pow(1.75, level));
+  const quartz = Math.round(baseTechCost[18].quartz * Math.pow(1.75, level));
+  const tritium = Math.round(baseTechCost[18].tritium * Math.pow(1.75, level));
+  return { steel, quartz, tritium };
+}
+
 export function calculateFleetLoss(timeSeconds: number): number {
   const decay = Math.exp(-0.02 * (timeSeconds / 60));
 
@@ -206,17 +215,20 @@ export const getCumulativeTechCost = (
   quantity: number,
   baseSteelCost: number,
   baseQuartzCost: number,
-  baseTritiumCost: number
+  baseTritiumCost: number,
+  isExo: boolean
 ) => {
   const totalCost = { steel: 0, quartz: 0, tritium: 0 };
 
   for (let i = 0; i < quantity; i++) {
-    const costAtLevel = techCostFormula(
-      level + i,
-      baseSteelCost,
-      baseQuartzCost,
-      baseTritiumCost
-    );
+    const costAtLevel = isExo
+      ? exoTechFormula(level + i)
+      : techCostFormula(
+          level + i,
+          baseSteelCost,
+          baseQuartzCost,
+          baseTritiumCost
+        );
 
     totalCost.steel += costAtLevel.steel;
     totalCost.quartz += costAtLevel.quartz;
