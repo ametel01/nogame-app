@@ -70,6 +70,15 @@ const RightAlignedCell = styled(Cell)({
   textAlign: 'right',
 });
 
+const shouldDisplayMission = (mission: HostileMission) => {
+  const arrivalTimeInSeconds = Number(mission.time_arrival);
+  const currentTimeInSeconds = Date.now() / 1000;
+  const timeDifferenceInSeconds = arrivalTimeInSeconds - currentTimeInSeconds;
+
+  // Check if the time difference is within 3 hours
+  return timeDifferenceInSeconds > -3 * 3600;
+};
+
 const getTimeDifference = (arrivalTime: number) => {
   const currentTime = Date.now() / 1000; // Convert current time to seconds
   const differenceInSeconds = arrivalTime - currentTime;
@@ -132,16 +141,16 @@ interface HostileMissionsProps {
 export const HostileMissions = ({ planetId }: HostileMissionsProps) => {
   const hostileMissions = useGetHostileMissions(Number(planetId));
 
+  const displayedMissions = hostileMissions?.filter(shouldDisplayMission) || [];
+
   return (
     <>
-      {hostileMissions === undefined ? (
+      {displayedMissions.length === 0 ? (
         <CircularProgress />
-      ) : hostileMissions.length === 0 ? null : (
+      ) : (
         <Container>
           <TitleContainer>
-            {hostileMissions && hostileMissions.length > 0 && (
-              <StyledWarningIcon />
-            )}
+            {displayedMissions.length > 0 && <StyledWarningIcon />}
             <Title variant="h6">Hostile Missions</Title>
           </TitleContainer>
           <HeaderRow>
@@ -149,7 +158,7 @@ export const HostileMissions = ({ planetId }: HostileMissionsProps) => {
             <Cell>Arrival</Cell>
             <RightAlignedCell>Ships</RightAlignedCell>
           </HeaderRow>
-          {hostileMissions.map((mission) => (
+          {displayedMissions.map((mission) => (
             <MissionRow mission={mission} key={mission.id_at_origin} />
           ))}
         </Container>
