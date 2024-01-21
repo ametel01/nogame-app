@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { keyframes, styled } from '@mui/system';
-import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useGetHostileMissions } from '../../hooks/FleetHooks';
@@ -145,9 +144,7 @@ export const HostileMissions = ({ planetId }: HostileMissionsProps) => {
 
   return (
     <>
-      {displayedMissions.length === 0 ? (
-        <CircularProgress />
-      ) : (
+      {displayedMissions.length === 0 ? null : (
         <Container>
           <TitleContainer>
             {displayedMissions.length > 0 && <StyledWarningIcon />}
