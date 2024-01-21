@@ -3,16 +3,34 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "packages/testnet/frontend",
-    "packages/testnet/backend"
+    "packages/frontend",
+    "packages/backend"
   ],
   "scripts": {
-    "testnet-dev": "concurrently \"cd packages/testnet/backend && npm run dev\" \"cd packages/testnet/frontend && npm run dev\"",
-    "testnet-build": "concurrently \"cd packages/testnet/backend && npm run build\" \"cd packages/testnet/frontend && npm run build\"",
-    "testnet-start": "concurrently \"cd packages/testnet/backend && npm start\" \"cd packages/testnet/frontend && npm run preview\""
+    "dev": "concurrently \"cd packages/backend && npm run dev\" \"cd packages/frontend && npm run dev\"",
+    "build": "concurrently \"cd packages/backend && npm run build\" \"cd packages/frontend && npm run build\"",
+    "start": "concurrently \"cd packages/backend && npm start\" \"cd packages/frontend && npm run preview\"",
+    "prepare": "husky install",
+    "lint": "lerna run lint --parallel",
+    "format": "lerna run format --parallel",
+    "type-check": "lerna run type-check --parallel"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "lerna": "^8.0.2"
   },
-  "dependencies": {}
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run format",
+      "npm run lint",
+      "npm run type-check"
+    ]
+  }
 }
