@@ -27,17 +27,15 @@ const UniverseBoxItem = ({ ownPlanetId, planet, ownTechs }: UniverseProps) => {
   const address = address_data || '';
   const highlighted = parseInt(address, 16) === parseInt(planet.account, 16);
 
-  const isNoobProtected = useGetIsNoobProtected(
-    Number(ownPlanetId),
-    planet.planetId
-  );
-
-  const planetRanking = useGetPlanetRanking(planet.planetId);
-
   const motherPlanet = useGetColonyMotherPlanet(planet.planetId);
-  const winLossArg = planet.planetId > 500 ? motherPlanet : planet.planetId;
-  const winLoss = useCalculateWinsAndLosses(winLossArg);
-  const lastActive = useLastActive(planet.planetId);
+  const planetArg = planet.planetId > 500 ? motherPlanet : planet.planetId;
+  console.log('planetArg', planetArg);
+
+  const planetRanking = useGetPlanetRanking(planetArg);
+  console.log('planetRanking', planetRanking);
+  const winLoss = useCalculateWinsAndLosses(planetArg);
+  const lastActive = useLastActive(planetArg);
+  const isNoobProtected = useGetIsNoobProtected(Number(ownPlanetId), planetArg);
 
   const ownFleetData = useShipsLevels(Number(ownPlanetId));
   const ownFleet: ShipsLevels = ownFleetData || {
