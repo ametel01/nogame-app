@@ -460,6 +460,72 @@
       ]
     },
     {
+      "type": "struct",
+      "name": "nogame::libraries::types::SimulationResult",
+      "members": [
+        {
+          "name": "attacker_carrier",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "attacker_scraper",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "attacker_sparrow",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "attacker_frigate",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "attacker_armade",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "defender_carrier",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "defender_scraper",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "defender_sparrow",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "defender_frigate",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "defender_armade",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "celestia",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "blaster",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "beam",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "astral",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "plasma",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
       "type": "interface",
       "name": "nogame::game::interface::INoGame",
       "items": [
@@ -742,22 +808,6 @@
           "outputs": [
             {
               "type": "nogame::libraries::types::PlanetPosition"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_position_slot_occupant",
-          "inputs": [
-            {
-              "name": "position",
-              "type": "nogame::libraries::types::PlanetPosition"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "core::integer::u32"
             }
           ],
           "state_mutability": "view"
@@ -1160,6 +1210,30 @@
             }
           ],
           "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "simulate_attack",
+          "inputs": [
+            {
+              "name": "attacker_fleet",
+              "type": "nogame::libraries::types::Fleet"
+            },
+            {
+              "name": "defender_fleet",
+              "type": "nogame::libraries::types::Fleet"
+            },
+            {
+              "name": "defences",
+              "type": "nogame::libraries::types::DefencesLevels"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::SimulationResult"
+            }
+          ],
+          "state_mutability": "view"
         }
       ]
     },
@@ -1392,11 +1466,6 @@
       "kind": "struct",
       "members": [
         {
-          "name": "time",
-          "type": "core::integer::u64",
-          "kind": "data"
-        },
-        {
           "name": "origin",
           "type": "core::integer::u32",
           "kind": "data"
@@ -1409,6 +1478,33 @@
         {
           "name": "mission_type",
           "type": "core::felt252",
+          "kind": "data"
+        },
+        {
+          "name": "fleet",
+          "type": "nogame::libraries::types::Fleet",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nogame::game::main::NoGame::FleetReturn",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "docked_at",
+          "type": "core::integer::u32",
+          "kind": "data"
+        },
+        {
+          "name": "mission_type",
+          "type": "core::felt252",
+          "kind": "data"
+        },
+        {
+          "name": "fleet",
+          "type": "nogame::libraries::types::Fleet",
           "kind": "data"
         }
       ]
@@ -1491,8 +1587,8 @@
       "kind": "struct",
       "members": [
         {
-          "name": "time",
-          "type": "core::integer::u64",
+          "name": "planet_id",
+          "type": "core::integer::u32",
           "kind": "data"
         },
         {
@@ -1605,6 +1701,11 @@
         {
           "name": "FleetSent",
           "type": "nogame::game::main::NoGame::FleetSent",
+          "kind": "nested"
+        },
+        {
+          "name": "FleetReturn",
+          "type": "nogame::game::main::NoGame::FleetReturn",
           "kind": "nested"
         },
         {

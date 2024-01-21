@@ -20,6 +20,7 @@ import {
   Stack,
   Pagination,
 } from '.';
+import { useGetColonyMotherPlanet } from '../hooks/ColoniesHooks';
 
 const UniverseBoxItem = ({ ownPlanetId, planet, ownTechs }: UniverseProps) => {
   const { address: address_data } = useAccount();
@@ -33,7 +34,9 @@ const UniverseBoxItem = ({ ownPlanetId, planet, ownTechs }: UniverseProps) => {
 
   const planetRanking = useGetPlanetRanking(planet.planetId);
 
-  const winLoss = useCalculateWinsAndLosses(planet.planetId);
+  const motherPlanet = useGetColonyMotherPlanet(planet.planetId);
+  const winLossArg = planet.planetId > 500 ? motherPlanet : planet.planetId;
+  const winLoss = useCalculateWinsAndLosses(winLossArg);
   const lastActive = useLastActive(planet.planetId);
 
   const ownFleetData = useShipsLevels(Number(ownPlanetId));

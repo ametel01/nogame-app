@@ -17,7 +17,7 @@ import {
 import { useShipsLevels, useDefencesLevels } from '../../hooks/LevelsHooks';
 import { numberWithCommas } from '../../shared/utils';
 import {
-  useGetColoniesMotherPlanet,
+  useGetColonyMotherPlanet,
   useGetColonyResources,
   useGetColonyDefences,
 } from '../../hooks/ColoniesHooks';
@@ -128,7 +128,7 @@ export default function PlanetModal({ planetId, image, position }: Props) {
   const shipsLevels = useShipsLevels(Number(planetId));
   const defencesLevels = useDefencesLevels(Number(planetId));
 
-  const motherPlanet = Number(useGetColoniesMotherPlanet(planetId));
+  const motherPlanet = Number(useGetColonyMotherPlanet(planetId));
   const colonyId = planetId - motherPlanet * 1000;
   const colonyResources = useGetColonyResources(motherPlanet, colonyId);
   const colonyDefences = useGetColonyDefences(motherPlanet, colonyId);

@@ -13,13 +13,6 @@ import { useContractWrite } from '@starknet-react/core';
 import { useContract } from '@starknet-react/core';
 import { getColonyUpgradeType } from '../shared/types';
 
-// interface InvokeResult {
-//   writeAsync: (
-//     args?: ContractWriteVariables | undefined
-//   ) => Promise<InvokeFunctionResponse>;
-//   data: InvokeFunctionResponse | undefined;
-// }
-
 const baseCompounds: CompoundsLevels = {
   steel: 0,
   quartz: 0,
@@ -46,9 +39,7 @@ const baseDefences: DefenceLevels = {
 export type ColonyArrayElement = [bigint, { orbit: bigint; system: bigint }];
 export type ColonyArray = ColonyArrayElement[];
 
-export function useGetColoniesMotherPlanet(
-  planetId: number | undefined
-): ColonyArray {
+export function useGetColonyMotherPlanet(planetId: number | undefined): number {
   const { data } = useContractRead({
     address: GAMEADDRESS,
     abi: game.abi,
@@ -58,10 +49,10 @@ export function useGetColoniesMotherPlanet(
   });
 
   if (!planetId) {
-    return [];
+    0;
   }
 
-  return data as unknown as ColonyArray;
+  return Number(data);
 }
 
 export function useGetPlanetColonies(
