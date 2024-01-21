@@ -110,6 +110,11 @@ const MissionRow = ({ mission }: RowProps) => {
     };
   }, [mission.time_arrival]);
 
+  // Check if the time difference is greater than 3 hours
+  if (countdown === 'Arrived' || parseInt(countdown) > 3 * 3600) {
+    return null; // Don't render anything
+  }
+
   return (
     <Row key={mission.id_at_origin}>
       <Cell>{originCoordinates}</Cell>
