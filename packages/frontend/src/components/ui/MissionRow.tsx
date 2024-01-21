@@ -81,7 +81,7 @@ export const MissionRow = memo(
       </FleetTooltipContent>
     );
 
-    const isArrived = (Number(mission.time_arrival) + 320) * 1000 >= Date.now();
+    const isArrived = (Number(mission.time_arrival) + 320) * 1000 <= Date.now();
 
     return (
       <GridRow key={index}>
@@ -100,7 +100,7 @@ export const MissionRow = memo(
           </Tooltip>
         </MissionText>
         <ButtonContainer>
-          {isArrived ? (
+          {!isArrived ? (
             <StyledButton
               size="small"
               sx={{ background: '#C47E33' }}
@@ -110,18 +110,28 @@ export const MissionRow = memo(
               Recall
             </StyledButton>
           ) : (
-            <StyledButton
-              onClick={() => {
-                {
-                  mission.is_debris ? collectDebris() : attackPlanet();
-                }
-              }}
-              size="small"
-              sx={{ background: '#4A63AA' }}
-              fullWidth
-            >
-              {mission.is_debris ? 'Collect' : 'Attack'}
-            </StyledButton>
+            <>
+              <StyledButton
+                onClick={() => {
+                  {
+                    mission.is_debris ? collectDebris() : attackPlanet();
+                  }
+                }}
+                size="small"
+                sx={{ background: '#4A63AA' }}
+                fullWidth
+              >
+                {mission.is_debris ? 'Collect' : 'Attack'}
+              </StyledButton>
+              <StyledButton
+                size="small"
+                sx={{ background: '#C47E33' }}
+                fullWidth
+                onClick={onRecallClick}
+              >
+                Recall
+              </StyledButton>
+            </>
           )}
         </ButtonContainer>
       </GridRow>
