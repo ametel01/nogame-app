@@ -98,6 +98,7 @@ export interface HostileMission {
   id_at_origin: number;
   time_arrival: number;
   number_of_ships: number;
+  destination: number;
 }
 
 export const ColonyUpgradeType = {

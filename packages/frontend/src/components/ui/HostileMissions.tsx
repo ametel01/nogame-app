@@ -14,6 +14,7 @@ const Container = styled(Box)(({ theme }) => ({
   boxshadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   padding: theme.spacing(2),
   marginBottom: theme.spacing(2),
+  width: 'fit-content',
 }));
 
 const TitleContainer = styled(Box)({
@@ -46,16 +47,16 @@ const StyledWarningIcon = styled(WarningIcon)({
 
 const HeaderRow = styled(Box)({
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '8px',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: '2px', // Reduced from 8px to 4px
   paddingBottom: '8px',
   borderBottom: '1px solid #30363d',
 });
 
 const Row = styled(Box)({
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '8px',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: '2px', // Reduced from 8px to 4px
   padding: '8px 0',
 });
 
@@ -123,10 +124,16 @@ const MissionRow = ({ mission }: RowProps) => {
     return null; // Don't render anything
   }
 
+  const destination =
+    Number(mission.destination) > 500
+      ? `Colony Number(mission.destination) % 1000`
+      : 'Mother Planet';
+
   return (
     <Row key={mission.id_at_origin}>
       <Cell>{originCoordinates}</Cell>
       <Cell>{countdown}</Cell>
+      <Cell>{destination}</Cell>
       <RightAlignedCell>{Number(mission.number_of_ships)}</RightAlignedCell>
     </Row>
   );
@@ -153,6 +160,7 @@ export const HostileMissions = ({ planetId }: HostileMissionsProps) => {
           <HeaderRow>
             <Cell>Origin</Cell>
             <Cell>Arrival</Cell>
+            <Cell>Destination</Cell>
             <RightAlignedCell>Ships</RightAlignedCell>
           </HeaderRow>
           {displayedMissions.map((mission) => (

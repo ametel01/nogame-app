@@ -21,6 +21,7 @@ import {
   Pagination,
 } from '.';
 import { useGetColonyMotherPlanet } from '../hooks/ColoniesHooks';
+import { Switch, Typography } from '@mui/material';
 
 const UniverseBoxItem = ({ ownPlanetId, planet, ownTechs }: UniverseProps) => {
   const { address: address_data } = useAccount();
@@ -29,10 +30,8 @@ const UniverseBoxItem = ({ ownPlanetId, planet, ownTechs }: UniverseProps) => {
 
   const motherPlanet = useGetColonyMotherPlanet(planet.planetId);
   const planetArg = planet.planetId > 500 ? motherPlanet : planet.planetId;
-  console.log('planetArg', planetArg);
 
   const planetRanking = useGetPlanetRanking(planetArg);
-  console.log('planetRanking', planetRanking);
   const winLoss = useCalculateWinsAndLosses(planetArg);
   const lastActive = useLastActive(planetArg);
   const isNoobProtected = useGetIsNoobProtected(Number(ownPlanetId), planetArg);
@@ -79,6 +78,35 @@ const UniverseBoxItem = ({ ownPlanetId, planet, ownTechs }: UniverseProps) => {
   );
 };
 
+// Define a type for the systems structure
+type SystemsType = {
+  [key: number]: (PlanetDetails | null)[];
+};
+
+const groupPlanetsBySystem = (planets: PlanetDetails[]): SystemsType => {
+  const systems: SystemsType = {};
+  for (let i = 1; i <= 10; i++) {
+    // Initialize each system with 10 orbits (null represents empty orbit)
+    systems[i] = Array(10).fill(null);
+  }
+
+  planets.forEach((planet: PlanetDetails) => {
+    const system = planet.position.system;
+    const orbit = planet.position.orbit - 1; // Adjusting for 0-based index
+    if (systems[system]) {
+      systems[system][orbit] = planet;
+    }
+  });
+
+  return systems;
+};
+
+const EmptyPlanetSlot = () => (
+  <div style={{ padding: '10px', border: '1px dashed gray', margin: '5px' }}>
+    Empty Slot
+  </div>
+);
+
 interface UniverseViewTabPanelProps {
   spendable?: Resources;
   collectible?: Resources;
@@ -94,8 +122,12 @@ export const UniverseViewTabPanel = ({
   ...rest
 }: UniverseViewTabPanelProps) => {
   const [planetsData, setPlanetsData] = useState<PlanetDetails[]>([]);
-  const [currentPage, setCurrentPage] = useState(1); // MUI Pagination is 1-indexed
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isExtendedView, setIsExtendedView] = useState(false);
   const itemsPerPage = 6;
+  const pageCount = isExtendedView
+    ? 10
+    : Math.ceil(planetsData.length / itemsPerPage); // Adjust as needed
 
   useEffect(() => {
     fetchPlanetsData()
@@ -129,6 +161,34 @@ export const UniverseViewTabPanel = ({
     startIndex + itemsPerPage
   );
 
+  const renderPlanets = () => {
+    if (isExtendedView) {
+      const systems = groupPlanetsBySystem(planetsData);
+      const currentSystemPlanets = systems[currentPage]; // currentPage now refers to the system number
+      return currentSystemPlanets.map((planet, index) =>
+        planet ? (
+          <UniverseBoxItem
+            ownPlanetId={ownPlanetId}
+            ownTechs={ownTechs}
+            key={index}
+            planet={planet}
+          />
+        ) : (
+          <EmptyPlanetSlot key={index} /> // Render a placeholder for empty slots
+        )
+      );
+    } else {
+      return selectedPlanets.map((planet, index) => (
+        <UniverseBoxItem
+          ownPlanetId={ownPlanetId}
+          ownTechs={ownTechs}
+          key={index}
+          planet={planet}
+        />
+      ));
+    }
+  };
+
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     page: number
@@ -136,18 +196,26 @@ export const UniverseViewTabPanel = ({
     setCurrentPage(page);
   };
 
-  const pageCount = Math.ceil(planetsData.length / itemsPerPage);
-
   return (
     <StyledTabPanel {...rest}>
-      {selectedPlanets.map((planet, index) => (
-        <UniverseBoxItem
-          ownPlanetId={ownPlanetId}
-          ownTechs={ownTechs}
-          key={index}
-          planet={planet}
+      <Stack direction="row" justifyContent="center" spacing={2}>
+        <Typography>Normal View</Typography>
+        <Switch
+          checked={isExtendedView}
+          onChange={(e) => setIsExtendedView(e.target.checked)}
         />
-      ))}
+        <Typography>Extended View</Typography>
+      </Stack>
+      {isExtendedView
+        ? renderPlanets()
+        : selectedPlanets.map((planet, index) => (
+            <UniverseBoxItem
+              ownPlanetId={ownPlanetId}
+              ownTechs={ownTechs}
+              key={index}
+              planet={planet}
+            />
+          ))}
       <Stack
         spacing={2}
         alignItems="center"
