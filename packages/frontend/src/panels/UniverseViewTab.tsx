@@ -21,7 +21,7 @@ import {
   Pagination,
 } from '.';
 import { useGetColonyMotherPlanet } from '../hooks/ColoniesHooks';
-import { Switch, Typography } from '@mui/material';
+// import { Switch, Typography } from '@mui/material';
 
 const UniverseBoxItem = ({ ownPlanetId, planet, ownTechs }: UniverseProps) => {
   const { address: address_data } = useAccount();
@@ -123,7 +123,7 @@ export const UniverseViewTabPanel = ({
 }: UniverseViewTabPanelProps) => {
   const [planetsData, setPlanetsData] = useState<PlanetDetails[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isExtendedView, setIsExtendedView] = useState(false);
+  const [isExtendedView] = useState(false);
   const itemsPerPage = 6;
   const pageCount = isExtendedView
     ? 10
@@ -198,14 +198,14 @@ export const UniverseViewTabPanel = ({
 
   return (
     <StyledTabPanel {...rest}>
-      <Stack direction="row" justifyContent="center" spacing={2}>
+      {/* <Stack direction="row" justifyContent="center" spacing={2}>
         <Typography>Normal View</Typography>
         <Switch
           checked={isExtendedView}
           onChange={(e) => setIsExtendedView(e.target.checked)}
         />
         <Typography>Extended View</Typography>
-      </Stack>
+      </Stack> */}
       {isExtendedView
         ? renderPlanets()
         : selectedPlanets.map((planet, index) => (
