@@ -44,8 +44,9 @@ const FleetIcon = styled.img.attrs({
 `;
 
 const ButtonContainer = styled.div`
-  // display: flex;
+  display: flex; // Enable flex layout
   align-items: center;
+  gap: 10px; // Adjust the gap as needed
 `;
 
 interface MissionRowProps {
