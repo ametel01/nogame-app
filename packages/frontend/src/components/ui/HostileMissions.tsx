@@ -119,7 +119,7 @@ const MissionRow = ({ mission }: RowProps) => {
   }, [mission.time_arrival]);
 
   // Check if the time difference is greater than 3 hours
-  if (countdown === 'Arrived' || parseInt(countdown) > 3 * 3600) {
+  if (parseInt(countdown) > 3 * 3600) {
     return null; // Don't render anything
   }
 
@@ -139,12 +139,14 @@ interface HostileMissionsProps {
 // Component
 export const HostileMissions = ({ planetId }: HostileMissionsProps) => {
   const hostileMissions = useGetHostileMissions(Number(planetId));
+  console.log('hostileMissions', hostileMissions);
 
   const displayedMissions = hostileMissions?.filter(shouldDisplayMission) || [];
+  console.log('displayedMissions', displayedMissions);
 
   return (
     <>
-      {displayedMissions.length === 0 ? null : (
+      {!hostileMissions ? null : (
         <Container>
           <TitleContainer>
             {displayedMissions.length > 0 && <StyledWarningIcon />}
