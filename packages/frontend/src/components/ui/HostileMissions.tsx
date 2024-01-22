@@ -139,14 +139,12 @@ interface HostileMissionsProps {
 // Component
 export const HostileMissions = ({ planetId }: HostileMissionsProps) => {
   const hostileMissions = useGetHostileMissions(Number(planetId));
-  console.log('hostileMissions', hostileMissions);
 
   const displayedMissions = hostileMissions?.filter(shouldDisplayMission) || [];
-  console.log('displayedMissions', displayedMissions);
 
   return (
     <>
-      {!hostileMissions ? null : (
+      {displayedMissions.length != 0 ? (
         <Container>
           <TitleContainer>
             {displayedMissions.length > 0 && <StyledWarningIcon />}
@@ -161,7 +159,7 @@ export const HostileMissions = ({ planetId }: HostileMissionsProps) => {
             <MissionRow mission={mission} key={mission.id_at_origin} />
           ))}
         </Container>
-      )}
+      ) : null}
     </>
   );
 };

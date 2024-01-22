@@ -30,8 +30,6 @@ const DefencesBox = ({
   const [quantity, setQuantity] = useState(1);
   const [showTooltip, setShowTooltip] = useState(true);
 
-  console.log('functionCallName: ', functionCallName);
-
   const { tx, writeAsync: build } = useDefenceBuild(
     functionCallName,
     quantity,

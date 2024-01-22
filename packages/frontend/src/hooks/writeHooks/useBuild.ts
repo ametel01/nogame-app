@@ -48,8 +48,6 @@ export function useDefenceBuild(
   const name =
     colonyId === 0 ? getBuildType(unitName) : getColonyBuildType(unitName);
 
-  console.log(name);
-
   const calls = [
     colonyId === 0
       ? contract?.populateTransaction['process_defence_build']!(
