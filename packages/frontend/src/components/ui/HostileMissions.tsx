@@ -48,7 +48,7 @@ const StyledWarningIcon = styled(WarningIcon)({
 const HeaderRow = styled(Box)({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 1fr)',
-  gap: '2px', // Reduced from 8px to 4px
+  gap: '0px', // Reduced from 8px to 4px
   paddingBottom: '8px',
   borderBottom: '1px solid #30363d',
 });
@@ -56,8 +56,8 @@ const HeaderRow = styled(Box)({
 const Row = styled(Box)({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 1fr)',
-  gap: '2px', // Reduced from 8px to 4px
-  padding: '8px 0',
+  gap: '0px', // Reduced from 8px to 4px
+  padding: '4px 0',
 });
 
 const Cell = styled(Typography)(() => ({
