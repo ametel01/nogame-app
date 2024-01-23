@@ -18,19 +18,29 @@ function getUnitConsumption(ship: Unit, distance: number): number {
   return (ship.consumption * distance) / 35000;
 }
 
-export function getFuelConsumption(fleet: Fleet, distance: number): number {
+export function getFuelConsumption(
+  fleet: Fleet,
+  distance: number,
+  speedFactor: number
+): number {
   return Math.ceil(
-    fleet.carrier * getUnitConsumption(CARRIER, distance) +
+    (fleet.carrier * getUnitConsumption(CARRIER, distance) +
       fleet.scraper * getUnitConsumption(SCRAPER, distance) +
       fleet.sparrow * getUnitConsumption(SPARROW, distance) +
       fleet.frigate * getUnitConsumption(FRIGATE, distance) +
-      fleet.armade * getUnitConsumption(ARMADE, distance)
+      fleet.armade * getUnitConsumption(ARMADE, distance)) *
+      (speedFactor / 100)
   );
 }
 
-export function getFlightTime(speed: number, distance: number): number {
+export function getFlightTime(
+  speed: number,
+  distance: number,
+  speedFactor: number
+): number {
+  console.log('in-formul speed', speed);
   const result = 10 + 3500 * Math.sqrt((10 * distance) / speed);
-  return Math.floor(result); // Assuming we need an integer result
+  return Math.floor(result / speedFactor); // Assuming we need an integer result
 }
 
 export function getFleetSpeed(fleet: Fleet, techs: TechLevels) {

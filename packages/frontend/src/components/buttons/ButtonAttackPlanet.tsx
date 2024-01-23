@@ -28,6 +28,7 @@ import {
 import { convertSecondsToTime } from '../../shared/utils';
 import { TransactionStatus } from '../ui/TransactionStatus';
 import { numberWithCommas } from '../../shared/utils';
+import Slider from '@mui/material/Slider';
 
 type ShipName = 'carrier' | 'scraper' | 'sparrow' | 'frigate' | 'armade';
 
@@ -82,7 +83,7 @@ export const StyledUl = styled('ul')({
   flexGrow: 1,
 });
 
-const Text = styled('span')({
+export const Text = styled('span')({
   flexGrow: 1,
   textAlign: 'center',
   fontSize: '16px',
@@ -96,6 +97,12 @@ export const FlexContainer = styled('div')({
   gap: '4px',
   margin: '8px',
   flexDirection: 'row',
+});
+
+export const SliderContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center', // Vertically centers the child elements
+  justifyContent: 'center', // Horizontally centers the child elements
 });
 
 const WarningContainer = styled('div')({
@@ -169,6 +176,9 @@ function ButtonAttackPlanet({
   const [cargoCapacity, setCargoCapacity] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isButtotClicked, setisButtotClicked] = useState(false);
+  const [speed, setSpeed] = useState(100);
+
+  console.log('speed', speed);
 
   const missions = useGetActiveMissions(planetId);
   const isMissionLimitReached =
@@ -212,13 +222,11 @@ function ButtonAttackPlanet({
   const distance = ownPosition ? getDistance(ownPosition, position) : 0;
 
   useEffect(() => {
-    const speed: number = techs ? getFleetSpeed(fleet, techs) : 0;
-    setTravelTime(getFlightTime(speed, distance));
-    setFuelConsumption(getFuelConsumption(fleet, distance));
+    setFuelConsumption(getFuelConsumption(fleet, distance, speed));
     setCargoCapacity(calculateTotalCargoCapacity(fleet));
-  }, [distance, fleet, ownPosition, techs]);
+  }, [distance, fleet, ownPosition, speed, techs]);
 
-  const { writeAsync, data } = useSendFleet(fleet, position, false);
+  const { writeAsync, data } = useSendFleet(fleet, position, false, speed);
 
   const ships = ['carrier', 'scraper', 'sparrow', 'frigate', 'armade'];
 
@@ -236,6 +244,13 @@ function ButtonAttackPlanet({
     }
   }, [travelTime]);
 
+  useEffect(() => {
+    const speedFactor = speed / 100; // Convert percentage to a factor
+    const fleetSpeed = techs ? getFleetSpeed(fleet, techs) : 0;
+    setTravelTime(getFlightTime(fleetSpeed, distance, speedFactor));
+    setFuelConsumption(getFuelConsumption(fleet, distance, speedFactor));
+  }, [distance, fleet, ownPosition, techs, speed]);
+
   const handleSendClick = () => {
     writeAsync(), setIsModalOpen(false), setisButtotClicked(true);
   };
@@ -247,6 +262,12 @@ function ButtonAttackPlanet({
     }
     setQuantities({ ...quantities, [ship]: value });
   }
+
+  const handleSpeedChange = (newValue: number | number[]) => {
+    if (typeof newValue === 'number') {
+      setSpeed(newValue);
+    }
+  };
 
   return (
     <div>
@@ -364,6 +385,18 @@ function ButtonAttackPlanet({
                   </TravelInfoRow>
                 </TravelInfoContainer>
               </FlexContainer>
+              <Text>Fleet Speed: {speed}%</Text>
+              <SliderContainer>
+                <Slider
+                  value={speed}
+                  onChange={(event, newValue) => handleSpeedChange(newValue)}
+                  aria-labelledby="fleet-speed-slider"
+                  valueLabelDisplay="auto"
+                  min={1}
+                  max={100}
+                  sx={{ width: '200px' }} // Adjust styling as needed
+                />
+              </SliderContainer>
               <WarningContainer>
                 <WarningIcon sx={{ color: '#E67E51' }} />
                 <Text style={{ marginLeft: '8px', color: '#E67E51' }}>

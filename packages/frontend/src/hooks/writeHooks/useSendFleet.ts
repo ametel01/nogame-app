@@ -11,7 +11,8 @@ import { type Fleet, type Position } from '../../shared/types';
 export default function useSendFleet(
   fleet: Fleet,
   position: Position,
-  isDebris: boolean
+  isDebris: boolean,
+  speedModifier: number
 ): {
   writeAsync: (
     args?: ContractWriteVariables | undefined
@@ -24,7 +25,12 @@ export default function useSendFleet(
   });
   const { writeAsync, data } = useContractWrite({
     calls: [
-      contract?.populateTransaction.send_fleet!(fleet, position, isDebris),
+      contract?.populateTransaction.send_fleet!(
+        fleet,
+        position,
+        isDebris,
+        speedModifier
+      ),
     ],
   });
 

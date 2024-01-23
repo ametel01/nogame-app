@@ -22,6 +22,8 @@ import {
 } from '../../shared/utils/FleetUtils';
 import { convertSecondsToTime, numberWithCommas } from '../../shared/utils';
 import { TransactionStatus } from '../ui/TransactionStatus';
+import { SliderContainer, Text as SliderText } from './ButtonAttackPlanet';
+import Slider from '@mui/material/Slider';
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -72,7 +74,6 @@ export const HeaderDiv = styled('div')({
 });
 
 const StyledUl = styled('ul')({
-  padding: '8px',
   flexGrow: 0,
   width: '100%', // Ensuring ul takes full width for consistency
 });
@@ -83,20 +84,18 @@ interface TextProps {
 }
 
 const Text = styled('span')<TextProps>(({ totalShips, ownFleet }) => ({
-  flexGrow: 1,
+  margin: '0px 16px', // Adjust margin as needed
   textAlign: 'center',
   fontSize: '16px',
-  marginRight: '32px',
   textTransform: 'capitalize',
   color: totalShips > ownFleet.scraper ? '#AB3836' : '#F8F8FF',
 }));
 
 const FlexContainer = styled('div')({
+  marginBottom: '16px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  gap: '4px',
-  margin: '8px 0', // Adjust margin as needed
   width: '100%',
 });
 
@@ -120,7 +119,7 @@ const InputButtonContainer = styled('div')({
 const TravelInfoContainer = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  gap: '20px',
+  gap: '8px',
   alignItems: 'flex-start',
   width: '100%',
 });
@@ -147,11 +146,9 @@ const TravelInfoValue = styled('span')({
 const ShipImage = styled('img')({
   width: '40px',
   height: '40px',
-  margin: '0 4px',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   borderRadius: '8px',
-  marginRight: '8px',
 });
 
 interface Props {
@@ -176,6 +173,7 @@ export function ButtonCollectDebris({
   const [fuelConsumption, setFuelConsumption] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [isButtotClicked, setIsButtonClicked] = useState(false);
+  const [speed, setSpeed] = useState(100);
   const totalShips = quantities.scraper || 0;
 
   const handleInputChange = (e: { target: { value: string } }) => {
@@ -207,12 +205,13 @@ export function ButtonCollectDebris({
   const distance = ownPosition ? getDistance(ownPosition, position) : 0;
 
   useEffect(() => {
-    const speed: number = getFleetSpeed(fleet, techs);
-    setTravelTime(getFlightTime(speed, distance));
-    setFuelConsumption(getFuelConsumption(fleet, distance));
-  }, [distance, fleet, techs]);
+    const speedFactor = speed / 100; // Convert percentage to a factor
+    const fleetSpeed = techs ? getFleetSpeed(fleet, techs) : 0;
+    setTravelTime(getFlightTime(fleetSpeed, distance, speedFactor));
+    setFuelConsumption(getFuelConsumption(fleet, distance, speedFactor));
+  }, [distance, fleet, speed, techs]);
 
-  const { writeAsync, data } = useSendFleet(fleet, position, true);
+  const { writeAsync, data } = useSendFleet(fleet, position, true, speed);
 
   const isShipOverLimit = totalShips > ownFleet.scraper;
 
@@ -230,6 +229,12 @@ export function ButtonCollectDebris({
     writeAsync(), setIsModalOpen(false), setIsButtonClicked(true);
   };
 
+  const handleSpeedChange = (newValue: number | number[]) => {
+    if (typeof newValue === 'number') {
+      setSpeed(newValue);
+    }
+  };
+
   return (
     <>
       <Modal open={isModalOpen} onClose={onClose}>
@@ -239,44 +244,42 @@ export function ButtonCollectDebris({
             <CloseStyledIcon onClick={onClose} />
           </HeaderDiv>
           <Container>
-            <div>
-              <StyledUl>
-                <FlexContainer>
-                  <ShipImage src={scraperImg} alt="scraper" />
-                  <Text totalShips={totalShips} ownFleet={ownFleet}>
-                    scraper (
-                    <span
-                      style={{
-                        color:
-                          totalShips > ownFleet.scraper ? '#AB3836' : '#F8F8FF',
-                      }}
-                    >
-                      {String(availableScrapers)}
-                    </span>
-                    )
-                  </Text>
-                  <InputButtonContainer>
-                    <Input
-                      type="number"
-                      value={quantities.scraper || 0}
-                      onChange={handleInputChange}
-                      size="sm"
-                      color="neutral"
-                      variant="soft"
-                      style={{ width: '80px' }}
-                    />
-                  </InputButtonContainer>
-                  <TotalDebrisText>
-                    Total Debris{' '}
-                    <TotalDebrisValue>
-                      {numberWithCommas(
-                        Number(debrisField.steel) + Number(debrisField.quartz)
-                      )}
-                    </TotalDebrisValue>
-                  </TotalDebrisText>
-                </FlexContainer>
-              </StyledUl>
-            </div>
+            <StyledUl>
+              <FlexContainer>
+                <ShipImage src={scraperImg} alt="scraper" />
+                <Text totalShips={totalShips} ownFleet={ownFleet}>
+                  scraper (
+                  <span
+                    style={{
+                      color:
+                        totalShips > ownFleet.scraper ? '#AB3836' : '#F8F8FF',
+                    }}
+                  >
+                    {String(availableScrapers)}
+                  </span>
+                  )
+                </Text>
+                <InputButtonContainer>
+                  <Input
+                    type="number"
+                    value={quantities.scraper || 0}
+                    onChange={handleInputChange}
+                    size="sm"
+                    color="neutral"
+                    variant="soft"
+                    style={{ width: '80px' }}
+                  />
+                </InputButtonContainer>
+                <TotalDebrisText>
+                  Total Debris{' '}
+                  <TotalDebrisValue>
+                    {numberWithCommas(
+                      Number(debrisField.steel) + Number(debrisField.quartz)
+                    )}
+                  </TotalDebrisValue>
+                </TotalDebrisText>
+              </FlexContainer>
+            </StyledUl>
             <TravelInfoContainer>
               <TravelDetailColumn>
                 <TravelInfoName>
@@ -318,6 +321,18 @@ export function ButtonCollectDebris({
               </TravelDetailColumn>
             </TravelInfoContainer>
           </Container>
+          <SliderText>Fleet Speed: {speed}%</SliderText>
+          <SliderContainer>
+            <Slider
+              value={speed}
+              onChange={(event, newValue) => handleSpeedChange(newValue)}
+              aria-labelledby="fleet-speed-slider"
+              valueLabelDisplay="auto"
+              min={1}
+              max={100}
+              sx={{ width: '200px', marginBottom: '24px' }} // Adjust styling as needed
+            />
+          </SliderContainer>
           <StyledButton
             onClick={handleButtonClick}
             fullWidth
