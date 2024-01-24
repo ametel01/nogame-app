@@ -15,6 +15,7 @@ const Container = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
   marginBottom: theme.spacing(2),
   width: 'fit-content',
+  gap: '4px', // Reduced from 8px to 4px
 }));
 
 const TitleContainer = styled(Box)({
