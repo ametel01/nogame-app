@@ -126,7 +126,7 @@ const MissionRow = ({ mission }: RowProps) => {
 
   const destination =
     Number(mission.destination) > 500
-      ? `Colony Number(mission.destination) % 1000`
+      ? `Colony ${Number(mission.destination) % 1000}`
       : 'Mother Planet';
 
   return (
