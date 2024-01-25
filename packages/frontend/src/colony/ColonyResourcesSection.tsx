@@ -109,7 +109,7 @@ export const ColonyResourcesSection = ({
           onClick={() => {
             setActiveTab(2);
           }}
-          active={activeTab === 3 ? 'true' : 'false'}
+          active={activeTab === 2 ? 'true' : 'false'}
         >
           <RowCentered gap={'8px'}>
             <RocketIcon />
@@ -120,7 +120,7 @@ export const ColonyResourcesSection = ({
           onClick={() => {
             setActiveTab(3);
           }}
-          active={activeTab === 4 ? 'true' : 'false'}
+          active={activeTab === 3 ? 'true' : 'false'}
         >
           <RowCentered gap={'8px'}>
             <Security />
