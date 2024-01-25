@@ -24,14 +24,3 @@ export function useGetEnergyGainAfterUpgrade(planetId: number): number {
   });
   return data as unknown as number;
 }
-
-export function useGetCelestiaProduction(planetId: number): number {
-  const { data } = useContractRead({
-    address: GAMEADDRESS,
-    abi: game.abi,
-    functionName: 'get_celestia_production',
-    args: [planetId],
-    blockIdentifier: BlockTag.pending,
-  });
-  return data as unknown as number;
-}

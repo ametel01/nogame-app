@@ -12,6 +12,7 @@ import { UseUpgradeReturnType } from './writeHooks/useUpgrade';
 import { useContractWrite } from '@starknet-react/core';
 import { useContract } from '@starknet-react/core';
 import { getColonyUpgradeType } from '../shared/types';
+import { ShipsLevels } from '../shared/types/index';
 
 const baseCompounds: CompoundsLevels = {
   steel: 0,
@@ -34,6 +35,15 @@ const baseDefences: DefenceLevels = {
   beam: 0,
   astral: 0,
   plasma: 0,
+};
+
+const baseShips: ShipsLevels = {
+  carrier: 0,
+  scraper: 0,
+  celestia: 0,
+  sparrow: 0,
+  frigate: 0,
+  armade: 0,
 };
 
 export type ColonyArrayElement = [bigint, { orbit: bigint; system: bigint }];
@@ -109,6 +119,25 @@ export function useGetColonyDefences(
   }
 
   return data as unknown as DefenceLevels;
+}
+
+export function useGetColonyShips(
+  planetId: number | undefined,
+  colonyId: number | undefined
+): ShipsLevels {
+  const { data } = useContractRead({
+    address: GAMEADDRESS,
+    abi: game.abi,
+    functionName: 'get_colony_ships_levels',
+    args: [planetId!, colonyId!],
+    blockIdentifier: BlockTag.pending,
+  });
+
+  if (!planetId) {
+    return baseShips;
+  }
+
+  return data as unknown as ShipsLevels;
 }
 
 export function useGetColonyResources(

@@ -189,28 +189,6 @@
     },
     {
       "type": "struct",
-      "name": "nogame::libraries::types::Tokens",
-      "members": [
-        {
-          "name": "erc721",
-          "type": "core::starknet::contract_address::ContractAddress"
-        },
-        {
-          "name": "steel",
-          "type": "core::starknet::contract_address::ContractAddress"
-        },
-        {
-          "name": "quartz",
-          "type": "core::starknet::contract_address::ContractAddress"
-        },
-        {
-          "name": "tritium",
-          "type": "core::starknet::contract_address::ContractAddress"
-        }
-      ]
-    },
-    {
-      "type": "struct",
       "name": "nogame::libraries::types::CompoundsLevels",
       "members": [
         {
@@ -442,6 +420,26 @@
       "name": "nogame::libraries::types::ColonyBuildType",
       "variants": [
         {
+          "name": "Carrier",
+          "type": "()"
+        },
+        {
+          "name": "Scraper",
+          "type": "()"
+        },
+        {
+          "name": "Sparrow",
+          "type": "()"
+        },
+        {
+          "name": "Frigate",
+          "type": "()"
+        },
+        {
+          "name": "Armade",
+          "type": "()"
+        },
+        {
           "name": "Celestia",
           "type": "()"
         },
@@ -460,6 +458,32 @@
         {
           "name": "Plasma",
           "type": "()"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "nogame::libraries::types::ShipsLevels",
+      "members": [
+        {
+          "name": "carrier",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "scraper",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "sparrow",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "frigate",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "armade",
+          "type": "core::integer::u32"
         }
       ]
     },
@@ -757,17 +781,6 @@
         },
         {
           "type": "function",
-          "name": "get_token_addresses",
-          "inputs": [],
-          "outputs": [
-            {
-              "type": "nogame::libraries::types::Tokens"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
           "name": "get_current_planet_price",
           "inputs": [],
           "outputs": [
@@ -935,22 +948,6 @@
         {
           "type": "function",
           "name": "get_celestia_available",
-          "inputs": [
-            {
-              "name": "planet_id",
-              "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [
-            {
-              "type": "core::integer::u32"
-            }
-          ],
-          "state_mutability": "view"
-        },
-        {
-          "type": "function",
-          "name": "get_celestia_production",
           "inputs": [
             {
               "name": "planet_id",
@@ -1161,6 +1158,26 @@
         },
         {
           "type": "function",
+          "name": "get_colony_collectible_resources",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::ERC20s"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
           "name": "get_colony_compounds",
           "inputs": [
             {
@@ -1181,7 +1198,7 @@
         },
         {
           "type": "function",
-          "name": "get_colony_collectible_resources",
+          "name": "get_colony_ships_levels",
           "inputs": [
             {
               "name": "planet_id",
@@ -1194,7 +1211,7 @@
           ],
           "outputs": [
             {
-              "type": "nogame::libraries::types::ERC20s"
+              "type": "nogame::libraries::types::ShipsLevels"
             }
           ],
           "state_mutability": "view"
@@ -1327,6 +1344,26 @@
           "outputs": [
             {
               "type": "nogame::libraries::types::CompoundsLevels"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_colony_ships",
+          "inputs": [
+            {
+              "name": "planet_id",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "nogame::libraries::types::ShipsLevels"
             }
           ],
           "state_mutability": "view"

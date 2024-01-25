@@ -1,5 +1,6 @@
 import React from 'react';
 import DockyardBox from '../components/boxes/DockyardBox';
+import { ColonyBuildType } from '../shared/types/index';
 import {
   ArmadeDescription,
   BuildType,
@@ -33,6 +34,7 @@ export const DockyardTabPanel = ({
   dockyardLevel,
   techLevels,
   celestia,
+  colonyId,
   ...rest
 }: DockyardProps) => {
   const shipsConfig: ShipConfigType[] = [
@@ -40,7 +42,8 @@ export const DockyardTabPanel = ({
       description: <CarrierDescription />,
       img: carrierImg,
       title: 'Carrier',
-      functionCallName: BuildType.Carrier,
+      functionCallName:
+        colonyId == 0 ? BuildType.Carrier : ColonyBuildType.Carrier,
       shipName: 'carrier',
       requirements: carrierRequirements(dockyardLevel, techLevels),
     },
@@ -48,7 +51,8 @@ export const DockyardTabPanel = ({
       description: <CelestiaDescription />,
       img: celestiaImg,
       title: 'Celestia',
-      functionCallName: BuildType.Celestia,
+      functionCallName:
+        colonyId == 0 ? BuildType.Celestia : ColonyBuildType.Celestia,
       shipName: 'celestia',
       requirements: celestiaRequirements(dockyardLevel, techLevels),
     },
@@ -56,7 +60,8 @@ export const DockyardTabPanel = ({
       description: <ScraperDescription />,
       img: scraperImg,
       title: 'Scraper',
-      functionCallName: BuildType.Scraper,
+      functionCallName:
+        colonyId == 0 ? BuildType.Scraper : ColonyBuildType.Scraper,
       shipName: 'scraper',
       requirements: scraperRequirements(dockyardLevel, techLevels),
     },
@@ -64,7 +69,8 @@ export const DockyardTabPanel = ({
       description: <SparrowDescription />,
       img: sparrowImg,
       title: 'Sparrow',
-      functionCallName: BuildType.Sparrow,
+      functionCallName:
+        colonyId == 0 ? BuildType.Sparrow : ColonyBuildType.Sparrow,
       shipName: 'sparrow',
       requirements: sparrowRequirements(dockyardLevel, techLevels),
     },
@@ -72,7 +78,8 @@ export const DockyardTabPanel = ({
       description: <FrigateDescription />,
       img: frigateImg,
       title: 'Frigate',
-      functionCallName: BuildType.Frigate,
+      functionCallName:
+        colonyId == 0 ? BuildType.Frigate : ColonyBuildType.Frigate,
       shipName: 'frigate',
       requirements: frigateRequirements(dockyardLevel, techLevels),
     },
@@ -80,7 +87,8 @@ export const DockyardTabPanel = ({
       description: <ArmadeDescription />,
       img: armadeImg,
       title: 'Armade',
-      functionCallName: BuildType.Armade,
+      functionCallName:
+        colonyId == 0 ? BuildType.Armade : ColonyBuildType.Armade,
       shipName: 'armade',
       requirements: armadeRequirements(dockyardLevel, techLevels),
     },
@@ -108,6 +116,7 @@ export const DockyardTabPanel = ({
           }
           requirementsMet={ship.requirements}
           resourcesAvailable={spendableResources!}
+          colonyId={colonyId}
         />
       ))}
     </StyledTabPanel>

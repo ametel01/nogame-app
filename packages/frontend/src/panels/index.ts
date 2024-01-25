@@ -174,6 +174,7 @@ export interface DockyardProps {
   dockyardLevel?: number;
   techLevels?: TechLevels;
   celestia?: number;
+  colonyId: number;
 }
 
 export interface DefenceProps {

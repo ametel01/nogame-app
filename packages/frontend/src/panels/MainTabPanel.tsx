@@ -161,7 +161,8 @@ export const ResourcesSection = ({
           shipsCost,
           compoundsLevels.dockyard,
           techLevels,
-          celestiaAvailable
+          celestiaAvailable,
+          colonyId
         )}
       {activeTab === 4 &&
         renderDefencesPanel(
@@ -211,7 +212,8 @@ function renderDockyardTab(
   shipCost: ShipsCost,
   dockyard: number,
   techs: TechLevels,
-  celestia: number
+  celestia: number,
+  colonyId: number
 ) {
   return (
     <DockyardTabPanel
@@ -221,6 +223,7 @@ function renderDockyardTab(
       dockyardLevel={dockyard}
       techLevels={techs}
       celestia={celestia}
+      colonyId={colonyId}
     />
   );
 }

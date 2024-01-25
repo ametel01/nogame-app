@@ -96,6 +96,7 @@ export interface DockyardBoxProps {
   requirementsMet?: boolean;
   description: ReactNode;
   resourcesAvailable: Resources;
+  colonyId: number;
 }
 
 export interface DefenceBoxProps {

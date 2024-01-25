@@ -14,11 +14,15 @@ import {
   type TechLevels,
   type DefenceCost,
   type DefenceLevels,
+  type ShipsLevels,
+  type ShipsCost,
 } from '../shared/types';
 import { Typography } from '@mui/material';
 import { getBaseDefenceCost } from '../constants/costs';
 import { DefenceTabPanel } from '../panels/DefencesTab';
 import { ColonyCompoundTabPanel } from './ColonyTab';
+import RocketIcon from '@mui/icons-material/Rocket';
+import { DockyardTabPanel } from '../panels/DockyardTab';
 
 interface ResourcesSectionArgs {
   planetId: number;
@@ -27,6 +31,9 @@ interface ResourcesSectionArgs {
   collectibleResource: Resources;
   compoundsLevels: CompoundsLevels;
   defencesLevels: DefenceLevels;
+  shipsLevels: ShipsLevels;
+  shipsCost: ShipsCost;
+  celestiaAvailable: number;
 }
 
 export const ColonyResourcesSection = ({
@@ -36,6 +43,9 @@ export const ColonyResourcesSection = ({
   collectibleResource,
   compoundsLevels,
   defencesLevels,
+  shipsLevels,
+  shipsCost,
+  celestiaAvailable,
 }: ResourcesSectionArgs) => {
   const [activeTab, setActiveTab] = useState(1);
   const techLevels = useTechLevels(planetId);
@@ -99,6 +109,17 @@ export const ColonyResourcesSection = ({
           onClick={() => {
             setActiveTab(2);
           }}
+          active={activeTab === 3 ? 'true' : 'false'}
+        >
+          <RowCentered gap={'8px'}>
+            <RocketIcon />
+            <Typography>Dockyard</Typography>
+          </RowCentered>
+        </ResourceTab>
+        <ResourceTab
+          onClick={() => {
+            setActiveTab(3);
+          }}
           active={activeTab === 4 ? 'true' : 'false'}
         >
           <RowCentered gap={'8px'}>
@@ -110,6 +131,16 @@ export const ColonyResourcesSection = ({
       {activeTab === 1 &&
         renderCompounds(colonyId, totalResources, compoundsLevels)}
       {activeTab === 2 &&
+        renderDockyardTab(
+          totalResources,
+          shipsLevels,
+          shipsCost,
+          compoundsLevels.dockyard,
+          techLevels,
+          celestiaAvailable,
+          colonyId
+        )}
+      {activeTab === 3 &&
         renderDefencesPanel(
           totalResources,
           defencesLevels,
@@ -132,6 +163,28 @@ function renderCompounds(
       colonyId={colonyId}
       spendableResources={spendable}
       compoundsLevels={compounds}
+    />
+  );
+}
+
+function renderDockyardTab(
+  spendable: Resources,
+  ships: ShipsLevels,
+  shipCost: ShipsCost,
+  dockyard: number,
+  techs: TechLevels,
+  celestia: number,
+  colonyId: number
+) {
+  return (
+    <DockyardTabPanel
+      spendableResources={spendable}
+      shipsLevels={ships}
+      shipsCost={shipCost}
+      dockyardLevel={dockyard}
+      techLevels={techs}
+      celestia={celestia}
+      colonyId={colonyId}
     />
   );
 }

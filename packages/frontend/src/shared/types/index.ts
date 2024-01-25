@@ -192,6 +192,12 @@ export function getUpgradeType(name: number): CairoCustomEnum | undefined {
 }
 
 export const ColonyBuildType = {
+  Carrier: 0,
+  Scraper: 1,
+  Sparrow: 2,
+  Frigate: 3,
+  Armade: 4,
+  Celestia: 5,
   Blaster: 6,
   Beam: 7,
   Astral: 8,
@@ -200,6 +206,18 @@ export const ColonyBuildType = {
 
 export function getColonyBuildType(name: number): CairoCustomEnum | undefined {
   switch (name) {
+    case 0:
+      return new CairoCustomEnum({ Carrier: {} });
+    case 1:
+      return new CairoCustomEnum({ Scraper: {} });
+    case 2:
+      return new CairoCustomEnum({ Sparrow: {} });
+    case 3:
+      return new CairoCustomEnum({ Frigate: {} });
+    case 4:
+      return new CairoCustomEnum({ Armade: {} });
+    case 5:
+      return new CairoCustomEnum({ Celestia: {} });
     case 6:
       return new CairoCustomEnum({ Blaster: {} });
     case 7:

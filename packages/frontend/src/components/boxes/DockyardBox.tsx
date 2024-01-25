@@ -25,11 +25,16 @@ const DockyardBox = ({
   requirementsMet,
   description,
   resourcesAvailable,
+  colonyId,
 }: Props) => {
   const [quantity, setQuantity] = useState(1);
   const [showTooltip, setShowTooltip] = useState(true);
 
-  const { tx, writeAsync: build } = useShipBuild(functionCallName, quantity);
+  const { tx, writeAsync: build } = useShipBuild(
+    functionCallName,
+    quantity,
+    colonyId
+  );
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {

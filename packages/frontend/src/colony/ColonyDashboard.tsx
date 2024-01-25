@@ -8,6 +8,8 @@ import {
 } from '../hooks/ColoniesHooks';
 import { useSpendableResources } from '../hooks/ResourcesHooks';
 import { ColonyResourcesSection } from './ColonyResourcesSection';
+import { getBaseShipsCost } from '../constants/costs';
+import { useGetColonyShips } from '../hooks/ColoniesHooks';
 
 export const GameContainer = styled.div`
   display: grid;
@@ -50,6 +52,9 @@ export default function ColonyDashboard({ planetId, colonyId }: Props) {
   const spendableResources = useSpendableResources(planetId);
   const collectibleResource = useGetColonyResources(planetId, colonyId);
   const defencesLevels = useGetColonyDefences(planetId, colonyId);
+  const shipsLevels = useGetColonyShips(planetId, colonyId);
+  const shipsCost = getBaseShipsCost();
+  const celestia = defencesLevels ? Number(defencesLevels.celestia) : 0;
 
   return (
     <ColonyResourcesSection
@@ -59,6 +64,9 @@ export default function ColonyDashboard({ planetId, colonyId }: Props) {
       collectibleResource={collectibleResource}
       defencesLevels={defencesLevels}
       compoundsLevels={compoundLevels}
+      shipsLevels={shipsLevels}
+      shipsCost={shipsCost}
+      celestiaAvailable={celestia}
     />
   );
 }
