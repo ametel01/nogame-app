@@ -166,6 +166,7 @@ const ResearchBox = ({
           unitName={functionCallName}
           quantity={quantity}
           disabled={hasRequirements || !hasEnoughResources}
+          colonyId={0}
         />
         <Styled.ButtonContainer>
           <ButtonUpgrade

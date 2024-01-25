@@ -168,6 +168,7 @@ const DefencesBox = ({
           unitName={functionCallName}
           quantity={quantity}
           disabled={hasRequirements || !hasEnoughResources}
+          colonyId={colonyId}
         />
         <Styled.ButtonContainer>
           <ButtonBuild

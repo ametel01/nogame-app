@@ -12,6 +12,7 @@ import { useContract } from '@starknet-react/core';
 import game from '../constants/nogame.json';
 import { GAMEADDRESS } from '../constants/addresses';
 import { getUpgradeType, getBuildType } from '../shared/types';
+import { getColonyBuildType } from '../shared/types/index';
 
 interface BlockchainCallContextProps {
   selectedCalls: Call[];
@@ -20,7 +21,7 @@ interface BlockchainCallContextProps {
     callType: CallType,
     unitName: number,
     quantity: number,
-    colonyId?: number
+    colonyId: number
   ) => void;
   removeCall: (index: number) => void;
   setSelectedCalls: (calls: Call[]) => void;
@@ -55,11 +56,11 @@ export const BlockchainCallProvider: React.FC<PropsWithChildren<object>> = ({
     callType: CallType,
     unitName: number,
     quantity: number,
-    colonyId?: number
+    colonyId: number
   ): Call => {
     switch (callType) {
       case 'compound':
-        if (!colonyId) {
+        if (colonyId == 0) {
           return contract?.populateTransaction['process_compound_upgrade']!(
             getUpgradeType(unitName)!,
             quantity
@@ -69,18 +70,39 @@ export const BlockchainCallProvider: React.FC<PropsWithChildren<object>> = ({
           'process_colony_compound_upgrade'
         ]!(colonyId, getColonyUpgradeType(unitName)!, quantity);
       case 'tech':
-        return contract?.populateTransaction['process_tech_upgrade']!(
-          getUpgradeType(unitName)!,
+        if (colonyId == 0) {
+          return contract?.populateTransaction['process_tech_upgrade']!(
+            getUpgradeType(unitName)!,
+            quantity
+          );
+        }
+        return contract?.populateTransaction['process_colony_tech_upgrade']!(
+          colonyId,
+          getColonyUpgradeType(unitName)!,
           quantity
         );
       case 'ship':
-        return contract?.populateTransaction['process_ship_build']!(
-          getBuildType(unitName)!,
+        if (colonyId == 0) {
+          return contract?.populateTransaction['process_ship_build']!(
+            getBuildType(unitName)!,
+            quantity
+          );
+        }
+        return contract?.populateTransaction['process_colony_unit_build']!(
+          colonyId,
+          getColonyBuildType(unitName)!,
           quantity
         );
       case 'defence':
-        return contract?.populateTransaction['process_defence_build']!(
-          getBuildType(unitName)!,
+        if (colonyId == 0) {
+          return contract?.populateTransaction['process_defence_build']!(
+            getBuildType(unitName)!,
+            quantity
+          );
+        }
+        return contract?.populateTransaction['process_colony_unit_build']!(
+          colonyId,
+          getColonyBuildType(unitName)!,
           quantity
         );
       default:
@@ -92,7 +114,7 @@ export const BlockchainCallProvider: React.FC<PropsWithChildren<object>> = ({
     callType: CallType,
     unitName: number,
     quantity: number,
-    colonyId?: number
+    colonyId: number
   ) => {
     const call = createCall(callType as CallType, unitName, quantity, colonyId);
     setSelectedCalls([...selectedCalls, call]);
@@ -104,6 +126,7 @@ export const BlockchainCallProvider: React.FC<PropsWithChildren<object>> = ({
           ? getUpgradeNameById(unitName, false)
           : getUpgradeNameById(unitName, true),
       quantity: quantity,
+      colonyId: colonyId,
     };
     setSingleCalls([...singleCalls, singleCall]);
   };

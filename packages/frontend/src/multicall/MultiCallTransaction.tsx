@@ -73,6 +73,7 @@ export type SingleCall = {
   type: string;
   name: string | undefined;
   quantity: number;
+  colonyId: number;
 };
 
 export function MultiCallTransaction() {
@@ -113,9 +114,13 @@ export function MultiCallTransaction() {
           <StyledActionList>
             {singleCalls.map((call, index) => {
               const actionText =
-                call.type === 'compound' || call.type === 'tech'
-                  ? `Upgrade ${call.name} x${call.quantity}`
-                  : `Build ${call.name} x${call.quantity}`;
+                call.colonyId == 0
+                  ? call.type === 'compound' || call.type === 'tech'
+                    ? `Upgrade ${call.name} x${call.quantity}`
+                    : `Build ${call.name} x${call.quantity}`
+                  : call.type === 'compound' || call.type === 'tech'
+                  ? `Upgrade ${call.name} x${call.quantity} in colony ${call.colonyId}`
+                  : `Build ${call.name} x${call.quantity} in colony ${call.colonyId}`;
 
               return (
                 <StyledActionItem key={index}>

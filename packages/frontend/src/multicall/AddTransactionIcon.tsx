@@ -10,7 +10,7 @@ interface AddTransactionIconProps {
   unitName: number;
   quantity: number;
   disabled: boolean;
-  colonyId?: number;
+  colonyId: number;
 }
 
 const StyledAddCircleIcon = styled(AddCircleIcon)<{ disabled: boolean }>`
