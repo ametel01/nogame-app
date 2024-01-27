@@ -217,7 +217,7 @@ export function ButtonCollectDebris({
   const { writeAsync, data } = useSendFleet(
     fleet,
     position,
-    MissionCategory.Debris,
+    MissionCategory['Debris'],
     speed,
     colonyId
   );

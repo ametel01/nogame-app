@@ -141,3 +141,21 @@ export function useCollectDebris(missionId: number | null): InvokeResult {
 
   return { writeAsync, data };
 }
+
+export function useDockFleet(missionId: number | null): InvokeResult {
+  const { contract } = useContract({
+    abi: game.abi,
+    address: GAMEADDRESS,
+  });
+
+  const calls =
+    missionId != null
+      ? [contract?.populateTransaction.dock_fleet!(missionId)]
+      : [];
+
+  const { writeAsync, data } = useContractWrite({
+    ...(missionId != null && { calls }),
+  });
+
+  return { writeAsync, data };
+}

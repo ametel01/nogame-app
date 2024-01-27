@@ -90,7 +90,7 @@ export interface Mission {
   destination: number;
   time_arrival: number;
   fleet: Fleet;
-  is_debris: boolean;
+  category: number;
 }
 
 export interface HostileMission {
@@ -341,7 +341,7 @@ export type SimulationResult = {
 };
 
 export const MissionCategory = {
-  Attack: 0,
-  Transport: 1,
-  Debris: 2,
+  Attack: 1,
+  Transport: 2,
+  Debris: 3,
 };

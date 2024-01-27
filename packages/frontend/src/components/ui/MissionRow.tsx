@@ -1,11 +1,12 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
 import Tooltip from '@mui/material/Tooltip';
-import { type Mission } from '../../shared/types';
+import { MissionCategory, type Mission } from '../../shared/types';
 import {
   useAttackPlanet,
   useRecallFleet,
   useCollectDebris,
+  useDockFleet,
 } from '../../hooks/FleetHooks';
 import { usePlanetPosition } from '../../hooks/usePlanetPosition';
 import fleetIcon from '../../assets/uiIcons/Fleet.svg';
@@ -65,6 +66,7 @@ export const MissionRow = memo(
     const { writeAsync: recallFleet } = useRecallFleet(mission.id);
     const { writeAsync: attackPlanet } = useAttackPlanet(mission.id);
     const { writeAsync: collectDebris } = useCollectDebris(mission.id);
+    const { writeAsync: dockFleet } = useDockFleet(mission.id);
 
     const onRecallClick = React.useCallback(() => {
       recallFleet().then(() => {
@@ -93,7 +95,13 @@ export const MissionRow = memo(
           </Tooltip>
         </MissionText>
         <MissionText>{destination}</MissionText>
-        <MissionText>{mission.is_debris ? 'Debris' : 'Attack'}</MissionText>
+        <MissionText>
+          {mission.category == MissionCategory.Debris
+            ? 'Debris'
+            : mission.category == MissionCategory.Attack
+            ? 'Attack'
+            : 'Transport'}
+        </MissionText>
         <MissionText>{countdown || 'Arrived'}</MissionText>
         <MissionText>
           <Tooltip title="Fleet will begin to decay 2 hours post-arrival unless an attack is initiated or debris is collected">
@@ -115,14 +123,22 @@ export const MissionRow = memo(
               <StyledButton
                 onClick={() => {
                   {
-                    mission.is_debris ? collectDebris() : attackPlanet();
+                    mission.category == MissionCategory.Debris
+                      ? collectDebris()
+                      : mission.category == MissionCategory.Attack
+                      ? attackPlanet()
+                      : dockFleet();
                   }
                 }}
                 size="small"
                 sx={{ background: '#4A63AA' }}
                 fullWidth
               >
-                {mission.is_debris ? 'Collect' : 'Attack'}
+                {mission.category == MissionCategory.Debris
+                  ? 'Collect'
+                  : mission.category == MissionCategory.Attack
+                  ? 'Attack'
+                  : 'Dock'}
               </StyledButton>
               <StyledButton
                 size="small"

@@ -181,8 +181,6 @@ function ButtonAttackPlanet({
   const [isButtotClicked, setisButtotClicked] = useState(false);
   const [speed, setSpeed] = useState(100);
 
-  console.log('speed', speed);
-
   const missions = useGetActiveMissions(planetId);
   const isMissionLimitReached =
     missions && techs && missions.length === Number(techs.digital) + 1;
@@ -229,10 +227,18 @@ function ButtonAttackPlanet({
     setCargoCapacity(calculateTotalCargoCapacity(fleet));
   }, [distance, fleet, ownPosition, speed, techs]);
 
-  const { writeAsync, data } = useSendFleet(
+  const { writeAsync: attack, data: attackData } = useSendFleet(
     fleet,
     position,
-    MissionCategory.Attack,
+    MissionCategory['Attack'],
+    speed,
+    colonyId
+  );
+
+  const { writeAsync: transport, data: transportData } = useSendFleet(
+    fleet,
+    position,
+    MissionCategory['Transport'],
     speed,
     colonyId
   );
@@ -260,8 +266,12 @@ function ButtonAttackPlanet({
     setFuelConsumption(getFuelConsumption(fleet, distance, speedFactor));
   }, [distance, fleet, ownPosition, techs, speed]);
 
-  const handleSendClick = () => {
-    writeAsync(), setIsModalOpen(false), setisButtotClicked(true);
+  const handleSendAttackClick = () => {
+    attack(), setIsModalOpen(false), setisButtotClicked(true);
+  };
+
+  const handleSendTransportClick = () => {
+    transport(), setIsModalOpen(false), setisButtotClicked(true);
   };
 
   function handleChange(ship: string, event: { target: { value: string } }) {
@@ -280,7 +290,7 @@ function ButtonAttackPlanet({
 
   return (
     <div>
-      {!disabled && !noRequirements && !isNoobProtected && (
+      {!isNoobProtected && !disabled ? (
         <>
           <StyledButton
             onClick={handleButtonClick}
@@ -289,7 +299,7 @@ function ButtonAttackPlanet({
               background: '#4A63AA',
             }}
           >
-            Initiate Mission
+            {!noRequirements ? 'Initiate Attack' : 'Initiate Transport'}
           </StyledButton>
           <Modal open={isModalOpen} onClose={handleClose}>
             <StyledBox>
@@ -406,16 +416,22 @@ function ButtonAttackPlanet({
                   sx={{ width: '200px' }} // Adjust styling as needed
                 />
               </SliderContainer>
-              <WarningContainer>
-                <WarningIcon sx={{ color: '#E67E51' }} />
-                <Text style={{ marginLeft: '8px', color: '#E67E51' }}>
-                  Attention! You are initiating a galactic assault. The target
-                  planet will receive an alert that your starfleet is on its
-                  trajectory.
-                </Text>
-              </WarningContainer>
+              {!noRequirements ? (
+                <WarningContainer>
+                  <WarningIcon sx={{ color: '#E67E51' }} />
+                  <Text style={{ marginLeft: '8px', color: '#E67E51' }}>
+                    Attention! You are initiating a galactic assault. The target
+                    planet will receive an alert that your starfleet is on its
+                    trajectory.
+                  </Text>
+                </WarningContainer>
+              ) : null}
               <StyledButton
-                onClick={handleSendClick}
+                onClick={
+                  noRequirements
+                    ? handleSendTransportClick
+                    : handleSendAttackClick
+                }
                 fullWidth
                 style={{
                   background: isAnyShipOverLimit ? '#3B3F53' : '#4A63AA',
@@ -427,11 +443,17 @@ function ButtonAttackPlanet({
             </StyledBox>
           </Modal>
           {isButtotClicked && (
-            <TransactionStatus name="Sent Fleet" tx={data?.transaction_hash} />
+            <TransactionStatus
+              name="Sent Fleet"
+              tx={
+                noRequirements
+                  ? transportData?.transaction_hash
+                  : attackData?.transaction_hash
+              }
+            />
           )}
         </>
-      )}
-      {!disabled && noRequirements && (
+      ) : noRequirements ? (
         <StyledButton
           disabled
           fullWidth={true}
@@ -441,8 +463,7 @@ function ButtonAttackPlanet({
         >
           Own Planet
         </StyledButton>
-      )}
-      {isNoobProtected && (
+      ) : (
         <StyledButton
           fullWidth={true}
           disabled

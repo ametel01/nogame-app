@@ -30,6 +30,11 @@ const UniverseViewBox = ({
 }: Props) => {
   const boxStyle = highlighted ? { border: '1px solid #23CE6B' } : {};
 
+  const formattedPosition = `${String(position.system).padStart(
+    2,
+    '0'
+  )} / ${String(position.orbit).padStart(2, '0')}`;
+
   // Calculate the time difference in seconds
   const timeNow = new Date().getTime() / 1000;
   const timeDifference = timeNow - lastActive;
@@ -72,6 +77,13 @@ const UniverseViewBox = ({
     [ownPlanetPosition]
   );
 
+  const isDisable =
+    position.system === ownPositionNumberised?.system &&
+    position.orbit === ownPositionNumberised?.orbit;
+  console.log('isDisable', isDisable);
+  console.log('position', position);
+  console.log('ownPositionNumberised', ownPositionNumberised);
+
   return (
     <Styled.Box style={boxStyle}>
       <Styled.ImageContainer>
@@ -79,7 +91,7 @@ const UniverseViewBox = ({
           <PlanetModal
             planetId={planetId}
             image={img}
-            position={position || ''}
+            position={formattedPosition || ''}
           />
         ) : (
           <CircularProgress sx={{ color: '#ffffff', opacity: '0.5' }} />
@@ -121,13 +133,13 @@ const UniverseViewBox = ({
           <Styled.ResourceContainer>
             <Styled.ResourceTitle>POSITION</Styled.ResourceTitle>
             <Styled.NumberContainer style={{ fontSize: '14px' }}>
-              {position}
+              {formattedPosition}
             </Styled.NumberContainer>
           </Styled.ResourceContainer>
         </InfoContainer>
         <DebrisFieldView
           planetId={planetId}
-          position={position}
+          position={formattedPosition}
           ownFleet={ownFleet}
           techs={ownTechs}
           ownPosition={ownPositionNumberised}
@@ -135,9 +147,10 @@ const UniverseViewBox = ({
         />
         <Styled.ButtonContainer>
           <ButtonAttackPlanet
+            disabled={isDisable}
             noRequirements={highlighted}
             isNoobProtected={updatedIsNoobProtected}
-            destination={position}
+            destination={formattedPosition}
             ownFleet={ownFleet!}
             techs={ownTechs}
             ownPosition={ownPositionNumberised}

@@ -13,6 +13,7 @@ import DescriptionModal from '../modals/Description';
 import AddTransactionIcon from '../../multicall/AddTransactionIcon';
 import {
   DefenceLevels,
+  Position,
   Resources,
   ShipsLevels,
   TechLevels,
@@ -116,7 +117,7 @@ export interface UniverseBoxProps {
   planetId: number;
   img: string | undefined;
   owner?: string;
-  position: string;
+  position: Position;
   debris?: { steel: number; quartz: number };
   points: string | number;
   highlighted: boolean;

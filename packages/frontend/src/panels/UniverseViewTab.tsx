@@ -55,11 +55,6 @@ const UniverseBoxItem = ({
     planet.position.orbit.toString() as unknown as ImageId
   );
 
-  const formattedPosition = `${String(planet.position.system).padStart(
-    2,
-    '0'
-  )} / ${String(planet.position.orbit).padStart(2, '0')}`;
-
   const shortenedAddress = `${planet.account.slice(
     0,
     4
@@ -70,7 +65,7 @@ const UniverseBoxItem = ({
       planetId={planet.planetId}
       img={img}
       owner={shortenedAddress}
-      position={formattedPosition}
+      position={planet.position}
       points={planetRanking}
       highlighted={highlighted}
       ownPlanetId={ownPlanetId}
