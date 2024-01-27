@@ -123,9 +123,9 @@ export const MissionRow = memo(
               <StyledButton
                 onClick={() => {
                   {
-                    mission.category == MissionCategory.Debris
+                    mission.category == MissionCategory['Debris']
                       ? collectDebris()
-                      : mission.category == MissionCategory.Attack
+                      : mission.category == MissionCategory['Attack']
                       ? attackPlanet()
                       : dockFleet();
                   }
