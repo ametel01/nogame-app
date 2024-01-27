@@ -173,7 +173,7 @@ export const ResourcesSection = ({
           techLevels,
           colonyId
         )}
-      {activeTab === 5 && renderUniversePanel(planetId, techLevels)}
+      {activeTab === 5 && renderUniversePanel(planetId, techLevels, colonyId)}
     </ResourcesTabs>
   );
 };
@@ -248,6 +248,16 @@ function renderDefencesPanel(
   );
 }
 
-function renderUniversePanel(planetId: number, techLevels: TechLevels) {
-  return <UniverseViewTabPanel ownPlanetId={planetId} ownTechs={techLevels} />;
+function renderUniversePanel(
+  planetId: number,
+  techLevels: TechLevels,
+  colonyId: number
+) {
+  return (
+    <UniverseViewTabPanel
+      ownPlanetId={planetId}
+      ownTechs={techLevels}
+      colonyId={colonyId}
+    />
+  );
 }

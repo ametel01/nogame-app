@@ -18,6 +18,7 @@ interface Props {
   ownFleet?: ShipsLevels;
   techs?: TechLevels;
   ownPosition?: Position;
+  colonyId: number;
 }
 
 function DebrisFieldView({
@@ -26,6 +27,7 @@ function DebrisFieldView({
   ownFleet,
   techs,
   ownPosition,
+  colonyId,
 }: Props) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
@@ -106,6 +108,7 @@ function DebrisFieldView({
                 techs={techs!}
                 ownPosition={ownPosition!}
                 debrisField={debris}
+                colonyId={colonyId}
               />
             </div>
           </Modal>

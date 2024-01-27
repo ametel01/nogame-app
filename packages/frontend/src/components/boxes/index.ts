@@ -130,6 +130,7 @@ export interface UniverseBoxProps {
   isNoobProtected?: boolean;
   lastActive: number;
   winLoss: [number, number];
+  colonyId: number;
 }
 
 export type ButtonState = 'valid' | 'noResource' | 'noRequirements';

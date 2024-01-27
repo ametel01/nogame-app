@@ -26,6 +26,7 @@ const UniverseViewBox = ({
   isNoobProtected,
   lastActive,
   winLoss,
+  colonyId,
 }: Props) => {
   const boxStyle = highlighted ? { border: '1px solid #23CE6B' } : {};
 
@@ -130,6 +131,7 @@ const UniverseViewBox = ({
           ownFleet={ownFleet}
           techs={ownTechs}
           ownPosition={ownPositionNumberised}
+          colonyId={colonyId}
         />
         <Styled.ButtonContainer>
           <ButtonAttackPlanet
@@ -140,6 +142,7 @@ const UniverseViewBox = ({
             techs={ownTechs}
             ownPosition={ownPositionNumberised}
             planetId={planetId}
+            colonyId={colonyId}
           />
         </Styled.ButtonContainer>
       </Styled.SubBox>

@@ -11,8 +11,9 @@ import { type Fleet, type Position } from '../../shared/types';
 export default function useSendFleet(
   fleet: Fleet,
   position: Position,
-  isDebris: boolean,
-  speedModifier: number
+  missioCategory: number,
+  speedModifier: number,
+  colonyId: number
 ): {
   writeAsync: (
     args?: ContractWriteVariables | undefined
@@ -28,8 +29,9 @@ export default function useSendFleet(
       contract?.populateTransaction.send_fleet!(
         fleet,
         position,
-        isDebris,
-        speedModifier
+        missioCategory,
+        speedModifier,
+        colonyId
       ),
     ],
   });

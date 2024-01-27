@@ -339,3 +339,9 @@ export type SimulationResult = {
   astral: number;
   plasma: number;
 };
+
+export const MissionCategory = {
+  Attack: 0,
+  Transport: 1,
+  Debris: 2,
+};

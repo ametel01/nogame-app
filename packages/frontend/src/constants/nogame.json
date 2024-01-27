@@ -358,14 +358,14 @@
           "type": "nogame::libraries::types::Fleet"
         },
         {
-          "name": "is_debris",
-          "type": "core::bool"
+          "name": "category",
+          "type": "core::integer::u8"
         }
       ]
     },
     {
       "type": "struct",
-      "name": "nogame::libraries::types::HostileMission",
+      "name": "nogame::libraries::types::IncomingMission",
       "members": [
         {
           "name": "origin",
@@ -458,32 +458,6 @@
         {
           "name": "Plasma",
           "type": "()"
-        }
-      ]
-    },
-    {
-      "type": "struct",
-      "name": "nogame::libraries::types::ShipsLevels",
-      "members": [
-        {
-          "name": "carrier",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "scraper",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "sparrow",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "frigate",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "armade",
-          "type": "core::integer::u32"
         }
       ]
     },
@@ -732,12 +706,16 @@
               "type": "nogame::libraries::types::PlanetPosition"
             },
             {
-              "name": "is_debris_collection",
-              "type": "core::bool"
+              "name": "mission_type",
+              "type": "core::integer::u8"
             },
             {
               "name": "speed_modifier",
               "type": "core::integer::u32"
+            },
+            {
+              "name": "colony_id",
+              "type": "core::integer::u8"
             }
           ],
           "outputs": [],
@@ -758,6 +736,18 @@
         {
           "type": "function",
           "name": "recall_fleet",
+          "inputs": [
+            {
+              "name": "mission_id",
+              "type": "core::integer::u32"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "dock_fleet",
           "inputs": [
             {
               "name": "mission_id",
@@ -1019,7 +1009,7 @@
         },
         {
           "type": "function",
-          "name": "get_hostile_missions",
+          "name": "get_incoming_missions",
           "inputs": [
             {
               "name": "planet_id",
@@ -1028,7 +1018,7 @@
           ],
           "outputs": [
             {
-              "type": "core::array::Array::<nogame::libraries::types::HostileMission>"
+              "type": "core::array::Array::<nogame::libraries::types::IncomingMission>"
             }
           ],
           "state_mutability": "view"
@@ -1211,7 +1201,7 @@
           ],
           "outputs": [
             {
-              "type": "nogame::libraries::types::ShipsLevels"
+              "type": "nogame::libraries::types::Fleet"
             }
           ],
           "state_mutability": "view"
@@ -1363,7 +1353,7 @@
           ],
           "outputs": [
             {
-              "type": "nogame::libraries::types::ShipsLevels"
+              "type": "nogame::libraries::types::Fleet"
             }
           ],
           "state_mutability": "view"
@@ -1522,7 +1512,7 @@
         },
         {
           "name": "mission_type",
-          "type": "core::felt252",
+          "type": "core::integer::u8",
           "kind": "data"
         },
         {
@@ -1544,7 +1534,7 @@
         },
         {
           "name": "mission_type",
-          "type": "core::felt252",
+          "type": "core::integer::u8",
           "kind": "data"
         },
         {

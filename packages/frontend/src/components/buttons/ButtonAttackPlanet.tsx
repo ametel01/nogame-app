@@ -15,6 +15,7 @@ import {
   type ShipsLevels,
   type TechLevels,
   type Position,
+  MissionCategory,
 } from '../../shared/types';
 import useSendFleet from '../../hooks/writeHooks/useSendFleet';
 import { useGetActiveMissions } from '../../hooks/FleetHooks';
@@ -158,6 +159,7 @@ interface Props {
   techs?: TechLevels;
   ownPosition?: Position;
   planetId: number;
+  colonyId: number;
 }
 
 function ButtonAttackPlanet({
@@ -169,6 +171,7 @@ function ButtonAttackPlanet({
   techs,
   ownPosition,
   planetId,
+  colonyId,
 }: Props) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [travelTime, setTravelTime] = useState(0);
@@ -226,7 +229,13 @@ function ButtonAttackPlanet({
     setCargoCapacity(calculateTotalCargoCapacity(fleet));
   }, [distance, fleet, ownPosition, speed, techs]);
 
-  const { writeAsync, data } = useSendFleet(fleet, position, false, speed);
+  const { writeAsync, data } = useSendFleet(
+    fleet,
+    position,
+    MissionCategory.Attack,
+    speed,
+    colonyId
+  );
 
   const ships = ['carrier', 'scraper', 'sparrow', 'frigate', 'armade'];
 

@@ -8,6 +8,7 @@ import scraperImg from '../../assets/gameElements/ships/scraper4.webp';
 import { StyledButton } from '../../shared/styled/Button';
 import useSendFleet from '../../hooks/writeHooks/useSendFleet';
 import {
+  MissionCategory,
   type DebrisField,
   type Position,
   type ShipsLevels,
@@ -158,6 +159,7 @@ interface Props {
   techs: TechLevels;
   ownPosition: Position;
   debrisField: DebrisField;
+  colonyId: number;
 }
 
 export function ButtonCollectDebris({
@@ -167,6 +169,7 @@ export function ButtonCollectDebris({
   techs,
   ownPosition,
   debrisField,
+  colonyId,
 }: Props) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [travelTime, setTravelTime] = useState(0);
@@ -211,7 +214,13 @@ export function ButtonCollectDebris({
     setFuelConsumption(getFuelConsumption(fleet, distance, speedFactor));
   }, [distance, fleet, speed, techs]);
 
-  const { writeAsync, data } = useSendFleet(fleet, position, true, speed);
+  const { writeAsync, data } = useSendFleet(
+    fleet,
+    position,
+    MissionCategory.Debris,
+    speed,
+    colonyId
+  );
 
   const isShipOverLimit = totalShips > ownFleet.scraper;
 

@@ -23,7 +23,12 @@ import {
 import { useGetColonyMotherPlanet } from '../hooks/ColoniesHooks';
 // import { Switch, Typography } from '@mui/material';
 
-const UniverseBoxItem = ({ ownPlanetId, planet, ownTechs }: UniverseProps) => {
+const UniverseBoxItem = ({
+  ownPlanetId,
+  planet,
+  ownTechs,
+  colonyId,
+}: UniverseProps) => {
   const { address: address_data } = useAccount();
   const address = address_data || '';
   const highlighted = parseInt(address, 16) === parseInt(planet.account, 16);
@@ -74,6 +79,7 @@ const UniverseBoxItem = ({ ownPlanetId, planet, ownTechs }: UniverseProps) => {
       isNoobProtected={isNoobProtected}
       lastActive={Number(lastActive)}
       winLoss={[winLoss.wins, winLoss.losses]}
+      colonyId={colonyId}
     />
   );
 };
@@ -114,11 +120,13 @@ interface UniverseViewTabPanelProps {
   fleet?: ShipsLevels;
   defences?: DefenceLevels;
   ownPlanetId: number;
+  colonyId: number;
 }
 
 export const UniverseViewTabPanel = ({
   ownPlanetId,
   ownTechs,
+  colonyId,
   ...rest
 }: UniverseViewTabPanelProps) => {
   const [planetsData, setPlanetsData] = useState<PlanetDetails[]>([]);
@@ -172,6 +180,7 @@ export const UniverseViewTabPanel = ({
             ownTechs={ownTechs}
             key={index}
             planet={planet}
+            colonyId={colonyId}
           />
         ) : (
           <EmptyPlanetSlot key={index} /> // Render a placeholder for empty slots
@@ -184,6 +193,7 @@ export const UniverseViewTabPanel = ({
           ownTechs={ownTechs}
           key={index}
           planet={planet}
+          colonyId={colonyId}
         />
       ));
     }
@@ -214,6 +224,7 @@ export const UniverseViewTabPanel = ({
               ownTechs={ownTechs}
               key={index}
               planet={planet}
+              colonyId={colonyId}
             />
           ))}
       <Stack

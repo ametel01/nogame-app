@@ -7,7 +7,7 @@
     "packages/backend"
   ],
   "scripts": {
-    "dev": "concurrently \"cd packages/backend && npm run dev\" \"cd packages/frontend && npm run dev\"",
+    "dev": "concurrently --kill-others \"cd packages/backend && npm run dev\" \"cd packages/frontend && npm run dev\"",
     "build": "concurrently \"cd packages/backend && npm run build\" \"cd packages/frontend && npm run build\"",
     "start": "concurrently \"cd packages/backend && npm start\" \"cd packages/frontend && npm run preview\"",
     "prepare": "husky install",
@@ -17,9 +17,9 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0",
-    "lerna": "^8.0.2"
+    "husky": "^9.0.6",
+    "lerna": "^8.0.2",
+    "lint-staged": "^15.2.0"
   },
   "husky": {
     "hooks": {
