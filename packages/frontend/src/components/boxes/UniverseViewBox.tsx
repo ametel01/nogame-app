@@ -51,8 +51,6 @@ const UniverseViewBox = ({
     usePlanetPosition(planetIdForOwnPosition)
   );
 
-  console.log('ownPlanetPosition', ownPlanetPosition);
-
   const getLastActiveTime = useMemo(() => {
     if (!lastActive || timeDifference > oneWeekInSeconds) {
       return 'Inactive';
@@ -150,6 +148,7 @@ const UniverseViewBox = ({
             noRequirements={highlighted}
             isNoobProtected={updatedIsNoobProtected}
             destination={formattedPosition}
+            destinationPosition={position}
             ownFleet={ownFleet!}
             techs={ownTechs}
             ownPosition={ownPlanetPosition}

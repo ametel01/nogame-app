@@ -155,6 +155,7 @@ interface Props {
   noRequirements?: boolean;
   isNoobProtected?: boolean;
   destination: string;
+  destinationPosition: Position;
   ownFleet: ShipsLevels;
   techs?: TechLevels;
   ownPosition?: Position;
@@ -167,6 +168,7 @@ function ButtonAttackPlanet({
   noRequirements,
   isNoobProtected,
   destination,
+  destinationPosition,
   ownFleet,
   techs,
   ownPosition,
@@ -229,7 +231,7 @@ function ButtonAttackPlanet({
 
   const { writeAsync: attack, data: attackData } = useSendFleet(
     fleet,
-    position,
+    destinationPosition,
     MissionCategory['Attack'],
     speed,
     colonyId
@@ -237,7 +239,7 @@ function ButtonAttackPlanet({
 
   const { writeAsync: transport, data: transportData } = useSendFleet(
     fleet,
-    position,
+    destinationPosition,
     MissionCategory['Transport'],
     speed,
     colonyId

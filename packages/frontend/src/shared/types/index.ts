@@ -87,6 +87,7 @@ export interface PlanetDetails {
 export interface Mission {
   id: number;
   time_start: number;
+  origin: number;
   destination: number;
   time_arrival: number;
   fleet: Fleet;
