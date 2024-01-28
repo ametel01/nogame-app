@@ -112,8 +112,6 @@ export const UniverseViewTabPanel = ({
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const pageCount = Math.ceil(planetsData.length / itemsPerPage); // Adjust as needed
-  console.log('ownPlanetId', ownPlanetId);
-  console.log('colonyId', colonyId);
 
   useEffect(() => {
     fetchPlanetsData()

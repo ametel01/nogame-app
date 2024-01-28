@@ -44,7 +44,14 @@ const UniverseViewBox = ({
   const updatedIsNoobProtected =
     isNoobProtected && timeDifference < oneWeekInSeconds;
 
-  const ownPlanetPosition = usePlanetPosition(Number(ownPlanetId));
+  const planetIdForOwnPosition =
+    colonyId === 0 ? ownPlanetId : ownPlanetId * 1000 + colonyId;
+
+  const ownPlanetPosition = convertPositionToNumbers(
+    usePlanetPosition(planetIdForOwnPosition)
+  );
+
+  console.log('ownPlanetPosition', ownPlanetPosition);
 
   const getLastActiveTime = useMemo(() => {
     if (!lastActive || timeDifference > oneWeekInSeconds) {
@@ -72,22 +79,9 @@ const UniverseViewBox = ({
     return `${Math.floor(differenceInSeconds / 86400)} days ago`;
   }, [lastActive, oneWeekInSeconds, timeDifference]);
 
-  const ownMotherPositionNumberised = useMemo(
-    () => convertPositionToNumbers(ownPlanetPosition),
-    [ownPlanetPosition]
-  );
-
-  const ownPlanetPositionNumberised = useMemo(
-    () => convertPositionToNumbers(ownPlanetPosition),
-    [ownPlanetPosition]
-  );
-
   const isDisable =
-    colonyId === 0
-      ? position.system === ownMotherPositionNumberised?.system &&
-        position.orbit === ownMotherPositionNumberised?.orbit
-      : position.system === ownPlanetPositionNumberised?.system &&
-        position.orbit === ownPlanetPositionNumberised?.orbit;
+    position.system === ownPlanetPosition?.system &&
+    position.orbit === ownPlanetPosition?.orbit;
 
   return (
     <Styled.Box style={boxStyle}>
@@ -147,7 +141,7 @@ const UniverseViewBox = ({
           position={formattedPosition}
           ownFleet={ownFleet}
           techs={ownTechs}
-          ownPosition={ownPlanetPositionNumberised}
+          ownPosition={ownPlanetPosition}
           colonyId={colonyId}
         />
         <Styled.ButtonContainer>
@@ -158,7 +152,7 @@ const UniverseViewBox = ({
             destination={formattedPosition}
             ownFleet={ownFleet!}
             techs={ownTechs}
-            ownPosition={ownPlanetPositionNumberised}
+            ownPosition={ownPlanetPosition}
             planetId={planetId}
             colonyId={colonyId}
           />

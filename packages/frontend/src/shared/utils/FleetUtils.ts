@@ -38,7 +38,6 @@ export function getFlightTime(
   distance: number,
   speedFactor: number
 ): number {
-  console.log('in-formul speed', speed);
   const result = 10 + 3500 * Math.sqrt((10 * distance) / speed);
   return Math.floor(result / speedFactor); // Assuming we need an integer result
 }
