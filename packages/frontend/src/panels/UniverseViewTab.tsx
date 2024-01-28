@@ -20,7 +20,10 @@ import {
   Stack,
   Pagination,
 } from '.';
-import { useGetColonyMotherPlanet } from '../hooks/ColoniesHooks';
+import {
+  useGetColonyMotherPlanet,
+  useGetColonyShips,
+} from '../hooks/ColoniesHooks';
 // import { Switch, Typography } from '@mui/material';
 
 const UniverseBoxItem = ({
@@ -51,6 +54,16 @@ const UniverseBoxItem = ({
     celestia: 0,
   };
 
+  const colonyFleetData = useGetColonyShips(Number(ownPlanetId), colonyId);
+  const colonyFleet: ShipsLevels = colonyFleetData || {
+    carrier: 0,
+    scraper: 0,
+    sparrow: 0,
+    frigate: 0,
+    armade: 0,
+    celestia: 0,
+  };
+
   const img = getPlanetImage(
     planet.position.orbit.toString() as unknown as ImageId
   );
@@ -69,7 +82,7 @@ const UniverseBoxItem = ({
       points={planetRanking}
       highlighted={highlighted}
       ownPlanetId={ownPlanetId}
-      ownFleet={ownFleet}
+      ownFleet={colonyId === 0 ? ownFleet : colonyFleet}
       ownTechs={ownTechs}
       isNoobProtected={isNoobProtected}
       lastActive={Number(lastActive)}
@@ -78,35 +91,6 @@ const UniverseBoxItem = ({
     />
   );
 };
-
-// Define a type for the systems structure
-type SystemsType = {
-  [key: number]: (PlanetDetails | null)[];
-};
-
-const groupPlanetsBySystem = (planets: PlanetDetails[]): SystemsType => {
-  const systems: SystemsType = {};
-  for (let i = 1; i <= 10; i++) {
-    // Initialize each system with 10 orbits (null represents empty orbit)
-    systems[i] = Array(10).fill(null);
-  }
-
-  planets.forEach((planet: PlanetDetails) => {
-    const system = planet.position.system;
-    const orbit = planet.position.orbit - 1; // Adjusting for 0-based index
-    if (systems[system]) {
-      systems[system][orbit] = planet;
-    }
-  });
-
-  return systems;
-};
-
-const EmptyPlanetSlot = () => (
-  <div style={{ padding: '10px', border: '1px dashed gray', margin: '5px' }}>
-    Empty Slot
-  </div>
-);
 
 interface UniverseViewTabPanelProps {
   spendable?: Resources;
@@ -126,11 +110,10 @@ export const UniverseViewTabPanel = ({
 }: UniverseViewTabPanelProps) => {
   const [planetsData, setPlanetsData] = useState<PlanetDetails[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isExtendedView] = useState(false);
   const itemsPerPage = 6;
-  const pageCount = isExtendedView
-    ? 10
-    : Math.ceil(planetsData.length / itemsPerPage); // Adjust as needed
+  const pageCount = Math.ceil(planetsData.length / itemsPerPage); // Adjust as needed
+  console.log('ownPlanetId', ownPlanetId);
+  console.log('colonyId', colonyId);
 
   useEffect(() => {
     fetchPlanetsData()
@@ -143,8 +126,10 @@ export const UniverseViewTabPanel = ({
         });
 
         // Find the index of the planet with the ownPlanetId
-        const ownPlanetIndex = sortedData.findIndex(
-          (planet) => planet.planetId === ownPlanetId
+        const ownPlanetIndex = sortedData.findIndex((planet) =>
+          colonyId === 0
+            ? planet.planetId === ownPlanetId
+            : planet.planetId === ownPlanetId * 1000 + colonyId
         );
         // Calculate the initial page based on the index
         const initialPage = Math.ceil((ownPlanetIndex + 1) / itemsPerPage);
@@ -156,43 +141,13 @@ export const UniverseViewTabPanel = ({
       .catch((error) => {
         console.error('Error fetching planets data:', error);
       });
-  }, [ownPlanetId]);
+  }, [colonyId, ownPlanetId]);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const selectedPlanets = planetsData.slice(
     startIndex,
     startIndex + itemsPerPage
   );
-
-  const renderPlanets = () => {
-    if (isExtendedView) {
-      const systems = groupPlanetsBySystem(planetsData);
-      const currentSystemPlanets = systems[currentPage]; // currentPage now refers to the system number
-      return currentSystemPlanets.map((planet, index) =>
-        planet ? (
-          <UniverseBoxItem
-            ownPlanetId={ownPlanetId}
-            ownTechs={ownTechs}
-            key={index}
-            planet={planet}
-            colonyId={colonyId}
-          />
-        ) : (
-          <EmptyPlanetSlot key={index} /> // Render a placeholder for empty slots
-        )
-      );
-    } else {
-      return selectedPlanets.map((planet, index) => (
-        <UniverseBoxItem
-          ownPlanetId={ownPlanetId}
-          ownTechs={ownTechs}
-          key={index}
-          planet={planet}
-          colonyId={colonyId}
-        />
-      ));
-    }
-  };
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
@@ -203,25 +158,15 @@ export const UniverseViewTabPanel = ({
 
   return (
     <StyledTabPanel {...rest}>
-      {/* <Stack direction="row" justifyContent="center" spacing={2}>
-        <Typography>Normal View</Typography>
-        <Switch
-          checked={isExtendedView}
-          onChange={(e) => setIsExtendedView(e.target.checked)}
+      {selectedPlanets.map((planet, index) => (
+        <UniverseBoxItem
+          ownPlanetId={ownPlanetId}
+          ownTechs={ownTechs}
+          key={index}
+          planet={planet}
+          colonyId={colonyId}
         />
-        <Typography>Extended View</Typography>
-      </Stack> */}
-      {isExtendedView
-        ? renderPlanets()
-        : selectedPlanets.map((planet, index) => (
-            <UniverseBoxItem
-              ownPlanetId={ownPlanetId}
-              ownTechs={ownTechs}
-              key={index}
-              planet={planet}
-              colonyId={colonyId}
-            />
-          ))}
+      ))}
       <Stack
         spacing={2}
         alignItems="center"

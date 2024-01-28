@@ -72,17 +72,22 @@ const UniverseViewBox = ({
     return `${Math.floor(differenceInSeconds / 86400)} days ago`;
   }, [lastActive, oneWeekInSeconds, timeDifference]);
 
-  const ownPositionNumberised = useMemo(
+  const ownMotherPositionNumberised = useMemo(
+    () => convertPositionToNumbers(ownPlanetPosition),
+    [ownPlanetPosition]
+  );
+
+  const ownPlanetPositionNumberised = useMemo(
     () => convertPositionToNumbers(ownPlanetPosition),
     [ownPlanetPosition]
   );
 
   const isDisable =
-    position.system === ownPositionNumberised?.system &&
-    position.orbit === ownPositionNumberised?.orbit;
-  console.log('isDisable', isDisable);
-  console.log('position', position);
-  console.log('ownPositionNumberised', ownPositionNumberised);
+    colonyId === 0
+      ? position.system === ownMotherPositionNumberised?.system &&
+        position.orbit === ownMotherPositionNumberised?.orbit
+      : position.system === ownPlanetPositionNumberised?.system &&
+        position.orbit === ownPlanetPositionNumberised?.orbit;
 
   return (
     <Styled.Box style={boxStyle}>
@@ -142,7 +147,7 @@ const UniverseViewBox = ({
           position={formattedPosition}
           ownFleet={ownFleet}
           techs={ownTechs}
-          ownPosition={ownPositionNumberised}
+          ownPosition={ownPlanetPositionNumberised}
           colonyId={colonyId}
         />
         <Styled.ButtonContainer>
@@ -153,7 +158,7 @@ const UniverseViewBox = ({
             destination={formattedPosition}
             ownFleet={ownFleet!}
             techs={ownTechs}
-            ownPosition={ownPositionNumberised}
+            ownPosition={ownPlanetPositionNumberised}
             planetId={planetId}
             colonyId={colonyId}
           />

@@ -23,6 +23,8 @@ import { DefenceTabPanel } from '../panels/DefencesTab';
 import { ColonyCompoundTabPanel } from './ColonyTab';
 import RocketIcon from '@mui/icons-material/Rocket';
 import { DockyardTabPanel } from '../panels/DockyardTab';
+import { UniverseViewTabPanel } from '../panels/UniverseViewTab';
+import { Explore } from '@mui/icons-material';
 
 interface ResourcesSectionArgs {
   planetId: number;
@@ -127,6 +129,17 @@ export const ColonyResourcesSection = ({
             <Typography>Defences</Typography>
           </RowCentered>
         </ResourceTab>
+        <ResourceTab
+          onClick={() => {
+            setActiveTab(4);
+          }}
+          active={activeTab === 4 ? 'true' : 'false'}
+        >
+          <RowCentered gap={'8px'}>
+            <Explore />
+            <Typography>Universe</Typography>
+          </RowCentered>
+        </ResourceTab>
       </ResourcesTabList>
       {activeTab === 1 &&
         renderCompounds(colonyId, totalResources, compoundsLevels)}
@@ -149,6 +162,7 @@ export const ColonyResourcesSection = ({
           techLevels,
           colonyId
         )}
+      {activeTab === 4 && renderUniversePanel(planetId, techLevels, colonyId)}
     </ResourcesTabs>
   );
 };
@@ -204,6 +218,20 @@ function renderDefencesPanel(
       defenceCost={defencesCost}
       dockyardLevel={dockyard}
       techLevels={techs}
+      colonyId={colonyId}
+    />
+  );
+}
+
+function renderUniversePanel(
+  planetId: number,
+  techLevels: TechLevels,
+  colonyId: number
+) {
+  return (
+    <UniverseViewTabPanel
+      ownPlanetId={planetId}
+      ownTechs={techLevels}
       colonyId={colonyId}
     />
   );
