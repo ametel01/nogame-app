@@ -31,8 +31,8 @@ export const StyledBox = styled(Box)({
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
   background-size: cover;
   padding: 8px;
   border-radius: 8px;
@@ -204,6 +204,9 @@ export const FleetMovements = ({ planetId }: Props) => {
           <GridContainer>
             <FixedLengthText>
               <strong>Mission</strong>
+            </FixedLengthText>
+            <FixedLengthText>
+              <strong>Origin</strong>
             </FixedLengthText>
             <FixedLengthText>
               <strong>Destination</strong>

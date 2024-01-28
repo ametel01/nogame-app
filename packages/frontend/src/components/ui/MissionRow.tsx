@@ -47,7 +47,7 @@ const FleetIcon = styled.img.attrs({
 const ButtonContainer = styled.div`
   display: flex; // Enable flex layout
   align-items: center;
-  gap: 10px; // Adjust the gap as needed
+  gap: 10px;
 `;
 
 interface MissionRowProps {
@@ -85,6 +85,10 @@ export const MissionRow = memo(
     );
 
     const isArrived = (Number(mission.time_arrival) + 320) * 1000 <= Date.now();
+    const origin =
+      mission.origin <= 500
+        ? 'Mother Planet'
+        : `Colony ${Number(mission.origin) % 1000}`;
 
     return (
       <GridRow key={index}>
@@ -94,6 +98,7 @@ export const MissionRow = memo(
             <FleetIcon />
           </Tooltip>
         </MissionText>
+        <MissionText>{origin}</MissionText>
         <MissionText>{destination}</MissionText>
         <MissionText>
           {mission.category == MissionCategory.Debris
