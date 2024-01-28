@@ -87,7 +87,7 @@ export const MissionRow = memo(
     const isArrived = (Number(mission.time_arrival) + 320) * 1000 <= Date.now();
     const origin =
       mission.origin <= 500
-        ? 'Mother Planet'
+        ? 'Mother'
         : `Colony ${Number(mission.origin) % 1000}`;
 
     return (

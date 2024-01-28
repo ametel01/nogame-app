@@ -61,9 +61,11 @@ const ColonySelect = ({ planetId, selectedColonyId, handleChange }: Props) => {
   const menuItems = Array.isArray(coloniesArray)
     ? coloniesArray.map((colony, index) => {
         const colonyId = colony[0];
+        console.log('colony', colony);
         return (
           <MenuItem key={index} value={colonyId.toString()}>
-            Colony {colonyId.toString()}
+            colony {colonyId.toString()} - {Number(colony[1].system)}/
+            {Number(colony[1].orbit)}
           </MenuItem>
         );
       })
@@ -71,7 +73,7 @@ const ColonySelect = ({ planetId, selectedColonyId, handleChange }: Props) => {
 
   const defaultOption = (
     <MenuItem key="default-option" value="0">
-      Mother Planet
+      mother planet
     </MenuItem>
   );
 
