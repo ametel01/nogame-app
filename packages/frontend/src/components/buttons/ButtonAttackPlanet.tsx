@@ -30,6 +30,7 @@ import { convertSecondsToTime } from '../../shared/utils';
 import { TransactionStatus } from '../ui/TransactionStatus';
 import { numberWithCommas } from '../../shared/utils';
 import Slider from '@mui/material/Slider';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 
 type ShipName = 'carrier' | 'scraper' | 'sparrow' | 'frigate' | 'armade';
 
@@ -290,6 +291,14 @@ function ButtonAttackPlanet({
     }
   };
 
+  // Function to handle setting max quantity for each ship type
+  const handleMaxQuantity = (ship: ShipName) => {
+    setQuantities({
+      ...quantities,
+      [ship]: Number(ownFleet[ship]), // Convert BigInt to Number
+    });
+  };
+
   return (
     <div>
       {!isNoobProtected && !disabled ? (
@@ -361,6 +370,10 @@ function ButtonAttackPlanet({
                             color="neutral"
                             variant="soft"
                             style={{ width: '80px' }}
+                          />
+                          <KeyboardDoubleArrowUpIcon
+                            onClick={() => handleMaxQuantity(ship as ShipName)}
+                            style={{ cursor: 'pointer' }}
                           />
                         </InputButtonContainer>
                       </FlexContainer>

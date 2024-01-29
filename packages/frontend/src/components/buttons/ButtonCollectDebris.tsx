@@ -25,6 +25,7 @@ import { convertSecondsToTime, numberWithCommas } from '../../shared/utils';
 import { TransactionStatus } from '../ui/TransactionStatus';
 import { SliderContainer, Text as SliderText } from './ButtonAttackPlanet';
 import Slider from '@mui/material/Slider';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -185,6 +186,14 @@ export function ButtonCollectDebris({
     setQuantities({ scraper: inputValue });
   };
 
+  const handleMaxQuantity = () => {
+    // Update the quantities state to use the maximum available scrapers
+    setQuantities({
+      ...quantities,
+      scraper: Number(ownFleet.scraper), // Setting to the total number of available scrapers
+    });
+  };
+
   // Calculate the available scrapers after considering the input value
   const availableScrapers =
     Number(ownFleet.scraper) - (quantities.scraper || 0);
@@ -277,6 +286,10 @@ export function ButtonCollectDebris({
                     color="neutral"
                     variant="soft"
                     style={{ width: '80px' }}
+                  />
+                  <KeyboardDoubleArrowUpIcon
+                    onClick={() => handleMaxQuantity()}
+                    style={{ cursor: 'pointer' }}
                   />
                 </InputButtonContainer>
                 <TotalDebrisText>
