@@ -25,7 +25,7 @@ export function useShipBuild(
 
   const calls = [
     colonyId === 0
-      ? contract?.populateTransaction['process_defence_build']!(
+      ? contract?.populateTransaction['process_ship_build']!(
           name ? name : 20,
           quantity
         )
