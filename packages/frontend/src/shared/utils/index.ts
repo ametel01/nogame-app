@@ -226,7 +226,7 @@ export const beamRequirements = (
   return dockyardLevel
     ? dockyardLevel >= 2 && techs
       ? techs.energy >= 2 && techs
-        ? techs.beam >= 3
+        ? techs.beam >= 6
         : false
       : false
     : false;

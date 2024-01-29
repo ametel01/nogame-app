@@ -1,5 +1,5 @@
-import React from 'react'
-import { DefencesStats } from '../../constants/Stats'
+import React from 'react';
+import { DefencesStats } from '../../constants/Stats';
 import {
   PopoverBox,
   PopoverHeaderDiv,
@@ -8,21 +8,21 @@ import {
   PopoverGridContainer,
   PopoverRequirements,
   PopoverInfoData,
-  PopoverLabel
-} from '../../shared/styled/PopoverStyle'
+  PopoverLabel,
+} from '../../shared/styled/PopoverStyle';
 
-import blasterImg from '../../assets/gameElements/defences/blaster4.webp'
-import beamImg from '../../assets/gameElements/defences/beam4.webp'
-import astralLauncherImg from '../../assets/gameElements/defences/astral4.webp'
-import plasmaImg from '../../assets/gameElements/defences/plasma4.webp'
+import blasterImg from '../../assets/gameElements/defences/blaster4.webp';
+import beamImg from '../../assets/gameElements/defences/beam4.webp';
+import astralLauncherImg from '../../assets/gameElements/defences/astral4.webp';
+import plasmaImg from '../../assets/gameElements/defences/plasma4.webp';
 
 // Component props
 interface DescriptionComponentProps {
-  title: string
-  image: string
-  description: React.ReactNode
-  stats: React.ReactNode
-  requirements: React.ReactNode
+  title: string;
+  image: string;
+  description: React.ReactNode;
+  stats: React.ReactNode;
+  requirements: React.ReactNode;
 }
 
 const DescriptionComponent = ({
@@ -30,7 +30,7 @@ const DescriptionComponent = ({
   image,
   description,
   stats,
-  requirements
+  requirements,
 }: DescriptionComponentProps) => {
   return (
     <PopoverBox>
@@ -40,7 +40,7 @@ const DescriptionComponent = ({
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'flex-start',
-          marginBottom: '24px'
+          marginBottom: '24px',
         }}
       >
         {/* Image */}
@@ -59,16 +59,16 @@ const DescriptionComponent = ({
       {/* Stats */}
       {stats}
     </PopoverBox>
-  )
-}
+  );
+};
 
 interface StatsProps {
-  cargo?: number
-  speed?: number
-  consumption?: number
-  hull: number
-  shield: number
-  weapon: number
+  cargo?: number;
+  speed?: number;
+  consumption?: number;
+  hull: number;
+  shield: number;
+  weapon: number;
 }
 
 const StatsComponent = ({
@@ -77,40 +77,34 @@ const StatsComponent = ({
   consumption,
   hull,
   shield,
-  weapon
+  weapon,
 }: StatsProps) => {
   return (
     <PopoverGridContainer>
-      {cargo
-        ? (
+      {cargo ? (
         <>
           <PopoverInfoRow>
             <PopoverLabel>Cargo Capacity:</PopoverLabel>
             <PopoverInfoData>{cargo}</PopoverInfoData>
           </PopoverInfoRow>
         </>
-          )
-        : null}
-      {speed
-        ? (
+      ) : null}
+      {speed ? (
         <>
           <PopoverInfoRow>
             <PopoverLabel>Base Speed: </PopoverLabel>
             <PopoverInfoData>{speed}</PopoverInfoData>
           </PopoverInfoRow>
         </>
-          )
-        : null}
-      {consumption
-        ? (
+      ) : null}
+      {consumption ? (
         <>
           <PopoverInfoRow>
             <PopoverLabel>Consumption: </PopoverLabel>
             <PopoverInfoData>{consumption}</PopoverInfoData>
           </PopoverInfoRow>
         </>
-          )
-        : null}
+      ) : null}
       <PopoverInfoRow>
         <PopoverLabel>Base Hull: </PopoverLabel>
         <PopoverInfoData>{hull}</PopoverInfoData>
@@ -124,8 +118,8 @@ const StatsComponent = ({
         <PopoverInfoData>{weapon}</PopoverInfoData>
       </PopoverInfoRow>
     </PopoverGridContainer>
-  )
-}
+  );
+};
 
 export const BlasterDescription = () => (
   <DescriptionComponent
@@ -139,7 +133,7 @@ export const BlasterDescription = () => (
       </>
     }
   />
-)
+);
 export const BeamDescription = () => (
   <DescriptionComponent
     title="Beam"
@@ -148,13 +142,13 @@ export const BeamDescription = () => (
     stats={StatsComponent(DefencesStats.beam)}
     requirements={
       <>
-        <li>Dockyar level 2</li>
-        <li>Energy Innovation level 2</li>
-        <li>Beam Tech level 3</li>
+        <li>Dockyar level 4</li>
+        <li>Energy Innovation level 3</li>
+        <li>Beam Tech level 6</li>
       </>
     }
   />
-)
+);
 export const AstralDescription = () => (
   <DescriptionComponent
     title="Astral Launcher"
@@ -170,7 +164,7 @@ export const AstralDescription = () => (
       </>
     }
   />
-)
+);
 export const PlasmaDescription = () => (
   <DescriptionComponent
     title="Plasma Projector"
@@ -184,4 +178,4 @@ export const PlasmaDescription = () => (
       </>
     }
   />
-)
+);

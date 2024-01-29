@@ -6,7 +6,7 @@ import {
   blasterImg,
   BuildType,
   blasterRequirements,
-  BeamDescription,
+  BeamCannonDescription,
   beamImg,
   beamRequirements,
   AstralDescription,
@@ -39,7 +39,7 @@ export const DefenceTabPanel = ({
       requirements: blasterRequirements(dockyardLevel),
     },
     {
-      description: <BeamDescription />,
+      description: <BeamCannonDescription />,
       img: beamImg,
       title: 'Beam',
       functionCallName: BuildType.Beam,
