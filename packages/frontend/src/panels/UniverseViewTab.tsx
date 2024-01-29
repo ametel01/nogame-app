@@ -17,7 +17,7 @@ import {
   PlanetDetails,
   fetchPlanetsData,
   StyledTabPanel,
-  Stack,
+  // Stack,
   Pagination,
 } from '.';
 import {
@@ -25,6 +25,36 @@ import {
   useGetColonyShips,
 } from '../hooks/ColoniesHooks';
 import { useDestination } from '../context/DestinationContext';
+import TextField from '@mui/material/TextField';
+import { styled as muiStyled } from '@mui/material/styles';
+
+const PaginationContainer = muiStyled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '100%',
+  marginTop: '16px', // Adjust as needed for spacing
+});
+
+const PageInput = muiStyled(TextField)({
+  '& .MuiInputBase-input': {
+    color: 'white', // Set the color you prefer
+    textAlign: 'center',
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'rgba(255, 255, 255, 0.23)', // Border color
+    },
+    '&:hover fieldset': {
+      borderColor: 'white', // Border color on hover
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'white', // Border color when focused
+    },
+  },
+  width: '60px', // Adjust as needed
+  marginRight: '8px', // Space between input and pagination
+});
 
 const UniverseBoxItem = ({
   ownPlanetId,
@@ -110,6 +140,8 @@ export const UniverseViewTabPanel = ({
 }: UniverseViewTabPanelProps) => {
   const [planetsData, setPlanetsData] = useState<PlanetDetails[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [inputPage, setInputPage] = useState('');
+  const [pageError, setPageError] = useState(false);
   const itemsPerPage = 6;
   const pageCount = Math.ceil(planetsData.length / itemsPerPage);
 
@@ -165,6 +197,31 @@ export const UniverseViewTabPanel = ({
     page: number
   ) => {
     setCurrentPage(page);
+    setInputPage(page.toString());
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputVal = event.target.value;
+    setInputPage(inputVal);
+
+    const pageNumber = parseInt(inputVal, 10);
+    if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= pageCount) {
+      setCurrentPage(pageNumber); // Update page immediately if valid
+      setPageError(false);
+    } else {
+      setPageError(true);
+    }
+  };
+
+  const handleInputBlur = () => {
+    const pageNumber = parseInt(inputPage, 10);
+    if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= pageCount) {
+      setCurrentPage(pageNumber);
+      setPageError(false);
+    } else {
+      setInputPage(currentPage.toString());
+      setPageError(false);
+    }
   };
 
   return (
@@ -178,12 +235,7 @@ export const UniverseViewTabPanel = ({
           colonyId={colonyId}
         />
       ))}
-      <Stack
-        spacing={2}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ width: '100%' }}
-      >
+      <PaginationContainer>
         <Pagination
           count={pageCount}
           page={currentPage}
@@ -199,7 +251,15 @@ export const UniverseViewTabPanel = ({
             },
           }}
         />
-      </Stack>
+        <PageInput
+          value={inputPage}
+          onChange={handleInputChange}
+          onBlur={handleInputBlur}
+          error={pageError}
+          variant="outlined"
+          size="small"
+        />
+      </PaginationContainer>
     </StyledTabPanel>
   );
 };
