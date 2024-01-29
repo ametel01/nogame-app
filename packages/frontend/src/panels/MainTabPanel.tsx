@@ -36,6 +36,9 @@ import {
   ResourcesSectionArgs,
 } from '.';
 
+import { useEffect } from 'react';
+import { useDestination } from '../context/DestinationContext';
+
 export const ResourcesSection = ({
   planetId,
   colonyId,
@@ -50,6 +53,14 @@ export const ResourcesSection = ({
   const defencesLevels = useDefencesLevels(planetId);
   const celestiaAvailable = useGetCelestiaAvailable(planetId);
   const defencesCost = getBaseDefenceCost();
+
+  const { selectedDestination } = useDestination();
+
+  useEffect(() => {
+    if (selectedDestination !== null) {
+      setActiveTab(5); // Set to Universe tab
+    }
+  }, [selectedDestination]);
 
   if (
     !compoundsLevels ||

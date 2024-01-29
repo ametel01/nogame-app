@@ -4,6 +4,7 @@ import AuthScreen from '../../views/LoginOrGenerate';
 import Dashboard from '../../views/DashBoard';
 import { useAccount } from '@starknet-react/core';
 import Header from '../ui/Header';
+import { DestinationProvider } from '../../context/DestinationContext';
 
 const AuthController = () => {
   const { address } = useAccount();
@@ -41,8 +42,10 @@ const AuthController = () => {
     />
   ) : (
     <>
-      <Header planetId={Number(planetId)} />
-      <Dashboard planetId={Number(planetId)} />
+      <DestinationProvider>
+        <Header planetId={Number(planetId)} />
+        <Dashboard planetId={Number(planetId)} />
+      </DestinationProvider>
     </>
   );
 };

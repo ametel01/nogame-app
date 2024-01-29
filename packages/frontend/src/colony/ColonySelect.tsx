@@ -61,7 +61,6 @@ const ColonySelect = ({ planetId, selectedColonyId, handleChange }: Props) => {
   const menuItems = Array.isArray(coloniesArray)
     ? coloniesArray.map((colony, index) => {
         const colonyId = colony[0];
-        console.log('colony', colony);
         return (
           <MenuItem key={index} value={colonyId.toString()}>
             colony {colonyId.toString()} - {Number(colony[1].system)}/

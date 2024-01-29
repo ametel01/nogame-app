@@ -24,7 +24,7 @@ import {
   useGetColonyMotherPlanet,
   useGetColonyShips,
 } from '../hooks/ColoniesHooks';
-// import { Switch, Typography } from '@mui/material';
+import { useDestination } from '../context/DestinationContext';
 
 const UniverseBoxItem = ({
   ownPlanetId,
@@ -111,7 +111,9 @@ export const UniverseViewTabPanel = ({
   const [planetsData, setPlanetsData] = useState<PlanetDetails[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-  const pageCount = Math.ceil(planetsData.length / itemsPerPage); // Adjust as needed
+  const pageCount = Math.ceil(planetsData.length / itemsPerPage);
+
+  const { selectedDestination } = useDestination();
 
   useEffect(() => {
     fetchPlanetsData()
@@ -123,23 +125,34 @@ export const UniverseViewTabPanel = ({
           return Number(a.position.system) - Number(b.position.system);
         });
 
-        // Find the index of the planet with the ownPlanetId
-        const ownPlanetIndex = sortedData.findIndex((planet) =>
-          colonyId === 0
-            ? planet.planetId === ownPlanetId
-            : planet.planetId === ownPlanetId * 1000 + colonyId
-        );
-        // Calculate the initial page based on the index
-        const initialPage = Math.ceil((ownPlanetIndex + 1) / itemsPerPage);
-
         setPlanetsData(sortedData);
-        // Set the initial page
-        setCurrentPage(initialPage);
+
+        if (selectedDestination !== null) {
+          const destinationIndex = sortedData.findIndex(
+            (planet) => planet.planetId === Number(selectedDestination)
+          );
+          if (destinationIndex !== -1) {
+            // Check if index is valid
+            const destinationPage = Math.ceil(
+              (destinationIndex + 1) / itemsPerPage
+            );
+            setCurrentPage(destinationPage);
+          }
+        } else {
+          // Default page setting logic
+          const ownPlanetIndex = sortedData.findIndex((planet) =>
+            colonyId === 0
+              ? planet.planetId === ownPlanetId
+              : planet.planetId === ownPlanetId * 1000 + colonyId
+          );
+          const initialPage = Math.ceil((ownPlanetIndex + 1) / itemsPerPage);
+          setCurrentPage(initialPage);
+        }
       })
       .catch((error) => {
         console.error('Error fetching planets data:', error);
       });
-  }, [colonyId, ownPlanetId]);
+  }, [colonyId, ownPlanetId, selectedDestination]);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const selectedPlanets = planetsData.slice(
@@ -178,12 +191,11 @@ export const UniverseViewTabPanel = ({
           variant="outlined"
           shape="rounded"
           sx={{
-            // ...
             '.MuiPaginationItem-root.MuiPaginationItem-root': {
               color: 'white',
             },
             '.MuiPaginationItem-root.Mui-selected': {
-              backgroundColor: 'rgba(211, 211, 211, 0.5)', // Lighter gray background for the selected page
+              backgroundColor: 'rgba(211, 211, 211, 0.5)',
             },
           }}
         />

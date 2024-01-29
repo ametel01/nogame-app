@@ -11,6 +11,7 @@ import {
 import { usePlanetPosition } from '../../hooks/usePlanetPosition';
 import fleetIcon from '../../assets/uiIcons/Fleet.svg';
 import { StyledButton } from '../../shared/styled/Button';
+import { useDestination } from '../../context/DestinationContext';
 
 const FleetTooltipContent = styled('div')({
   display: 'flex',
@@ -74,6 +75,13 @@ export const MissionRow = memo(
       });
     }, [recallFleet]);
 
+    const { handleDestinationClick } = useDestination();
+
+    // Updated to handle the click event
+    const onClickDestination = () => {
+      handleDestinationClick(mission.destination);
+    };
+
     const renderFleetDetails = () => (
       <FleetTooltipContent>
         <div>Carrier: {Number(mission.fleet.carrier)}</div>
@@ -99,7 +107,9 @@ export const MissionRow = memo(
           </Tooltip>
         </MissionText>
         <MissionText>{origin}</MissionText>
-        <MissionText>{destination}</MissionText>
+        <MissionText onClick={onClickDestination} style={{ cursor: 'pointer' }}>
+          {destination}
+        </MissionText>
         <MissionText>
           {mission.category == MissionCategory.Debris
             ? 'Debris'
