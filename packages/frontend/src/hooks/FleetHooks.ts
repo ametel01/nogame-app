@@ -46,7 +46,7 @@ export function useGetHostileMissions(planetId: number): HostileMission[] {
   const { data } = useContractRead({
     address: GAMEADDRESS,
     abi: game.abi,
-    functionName: 'get_hostile_missions',
+    functionName: 'get_incoming_missions',
     args: [planetId],
     blockIdentifier: BlockTag.pending,
   });
