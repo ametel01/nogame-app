@@ -64,7 +64,6 @@ const UniverseViewBox = ({
     const differenceInSeconds = Math.floor(
       (now.getTime() - lastActiveDate.getTime()) / 1000
     );
-
     // Format the time difference
     if (differenceInSeconds < 3600) {
       // Less than an hour

@@ -20,10 +20,7 @@ import {
   // Stack,
   Pagination,
 } from '.';
-import {
-  useGetColonyMotherPlanet,
-  useGetColonyShips,
-} from '../hooks/ColoniesHooks';
+import { useGetColonyShips } from '../hooks/ColoniesHooks';
 import { useDestination } from '../context/DestinationContext';
 import TextField from '@mui/material/TextField';
 import { styled as muiStyled } from '@mui/material/styles';
@@ -66,14 +63,20 @@ const UniverseBoxItem = ({
   const address = address_data || '';
   const highlighted = parseInt(address, 16) === parseInt(planet.account, 16);
 
-  const motherPlanet = useGetColonyMotherPlanet(planet.planetId);
-  const planetArg = planet.planetId > 500 ? motherPlanet : planet.planetId;
+  const motherPlanet =
+    planet.planetId > 500
+      ? Math.floor(planet.planetId / 1000)
+      : planet.planetId;
+  console.log('planet.planetId', typeof planet.planetId);
+  // console.log('motherPlanet', Number(motherPlanet));
 
-  const planetRanking = useGetPlanetRanking(planetArg);
-  console.log('planetRanking', planetRanking);
-  const winLoss = useCalculateWinsAndLosses(planetArg);
-  const lastActive = useLastActive(planetArg);
-  const isNoobProtected = useGetIsNoobProtected(Number(ownPlanetId), planetArg);
+  const planetRanking = useGetPlanetRanking(motherPlanet);
+  const winLoss = useCalculateWinsAndLosses(motherPlanet);
+  const lastActive = useLastActive(motherPlanet);
+  const isNoobProtected = useGetIsNoobProtected(
+    Number(ownPlanetId),
+    motherPlanet
+  );
 
   const ownFleetData = useShipsLevels(Number(ownPlanetId));
   const ownFleet: ShipsLevels = ownFleetData || {
@@ -162,7 +165,7 @@ export const UniverseViewTabPanel = ({
 
         if (selectedDestination !== null) {
           const destinationIndex = sortedData.findIndex(
-            (planet) => planet.planetId === Number(selectedDestination)
+            (planet) => Number(planet.planetId) === Number(selectedDestination)
           );
           if (destinationIndex !== -1) {
             // Check if index is valid
@@ -175,8 +178,8 @@ export const UniverseViewTabPanel = ({
           // Default page setting logic
           const ownPlanetIndex = sortedData.findIndex((planet) =>
             colonyId === 0
-              ? planet.planetId === ownPlanetId
-              : planet.planetId === ownPlanetId * 1000 + colonyId
+              ? Number(planet.planetId) === ownPlanetId
+              : Number(planet.planetId) === ownPlanetId * 1000 + colonyId
           );
           const initialPage = Math.ceil((ownPlanetIndex + 1) / itemsPerPage);
           setCurrentPage(initialPage);

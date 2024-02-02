@@ -46,11 +46,11 @@ export function useFetchLeaderboardData() {
 export function useGetPlanetRanking(planetId: number) {
   const { leaderboard, isLoading, error } = useFetchLeaderboardData();
   const [position, setPosition] = useState<number | string>('Loading...');
-  console.log('planetId', planetId);
+
   useEffect(() => {
     if (!isLoading && !error) {
       const foundPosition = leaderboard.findIndex(
-        (entry) => Number(entry.planet_id) === planetId
+        (entry) => entry.planet_id === planetId
       );
       if (foundPosition === -1) {
         setPosition('Planet not found in the leaderboard');

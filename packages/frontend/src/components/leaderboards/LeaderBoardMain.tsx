@@ -127,7 +127,7 @@ const LeadearBoardMain = ({ planetId }: Props) => {
                     )}...${entry.account.substring(entry.account.length - 4)}`
                   : 'Unknown Account'}
               </Data>
-              <Data>{Number(entry.planet_id)}</Data>
+              <Data>{entry.planet_id}</Data>
               <Data>{Math.round(Number(entry.net_amount) / 1000)}</Data>
             </Row>
           ))}
