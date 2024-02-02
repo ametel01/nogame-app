@@ -61,9 +61,6 @@ export function useGetColonyMotherPlanet(planetId: number | undefined): number {
   if (!planetId) {
     0;
   }
-  console.log('planetId', planetId);
-  console.log('data', data);
-
   return data as unknown as number;
 }
 

@@ -50,7 +50,7 @@ export function useGetPlanetRanking(planetId: number) {
   useEffect(() => {
     if (!isLoading && !error) {
       const foundPosition = leaderboard.findIndex(
-        (entry) => entry.planet_id === planetId
+        (entry) => Number(entry.planet_id) === Number(planetId)
       );
       if (foundPosition === -1) {
         setPosition('Planet not found in the leaderboard');

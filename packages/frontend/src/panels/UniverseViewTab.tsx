@@ -65,10 +65,8 @@ const UniverseBoxItem = ({
 
   const motherPlanet =
     planet.planetId > 500
-      ? Math.floor(planet.planetId / 1000)
+      ? Math.floor(Number(planet.planetId) / 1000)
       : planet.planetId;
-  console.log('planet.planetId', typeof planet.planetId);
-  // console.log('motherPlanet', Number(motherPlanet));
 
   const planetRanking = useGetPlanetRanking(motherPlanet);
   const winLoss = useCalculateWinsAndLosses(motherPlanet);

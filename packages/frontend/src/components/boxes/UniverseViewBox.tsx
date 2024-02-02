@@ -77,8 +77,8 @@ const UniverseViewBox = ({
   }, [lastActive, oneWeekInSeconds, timeDifference]);
 
   const isDisable =
-    position.system === ownPlanetPosition?.system &&
-    position.orbit === ownPlanetPosition?.orbit;
+    Number(position.system) === ownPlanetPosition?.system &&
+    Number(position.orbit) === ownPlanetPosition?.orbit;
 
   return (
     <Styled.Box style={boxStyle}>
