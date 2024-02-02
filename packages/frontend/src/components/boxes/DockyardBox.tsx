@@ -74,8 +74,7 @@ const DockyardBox = ({
     ? numberWithCommas(adjustedTritium)
     : 0;
 
-  const shouldShowTooltip =
-    ['Frigate', 'Armade'].includes(title) && showTooltip;
+  const shouldShowTooltip = ['Armade'].includes(title) && showTooltip;
 
   const boxContent = (
     <Styled.Box>

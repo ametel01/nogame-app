@@ -20,7 +20,7 @@ import shieldImg from '../assets/gameElements/techs/shield4.webp';
 import energyTechImg from '../assets/gameElements/techs/energy4.webp';
 import exoImg from '../assets/gameElements/techs/exocraft.webp';
 import armadeImg from '../assets/gameElements/ships/armade_not_available.webp';
-import frigateImg from '../assets/gameElements/ships/frigate4.webp.webp';
+import frigateImg from '../assets/gameElements/ships/frigate4.webp';
 import carrierImg from '../assets/gameElements/ships/carrier4.webp';
 import sparrowImg from '../assets/gameElements/ships/sparrow4.webp';
 import scraperImg from '../assets/gameElements/ships/scraper4.webp';
