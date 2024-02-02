@@ -218,7 +218,9 @@ export default function PlanetModal({ planetId, image, position }: Props) {
                   <h6 key={key}>
                     {key}:{' '}
                     <Value>
-                      {numberWithCommas(actualShips[key as keyof ShipsLevels])}
+                      {numberWithCommas(
+                        actualShips ? actualShips[key as keyof ShipsLevels] : 0
+                      )}
                     </Value>
                   </h6>
                 ))}
