@@ -132,7 +132,7 @@ const BattleReports = ({ planetId }: Props) => {
   const apiUrl =
     nodeEnv === 'production'
       ? `https://www.api.testnet.no-game.xyz/battle-reports?planet_id=${planetId}`
-      : 'http://localhost:3001/battle_reports?planet_id=${planetId}';
+      : `http://localhost:3001/battle-reports?planet_id=${planetId}`;
 
   useEffect(() => {
     const fetchData = async () => {

@@ -70,6 +70,7 @@ const UniverseBoxItem = ({
   const planetArg = planet.planetId > 500 ? motherPlanet : planet.planetId;
 
   const planetRanking = useGetPlanetRanking(planetArg);
+  console.log('planetRanking', planetRanking);
   const winLoss = useCalculateWinsAndLosses(planetArg);
   const lastActive = useLastActive(planetArg);
   const isNoobProtected = useGetIsNoobProtected(Number(ownPlanetId), planetArg);

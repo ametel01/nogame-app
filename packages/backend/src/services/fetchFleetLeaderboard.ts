@@ -1,14 +1,16 @@
-import supabase from "../config/supabaseClient";
+import pool from '../config/db'; // Ensure you have the correct path to your db config
 
 export const fetchFleetLeaderboard = async () => {
-  const { data, error } = await supabase.rpc("fetch_fleet_leaderboard");
+  try {
+    // Assuming you have a stored procedure or a direct SQL query equivalent to 'fetch_fleet_leaderboard'
+    const queryText = 'SELECT * FROM fetch_fleet_leaderboard();'; // or a SELECT query if it's not a procedure
 
-  if (error) {
-    console.error("Error fetching fleet leaderboard:", error);
+    const { rows } = await pool.query(queryText);
+    return rows;
+  } catch (error) {
+    console.error('Error fetching fleet leaderboard:', error);
     throw error;
   }
-
-  return data;
 };
 
 export default fetchFleetLeaderboard;

@@ -1,14 +1,16 @@
-import supabase from "../config/supabaseClient";
+import pool from '../config/db';
 
 export const fetchUniverse = async () => {
-  const { data, error } = await supabase.rpc("get_universe"); // This is the name of your stored procedure
+  try {
+    // Assuming you have a stored procedure or a direct SQL query equivalent to 'fetch_fleet_leaderboard'
+    const queryText = 'SELECT * FROM get_universe();'; // or a SELECT query if it's not a procedure
 
-  if (error) {
-    console.error("Error fetching universe:", error);
+    const { rows } = await pool.query(queryText);
+    return rows;
+  } catch (error) {
+    console.error('Error fetching universe:', error);
     throw error;
   }
-
-  return data;
 };
 
 export default fetchUniverse;

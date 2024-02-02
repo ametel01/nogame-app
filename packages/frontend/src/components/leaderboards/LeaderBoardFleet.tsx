@@ -110,7 +110,7 @@ const LeadearBoardFleet = ({ planetId }: Props) => {
           {leaderboard.map((entry: FetchData, index: number) => (
             <Row
               key={entry.planet_id}
-              isHighlighted={entry.planet_id === Number(planetId)}
+              isHighlighted={Number(entry.planet_id) === Number(planetId)}
             >
               <Data>{index + 1}</Data>
               <Data>
@@ -120,7 +120,7 @@ const LeadearBoardFleet = ({ planetId }: Props) => {
                     ).substring(entry.account.length - 4)}`
                   : 'Unknown Account'}
               </Data>
-              <Data>{entry.planet_id}</Data>
+              <Data>{Number(entry.planet_id)}</Data>
               <Data>{Math.round(Number(entry.net_amount) / 1000)}</Data>
             </Row>
           ))}
