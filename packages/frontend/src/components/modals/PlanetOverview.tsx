@@ -125,10 +125,7 @@ interface Props {
 export default function PlanetModal({ planetId, image, position }: Props) {
   const spendableResources = useSpendableResources(Number(planetId));
   const collectibleResources = useCollectibleResources(Number(planetId));
-  console.log('planetId', planetId);
   const [planet, colony] = getPlanetAndColonyIds(planetId);
-  console.log('planet', planet);
-  console.log('colony', colony);
 
   const shipsLevels = useShipsLevels(Number(planetId));
   const colonyShips = useGetColonyShips(planet, colony);
@@ -142,7 +139,6 @@ export default function PlanetModal({ planetId, image, position }: Props) {
       ? defencesLevels
       : colonyDefences && colonyDefences;
 
-  console.log('actualDefences', actualDefences);
   const colonyResources = useGetColonyResources(planet, colony);
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
