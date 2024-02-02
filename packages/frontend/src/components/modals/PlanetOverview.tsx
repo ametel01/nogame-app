@@ -138,10 +138,11 @@ export default function PlanetModal({ planetId, image, position }: Props) {
   const defencesLevels = useDefencesLevels(Number(planetId));
   const colonyDefences = useGetColonyDefences(planet, colony);
   const actualDefences =
-    defencesLevels && colonyDefences && colony === 0
+    defencesLevels && colony === 0
       ? defencesLevels
-      : colonyDefences;
+      : colonyDefences && colonyDefences;
 
+  console.log('actualDefences', actualDefences);
   const colonyResources = useGetColonyResources(planet, colony);
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
