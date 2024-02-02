@@ -2,19 +2,28 @@ import { type Fleet, type Position, type TechLevels } from '../types';
 import { ShipsStats, DefencesStats } from '../../constants/Stats';
 
 export function getDistance(start: Position, end: Position): number {
-  if (start.system === end.system && start.orbit === end.orbit) {
-    return 5;
-  }
+  const orbitDistance = Math.abs(start.orbit - end.orbit);
+  const systemDistance = Math.abs(start.system - end.system);
+
   if (start.system === end.system) {
-    const dis = Math.abs(start.orbit - end.orbit);
-    return 1000 + 5 * dis;
+    // Same system
+    if (start.orbit === end.orbit) {
+      // Same orbit
+      return 5;
+    } else {
+      // Different orbit
+      return 1000 + 5 * orbitDistance;
+    }
   } else {
-    const dis = Math.abs(start.system - end.system);
-    return 2700 + 95 * dis;
+    // Different system
+    // Assuming the distance calculation for different systems needs to factor in other parameters
+    // For now, using orbitDistance as a placeholder
+    return 2700 + 95 * systemDistance;
   }
 }
 
 function getUnitConsumption(ship: Unit, distance: number): number {
+  console.log('ship.consumption', ship.consumption);
   return (ship.consumption * distance) / 35000;
 }
 
@@ -23,6 +32,13 @@ export function getFuelConsumption(
   distance: number,
   speedFactor: number
 ): number {
+  console.log('carrier', fleet.carrier);
+  console.log('distance', distance);
+  console.log('getUnitConsumption', getUnitConsumption(CARRIER, distance));
+  console.log(
+    'total consupmtion carrier',
+    fleet.carrier * getUnitConsumption(CARRIER, distance)
+  );
   return Math.ceil(
     (fleet.carrier * getUnitConsumption(CARRIER, distance) +
       fleet.scraper * getUnitConsumption(SCRAPER, distance) +
@@ -174,9 +190,9 @@ export const CELESTIA: Unit = {
   weapon: DefencesStats.celestia.weapon,
   shield: DefencesStats.celestia.shield,
   hull: DefencesStats.celestia.hull,
-  speed: DefencesStats.celestia.speed,
-  cargo: DefencesStats.celestia.cargo,
-  consumption: DefencesStats.celestia.consumption,
+  speed: 0,
+  cargo: 0,
+  consumption: 0,
 };
 export const BLASTER: Unit = {
   id: 6,

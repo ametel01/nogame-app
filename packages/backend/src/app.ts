@@ -6,6 +6,8 @@ import fleetleaderboard from './routes/fleetLeaderboardRoute';
 import techleaderboard from './routes/techLeaderboardRoute';
 import battleReportsRoute from './routes/battleReportsRoute';
 import universeRoute from './routes/universeRoute';
+import debrisCollectionRoute from './routes/debrisCollectionRoute';
+
 const app = express();
 
 const allowedOrigins = [
@@ -43,5 +45,6 @@ app.use('/fleet', fleetleaderboard);
 app.use('/tech', techleaderboard);
 app.use('/battle-reports', battleReportsRoute);
 app.use('/universe', universeRoute);
+app.use('/debris-collection', debrisCollectionRoute);
 
 export default app;

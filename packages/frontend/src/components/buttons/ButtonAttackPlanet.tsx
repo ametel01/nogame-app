@@ -226,6 +226,7 @@ function ButtonAttackPlanet({
   const distance = ownPosition ? getDistance(ownPosition, position) : 0;
 
   useEffect(() => {
+    console.log(getFuelConsumption(fleet, distance, speed));
     setFuelConsumption(getFuelConsumption(fleet, distance, speed));
     setCargoCapacity(calculateTotalCargoCapacity(fleet));
   }, [distance, fleet, ownPosition, speed, techs]);
