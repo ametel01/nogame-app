@@ -15,12 +15,12 @@ import {
   useCollectibleResources,
 } from '../../hooks/ResourcesHooks';
 import { useShipsLevels, useDefencesLevels } from '../../hooks/LevelsHooks';
-import { numberWithCommas } from '../../shared/utils';
+import { getPlanetAndColonyIds, numberWithCommas } from '../../shared/utils';
 import {
-  useGetColonyMotherPlanet,
   useGetColonyResources,
   useGetColonyDefences,
 } from '../../hooks/ColoniesHooks';
+import { useGetColonyShips } from '../../hooks/ColoniesHooks';
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
@@ -125,13 +125,24 @@ interface Props {
 export default function PlanetModal({ planetId, image, position }: Props) {
   const spendableResources = useSpendableResources(Number(planetId));
   const collectibleResources = useCollectibleResources(Number(planetId));
-  const shipsLevels = useShipsLevels(Number(planetId));
-  const defencesLevels = useDefencesLevels(Number(planetId));
+  console.log('planetId', planetId);
+  const [planet, colony] = getPlanetAndColonyIds(planetId);
+  console.log('planet', planet);
+  console.log('colony', colony);
 
-  const motherPlanet = Number(useGetColonyMotherPlanet(planetId));
-  const colonyId = planetId - motherPlanet * 1000;
-  const colonyResources = useGetColonyResources(motherPlanet, colonyId);
-  const colonyDefences = useGetColonyDefences(motherPlanet, colonyId);
+  const shipsLevels = useShipsLevels(Number(planetId));
+  const colonyShips = useGetColonyShips(planet, colony);
+  const actualShips =
+    colonyShips && shipsLevels && colony === 0 ? shipsLevels : colonyShips;
+
+  const defencesLevels = useDefencesLevels(Number(planetId));
+  const colonyDefences = useGetColonyDefences(planet, colony);
+  const actualDefences =
+    defencesLevels && colonyDefences && colony === 0
+      ? defencesLevels
+      : colonyDefences;
+
+  const colonyResources = useGetColonyResources(planet, colony);
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
@@ -204,11 +215,13 @@ export default function PlanetModal({ planetId, image, position }: Props) {
             <GridSection>
               <SubTitle>Fleet</SubTitle>
               <DetailGrid>
-                {Object.keys(shipsLevels ?? {}).map((key) => (
+                {Object.keys(
+                  (planetId > 500 ? shipsLevels : colonyShips) ?? {}
+                ).map((key) => (
                   <h6 key={key}>
                     {key}:{' '}
                     <Value>
-                      {numberWithCommas(shipsLevels[key as keyof ShipsLevels])}
+                      {numberWithCommas(actualShips[key as keyof ShipsLevels])}
                     </Value>
                   </h6>
                 ))}
@@ -225,9 +238,7 @@ export default function PlanetModal({ planetId, image, position }: Props) {
                     {key}:{' '}
                     <Value>
                       {numberWithCommas(
-                        (planetId > 500 ? colonyDefences : defencesLevels)[
-                          key as keyof DefenceLevels
-                        ]
+                        actualDefences[key as keyof DefenceLevels]
                       )}
                     </Value>
                   </h6>

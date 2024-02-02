@@ -305,3 +305,12 @@ export const formatAccount = (account: string) => {
   }
   return account;
 };
+
+export function getPlanetAndColonyIds(planetId: number): [number, number] {
+  if (planetId > 500) {
+    const planet = Math.floor(planetId / 1000);
+    const colony = planetId % 1000;
+    return [planet, colony];
+  }
+  return [planetId, 0];
+}
