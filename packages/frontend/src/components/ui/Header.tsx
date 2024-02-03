@@ -79,7 +79,7 @@ const Header = ({ planetId }: Props) => {
             to="/battlereports"
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
-            Battle Reports
+            Reports
           </Link>
         </HeaderButton>
         <HeaderButton
