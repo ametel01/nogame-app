@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { FetchData } from './BattleReport';
+import { BattleReport } from './types';
 
 export function useGetBattleReportsData(planetId: number | null) {
-  const [battleReports, setBattleReports] = useState<FetchData[]>([]);
+  const [battleReports, setBattleReports] = useState<BattleReport[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

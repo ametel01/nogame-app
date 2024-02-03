@@ -203,7 +203,7 @@ export { useShipsLevels } from '../hooks/LevelsHooks';
 export { useGetIsNoobProtected, useLastActive } from '../hooks/FleetHooks';
 export { getPlanetImage, type ImageId } from '../shared/utils/getPlanetImage';
 export { useGetPlanetRanking } from '../components/leaderboards/utils';
-export { useCalculateWinsAndLosses } from '../components/battlereports/utils';
+export { useCalculateWinsAndLosses } from '../reports/utils';
 export { RowCentered } from '../components/ui/Row';
 export {
   ResourceTab,
