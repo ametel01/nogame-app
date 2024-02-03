@@ -22,9 +22,17 @@ export function getDistance(start: Position, end: Position): number {
   }
 }
 
-function getUnitConsumption(ship: Unit, distance: number): number {
-  console.log('ship.consumption', ship.consumption);
-  return (ship.consumption * distance) / 35000;
+function getUnitConsumption(
+  ship: Unit,
+  distance: number,
+  speed: number
+): number {
+  const consumption =
+    1 +
+    Math.round(
+      ((ship.consumption * distance) / 35000) * Math.pow(speed / 100 + 1, 2)
+    );
+  return consumption;
 }
 
 export function getFuelConsumption(
@@ -32,20 +40,14 @@ export function getFuelConsumption(
   distance: number,
   speedFactor: number
 ): number {
-  console.log('carrier', fleet.carrier);
-  console.log('distance', distance);
-  console.log('getUnitConsumption', getUnitConsumption(CARRIER, distance));
-  console.log(
-    'total consupmtion carrier',
-    fleet.carrier * getUnitConsumption(CARRIER, distance)
-  );
   return Math.ceil(
-    (fleet.carrier * getUnitConsumption(CARRIER, distance) +
-      fleet.scraper * getUnitConsumption(SCRAPER, distance) +
-      fleet.sparrow * getUnitConsumption(SPARROW, distance) +
-      fleet.frigate * getUnitConsumption(FRIGATE, distance) +
-      fleet.armade * getUnitConsumption(ARMADE, distance)) *
-      (speedFactor / 100)
+    fleet.carrier * getUnitConsumption(CARRIER, distance, speedFactor) +
+      fleet.scraper * getUnitConsumption(SCRAPER, distance, speedFactor) +
+      fleet.sparrow * getUnitConsumption(SPARROW, distance, speedFactor) +
+      fleet.frigate * getUnitConsumption(FRIGATE, distance, speedFactor) +
+      fleet.armade *
+        getUnitConsumption(ARMADE, distance, speedFactor) *
+        (speedFactor / 100)
   );
 }
 

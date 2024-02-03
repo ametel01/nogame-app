@@ -4,6 +4,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import RotatingLogo from '../components/ui/RotatingLogo';
 import * as Styled from './styledComponents';
 import * as Types from './types';
+import { numberWithCommas } from '../shared/utils/index';
 
 interface Props {
   planetId: number;
@@ -316,10 +317,7 @@ const BattleReports = ({ planetId }: Props) => {
             </Tooltip>
             {/* Display the military-style narrative of the battle */}
             <Styled.DetailItem>
-              Battle Report ID: [{report.battle_id}]
-            </Styled.DetailItem>
-            <Styled.DetailItem>
-              Timestamp: [{new Date(report.time).toLocaleString()}]
+              Time: [{new Date(report.time).toLocaleString()}]
             </Styled.DetailItem>
 
             <Styled.DetailItem>Operational Summary:</Styled.DetailItem>
@@ -466,11 +464,23 @@ const BattleReports = ({ planetId }: Props) => {
                 : ''
             }
           >
+            <Styled.DetailItem>Debris Field Location:</Styled.DetailItem>
+            <Styled.DetailItem>- System: {report.system}</Styled.DetailItem>
+            <Styled.DetailItem>- Orbit: {report.orbit}</Styled.DetailItem>
+            <Styled.DetailItem>Resources Present at Location</Styled.DetailItem>
             <Styled.DetailItem>
-              Debris Field ID: {report.debris_field_id}
+              - Steel: {numberWithCommas(report.collectible_steel)}
             </Styled.DetailItem>
-            <Styled.DetailItem>Steel: {report.steel}</Styled.DetailItem>
-            <Styled.DetailItem>Quartz: {report.quartz}</Styled.DetailItem>
+            <Styled.DetailItem>
+              - Quartz: {numberWithCommas(report.collectible_quartz)}
+            </Styled.DetailItem>
+            <Styled.DetailItem>Resources Collected:</Styled.DetailItem>
+            <Styled.DetailItem>
+              - Steel: {numberWithCommas(report.collected_steel)}
+            </Styled.DetailItem>
+            <Styled.DetailItem>
+              - Quartz: {numberWithCommas(report.collected_quartz)}
+            </Styled.DetailItem>
           </Styled.BattleReportDetails>
         </Styled.BattleReportContainer>
       );

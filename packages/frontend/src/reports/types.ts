@@ -52,7 +52,10 @@ export interface DebrisCollection {
   collection_id: number;
   timestamp: string;
   planet_id: number;
-  steel: number;
-  quartz: number;
-  debris_field_id: number;
+  system: number;
+  orbit: number;
+  collectible_steel: number;
+  collectible_quartz: number;
+  collected_steel: number;
+  collected_quartz: number;
 }
