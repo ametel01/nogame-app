@@ -301,7 +301,7 @@ const BattleReports = ({ planetId }: Props) => {
             onClick={() => toggleExpand(report.battle_id, report.reportType)}
             reportType={report.reportType}
           >
-            <span>Battle Report: {report.battle_id}</span>
+            <span>Battle Report</span>
             <span>{new Date(report.time).toLocaleString()}</span>
           </Styled.BattleReportHeader>
           <Styled.BattleReportDetails className={isExpanded ? 'expanded' : ''}>
@@ -454,7 +454,7 @@ const BattleReports = ({ planetId }: Props) => {
             }
             reportType={report.reportType}
           >
-            <span>Debris Report: {report.collection_id}</span>
+            <span>Debris Report</span>
             <span>{new Date(report.timestamp).toLocaleString()}</span>
           </Styled.BattleReportHeader>
           <Styled.BattleReportDetails
