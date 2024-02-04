@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
-import { formatAccount } from '../../shared/utils';
+import { formatAccount, numberWithCommas } from '../../shared/utils';
 
 const Table = styled.table`
   width: 100%;
@@ -128,7 +128,9 @@ const LeadearBoardMain = ({ planetId }: Props) => {
                   : 'Unknown Account'}
               </Data>
               <Data>{entry.planet_id}</Data>
-              <Data>{Math.round(Number(entry.net_amount) / 1000)}</Data>
+              <Data>
+                {numberWithCommas(Math.round(Number(entry.net_amount) / 1000))}
+              </Data>
             </Row>
           ))}
         </tbody>

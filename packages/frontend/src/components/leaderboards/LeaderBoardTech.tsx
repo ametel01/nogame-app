@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
 import { CenteredProgress } from './LeaderBoardMain';
 import { formatAccount } from '../../shared/utils';
+import { numberWithCommas } from '../../shared/utils/index';
 
 const Table = styled.table`
   width: 100%;
@@ -121,7 +122,9 @@ const LeadearBoardTech = ({ planetId }: Props) => {
                   : 'Unknown Account'}
               </Data>
               <Data>{entry.planet_id}</Data>
-              <Data>{Math.round(Number(entry.total_spent) / 1000)}</Data>
+              <Data>
+                {numberWithCommas(Math.round(Number(entry.total_spent) / 1000))}
+              </Data>
             </Row>
           ))}
         </tbody>
