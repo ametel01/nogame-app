@@ -6,7 +6,7 @@ export const ShipsStats = {
     hull: 1000,
     speed: 5000,
     cargo: 10000,
-    consumption: 10,
+    consumption: 23,
   },
   scraper: {
     id: 1,
@@ -15,7 +15,7 @@ export const ShipsStats = {
     hull: 1600,
     speed: 2000,
     cargo: 20000,
-    consumption: 300,
+    consumption: 343,
   },
   sparrow: {
     id: 2,
@@ -24,7 +24,7 @@ export const ShipsStats = {
     hull: 1000,
     speed: 12500,
     cargo: 50,
-    consumption: 20,
+    consumption: 23,
   },
   frigate: {
     id: 3,
@@ -33,7 +33,7 @@ export const ShipsStats = {
     hull: 8000,
     speed: 15000,
     cargo: 300,
-    consumption: 800,
+    consumption: 353,
   },
   armade: {
     id: 4,
@@ -42,7 +42,7 @@ export const ShipsStats = {
     hull: 15000,
     speed: 10000,
     cargo: 1500,
-    consumption: 500,
+    consumption: 590,
   },
 };
 

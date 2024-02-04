@@ -29,7 +29,7 @@ function getUnitConsumption(
 ): number {
   const consumption =
     1 +
-    Math.round(
+    Math.ceil(
       ((ship.consumption * distance) / 35000) * Math.pow(speed / 100 + 1, 2)
     );
   return consumption;
@@ -45,9 +45,7 @@ export function getFuelConsumption(
       fleet.scraper * getUnitConsumption(SCRAPER, distance, speedFactor) +
       fleet.sparrow * getUnitConsumption(SPARROW, distance, speedFactor) +
       fleet.frigate * getUnitConsumption(FRIGATE, distance, speedFactor) +
-      fleet.armade *
-        getUnitConsumption(ARMADE, distance, speedFactor) *
-        (speedFactor / 100)
+      fleet.armade * getUnitConsumption(ARMADE, distance, speedFactor)
   );
 }
 
