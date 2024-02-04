@@ -267,7 +267,7 @@ function ButtonAttackPlanet({
     const speedFactor = speed / 100; // Convert percentage to a factor
     const fleetSpeed = techs ? getFleetSpeed(fleet, techs) : 0;
     setTravelTime(getFlightTime(fleetSpeed, distance, speedFactor));
-    setFuelConsumption(getFuelConsumption(fleet, distance, speedFactor));
+    setFuelConsumption(getFuelConsumption(fleet, distance, speed));
   }, [distance, fleet, ownPosition, techs, speed]);
 
   const handleSendAttackClick = () => {
