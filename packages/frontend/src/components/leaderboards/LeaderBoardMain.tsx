@@ -129,7 +129,7 @@ const LeadearBoardMain = ({ planetId }: Props) => {
               </Data>
               <Data>{entry.planet_id}</Data>
               <Data>
-                {numberWithCommas(Math.round(Number(entry.net_amount) / 1000))}
+                {numberWithCommas(Math.ceil(Number(entry.net_amount) / 1000))}
               </Data>
             </Row>
           ))}

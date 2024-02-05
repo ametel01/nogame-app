@@ -142,7 +142,7 @@ export const BeamDescription = () => (
     stats={StatsComponent(DefencesStats.beam)}
     requirements={
       <>
-        <li>Dockyar level 4</li>
+        <li>Dockyard level 4</li>
         <li>Energy Innovation level 3</li>
         <li>Beam Tech level 6</li>
       </>
