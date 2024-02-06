@@ -1,11 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Typography } from '@mui/material';
-import { useContractRead } from '@starknet-react/core';
 import nogameLogo from '../../assets/logos/NoGameLogo.webp';
-import { BlockTag } from 'starknet';
-import { GAMEADDRESS } from '../../constants/addresses';
-import game from '../../constants/nogame.json';
+
 import { numberWithCommas } from '../../shared/utils';
 
 const LogoContainer = styled.div`
@@ -56,23 +53,64 @@ const StyledImage = styled.img`
   objectfit: contain;
 `;
 
+interface LeaderboardEntry {
+  planet_id: string; // Assuming planet_id is a string based on your initial data
+  account: string;
+  net_amount: string; // Assuming net_amount is a string that should be converted to a number
+}
+
 interface Props {
   planetId: number;
 }
 
 const LogoAndRankContainer = ({ planetId }: Props) => {
-  const { data: points } = useContractRead({
-    address: GAMEADDRESS,
-    abi: game.abi,
-    functionName: 'get_planet_points',
-    args: [Number(planetId)],
-    watch: false,
-    blockIdentifier: BlockTag.pending,
-  });
+  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
+  const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const nodeEnv = import.meta.env.VITE_NODE_ENV;
+  const apiUrl =
+    nodeEnv === 'production'
+      ? 'https://www.api.testnet.no-game.xyz/leaderboard'
+      : 'http://localhost:3001/leaderboard';
+
+  useEffect(() => {
+    const fetchLeaderboard = async () => {
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error('Something went wrong!');
+        }
+        const data = await response.json();
+        setLeaderboard(data);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError('An unexpected error occurred');
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchLeaderboard();
+  }, [apiUrl]);
 
   const score = useMemo(() => {
-    return points ? Number(points) : '';
-  }, [points]);
+    const planetData = leaderboard.find(
+      (planet) => planet.planet_id === planetId.toString()
+    );
+    return planetData ? Number(planetData.net_amount) : 0;
+  }, [leaderboard, planetId]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <LogoContainer>
@@ -82,7 +120,7 @@ const LogoAndRankContainer = ({ planetId }: Props) => {
           <TrophyDiv>
             <TitleContainer>Score</TitleContainer>
           </TrophyDiv>
-          {numberWithCommas(Number(score))}
+          {numberWithCommas(Math.ceil(score / 1000))}
         </RankLineContainer>
       </RankContainer>
     </LogoContainer>
