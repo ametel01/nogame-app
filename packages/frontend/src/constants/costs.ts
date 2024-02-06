@@ -38,6 +38,7 @@ export const baseShipCost: Record<number, Resources> = {
 
 export function getBaseDefenceCost() {
   return {
+    celestia: { steel: 0, quartz: 2000, tritium: 500 },
     blaster: { steel: 2000, quartz: 0, tritium: 0 },
     beam: { steel: 6000, quartz: 2000, tritium: 0 },
     astral: { steel: 20000, quartz: 15000, tritium: 0 },
