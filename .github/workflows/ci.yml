@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main, master, dev ]
+    branches: [ master, dev ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ master, dev ]
 
 jobs:
   build:
@@ -17,16 +17,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
     - name: Setup PNPM
       uses: pnpm/action-setup@v3
       with:
         version: 8
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
     
     - name: Install dependencies
       run: pnpm install
@@ -52,16 +52,16 @@ jobs:
   #   steps:
   #   - uses: actions/checkout@v4
   #   
-  #   - name: Use Node.js ${{ matrix.node-version }}
-  #     uses: actions/setup-node@v4
-  #     with:
-  #       node-version: ${{ matrix.node-version }}
-  #       cache: 'npm'
-  #   
   #   - name: Setup PNPM
   #     uses: pnpm/action-setup@v3
   #     with:
   #       version: 8
+  #   
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v4
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
+  #       cache: 'pnpm'
   #   
   #   - name: Install dependencies
   #     run: pnpm install
