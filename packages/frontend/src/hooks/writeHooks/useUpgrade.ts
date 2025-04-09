@@ -77,7 +77,7 @@ export function useCompoundUpgrade(
 ): UseUpgradeReturnType {
   const { contract } = useContract({
     abi: upgradeAbi,
-    address: COMPOUNDADDRESS,
+    address: colonyId === 0 ? COMPOUNDADDRESS : COLONYADDRESS,
   });
 
   const name =
