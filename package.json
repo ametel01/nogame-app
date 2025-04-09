@@ -2,24 +2,20 @@
   "name": "nogame-app",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "packages/frontend",
-    "packages/backend"
-  ],
   "scripts": {
-    "dev": "concurrently --kill-others \"cd packages/backend && npm run dev\" \"cd packages/frontend && npm run dev\"",
-    "build": "concurrently \"cd packages/backend && npm run build\" \"cd packages/frontend && npm run build\"",
-    "start": "concurrently \"cd packages/backend && npm start\" \"cd packages/frontend && npm run preview\"",
+    "dev": "concurrently --kill-others \"cd packages/backend && pnpm run dev\" \"cd packages/frontend && pnpm run dev\"",
+    "build": "concurrently \"cd packages/backend && pnpm run build\" \"cd packages/frontend && pnpm run build\"",
+    "start": "concurrently \"cd packages/backend && pnpm start\" \"cd packages/frontend && pnpm run preview\"",
     "prepare": "husky install",
     "lint": "lerna run lint --parallel",
     "format": "lerna run format --parallel",
     "type-check": "lerna run type-check --parallel"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "husky": "^9.0.6",
-    "lerna": "^8.0.2",
-    "lint-staged": "^15.2.0"
+    "concurrently": "^9.1.2",
+    "husky": "^9.1.7",
+    "lerna": "^8.2.1",
+    "lint-staged": "^15.5.0"
   },
   "husky": {
     "hooks": {
@@ -28,9 +24,9 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "npm run format",
-      "npm run lint",
-      "npm run type-check"
+      "pnpm run format",
+      "pnpm run lint",
+      "pnpm run type-check"
     ]
   }
 }
