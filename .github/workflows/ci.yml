@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -e {0}
 
     strategy:
       matrix:
@@ -32,7 +35,20 @@ jobs:
       run: pnpm install
     
     - name: Lint
-      run: pnpm run lint
+      id: lint
+      run: |
+        # Save the lint output to a file
+        pnpm run lint > lint_output.txt || echo "::set-output name=lint_failed::true"
+        
+        # Check if there were any errors or warnings in the output
+        if grep -q "error" lint_output.txt || grep -q "warning" lint_output.txt; then
+          cat lint_output.txt
+          echo "Linting issues found. Please fix them before merging."
+          exit 1
+        fi
+        
+        # Display the output for debugging
+        cat lint_output.txt
     
     - name: Type check
       run: pnpm run type-check
