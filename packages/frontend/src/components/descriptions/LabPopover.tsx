@@ -1,25 +1,25 @@
-import React from 'react';
-import styled from 'styled-components';
-import armourImg from '../../assets/gameElements/techs/armour4.webp';
-import beamImg from '../../assets/gameElements/techs/beam4.webp';
-import ionImg from '../../assets/gameElements/techs/ion4.webp';
-import plasmaImg from '../../assets/gameElements/techs/plasma4.webp';
-import spacetimeImg from '../../assets/gameElements/techs/spacetime4.webp';
-import warpEnginImg from '../../assets/gameElements/techs/warp4.webp';
-import combustionImg from '../../assets/gameElements/techs/combustion4.webp';
-import thrustImg from '../../assets/gameElements/techs/thrust4.webp';
-import weaponsImg from '../../assets/gameElements/techs/weapons4.webp';
-import digitalImg from '../../assets/gameElements/techs/digital4.webp';
-import shieldImg from '../../assets/gameElements/techs/shield4.webp';
-import energyImg from '../../assets/gameElements/techs/energy4.webp';
-import exoImg from '../../assets/gameElements/techs/exocraft.webp';
+import React from "react";
+import styled from "styled-components";
+import armourImg from "../../assets/gameElements/techs/armour4.webp";
+import beamImg from "../../assets/gameElements/techs/beam4.webp";
+import ionImg from "../../assets/gameElements/techs/ion4.webp";
+import plasmaImg from "../../assets/gameElements/techs/plasma4.webp";
+import spacetimeImg from "../../assets/gameElements/techs/spacetime4.webp";
+import warpEnginImg from "../../assets/gameElements/techs/warp4.webp";
+import combustionImg from "../../assets/gameElements/techs/combustion4.webp";
+import thrustImg from "../../assets/gameElements/techs/thrust4.webp";
+import weaponsImg from "../../assets/gameElements/techs/weapons4.webp";
+import digitalImg from "../../assets/gameElements/techs/digital4.webp";
+import shieldImg from "../../assets/gameElements/techs/shield4.webp";
+import energyImg from "../../assets/gameElements/techs/energy4.webp";
+import exoImg from "../../assets/gameElements/techs/exocraft.webp";
 import {
   PopoverBox,
   PopoverHeaderDiv,
   PopoverRequirements,
-} from '../../shared/styled/PopoverStyle';
+} from "../../shared/styled/PopoverStyle";
 
-const TextBox = styled('div')`
+const TextBox = styled("div")`
   font-size: 16px;
   line-height: 1.5;
 `;
@@ -42,16 +42,16 @@ const DescriptionComponent = ({
   return (
     <PopoverBox>
       <PopoverHeaderDiv>{title}</PopoverHeaderDiv>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         {/* Image Section */}
-        <div style={{ marginRight: '16px' }}>
+        <div style={{ marginRight: "16px" }}>
           <img
             src={image}
             alt={title}
-            style={{ width: '240px', height: 'auto', borderRadius: '8px' }}
+            style={{ width: "240px", height: "auto", borderRadius: "8px" }}
           />
         </div>
-        <div style={{ display: 'grid' }}></div>
+        <div style={{ display: "grid" }}></div>
         <TextBox>
           {description}
           <br />

@@ -1,9 +1,9 @@
-import React, { useMemo, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { Typography } from '@mui/material';
-import nogameLogo from '../../assets/logos/NoGameLogo.webp';
+import React, { useMemo, useEffect, useState } from "react";
+import styled from "styled-components";
+import { Typography } from "@mui/material";
+import nogameLogo from "../../assets/logos/NoGameLogo.webp";
 
-import { numberWithCommas } from '../../shared/utils';
+import { numberWithCommas } from "../../shared/utils";
 
 const LogoContainer = styled.div`
   display: flex;
@@ -34,10 +34,10 @@ const RankLineContainer = styled.div`
 
 const TitleContainer = styled(Typography)({
   fontWeight: 500,
-  lineHeight: '18px',
-  letterSpacing: '0.02em',
-  color: 'grey',
-  marginLeft: '4px',
+  lineHeight: "18px",
+  letterSpacing: "0.02em",
+  color: "grey",
+  marginLeft: "4px",
 });
 
 const TrophyDiv = styled.div`
@@ -65,21 +65,21 @@ interface Props {
 
 const LogoAndRankContainer = ({ planetId }: Props) => {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const apiUrl =
-    nodeEnv === 'production'
-      ? 'https://www.api.testnet.no-game.xyz/leaderboard'
-      : 'http://localhost:3001/leaderboard';
+    nodeEnv === "production"
+      ? "https://www.api.testnet.no-game.xyz/leaderboard"
+      : "http://localhost:3001/leaderboard";
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
-          throw new Error('Something went wrong!');
+          throw new Error("Something went wrong!");
         }
         const data = await response.json();
         setLeaderboard(data);
@@ -87,7 +87,7 @@ const LogoAndRankContainer = ({ planetId }: Props) => {
         if (error instanceof Error) {
           setError(error.message);
         } else {
-          setError('An unexpected error occurred');
+          setError("An unexpected error occurred");
         }
       } finally {
         setIsLoading(false);
@@ -99,7 +99,7 @@ const LogoAndRankContainer = ({ planetId }: Props) => {
 
   const score = useMemo(() => {
     const planetData = leaderboard.find(
-      (planet) => planet.planet_id === planetId.toString()
+      (planet) => planet.planet_id === planetId.toString(),
     );
     return planetData ? Number(planetData.net_amount) : 0;
   }, [leaderboard, planetId]);

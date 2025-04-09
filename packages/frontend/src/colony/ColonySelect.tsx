@@ -1,12 +1,11 @@
-import React from 'react';
-import { Select, MenuItem, SelectChangeEvent } from '@mui/material';
-import { useGetPlanetColonies } from '../hooks/ColoniesHooks';
-import { ColonyArray } from '../hooks/ColoniesHooks';
-import FormControl from '@mui/material/FormControl';
-import Box from '@mui/material/Box';
-import { GenerateColony } from '../components/buttons/GenerateColony';
-import { TechLevels } from '../shared/types/index';
-import { useTechLevels } from '../panels';
+import React from "react";
+import { Select, MenuItem, SelectChangeEvent } from "@mui/material";
+import { useGetPlanetColonies, type ColonyArray } from "../hooks/colonies";
+import FormControl from "@mui/material/FormControl";
+import Box from "@mui/material/Box";
+import { GenerateColony } from "../components/buttons/GenerateColony";
+import { TechLevels } from "../shared/types/index";
+import { useTechLevels } from "../panels";
 
 interface Props {
   planetId: number;
@@ -15,24 +14,24 @@ interface Props {
 }
 
 const selectStyles = {
-  color: '#c5c6c7',
-  '& .MuiOutlinedInput-root': {
-    borderRadius: '4px',
-    padding: '8px 16px',
-    margin: '8px 0',
-    '& .MuiSelect-select': {
-      padding: '8px',
-      borderRadius: '4px',
-      background: '#1c242c',
+  color: "#c5c6c7",
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "4px",
+    padding: "8px 16px",
+    margin: "8px 0",
+    "& .MuiSelect-select": {
+      padding: "8px",
+      borderRadius: "4px",
+      background: "#1c242c",
     },
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: '#2a3f55',
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#2a3f55",
     },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: '#3b506a',
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#3b506a",
     },
-    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: '#4c6a8e',
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#4c6a8e",
     },
   },
 };
@@ -40,8 +39,8 @@ const selectStyles = {
 const menuProps = {
   PaperProps: {
     style: {
-      backgroundColor: '#1c242c', // Set the background color for the dropdown menu
-      color: '#c5c6c7', // Set the text color for the dropdown menu
+      backgroundColor: "#1c242c", // Set the background color for the dropdown menu
+      color: "#c5c6c7", // Set the text color for the dropdown menu
       // Add any additional styles for the dropdown menu here
     },
   },

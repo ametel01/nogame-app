@@ -1,4 +1,4 @@
-import { baseTechCost } from '../../constants/costs';
+import { baseTechCost } from "../../constants/costs";
 
 const GROWTH_FACTOR_LINEAR = 1.1;
 const GROWTH_FACTOR_QUARTZ = 1.6;
@@ -9,11 +9,11 @@ function calculateCost(
   steelMultiplier: number,
   quartzMultiplier: number,
   level: number,
-  growthFactor: number
+  growthFactor: number,
 ) {
   const steel = Math.round(steelMultiplier * Math.pow(growthFactor, level - 1));
   const quartz = Math.round(
-    quartzMultiplier * Math.pow(growthFactor, level - 1)
+    quartzMultiplier * Math.pow(growthFactor, level - 1),
   );
   const tritium = 0;
   return { steel, quartz, tritium };
@@ -45,7 +45,7 @@ export const CompoundsFormulas = {
       return 0;
     }
     return Math.round(
-      20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
+      20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1),
     );
   },
 
@@ -84,7 +84,7 @@ export const CompoundsFormulas = {
       return 0;
     }
     return Math.round(
-      10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
+      10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1),
     );
   },
 
@@ -93,7 +93,7 @@ export const CompoundsFormulas = {
       return 0;
     }
     return Math.round(
-      10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
+      10 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1),
     );
   },
 
@@ -102,7 +102,7 @@ export const CompoundsFormulas = {
       return 0;
     }
     return Math.round(
-      20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1)
+      20 * (level - 1) * Math.pow(GROWTH_FACTOR_LINEAR, level - 1),
     );
   },
 };
@@ -111,7 +111,7 @@ export function techCostFormula(
   level: number,
   steelCost: number,
   quartzCost: number,
-  tritiumCost: number
+  tritiumCost: number,
 ) {
   const steel = Math.round(steelCost * Math.pow(2, level));
   const quartz = Math.round(quartzCost * Math.pow(2, level));
@@ -137,7 +137,7 @@ export function calculateFleetLoss(timeSeconds: number): number {
 export const getCompoundCost = (
   functionCallName: number,
   level: number,
-  quantity: number
+  quantity: number,
 ) => {
   const totalCost = { steel: 0, quartz: 0, tritium: 0 };
   for (let i = 0; i < quantity; i++) {
@@ -175,7 +175,7 @@ export const getCompoundCost = (
 export const getCumulativeEnergyChange = (
   functionCallName: number,
   level: number,
-  quantity: number
+  quantity: number,
 ) => {
   let output = 0;
 
@@ -216,7 +216,7 @@ export const getCumulativeTechCost = (
   baseSteelCost: number,
   baseQuartzCost: number,
   baseTritiumCost: number,
-  isExo: boolean
+  isExo: boolean,
 ) => {
   const totalCost = { steel: 0, quartz: 0, tritium: 0 };
 
@@ -227,7 +227,7 @@ export const getCumulativeTechCost = (
           level + i,
           baseSteelCost,
           baseQuartzCost,
-          baseTritiumCost
+          baseTritiumCost,
         );
 
     totalCost.steel += costAtLevel.steel;

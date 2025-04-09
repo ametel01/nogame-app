@@ -1,20 +1,20 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import WebFont from 'webfontloader'
-import { StarknetProvider } from './components/provider'
-import App from './App'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import WebFont from "webfontloader";
+import { StarknetProvider } from "./components/provider";
+import App from "./App";
 
 // Load Orbitron font
 WebFont.load({
   google: {
-    families: ['Share Tech Mono:400,500,600,700']
-  }
-})
+    families: ["Share Tech Mono:400,500,600,700"],
+  },
+});
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <StarknetProvider>
       <App />
     </StarknetProvider>
-  </React.StrictMode>
-)
+  </React.StrictMode>,
+);

@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import { type FC } from 'react';
-import { CircularProgress } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { useDisconnect } from '@starknet-react/core';
-import NoGameLogo from '../assets/logos/NoGameLogo.webp';
-import { ColumnCenter } from '../shared/styled/Column';
-import { RowCentered } from '../components/ui/Row';
-import ConnectWalletButton from '../components/auth/ConnectWallet';
-import { GeneratePlanet } from '../components/buttons/GeneratePlanet';
-import { useGetPlanetPrice } from '../hooks/useGetPlanetPrice';
-import RotatingLogo from '../components/ui/RotatingLogo';
+import React from "react";
+import styled from "styled-components";
+import { type FC } from "react";
+import { CircularProgress } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useDisconnect } from "@starknet-react/core";
+import NoGameLogo from "../assets/logos/NoGameLogo.webp";
+import { ColumnCenter } from "../shared/styled/Column";
+import { RowCentered } from "../components/ui/Row";
+import ConnectWalletButton from "../components/auth/ConnectWallet";
+import { GeneratePlanet } from "../components/buttons/GeneratePlanet";
+import { useGetPlanetPrice } from "../hooks/planet";
+import RotatingLogo from "../components/ui/RotatingLogo";
 
 const MainWrapper = styled(ColumnCenter)`
   height: 100vh;
@@ -18,7 +18,7 @@ const MainWrapper = styled(ColumnCenter)`
   gap: 16px;
 `;
 
-const SubTextBefore = styled('div')`
+const SubTextBefore = styled("div")`
   margin-top: 24px;
   // margin-bottom: 24px;
   font-weight: 400;
@@ -32,17 +32,17 @@ const SubTextBefore = styled('div')`
   margin-y: 80px;
 `;
 
-const StyledLogo = styled('img')`
+const StyledLogo = styled("img")`
   margin-top: 100px;
 `;
 
-const TopRightButtonContainer = styled('div')`
+const TopRightButtonContainer = styled("div")`
   position: absolute;
   top: 20px; /* Adjust the top position as needed */
   right: 20px; /* Adjust the right position as needed */
 `;
 
-const PriceText = styled('div')`
+const PriceText = styled("div")`
   color: #ffd700;
   font-weight: 500;
   font-size: 20px;
@@ -51,7 +51,8 @@ const PriceText = styled('div')`
   background-color: rgba(34, 36, 45, 0.8); // Dark background for contrast
   margin-bottom: 12px;
   border-radius: 8px;
-  font-family: 'Courier New', Courier, monospace; // Monospaced font for the ticker effect
+  font-family:
+    "Courier New", Courier, monospace; // Monospaced font for the ticker effect
   white-space: nowrap;
   overflow: hidden;
   opacity: 0.9;
@@ -59,7 +60,7 @@ const PriceText = styled('div')`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); // Add a subtle shadow for depth
 `;
 
-const StyledAddress = styled('div')`
+const StyledAddress = styled("div")`
   display: flex;
   align-items: center;
   position: absolute;
@@ -88,7 +89,7 @@ interface AuthScreenProps {
 
 type ConnectWalletViewProps = Omit<
   AuthScreenProps,
-  'generatePlanet' | 'hasGeneratedPlanets'
+  "generatePlanet" | "hasGeneratedPlanets"
 >;
 
 const AuthScreen = ({
@@ -127,7 +128,7 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
   const renderButton = () => {
     if (!address) {
       return walletConnectLoading ? (
-        <CircularProgress sx={{ opacity: '0.5' }} />
+        <CircularProgress sx={{ opacity: "0.5" }} />
       ) : (
         <ConnectWalletButton />
       );
@@ -152,7 +153,7 @@ const ConnectWalletView: FC<ConnectWalletViewProps> = ({
 const formatAddress = (address: string) => {
   if (address && address.length > 10) {
     return `${address.substring(0, 6)}...${address.substring(
-      address.length - 4
+      address.length - 4,
     )}`;
   }
   return address; // Return the original address if it's too short
@@ -192,12 +193,12 @@ const GeneratePlanetView = ({ address }: PlanetViewProp) => {
       </SubTextBefore>
 
       <PriceText>
-        Current NFT price:{' '}
+        Current NFT price:{" "}
         {price !== undefined ? (
           (Number(price) / 10 ** 18).toFixed(6)
         ) : (
-          <CircularProgress size={24} style={{ color: 'red' }} />
-        )}{' '}
+          <CircularProgress size={24} style={{ color: "red" }} />
+        )}{" "}
         ETH
       </PriceText>
       <GeneratePlanet price={price} />

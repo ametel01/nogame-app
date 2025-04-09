@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   UniverseProps,
   useAccount,
   useGetIsNoobProtected,
   useGetPlanetRanking,
   useCalculateWinsAndLosses,
-  useLastActive,
-  useShipsLevels,
   ShipsLevels,
   getPlanetImage,
   ImageId,
@@ -19,38 +17,40 @@ import {
   StyledTabPanel,
   // Stack,
   Pagination,
-} from '.';
-import { useGetColonyShips } from '../hooks/ColoniesHooks';
-import { useDestination } from '../context/DestinationContext';
-import TextField from '@mui/material/TextField';
-import { styled as muiStyled } from '@mui/material/styles';
+} from ".";
+import { useLastActive } from "../hooks/fleet";
+import { useGetColonyShips } from "../hooks/colonies";
+import { useDestination } from "../context/DestinationContext";
+import TextField from "@mui/material/TextField";
+import { styled as muiStyled } from "@mui/material/styles";
+import { useShipsLevels } from "../hooks/levels";
 
-const PaginationContainer = muiStyled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '100%',
-  marginTop: '16px', // Adjust as needed for spacing
+const PaginationContainer = muiStyled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  marginTop: "16px", // Adjust as needed for spacing
 });
 
 const PageInput = muiStyled(TextField)({
-  '& .MuiInputBase-input': {
-    color: 'white', // Set the color you prefer
-    textAlign: 'center',
+  "& .MuiInputBase-input": {
+    color: "white", // Set the color you prefer
+    textAlign: "center",
   },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: 'rgba(255, 255, 255, 0.23)', // Border color
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "rgba(255, 255, 255, 0.23)", // Border color
     },
-    '&:hover fieldset': {
-      borderColor: 'white', // Border color on hover
+    "&:hover fieldset": {
+      borderColor: "white", // Border color on hover
     },
-    '&.Mui-focused fieldset': {
-      borderColor: 'white', // Border color when focused
+    "&.Mui-focused fieldset": {
+      borderColor: "white", // Border color when focused
     },
   },
-  width: '60px', // Adjust as needed
-  marginRight: '8px', // Space between input and pagination
+  width: "60px", // Adjust as needed
+  marginRight: "8px", // Space between input and pagination
 });
 
 const UniverseBoxItem = ({
@@ -60,7 +60,7 @@ const UniverseBoxItem = ({
   colonyId,
 }: UniverseProps) => {
   const { address: address_data } = useAccount();
-  const address = address_data || '';
+  const address = address_data || "";
   const highlighted = parseInt(address, 16) === parseInt(planet.account, 16);
 
   const motherPlanet =
@@ -73,7 +73,7 @@ const UniverseBoxItem = ({
   const lastActive = useLastActive(motherPlanet);
   const isNoobProtected = useGetIsNoobProtected(
     Number(ownPlanetId),
-    motherPlanet
+    motherPlanet,
   );
 
   const ownFleetData = useShipsLevels(Number(ownPlanetId));
@@ -97,12 +97,12 @@ const UniverseBoxItem = ({
   };
 
   const img = getPlanetImage(
-    planet.position.orbit.toString() as unknown as ImageId
+    planet.position.orbit.toString() as unknown as ImageId,
   );
 
   const shortenedAddress = `${planet.account.slice(
     0,
-    4
+    4,
   )}...${planet.account.slice(-4)}`;
 
   return (
@@ -142,7 +142,7 @@ export const UniverseViewTabPanel = ({
 }: UniverseViewTabPanelProps) => {
   const [planetsData, setPlanetsData] = useState<PlanetDetails[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [inputPage, setInputPage] = useState('');
+  const [inputPage, setInputPage] = useState("");
   const [pageError, setPageError] = useState(false);
   const itemsPerPage = 6;
   const pageCount = Math.ceil(planetsData.length / itemsPerPage);
@@ -163,12 +163,12 @@ export const UniverseViewTabPanel = ({
 
         if (selectedDestination !== null) {
           const destinationIndex = sortedData.findIndex(
-            (planet) => Number(planet.planetId) === Number(selectedDestination)
+            (planet) => Number(planet.planetId) === Number(selectedDestination),
           );
           if (destinationIndex !== -1) {
             // Check if index is valid
             const destinationPage = Math.ceil(
-              (destinationIndex + 1) / itemsPerPage
+              (destinationIndex + 1) / itemsPerPage,
             );
             setCurrentPage(destinationPage);
           }
@@ -177,26 +177,26 @@ export const UniverseViewTabPanel = ({
           const ownPlanetIndex = sortedData.findIndex((planet) =>
             colonyId === 0
               ? Number(planet.planetId) === ownPlanetId
-              : Number(planet.planetId) === ownPlanetId * 1000 + colonyId
+              : Number(planet.planetId) === ownPlanetId * 1000 + colonyId,
           );
           const initialPage = Math.ceil((ownPlanetIndex + 1) / itemsPerPage);
           setCurrentPage(initialPage);
         }
       })
       .catch((error) => {
-        console.error('Error fetching planets data:', error);
+        console.error("Error fetching planets data:", error);
       });
   }, [colonyId, ownPlanetId, selectedDestination]);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const selectedPlanets = planetsData.slice(
     startIndex,
-    startIndex + itemsPerPage
+    startIndex + itemsPerPage,
   );
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
-    page: number
+    page: number,
   ) => {
     setCurrentPage(page);
     setInputPage(page.toString());
@@ -245,11 +245,11 @@ export const UniverseViewTabPanel = ({
           variant="outlined"
           shape="rounded"
           sx={{
-            '.MuiPaginationItem-root.MuiPaginationItem-root': {
-              color: 'white',
+            ".MuiPaginationItem-root.MuiPaginationItem-root": {
+              color: "white",
             },
-            '.MuiPaginationItem-root.Mui-selected': {
-              backgroundColor: 'rgba(211, 211, 211, 0.5)',
+            ".MuiPaginationItem-root.Mui-selected": {
+              backgroundColor: "rgba(211, 211, 211, 0.5)",
             },
           }}
         />
@@ -266,4 +266,4 @@ export const UniverseViewTabPanel = ({
   );
 };
 
-UniverseViewTabPanel.tabsRole = 'TabPanel';
+UniverseViewTabPanel.tabsRole = "TabPanel";

@@ -1,34 +1,34 @@
-import React, { useMemo, useState } from 'react';
-import Tooltip from '@mui/material/Tooltip';
-import styled from 'styled-components';
-import { Typography } from '@mui/material';
+import React, { useMemo, useState } from "react";
+import Tooltip from "@mui/material/Tooltip";
+import styled from "styled-components";
+import { Typography } from "@mui/material";
 import {
   QUARTZADDRESS,
   STEELADDRESS,
   TRITIUMADDRESS,
-} from '../../constants/addresses';
-import { numberWithCommas } from '../../shared/utils';
+} from "../../constants/addresses";
+import { numberWithCommas } from "../../shared/utils";
 // Asset imports
-import ironImg from '../../assets/gameElements/resources/steel-1.webp';
-import quartzImg from '../../assets/gameElements/resources/quartz-2.webp';
-import tritiumImg from '../../assets/gameElements/resources/tritium-1.webp';
-import energyImg from '../../assets/gameElements/resources/energy-2.webp';
+import ironImg from "../../assets/gameElements/resources/steel-1.webp";
+import quartzImg from "../../assets/gameElements/resources/quartz-2.webp";
+import tritiumImg from "../../assets/gameElements/resources/tritium-1.webp";
+import energyImg from "../../assets/gameElements/resources/energy-2.webp";
 import {
   useCollectibleResources,
   // useEnergyAvailable,
   useSpendableResources,
-} from '../../hooks/ResourcesHooks';
-import { useGetCelestiaAvailable } from '../../hooks/EnergyHooks';
+} from "../../hooks/resources";
+import { useGetCelestiaAvailable } from "../../hooks/energy";
 import CompoundsFormulas, {
   getCelestiaProduction,
-} from '../../shared/utils/Formulas';
-import { useCompoundsLevels } from '../../hooks/LevelsHooks';
+} from "../../shared/utils/Formulas";
+import { useCompoundsLevels } from "../../hooks/levels";
 import {
   useGetColonyCompounds,
   useGetColonyDefences,
   useGetColonyResources,
-} from '../../hooks/ColoniesHooks';
-import { Position } from '../../shared/types';
+} from "../../hooks/colonies";
+import { Position } from "../../shared/types";
 
 const Container = styled.div`
   display: flex;
@@ -56,15 +56,15 @@ const ImageStyle = styled.img`
 `;
 
 const ResourceName = styled(Typography)({
-  textTransform: 'uppercase',
+  textTransform: "uppercase",
   opacity: 0.5,
   fontWeight: 700,
-  lineHeight: '16px',
-  letterSpacing: '0.02em',
+  lineHeight: "16px",
+  letterSpacing: "0.02em",
   margin: 0, // Make sure no external spacing
   padding: 0, // Make sure no internal spacing
 
-  width: '64px',
+  width: "64px",
 });
 
 const TotalResourceText = styled.div`
@@ -99,14 +99,14 @@ interface Props {
 const Energy = ({ available, img, title, fromCelestia }: Props) => {
   const energyAvailable = available != undefined ? Number(available) : 0;
   const availableStyle = {
-    color: energyAvailable < 0 ? '#AB3836' : '#23CE6B', // Apply red color if available is negative
+    color: energyAvailable < 0 ? "#AB3836" : "#23CE6B", // Apply red color if available is negative
   };
   return (
     <Container>
       <div>
-        <ResourceName style={{ fontSize: '16px' }}>{title}</ResourceName>
+        <ResourceName style={{ fontSize: "16px" }}>{title}</ResourceName>
         <ImageAddressContainer>
-          <div style={{ width: '30px' }}>
+          <div style={{ width: "30px" }}>
             <ImageStyle src={img} alt="resource" />
           </div>
         </ImageAddressContainer>
@@ -114,18 +114,18 @@ const Energy = ({ available, img, title, fromCelestia }: Props) => {
       <TotalResourceWrapper>
         <TotalResourceContainer>
           <Tooltip
-            title={'Energy must always be positive to avoid loosing production'}
+            title={"Energy must always be positive to avoid loosing production"}
             arrow
             placement="top"
           >
             <div>
-              <ResourceName style={{ fontSize: '10px' }}>
+              <ResourceName style={{ fontSize: "10px" }}>
                 Available
               </ResourceName>
               <TotalResourceText style={availableStyle}>
                 {numberWithCommas(available!)}
               </TotalResourceText>
-              <ResourceName style={{ fontSize: '10px' }}>Celestia</ResourceName>
+              <ResourceName style={{ fontSize: "10px" }}>Celestia</ResourceName>
               <TotalResourceText>
                 {numberWithCommas(fromCelestia!)}
               </TotalResourceText>
@@ -143,24 +143,24 @@ const Resource = ({ spendable, collectible, img, title, address }: Props) => {
     <Container>
       <Tooltip
         title={
-          copied ? 'Copied' : 'Copy Token Address and add it to your wallet'
+          copied ? "Copied" : "Copy Token Address and add it to your wallet"
         }
         arrow
       >
         <div>
-          <ResourceName style={{ fontSize: '16px' }}>{title}</ResourceName>
+          <ResourceName style={{ fontSize: "16px" }}>{title}</ResourceName>
           <ImageAddressContainer
             onClick={() => {
               if (address) {
-                const blob = new Blob([address], { type: 'text/plain' });
-                const item = new ClipboardItem({ 'text/plain': blob });
+                const blob = new Blob([address], { type: "text/plain" });
+                const item = new ClipboardItem({ "text/plain": blob });
                 navigator.clipboard.write([item]).then(() => {
                   setCopied(true);
                 });
               }
             }}
           >
-            <div style={{ width: '30px' }}>
+            <div style={{ width: "30px" }}>
               <ImageStyle src={img} alt="resource" />
             </div>
           </ImageAddressContainer>
@@ -174,7 +174,7 @@ const Resource = ({ spendable, collectible, img, title, address }: Props) => {
               arrow
               placement="top"
             >
-              <ResourceName style={{ fontSize: '10px' }}>
+              <ResourceName style={{ fontSize: "10px" }}>
                 Spendable
               </ResourceName>
             </Tooltip>
@@ -184,7 +184,7 @@ const Resource = ({ spendable, collectible, img, title, address }: Props) => {
               Mined resources pending collection; not spendable and 100% at risk of plundering in an attack."
               arrow
             >
-              <ResourceName style={{ fontSize: '10px' }}>
+              <ResourceName style={{ fontSize: "10px" }}>
                 Collectible
               </ResourceName>
             </Tooltip>
@@ -226,7 +226,7 @@ const ResourcesContainer = ({
   const colonyCelestia = useGetColonyDefences(planetId, selectedColonyId);
 
   const celestiaProduction = getCelestiaProduction(
-    Number(planetPosition?.orbit)
+    Number(planetPosition?.orbit),
   );
   const energyFromCelestia =
     selectedColonyId === 0
@@ -279,7 +279,7 @@ const ResourcesContainer = ({
         steel: numberWithCommas(Math.round(Number(colonyCollectible.steel))),
         quartz: numberWithCommas(Math.round(Number(colonyCollectible.quartz))),
         tritium: numberWithCommas(
-          Math.round(Number(colonyCollectible.tritium))
+          Math.round(Number(colonyCollectible.tritium)),
         ),
       };
     }

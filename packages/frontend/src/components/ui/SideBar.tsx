@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import LogoAndRankContainer from './LogoutAndRankContainer';
-import ResourcesContainer from './ResourcesContainer';
-import { UseCollectResources } from '../buttons/CollectResources';
-import ColonySelect from '../../colony/ColonySelect';
-import { SelectChangeEvent } from '@mui/material';
-import { Position } from '../../shared/types';
+import React from "react";
+import styled from "styled-components";
+import LogoAndRankContainer from "./LogoutAndRankContainer";
+import ResourcesContainer from "./ResourcesContainer";
+import { UseCollectResources } from "../buttons/CollectResources";
+import ColonySelect from "../../colony/ColonySelect";
+import { SelectChangeEvent } from "@mui/material";
+import { Position } from "../../shared/types";
 
 const BodyContainer = styled.div`
   display: flex;

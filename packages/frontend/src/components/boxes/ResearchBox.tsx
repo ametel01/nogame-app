@@ -15,8 +15,8 @@ import {
   ButtonUpgrade,
   LabBoxProps as Props,
   ButtonState,
-} from '.';
-import { InfoContainer } from './styled';
+} from ".";
+import { InfoContainer } from "./styled";
 
 const ResearchBox = ({
   img,
@@ -32,7 +32,7 @@ const ResearchBox = ({
 
   const { tx, writeAsync: upgrade } = useTechUpgrade(
     functionCallName,
-    quantity
+    quantity,
   );
 
   const baseCosts = baseTechCost[functionCallName];
@@ -46,7 +46,7 @@ const ResearchBox = ({
         baseCosts.steel,
         baseCosts.quartz,
         baseCosts.tritium,
-        isExo
+        isExo,
       );
       return cost;
     }
@@ -55,29 +55,29 @@ const ResearchBox = ({
 
   const hasEnoughResources = calculEnoughResources(
     upgradeCost,
-    resourcesAvailable
+    resourcesAvailable,
   );
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {
-      return 'noRequirements';
+      return "noRequirements";
     } else if (!hasEnoughResources) {
-      return 'noResource';
+      return "noResource";
     }
 
-    return 'valid';
+    return "valid";
   }, [hasEnoughResources, requirementsMet]);
 
-  const hasRequirements = buttonState === 'noRequirements';
+  const hasRequirements = buttonState === "noRequirements";
 
-  const isDisabled = buttonState === 'noResource';
+  const isDisabled = buttonState === "noResource";
 
   const shouldShowTooltip =
     [
-      'Ion Systems',
-      'Plasma Engineering',
-      'Spacetime Technology',
-      'Warp Drive',
+      "Ion Systems",
+      "Plasma Engineering",
+      "Spacetime Technology",
+      "Warp Drive",
     ].includes(title) && showTooltip;
 
   const boxContent = (
@@ -105,9 +105,9 @@ const ResearchBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.steel < upgradeCost.steel
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {numberWithCommas(upgradeCost.steel)}
@@ -119,9 +119,9 @@ const ResearchBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.quartz < upgradeCost.quartz
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {numberWithCommas(upgradeCost.quartz)}
@@ -133,9 +133,9 @@ const ResearchBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.tritium < upgradeCost.tritium
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {numberWithCommas(upgradeCost.tritium)}
@@ -148,7 +148,7 @@ const ResearchBox = ({
               type="number"
               value={quantity}
               onChange={(e) => {
-                if (e.target.value === '') {
+                if (e.target.value === "") {
                   setQuantity(0);
                 } else {
                   setQuantity(parseInt(e.target.value, 10));
@@ -157,7 +157,7 @@ const ResearchBox = ({
               size="sm"
               color="neutral"
               variant="soft"
-              style={{ width: '80px' }}
+              style={{ width: "80px" }}
             />
           </Tooltip>
         </Styled.ResourceContainer>

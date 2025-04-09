@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 // import { PlanetSection } from '../components/ui/PlanetSection';
 import {
   useGetColonyCompounds,
   useGetColonyDefences,
   useGetColonyResources,
-} from '../hooks/ColoniesHooks';
-import { useSpendableResources } from '../hooks/ResourcesHooks';
-import { ColonyResourcesSection } from './ColonyResourcesSection';
-import { getBaseShipsCost } from '../constants/costs';
-import { useGetColonyShips } from '../hooks/ColoniesHooks';
+  useGetColonyShips,
+} from "../hooks/colonies";
+import { useSpendableResources } from "../hooks/resources";
+import { ColonyResourcesSection } from "./ColonyResourcesSection";
+import { getBaseShipsCost } from "../constants/costs";
 
 export const GameContainer = styled.div`
   display: grid;

@@ -12,8 +12,8 @@ import {
   AddTransactionIcon,
   ButtonBuild,
   DefenceBoxProps as Props,
-} from '.';
-import { InfoContainer } from './styled';
+} from ".";
+import { InfoContainer } from "./styled";
 
 const DefencesBox = ({
   img,
@@ -33,22 +33,22 @@ const DefencesBox = ({
   const { tx, writeAsync: build } = useDefenceBuild(
     functionCallName,
     quantity,
-    colonyId
+    colonyId,
   );
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {
-      return 'noRequirements';
+      return "noRequirements";
     } else if (!hasEnoughResources) {
-      return 'noResource';
+      return "noResource";
     }
 
-    return 'valid';
+    return "valid";
   }, [hasEnoughResources, requirementsMet]);
 
-  const hasRequirements = buttonState === 'noRequirements';
+  const hasRequirements = buttonState === "noRequirements";
 
-  const isDisabled = buttonState === 'noResource';
+  const isDisabled = buttonState === "noResource";
 
   // Calculate the cost based on the quantity
   const adjustedSteel = costUpdate
@@ -75,7 +75,7 @@ const DefencesBox = ({
     : 0;
 
   const shouldShowTooltip =
-    ['Astral Launcher', 'Plasma Projector'].includes(title) && showTooltip;
+    ["Astral Launcher", "Plasma Projector"].includes(title) && showTooltip;
 
   const boxContent = (
     <Styled.Box>
@@ -91,7 +91,7 @@ const DefencesBox = ({
         <img
           src={img}
           alt={title}
-          style={{ maxWidth: '100%', height: 'auto' }}
+          style={{ maxWidth: "100%", height: "auto" }}
         />
       </Styled.ImageContainer>
       <Styled.SubBox>
@@ -107,9 +107,9 @@ const DefencesBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.steel < adjustedSteel
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {steelDisplay}
@@ -121,9 +121,9 @@ const DefencesBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.quartz < adjustedQuartz
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {quartzDisplay}
@@ -135,9 +135,9 @@ const DefencesBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.tritium < adjustedTritium
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {tritiumDisplay}
@@ -153,7 +153,7 @@ const DefencesBox = ({
               size="sm"
               color="neutral"
               variant="soft"
-              style={{ width: '80px' }}
+              style={{ width: "80px" }}
               onChange={(e) => {
                 const newValue = parseInt(e.target.value, 10);
                 if (!isNaN(newValue) && newValue > 0) {

@@ -33,3 +33,6 @@ package-lock.json
 .github/workflows/xyz
 
 .husky/
+
+pnpm-lock.yaml
+

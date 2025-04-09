@@ -1,23 +1,23 @@
-import React, { memo } from 'react';
-import styled from 'styled-components';
-import Tooltip from '@mui/material/Tooltip';
-import { MissionCategory, type Mission } from '../../shared/types';
+import React, { memo } from "react";
+import styled from "styled-components";
+import Tooltip from "@mui/material/Tooltip";
+import { MissionCategory, type Mission } from "../../shared/types";
 import {
   useAttackPlanet,
   useRecallFleet,
   useCollectDebris,
   useDockFleet,
-} from '../../hooks/FleetHooks';
-import { usePlanetPosition } from '../../hooks/usePlanetPosition';
-import fleetIcon from '../../assets/uiIcons/Fleet.svg';
-import { StyledButton } from '../../shared/styled/Button';
-import { useDestination } from '../../context/DestinationContext';
+} from "../../hooks/fleet";
+import { usePlanetPosition } from "../../hooks/planet";
+import fleetIcon from "../../assets/uiIcons/Fleet.svg";
+import { StyledButton } from "../../shared/styled/Button";
+import { useDestination } from "../../context/DestinationContext";
 
-const FleetTooltipContent = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  padding: '10px',
+const FleetTooltipContent = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  padding: "10px",
 });
 
 const GridRow = styled.div`
@@ -28,15 +28,15 @@ const GridRow = styled.div`
   }
 `;
 
-export const MissionText = styled('div')({
-  color: '#23CE6B',
-  padding: '4px',
-  textShadow: '0 0 2px rgba(152, 251, 152, 0.7)', // Glow effect
+export const MissionText = styled("div")({
+  color: "#23CE6B",
+  padding: "4px",
+  textShadow: "0 0 2px rgba(152, 251, 152, 0.7)", // Glow effect
 });
 
 const FleetIcon = styled.img.attrs({
   src: fleetIcon,
-  alt: 'Fleet',
+  alt: "Fleet",
 })`
   width: 20px;
   height: 20px;
@@ -63,16 +63,19 @@ export const MissionRow = memo(
     const position = usePlanetPosition(Number(mission.destination));
     const destination = position
       ? `${Number(position.system)} / ${Number(position.orbit)}`
-      : 'Unknown';
+      : "Unknown";
     const { writeAsync: recallFleet } = useRecallFleet(mission.id);
     const { writeAsync: attackPlanet } = useAttackPlanet(mission.id);
     const { writeAsync: collectDebris } = useCollectDebris(mission.id);
     const { writeAsync: dockFleet } = useDockFleet(mission.id);
 
-    const onRecallClick = React.useCallback(() => {
-      recallFleet().then(() => {
+    const onRecallClick = React.useCallback(async () => {
+      try {
+        await recallFleet();
         // Handle post-recall actions here, if needed
-      });
+      } catch (error) {
+        console.error(error);
+      }
     }, [recallFleet]);
 
     const { handleDestinationClick } = useDestination();
@@ -95,7 +98,7 @@ export const MissionRow = memo(
     const isArrived = (Number(mission.time_arrival) + 320) * 1000 <= Date.now();
     const origin =
       mission.origin <= 500
-        ? 'Mother'
+        ? "Mother"
         : `Colony ${Number(mission.origin) % 1000}`;
 
     return (
@@ -107,27 +110,27 @@ export const MissionRow = memo(
           </Tooltip>
         </MissionText>
         <MissionText>{origin}</MissionText>
-        <MissionText onClick={onClickDestination} style={{ cursor: 'pointer' }}>
+        <MissionText onClick={onClickDestination} style={{ cursor: "pointer" }}>
           {destination}
         </MissionText>
         <MissionText>
           {mission.category == MissionCategory.Debris
-            ? 'Debris'
+            ? "Debris"
             : mission.category == MissionCategory.Attack
-            ? 'Attack'
-            : 'Transport'}
+              ? "Attack"
+              : "Transport"}
         </MissionText>
-        <MissionText>{countdown || 'Arrived'}</MissionText>
+        <MissionText>{countdown || "Arrived"}</MissionText>
         <MissionText>
           <Tooltip title="Fleet will begin to decay 2 hours post-arrival unless an attack is initiated or debris is collected">
-            <span>{decayPercentage ? `${decayPercentage}%` : '0%'}</span>
+            <span>{decayPercentage ? `${decayPercentage}%` : "0%"}</span>
           </Tooltip>
         </MissionText>
         <ButtonContainer>
           {!isArrived ? (
             <StyledButton
               size="small"
-              sx={{ background: '#C47E33' }}
+              sx={{ background: "#C47E33" }}
               fullWidth
               onClick={onRecallClick}
             >
@@ -137,27 +140,27 @@ export const MissionRow = memo(
             <>
               <StyledButton
                 onClick={() => {
-                  {
-                    mission.category == MissionCategory['Debris']
-                      ? collectDebris()
-                      : mission.category == MissionCategory['Attack']
-                      ? attackPlanet()
-                      : dockFleet();
+                  if (mission.category == MissionCategory["Debris"]) {
+                    collectDebris();
+                  } else if (mission.category == MissionCategory["Attack"]) {
+                    attackPlanet();
+                  } else {
+                    dockFleet();
                   }
                 }}
                 size="small"
-                sx={{ background: '#4A63AA' }}
+                sx={{ background: "#4A63AA" }}
                 fullWidth
               >
                 {mission.category == MissionCategory.Debris
-                  ? 'Collect'
+                  ? "Collect"
                   : mission.category == MissionCategory.Attack
-                  ? 'Attack'
-                  : 'Dock'}
+                    ? "Attack"
+                    : "Dock"}
               </StyledButton>
               <StyledButton
                 size="small"
-                sx={{ background: '#C47E33' }}
+                sx={{ background: "#C47E33" }}
                 fullWidth
                 onClick={onRecallClick}
               >
@@ -168,7 +171,7 @@ export const MissionRow = memo(
         </ButtonContainer>
       </GridRow>
     );
-  }
+  },
 );
 
-MissionRow.displayName = 'MissionRow';
+MissionRow.displayName = "MissionRow";

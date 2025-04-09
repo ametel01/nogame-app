@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/system';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { CallType } from './MultiCallTransaction';
-import TextField from '@mui/material/TextField';
-import { callTypeOptions } from '../shared/types';
-import { Box } from '@mui/system';
-import { InputLabel } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import { styled } from "@mui/system";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { CallType } from "./MultiCallTransaction";
+import TextField from "@mui/material/TextField";
+import { callTypeOptions } from "../shared/types";
+import { Box } from "@mui/system";
+import { InputLabel } from "@mui/material";
 
 const StyledFormControl = styled(FormControl)`
   & .MuiInputBase-root {
@@ -72,7 +72,7 @@ interface CallTypeSelectorProps {
 }
 
 export function CallTypeSelector({ onSelect }: CallTypeSelectorProps) {
-  const [callType, setCallType] = useState<CallType>('compound');
+  const [callType, setCallType] = useState<CallType>("compound");
   const [callName, setCallName] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(0);
 

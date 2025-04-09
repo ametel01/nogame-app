@@ -14,8 +14,8 @@ import {
   AddTransactionIcon,
   ButtonUpgrade,
   CompoundsBoxProps as Props,
-} from '.';
-import { InfoContainer } from './styled';
+} from ".";
+import { InfoContainer } from "./styled";
 
 const CompoundsBox = ({
   img,
@@ -38,7 +38,7 @@ const CompoundsBox = ({
   const { tx, writeAsync: upgrade } = useCompoundUpgrade(
     functionCallName,
     quantity,
-    colonyId
+    colonyId,
   );
 
   const energy = numberWithCommas(energyRequired);
@@ -52,18 +52,18 @@ const CompoundsBox = ({
     const newConsumption = getCumulativeEnergyChange(
       functionCallName,
       level + 1,
-      quantity
+      quantity,
     );
     setEnergyRequired(newConsumption);
   }, [quantity, level, functionCallName]);
 
   const hasEnoughResources = calculEnoughResources(
     costUpdate,
-    resourcesAvailable
+    resourcesAvailable,
   );
 
-  const currentButtonState = hasEnoughResources ? 'valid' : 'noResource';
-  const isDisabled = currentButtonState === 'noResource';
+  const currentButtonState = hasEnoughResources ? "valid" : "noResource";
+  const isDisabled = currentButtonState === "noResource";
 
   return (
     <Styled.Box>
@@ -90,9 +90,9 @@ const CompoundsBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.steel < costUpdate.steel
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {numberWithCommas(costUpdate.steel)}
@@ -104,9 +104,9 @@ const CompoundsBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.quartz < costUpdate.quartz
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {numberWithCommas(costUpdate.quartz)}
@@ -118,9 +118,9 @@ const CompoundsBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.tritium < costUpdate.tritium
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {numberWithCommas(costUpdate.tritium)}
@@ -139,7 +139,7 @@ const CompoundsBox = ({
               type="number"
               value={quantity}
               onChange={(e) => {
-                if (e.target.value === '') {
+                if (e.target.value === "") {
                   setQuantity(0);
                 } else {
                   setQuantity(parseInt(e.target.value, 10));
@@ -148,7 +148,7 @@ const CompoundsBox = ({
               size="sm"
               color="neutral"
               variant="soft"
-              style={{ width: '80px' }}
+              style={{ width: "80px" }}
             />
           </Tooltip>
         </Styled.ResourceContainer>

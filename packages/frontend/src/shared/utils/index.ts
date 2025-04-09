@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-import BigNumber from 'bignumber.js';
-import { type Position, type TechLevels } from '../types';
-import { DefaultPosition } from '../../hooks/usePlanetPosition';
+import BigNumber from "bignumber.js";
+import { type Position, type TechLevels } from "../types";
+import { DefaultPosition } from "../../hooks/planet/usePlanetPosition";
 
 export const dataToNumber = (value: unknown[] | string | number | undefined) =>
   new BigNumber(value as unknown as number).toNumber();
@@ -12,7 +11,7 @@ export const calculEnoughResources = (
     quartz: requiredQuartz,
     tritium: requiredTritium,
   }: { steel: number; quartz: number; tritium: number },
-  available?: { steel: number; quartz: number; tritium: number }
+  available?: { steel: number; quartz: number; tritium: number },
 ) => {
   if (!available) return false;
   return (
@@ -40,7 +39,7 @@ export const weaponsRequirements = (labLevel: number | undefined) => {
 
 export const exoRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return labLevel
     ? labLevel >= 3 && techs
@@ -51,7 +50,7 @@ export const exoRequirements = (
 
 export const beamTechRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return labLevel
     ? labLevel >= 1 && techs
@@ -62,7 +61,7 @@ export const beamTechRequirements = (
 
 export const shieldRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return labLevel
     ? labLevel >= 6 && techs
@@ -73,7 +72,7 @@ export const shieldRequirements = (
 
 export const combustionRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return labLevel
     ? labLevel >= 1 && techs
@@ -84,7 +83,7 @@ export const combustionRequirements = (
 
 export const thrustRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return labLevel
     ? labLevel >= 2 && techs
@@ -95,7 +94,7 @@ export const thrustRequirements = (
 
 export const ionRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return labLevel
     ? labLevel >= 4 && techs
@@ -108,7 +107,7 @@ export const ionRequirements = (
 
 export const spacetimeRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return labLevel
     ? labLevel >= 7 && techs
@@ -119,7 +118,7 @@ export const spacetimeRequirements = (
 
 export const warpRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return labLevel
     ? labLevel >= 7 && techs
@@ -132,7 +131,7 @@ export const warpRequirements = (
 
 export const plasmaTechRequirements = (
   labLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return labLevel
     ? labLevel >= 4 && techs
@@ -147,7 +146,7 @@ export const plasmaTechRequirements = (
 
 export const carrierRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 2 && techs
@@ -158,7 +157,7 @@ export const carrierRequirements = (
 
 export const celestiaRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 1 && techs
@@ -169,7 +168,7 @@ export const celestiaRequirements = (
 
 export const scraperRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 4 && techs
@@ -182,7 +181,7 @@ export const scraperRequirements = (
 
 export const sparrowRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 1 && techs
@@ -193,7 +192,7 @@ export const sparrowRequirements = (
 
 export const frigateRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 5 && techs
@@ -206,7 +205,7 @@ export const frigateRequirements = (
 
 export const armadeRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 7 && techs
@@ -221,7 +220,7 @@ export const blasterRequirements = (dockyardLevel: number | undefined) => {
 
 export const beamRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 2 && techs
@@ -234,7 +233,7 @@ export const beamRequirements = (
 
 export const astralRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 6 && techs
@@ -249,7 +248,7 @@ export const astralRequirements = (
 
 export const plasmaRequirements = (
   dockyardLevel: number | undefined,
-  techs: TechLevels | undefined
+  techs: TechLevels | undefined,
 ) => {
   return dockyardLevel
     ? dockyardLevel >= 8 && techs
@@ -260,7 +259,7 @@ export const plasmaRequirements = (
 
 export const numberWithCommas = (num: number) =>
   num > 999
-    ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     : num.toString();
 
 export function convertTechLevelsToNumbers(techLevels: TechLevels): {
@@ -274,7 +273,7 @@ export function convertTechLevelsToNumbers(techLevels: TechLevels): {
 }
 
 export function convertPositionToNumbers(
-  position?: Position
+  position?: Position,
 ): Position | undefined {
   if (!position) {
     return DefaultPosition;
@@ -291,17 +290,17 @@ export function convertSecondsToTime(seconds: number): string {
   const remainingSeconds = seconds % 60;
 
   // Format the time parts to have two digits
-  const formattedHours = String(hours).padStart(2, '0');
-  const formattedMinutes = String(minutes).padStart(2, '0');
-  const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+  const formattedHours = String(hours).padStart(2, "0");
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(remainingSeconds).padStart(2, "0");
 
   return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
 
 export const formatAccount = (account: string) => {
-  if (account.startsWith('0x')) {
+  if (account.startsWith("0x")) {
     // Remove zeros immediately following '0x'
-    return account.replace(/^0x0*/, '0x');
+    return account.replace(/^0x0*/, "0x");
   }
   return account;
 };

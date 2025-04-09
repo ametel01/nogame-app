@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // For indicating successful addition
-import styled from 'styled-components';
-import { useBlockchainCall } from '../context/BlockchainCallContext'; // adjust the path as necessary
+import React, { useState } from "react";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"; // For indicating successful addition
+import styled from "styled-components";
+import { useBlockchainCall } from "../context/BlockchainCallContext"; // adjust the path as necessary
 
-type CallType = 'compound' | 'tech' | 'ship' | 'defence'; // adjust as necessary
+type CallType = "compound" | "tech" | "ship" | "defence"; // adjust as necessary
 
 interface AddTransactionIconProps {
   callType: CallType;
@@ -15,16 +15,16 @@ interface AddTransactionIconProps {
 }
 
 const StyledIcon = styled(AddCircleIcon)<{ disabled: boolean; added: boolean }>`
-  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
   color: ${({ disabled, added }) =>
     disabled
-      ? '#bdbdbd'
+      ? "#bdbdbd"
       : added
-      ? '#4caf50'
-      : '#FFD700'}; // Gold when not added, green when added
+        ? "#4caf50"
+        : "#FFD700"}; // Gold when not added, green when added
   &:hover {
     color: ${({ disabled, added }) =>
-      disabled ? '#bdbdbd' : added ? '#66bb6a' : '#FFD700'};
+      disabled ? "#bdbdbd" : added ? "#66bb6a" : "#FFD700"};
   }
   transition: color 0.3s ease;
 `;

@@ -1,5 +1,5 @@
-import { type Fleet, type Position, type TechLevels } from '../types';
-import { ShipsStats, DefencesStats } from '../../constants/Stats';
+import { type Fleet, type Position, type TechLevels } from "../types";
+import { ShipsStats, DefencesStats } from "../../constants/Stats";
 
 export function getDistance(start: Position, end: Position): number {
   const orbitDistance = Math.abs(start.orbit - end.orbit);
@@ -25,12 +25,12 @@ export function getDistance(start: Position, end: Position): number {
 function getUnitConsumption(
   ship: Unit,
   distance: number,
-  speed: number
+  speed: number,
 ): number {
   const consumption =
     1 +
     Math.ceil(
-      ((ship.consumption * distance) / 35000) * Math.pow(speed / 100 + 1, 2)
+      ((ship.consumption * distance) / 35000) * Math.pow(speed / 100 + 1, 2),
     );
   return consumption;
 }
@@ -38,21 +38,21 @@ function getUnitConsumption(
 export function getFuelConsumption(
   fleet: Fleet,
   distance: number,
-  speedFactor: number
+  speedFactor: number,
 ): number {
   return Math.ceil(
     fleet.carrier * getUnitConsumption(CARRIER, distance, speedFactor) +
       fleet.scraper * getUnitConsumption(SCRAPER, distance, speedFactor) +
       fleet.sparrow * getUnitConsumption(SPARROW, distance, speedFactor) +
       fleet.frigate * getUnitConsumption(FRIGATE, distance, speedFactor) +
-      fleet.armade * getUnitConsumption(ARMADE, distance, speedFactor)
+      fleet.armade * getUnitConsumption(ARMADE, distance, speedFactor),
   );
 }
 
 export function getFlightTime(
   speed: number,
   distance: number,
-  speedFactor: number
+  speedFactor: number,
 ): number {
   const result = 10 + 3500 * Math.sqrt((10 * distance) / speed);
   return Math.floor(result / speedFactor); // Assuming we need an integer result
@@ -64,7 +64,7 @@ export function getFleetSpeed(fleet: Fleet, techs: TechLevels) {
   const calculateSpeed = (
     baseSpeed: number,
     techLevel: number,
-    multiplier: number
+    multiplier: number,
   ) => {
     return baseSpeed + (baseSpeed * techLevel * multiplier) / 10;
   };

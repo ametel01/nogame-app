@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
-import { useAccount, useConnect } from '@starknet-react/core';
+import React, { useMemo } from "react";
+import { useAccount, useConnect } from "@starknet-react/core";
 
 function WalletConnected() {
   const { address } = useAccount();
 
   const shortenedAddress = useMemo(() => {
-    if (!address) return '';
+    if (!address) return "";
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
   }, [address]);
 

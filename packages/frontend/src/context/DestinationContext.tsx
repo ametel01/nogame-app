@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 // Create a context
 type DestinationContextType = {
@@ -15,7 +15,7 @@ const DestinationContext = createContext<DestinationContextType>({
 // Create a provider component
 export const DestinationProvider = ({ children }: { children: ReactNode }) => {
   const [selectedDestination, setSelectedDestination] = useState<number | null>(
-    null
+    null,
   );
 
   const handleDestinationClick = (destinationId: number) => {

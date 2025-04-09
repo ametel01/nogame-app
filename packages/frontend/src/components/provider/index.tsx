@@ -1,9 +1,12 @@
-import React from 'react';
-import { sepolia } from '@starknet-react/chains';
-import { StarknetConfig, jsonRpcProvider } from '@starknet-react/core';
-import { InjectedConnector } from 'starknetkit/injected';
-import { ArgentMobileConnector } from 'starknetkit/argentMobile';
-import { WebWalletConnector } from 'starknetkit/webwallet';
+import React from "react";
+import { sepolia } from "@starknet-react/chains";
+import {
+  StarknetConfig,
+  jsonRpcProvider,
+  useInjectedConnectors,
+  argent,
+  braavos,
+} from "@starknet-react/core";
 
 const RPC_URL = import.meta.env.VITE_INFURA_RPC;
 
@@ -19,12 +22,14 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const chains = [sepolia];
   const provider = jsonRpcProvider({ rpc });
 
-  const connectors = [
-    new InjectedConnector({ options: { id: 'braavos', name: 'Braavos' } }),
-    new InjectedConnector({ options: { id: 'argentX', name: 'Argent X' } }),
-    new WebWalletConnector({ url: 'https://web.argent.xyz' }),
-    new ArgentMobileConnector(),
-  ];
+  const { connectors } = useInjectedConnectors({
+    // Show these connectors if the user has no connector installed.
+    recommended: [argent(), braavos()],
+    // Hide recommended connectors if the user has any connector installed.
+    includeRecommended: "onlyIfNoConnectors",
+    // Randomize the order of the connectors.
+    order: "random",
+  });
 
   return (
     <StarknetConfig

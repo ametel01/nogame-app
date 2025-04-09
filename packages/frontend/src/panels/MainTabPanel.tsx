@@ -34,10 +34,10 @@ import {
   DefenceTabPanel,
   UniverseViewTabPanel,
   ResourcesSectionArgs,
-} from '.';
+} from ".";
 
-import { useEffect } from 'react';
-import { useDestination } from '../context/DestinationContext';
+import { useEffect } from "react";
+import { useDestination } from "../context/DestinationContext";
 
 export const ResourcesSection = ({
   planetId,
@@ -72,20 +72,20 @@ export const ResourcesSection = ({
     return (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
         }}
       >
         <ResourcesTabs>
           <ResourcesTabList>
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'center',
-                height: '100vh',
-                width: '100vh',
+                display: "flex",
+                justifyContent: "center",
+                height: "100vh",
+                width: "100vh",
               }}
             >
               <CircularProgress />
@@ -109,9 +109,9 @@ export const ResourcesSection = ({
           onClick={() => {
             setActiveTab(1);
           }}
-          active={activeTab === 1 ? 'true' : 'false'}
+          active={activeTab === 1 ? "true" : "false"}
         >
-          <RowCentered gap={'8px'}>
+          <RowCentered gap={"8px"}>
             <PrecisionManufacturing />
             <Typography>Compounds</Typography>
           </RowCentered>
@@ -120,9 +120,9 @@ export const ResourcesSection = ({
           onClick={() => {
             setActiveTab(2);
           }}
-          active={activeTab === 2 ? 'true' : 'false'}
+          active={activeTab === 2 ? "true" : "false"}
         >
-          <RowCentered gap={'8px'}>
+          <RowCentered gap={"8px"}>
             <Biotech />
             <Typography>Research Lab</Typography>
           </RowCentered>
@@ -131,9 +131,9 @@ export const ResourcesSection = ({
           onClick={() => {
             setActiveTab(3);
           }}
-          active={activeTab === 3 ? 'true' : 'false'}
+          active={activeTab === 3 ? "true" : "false"}
         >
-          <RowCentered gap={'8px'}>
+          <RowCentered gap={"8px"}>
             <Rocket />
             <Typography>Dockyard</Typography>
           </RowCentered>
@@ -142,9 +142,9 @@ export const ResourcesSection = ({
           onClick={() => {
             setActiveTab(4);
           }}
-          active={activeTab === 4 ? 'true' : 'false'}
+          active={activeTab === 4 ? "true" : "false"}
         >
-          <RowCentered gap={'8px'}>
+          <RowCentered gap={"8px"}>
             <Security />
             <Typography>Defences</Typography>
           </RowCentered>
@@ -153,9 +153,9 @@ export const ResourcesSection = ({
           onClick={() => {
             setActiveTab(5);
           }}
-          active={activeTab === 5 ? 'true' : 'false'}
+          active={activeTab === 5 ? "true" : "false"}
         >
-          <RowCentered gap={'8px'}>
+          <RowCentered gap={"8px"}>
             <Explore />
             <Typography>Universe</Typography>
           </RowCentered>
@@ -173,7 +173,7 @@ export const ResourcesSection = ({
           compoundsLevels.dockyard,
           techLevels,
           celestiaAvailable,
-          colonyId
+          colonyId,
         )}
       {activeTab === 4 &&
         renderDefencesPanel(
@@ -182,7 +182,7 @@ export const ResourcesSection = ({
           defencesCost,
           compoundsLevels.dockyard,
           techLevels,
-          colonyId
+          colonyId,
         )}
       {activeTab === 5 && renderUniversePanel(planetId, techLevels, colonyId)}
     </ResourcesTabs>
@@ -192,7 +192,7 @@ export const ResourcesSection = ({
 function renderCompounds(
   colonyId: number,
   spendable: Resources,
-  compounds: CompoundsLevels
+  compounds: CompoundsLevels,
 ) {
   return (
     <CompoundsTabPanel
@@ -206,7 +206,7 @@ function renderCompounds(
 function renderLabPanel(
   spendable: Resources,
   techs: TechLevels,
-  labLevel: number
+  labLevel: number,
 ) {
   return (
     <ResearchTabPanel
@@ -224,7 +224,7 @@ function renderDockyardTab(
   dockyard: number,
   techs: TechLevels,
   celestia: number,
-  colonyId: number
+  colonyId: number,
 ) {
   return (
     <DockyardTabPanel
@@ -245,7 +245,7 @@ function renderDefencesPanel(
   defencesCost: DefenceCost,
   dockyard: number,
   techs: TechLevels,
-  colonyId: number
+  colonyId: number,
 ) {
   return (
     <DefenceTabPanel
@@ -262,7 +262,7 @@ function renderDefencesPanel(
 function renderUniversePanel(
   planetId: number,
   techLevels: TechLevels,
-  colonyId: number
+  colonyId: number,
 ) {
   return (
     <UniverseViewTabPanel

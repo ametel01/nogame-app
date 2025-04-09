@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ContentWrapper = styled.div`
   margin-top: 24px;
@@ -6,7 +6,8 @@ export const ContentWrapper = styled.div`
   margin: 0 auto; // This centers the box
   background-color: #0d1117; // Dark background for terminal effect
   color: #58a6ff; // Light blue color for text
-  font-family: 'Courier New', Courier, monospace; // Monospaced font for a terminal look
+  font-family:
+    "Courier New", Courier, monospace; // Monospaced font for a terminal look
 `;
 
 export const BattleReportContainer = styled.div`
@@ -18,7 +19,7 @@ export const BattleReportContainer = styled.div`
 `;
 
 interface BattleReportHeaderProps {
-  reportType: 'battle' | 'debris';
+  reportType: "battle" | "debris";
 }
 
 export const BattleReportHeader = styled.div<BattleReportHeaderProps>`
@@ -29,7 +30,7 @@ export const BattleReportHeader = styled.div<BattleReportHeaderProps>`
   align-items: center;
   background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
   color: ${(props) =>
-    props.reportType === 'battle' ? '#4caf50' : '#ff9800'}; // Conditional color
+    props.reportType === "battle" ? "#4caf50" : "#ff9800"}; // Conditional color
   &:hover {
     background: linear-gradient(180deg, #21262d 0%, #161b22 100%);
   }

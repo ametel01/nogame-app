@@ -1,4 +1,4 @@
-import { CairoCustomEnum } from 'starknet';
+import { CairoCustomEnum } from "starknet";
 
 export interface Resources {
   steel: number;
@@ -7,43 +7,43 @@ export interface Resources {
 }
 
 export type CompoundsEntities =
-  | 'steel'
-  | 'quartz'
-  | 'tritium'
-  | 'energy'
-  | 'dockyard'
-  | 'lab';
+  | "steel"
+  | "quartz"
+  | "tritium"
+  | "energy"
+  | "dockyard"
+  | "lab";
 export type ShipsEntities =
-  | 'carrier'
-  | 'scraper'
-  | 'celestia'
-  | 'sparrow'
-  | 'frigate'
-  | 'armade';
-type DefencesEntities = 'celestia' | 'blaster' | 'beam' | 'astral' | 'plasma';
-type DefencesCostEntities = 'blaster' | 'beam' | 'astral' | 'plasma';
+  | "carrier"
+  | "scraper"
+  | "celestia"
+  | "sparrow"
+  | "frigate"
+  | "armade";
+type DefencesEntities = "celestia" | "blaster" | "beam" | "astral" | "plasma";
+type DefencesCostEntities = "blaster" | "beam" | "astral" | "plasma";
 export type TechEntities =
-  | 'armour'
-  | 'combustion'
-  | 'digital'
-  | 'energy'
-  | 'warp'
-  | 'spacetime'
-  | 'thrust'
-  | 'ion'
-  | 'beam'
-  | 'plasma'
-  | 'shield'
-  | 'weapons'
-  | 'exocraft';
+  | "armour"
+  | "combustion"
+  | "digital"
+  | "energy"
+  | "warp"
+  | "spacetime"
+  | "thrust"
+  | "ion"
+  | "beam"
+  | "plasma"
+  | "shield"
+  | "weapons"
+  | "exocraft";
 
 export type EnergyEntities =
-  | 'steel'
-  | 'quartz'
-  | 'tritium'
-  | 'energy'
-  | 'celestia'
-  | 'null';
+  | "steel"
+  | "quartz"
+  | "tritium"
+  | "energy"
+  | "celestia"
+  | "null";
 
 export type EnergyCost = { [key in EnergyEntities]: number };
 export type CompoundsCostUpgrade = { [key in CompoundsEntities]: Resources };
@@ -111,7 +111,7 @@ export const ColonyUpgradeType = {
 };
 
 export function getColonyUpgradeType(
-  name: number
+  name: number,
 ): CairoCustomEnum | undefined {
   switch (name) {
     case 0:
@@ -270,40 +270,40 @@ export function getBuildType(name: number): CairoCustomEnum | undefined {
 
 export const callTypeOptions = {
   compound: [
-    { value: 0, label: 'Steel Mine' },
-    { value: 1, label: 'Quartz Mine' },
-    { value: 2, label: 'Tritium Mine' },
-    { value: 3, label: 'Energy Plant' },
-    { value: 4, label: 'Research Lab' },
-    { value: 5, label: 'Dockyard' },
+    { value: 0, label: "Steel Mine" },
+    { value: 1, label: "Quartz Mine" },
+    { value: 2, label: "Tritium Mine" },
+    { value: 3, label: "Energy Plant" },
+    { value: 4, label: "Research Lab" },
+    { value: 5, label: "Dockyard" },
   ],
   tech: [
-    { value: 6, label: 'Energy Tech' },
-    { value: 7, label: 'Digital Systems' },
-    { value: 8, label: 'Beam Tech' },
-    { value: 9, label: 'Armor Tech' },
-    { value: 10, label: 'Ion Tech' },
-    { value: 11, label: 'Plasma Tech' },
-    { value: 12, label: 'Weapons Tech' },
-    { value: 13, label: 'Shield Tech' },
-    { value: 14, label: 'Spacetime Tech' },
-    { value: 15, label: 'Combustion Engine' },
-    { value: 16, label: 'Thrust Propulsion' },
-    { value: 17, label: 'Warp Drive' },
+    { value: 6, label: "Energy Tech" },
+    { value: 7, label: "Digital Systems" },
+    { value: 8, label: "Beam Tech" },
+    { value: 9, label: "Armor Tech" },
+    { value: 10, label: "Ion Tech" },
+    { value: 11, label: "Plasma Tech" },
+    { value: 12, label: "Weapons Tech" },
+    { value: 13, label: "Shield Tech" },
+    { value: 14, label: "Spacetime Tech" },
+    { value: 15, label: "Combustion Engine" },
+    { value: 16, label: "Thrust Propulsion" },
+    { value: 17, label: "Warp Drive" },
   ],
   ship: [
-    { value: 0, label: 'Carrier' },
-    { value: 1, label: 'Scraper' },
-    { value: 2, label: 'Celestia' },
-    { value: 3, label: 'Sparrow' },
-    { value: 4, label: 'Frigate' },
-    { value: 5, label: 'Armade' },
+    { value: 0, label: "Carrier" },
+    { value: 1, label: "Scraper" },
+    { value: 2, label: "Celestia" },
+    { value: 3, label: "Sparrow" },
+    { value: 4, label: "Frigate" },
+    { value: 5, label: "Armade" },
   ],
   defence: [
-    { value: 6, label: 'Blaster' },
-    { value: 7, label: 'Beam' },
-    { value: 8, label: 'Astral Launcher' },
-    { value: 9, label: 'Plasma Projector' },
+    { value: 6, label: "Blaster" },
+    { value: 7, label: "Beam" },
+    { value: 8, label: "Astral Launcher" },
+    { value: 9, label: "Plasma Projector" },
   ],
 };
 
@@ -318,7 +318,7 @@ export function getUpgradeNameById(id: number, isBuild: boolean) {
     return reversedMapping;
   }
   const reversedMapping = (Object.keys(BuildType) as BuildTypeKeys[]).find(
-    (key) => BuildType[key] === id
+    (key) => BuildType[key] === id,
   );
   return reversedMapping;
 }

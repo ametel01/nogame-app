@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useTokenOf } from '../../hooks/useTokenOf';
-import AuthScreen from '../../views/LoginOrGenerate';
-import Dashboard from '../../views/DashBoard';
-import { useAccount } from '@starknet-react/core';
-import Header from '../ui/Header';
-import { DestinationProvider } from '../../context/DestinationContext';
+import React, { useEffect, useState } from "react";
+import { useTokenOf } from "../../hooks/erc721";
+import AuthScreen from "../../views/LoginOrGenerate";
+import Dashboard from "../../views/DashBoard";
+import { useAccount } from "@starknet-react/core";
+import Header from "../ui/Header";
+import { DestinationProvider } from "../../context/DestinationContext";
 
 const AuthController = () => {
   const { address } = useAccount();

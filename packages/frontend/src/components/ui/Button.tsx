@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { StyledButton } from '../../shared/styled/Button';
-import { TransactionStatus } from './TransactionStatus';
+import React, { useState } from "react";
+import { StyledButton } from "../../shared/styled/Button";
+import { TransactionStatus } from "./TransactionStatus";
 // import { InvokeFunctionResponse } from "starknet";
 interface Props {
   name: string;
@@ -31,7 +31,7 @@ export function ButtonUpgrade({
           onClick={handleOnClick}
           fullWidth={true}
           sx={{
-            background: '#4A63AA',
+            background: "#4A63AA",
           }}
         >
           Upgrade
@@ -43,7 +43,7 @@ export function ButtonUpgrade({
           disabled
           fullWidth={true}
           sx={{
-            background: '#3B3F53',
+            background: "#3B3F53",
           }}
         >
           No Requirements
@@ -54,7 +54,7 @@ export function ButtonUpgrade({
           fullWidth={true}
           disabled
           sx={{
-            background: '#C47E33',
+            background: "#C47E33",
           }}
         >
           Needs Resources
@@ -85,7 +85,7 @@ export function ButtonBuild({
           onClick={handleOnClick}
           fullWidth={true}
           sx={{
-            background: '#4A63AA',
+            background: "#4A63AA",
           }}
         >
           Build
@@ -97,7 +97,7 @@ export function ButtonBuild({
           disabled
           fullWidth={true}
           sx={{
-            background: '#3B3F53',
+            background: "#3B3F53",
           }}
         >
           No Requirements
@@ -108,7 +108,7 @@ export function ButtonBuild({
           fullWidth={true}
           disabled
           sx={{
-            background: '#883606',
+            background: "#883606",
           }}
         >
           Needs Resources

@@ -4,29 +4,28 @@ import React, {
   useCallback,
   useReducer,
   useMemo,
-} from 'react';
+} from "react";
 
-import { useGetActiveMissions } from '../../hooks/FleetHooks';
-import { Box } from '@mui/system';
-import Modal from '@mui/material/Modal';
-import styled from 'styled-components';
-import { calculateFleetLoss } from '../../shared/utils/Formulas';
-import { HeaderButton } from '../../shared/styled/Button';
-import { MissionRow } from './MissionRow';
+import { useGetActiveMissions } from "../../hooks/fleet";
+import Modal from "@mui/material/Modal";
+import styled from "styled-components";
+import { calculateFleetLoss } from "../../shared/utils/Formulas";
+import { HeaderButton } from "../../shared/styled/Button";
+import { MissionRow } from "./MissionRow";
 
-export const StyledBox = styled(Box)({
+export const StyledBox = styled("div")({
   fontWeight: 400,
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  backgroundColor: '#1a2025',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  backgroundColor: "#1a2025",
   borderRadius: 16,
-  boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
-  padding: '16px 32px',
-  display: 'flex',
-  flexDirection: 'column',
-  width: '60%',
+  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
+  padding: "16px 32px",
+  display: "flex",
+  flexDirection: "column",
+  width: "60%",
 });
 
 const GridContainer = styled.div`
@@ -38,15 +37,15 @@ const GridContainer = styled.div`
   border-radius: 8px;
 `;
 
-export const FixedLengthText = styled('div')({
+export const FixedLengthText = styled("div")({
   flex: 1,
-  padding: '0 4px',
+  padding: "0 4px",
 });
 
-export const MissionText = styled('div')({
-  color: '#23CE6B',
-  padding: '10px',
-  textShadow: '0 0 5px rgba(152, 251, 152, 0.7)', // Glow effect
+export const MissionText = styled("div")({
+  color: "#23CE6B",
+  padding: "10px",
+  textShadow: "0 0 5px rgba(152, 251, 152, 0.7)", // Glow effect
 });
 
 interface FleetState {
@@ -55,17 +54,17 @@ interface FleetState {
 }
 
 interface UpdateCountdownAction {
-  type: 'UPDATE_COUNTDOWN';
+  type: "UPDATE_COUNTDOWN";
   payload: { index: number; countdown: string };
 }
 
 interface UpdateDecayAction {
-  type: 'UPDATE_DECAY';
+  type: "UPDATE_DECAY";
   payload: { index: number; decay: number };
 }
 
 interface UpdateMissionAction {
-  type: 'UPDATE_MISSION';
+  type: "UPDATE_MISSION";
   payload: { index: number; countdown: string; decay: number };
 }
 
@@ -77,17 +76,17 @@ type FleetAction =
 // Reducer for managing countdowns and decay percentages
 const fleetReducer = (state: FleetState, action: FleetAction): FleetState => {
   switch (action.type) {
-    case 'UPDATE_COUNTDOWN': {
+    case "UPDATE_COUNTDOWN": {
       const newCountdowns = [...state.countdowns];
       newCountdowns[action.payload.index] = action.payload.countdown;
       return { ...state, countdowns: newCountdowns };
     }
-    case 'UPDATE_DECAY': {
+    case "UPDATE_DECAY": {
       const newDecays = [...state.decayPercentages];
       newDecays[action.payload.index] = action.payload.decay;
       return { ...state, decayPercentages: newDecays };
     }
-    case 'UPDATE_MISSION': {
+    case "UPDATE_MISSION": {
       const newCountdowns = [...state.countdowns];
       const newDecays = [...state.decayPercentages];
 
@@ -130,7 +129,7 @@ export const FleetMovements = ({ planetId }: Props) => {
     const differenceInSeconds = (arrivalTime - currentTime) / 1000 + 320;
 
     if (differenceInSeconds <= 0) {
-      return 'Arrived';
+      return "Arrived";
     }
 
     const hours = Math.floor(differenceInSeconds / 3600);
@@ -151,7 +150,7 @@ export const FleetMovements = ({ planetId }: Props) => {
       const intervalID = setInterval(() => {
         // Update countdown
         const countdown = getTimeDifference(
-          Number(mission.time_arrival) * 1000
+          Number(mission.time_arrival) * 1000,
         );
 
         // Calculate decay if needed
@@ -164,7 +163,7 @@ export const FleetMovements = ({ planetId }: Props) => {
 
         // Dispatch a single action to update both countdown and decay
         dispatch({
-          type: 'UPDATE_MISSION',
+          type: "UPDATE_MISSION",
           payload: { index, countdown, decay },
         });
       }, 1000);

@@ -1,16 +1,16 @@
-import { Tooltip, Box, IconButton, Modal } from '@mui/material';
-import DebrisIcon from '../../assets/uiIcons/debris.svg';
-import { useGetDebrisField } from '../../hooks/useGetDebrisField';
-import CircularProgress from '@mui/material/CircularProgress';
-import { ButtonCollectDebris } from '../buttons/ButtonCollectDebris';
+import { Tooltip, Box, IconButton, Modal } from "@mui/material";
+import DebrisIcon from "../../assets/uiIcons/debris.svg";
+import { useGetDebrisField } from "../../hooks/planet";
+import CircularProgress from "@mui/material/CircularProgress";
+import { ButtonCollectDebris } from "../buttons/ButtonCollectDebris";
 import {
   type DebrisField,
   type ShipsLevels,
   type TechLevels,
   type Position,
-} from '../../shared/types';
-import React from 'react';
-import { numberWithCommas } from '../../shared/utils';
+} from "../../shared/types";
+import React from "react";
+import { numberWithCommas } from "../../shared/utils";
 
 interface Props {
   planetId?: number;
@@ -58,12 +58,12 @@ function DebrisFieldView({
   return (
     <Box
       sx={{
-        width: '1%',
+        width: "1%",
         height: 32,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft: '10px',
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginLeft: "10px",
       }}
     >
       {debrisPresent ? (
@@ -87,8 +87,8 @@ function DebrisFieldView({
                 style={{
                   width: 40,
                   height: 40,
-                  display: 'block',
-                  color: '#F4F3EE',
+                  display: "block",
+                  color: "#F4F3EE",
                 }}
               />
             </IconButton>

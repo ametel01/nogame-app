@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Fleet, DefenceLevels } from '../../shared/types';
-import { getBaseDefenceCost, getBaseShipsCost } from '../../constants/costs';
-import { numberWithCommas } from '../../shared/utils/index';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Fleet, DefenceLevels } from "../../shared/types";
+import { getBaseDefenceCost, getBaseShipsCost } from "../../constants/costs";
+import { numberWithCommas } from "../../shared/utils/index";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -93,7 +93,7 @@ export const TotalLosses = ({
           acc.tritium += cost.tritium * quantity;
           return acc;
         },
-        { steel: 0, quartz: 0, tritium: 0 }
+        { steel: 0, quartz: 0, tritium: 0 },
       );
       setAttackerLosses(newAttackerLosses);
 
@@ -108,7 +108,7 @@ export const TotalLosses = ({
           acc.tritium += cost.tritium * quantity;
           return acc;
         },
-        { steel: 0, quartz: 0, tritium: 0 }
+        { steel: 0, quartz: 0, tritium: 0 },
       );
 
       // Calculate defences losses
@@ -124,7 +124,7 @@ export const TotalLosses = ({
           }
           return acc;
         },
-        { steel: 0, quartz: 0, tritium: 0 }
+        { steel: 0, quartz: 0, tritium: 0 },
       );
 
       // Combine defender fleet and defences losses
@@ -184,20 +184,20 @@ export const TotalLosses = ({
         <TableCell>Debris</TableCell>
         <TableColoredCell>
           {numberWithCommas(
-            Math.round((defenderLosses.steel + attackerLosses.steel) / 3)
+            Math.round((defenderLosses.steel + attackerLosses.steel) / 3),
           )}
         </TableColoredCell>
         <TableColoredCell>
           {numberWithCommas(
-            Math.round((defenderLosses.quartz + attackerLosses.quartz) / 3)
+            Math.round((defenderLosses.quartz + attackerLosses.quartz) / 3),
           )}
         </TableColoredCell>
         <TableColoredCell>{0}</TableColoredCell>
       </TableGrid>
       {attackerDefeated ? (
-        <TableHeader style={{ marginTop: '20px' }}>Defender Wins!</TableHeader>
+        <TableHeader style={{ marginTop: "20px" }}>Defender Wins!</TableHeader>
       ) : (
-        <TableHeader style={{ marginTop: '20px' }}>Attacker Wins!</TableHeader>
+        <TableHeader style={{ marginTop: "20px" }}>Attacker Wins!</TableHeader>
       )}
     </StyledContainer>
   );

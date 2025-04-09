@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import logoRound from '../../assets/logos/logo-round.png';
+import React, { useState, useEffect } from "react";
+import logoRound from "../../assets/logos/logo-round.png";
 
 const RotatingLogo = () => {
   const [showLogo, setShowLogo] = useState(false);
@@ -28,18 +28,18 @@ const RotatingLogo = () => {
         </style>
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',
-            width: '100vw',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            width: "100vw",
           }}
         >
           <img
             src={logoRound}
             className="rotating-logo"
             alt="Logo"
-            style={{ width: '7em' }}
+            style={{ width: "7em" }}
           />
         </div>
       </>

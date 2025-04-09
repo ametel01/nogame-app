@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useWaitForTransaction } from '@starknet-react/core';
-import Modal from '@mui/material/Modal';
-import CircularProgress from '@mui/material/CircularProgress';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { StyledBox, HeaderDiv } from '../buttons/ButtonAttackPlanet';
+import React, { useEffect, useState } from "react";
+import { useTransactionReceipt } from "@starknet-react/core";
+import Modal from "@mui/material/Modal";
+import CircularProgress from "@mui/material/CircularProgress";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { StyledBox, HeaderDiv } from "../buttons/ButtonAttackPlanet";
 
 interface Props {
   name: string;
@@ -13,18 +13,18 @@ interface Props {
 export function TransactionStatus({ name, tx }: Props) {
   const [showModal, setShowModal] = useState(true);
   const [transactionSuccess, setTransactionSuccess] = useState(false);
-  const { isLoading, data } = useWaitForTransaction({
+  const { data, isPending } = useTransactionReceipt({
     hash: tx,
     watch: true,
   });
 
   useEffect(() => {
-    // Type guard to check if data is of the type with 'finality_status'
-    if (data && 'finality_status' in data) {
-      // Now TypeScript knows 'finality_status' is a valid property
-      if (data.finality_status === 'ACCEPTED_ON_L2') {
-        setTransactionSuccess(true);
-      }
+    if (
+      data &&
+      "execution_status" in data &&
+      data.execution_status === "SUCCEEDED"
+    ) {
+      setTransactionSuccess(true);
     }
   }, [data]);
 
@@ -33,13 +33,13 @@ export function TransactionStatus({ name, tx }: Props) {
   };
 
   const loadingBody = (
-    <div style={{ margin: '10px', padding: '10px' }}>
-      <StyledBox style={{ width: '35%' }}>
-        <HeaderDiv style={{ display: 'flex', justifyContent: 'center' }}>
+    <div style={{ margin: "10px", padding: "10px" }}>
+      <StyledBox style={{ width: "35%" }}>
+        <HeaderDiv style={{ display: "flex", justifyContent: "center" }}>
           {name} Tx is being submitted
         </HeaderDiv>
         <div
-          style={{ display: 'flex', justifyContent: 'center', margin: '30px' }}
+          style={{ display: "flex", justifyContent: "center", margin: "30px" }}
         >
           <CircularProgress size={32} />
         </div>
@@ -48,34 +48,34 @@ export function TransactionStatus({ name, tx }: Props) {
   );
 
   const successBody = (
-    <div style={{ margin: '10px', padding: '10px' }}>
-      <StyledBox style={{ width: '40%' }}>
-        <HeaderDiv style={{ display: 'flex', justifyContent: 'center' }}>
-          {name} Tx Accepted On L2
+    <div style={{ margin: "10px", padding: "10px" }}>
+      <StyledBox style={{ width: "40%" }}>
+        <HeaderDiv style={{ display: "flex", justifyContent: "center" }}>
+          {name} Tx Succeeded
         </HeaderDiv>
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100px',
-            margin: '10px',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100px",
+            margin: "10px",
           }}
         >
           <CheckCircleIcon
             style={{
-              fontSize: '64px',
-              color: 'green',
+              fontSize: "64px",
+              color: "green",
             }}
           />
         </div>
         {/* Additional message about potential delay in data update */}
         <div
           style={{
-            textAlign: 'center',
-            marginTop: '20px',
-            fontSize: '14px',
-            color: 'gray',
+            textAlign: "center",
+            marginTop: "20px",
+            fontSize: "14px",
+            color: "gray",
           }}
         >
           Note: The displayed data might take several seconds to update. Try
@@ -93,7 +93,7 @@ export function TransactionStatus({ name, tx }: Props) {
           onClose={handleModalClose}
           disableAutoFocus={true}
         >
-          {isLoading || !transactionSuccess ? loadingBody : successBody}
+          {isPending || !transactionSuccess ? loadingBody : successBody}
         </Modal>
       )}
     </>

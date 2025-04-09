@@ -1,83 +1,83 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { styled } from '@mui/system';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import CloseIcon from '@mui/icons-material/Close';
-import { Input } from '@mui/joy';
-import scraperImg from '../../assets/gameElements/ships/scraper4.webp';
-import { StyledButton } from '../../shared/styled/Button';
-import useSendFleet from '../../hooks/writeHooks/useSendFleet';
+import React, { useState, useEffect, useMemo } from "react";
+import { styled } from "@mui/system";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import CloseIcon from "@mui/icons-material/Close";
+import { Input } from "@mui/joy";
+import scraperImg from "../../assets/gameElements/ships/scraper4.webp";
+import { StyledButton } from "../../shared/styled/Button";
+import useSendFleet from "../../hooks/writeHooks/useSendFleet";
 import {
   MissionCategory,
   type DebrisField,
   type Position,
   type ShipsLevels,
   type TechLevels,
-} from '../../shared/types';
+} from "../../shared/types";
 import {
   SCRAPER,
   getDistance,
   getFleetSpeed,
   getFlightTime,
   getFuelConsumption,
-} from '../../shared/utils/FleetUtils';
-import { convertSecondsToTime, numberWithCommas } from '../../shared/utils';
-import { TransactionStatus } from '../ui/TransactionStatus';
-import { SliderContainer, Text as SliderText } from './ButtonAttackPlanet';
-import Slider from '@mui/material/Slider';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+} from "../../shared/utils/FleetUtils";
+import { convertSecondsToTime, numberWithCommas } from "../../shared/utils";
+import { TransactionStatus } from "../ui/TransactionStatus";
+import { SliderContainer, Text as SliderText } from "./ButtonAttackPlanet";
+import Slider from "@mui/material/Slider";
+import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 
 export const StyledBox = styled(Box)({
   fontWeight: 400,
   fontSize: 20,
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  backgroundColor: '#1a2025',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  backgroundColor: "#1a2025",
   borderRadius: 16,
-  boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
-  padding: '16px 32px',
-  display: 'flex',
-  flexDirection: 'column',
-  width: '40%',
+  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
+  padding: "16px 32px",
+  display: "flex",
+  flexDirection: "column",
+  width: "40%",
 });
 
-const Container = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center', // Centers children horizontally in the flex container
-  justifyContent: 'flex-start', // Aligns children at the start of the flex container vertically
-  gap: '16px', // Adjust the space between the children as needed
-  width: '100%',
+const Container = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center", // Centers children horizontally in the flex container
+  justifyContent: "flex-start", // Aligns children at the start of the flex container vertically
+  gap: "16px", // Adjust the space between the children as needed
+  width: "100%",
 });
 
 export const CloseStyledIcon = styled(CloseIcon)({
-  cursor: 'pointer',
-  padding: '0 8px',
-  fontSize: '2em',
-  position: 'absolute',
+  cursor: "pointer",
+  padding: "0 8px",
+  fontSize: "2em",
+  position: "absolute",
   top: 8, // You can adjust this value as needed
   right: 8, // You can adjust this value as needed
-  transition: 'boxShadow 0.3s ease', // Smooth transition for the shadow on hover
+  transition: "boxShadow 0.3s ease", // Smooth transition for the shadow on hover
 
-  '&:hover': {
-    boxShadow: '0px 0px 10px 3px rgba(0, 0, 0, 0.2)', // Circle shadow effect
-    borderRadius: '50%', // Ensures the shadow takes a circular form
+  "&:hover": {
+    boxShadow: "0px 0px 10px 3px rgba(0, 0, 0, 0.2)", // Circle shadow effect
+    borderRadius: "50%", // Ensures the shadow takes a circular form
   },
 });
 
-export const HeaderDiv = styled('div')({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignSelf: 'center',
-  alignItems: 'center',
-  marginBottom: '16px',
+export const HeaderDiv = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignSelf: "center",
+  alignItems: "center",
+  marginBottom: "16px",
 });
 
-const StyledUl = styled('ul')({
+const StyledUl = styled("ul")({
   flexGrow: 0,
-  width: '100%', // Ensuring ul takes full width for consistency
+  width: "100%", // Ensuring ul takes full width for consistency
 });
 
 interface TextProps {
@@ -85,72 +85,72 @@ interface TextProps {
   ownFleet: { scraper: number; [key: string]: number };
 }
 
-const Text = styled('span')<TextProps>(({ totalShips, ownFleet }) => ({
-  margin: '0px 16px', // Adjust margin as needed
-  textAlign: 'center',
-  fontSize: '16px',
-  textTransform: 'capitalize',
-  color: totalShips > ownFleet.scraper ? '#AB3836' : '#F8F8FF',
+const Text = styled("span")<TextProps>(({ totalShips, ownFleet }) => ({
+  margin: "0px 16px", // Adjust margin as needed
+  textAlign: "center",
+  fontSize: "16px",
+  textTransform: "capitalize",
+  color: totalShips > ownFleet.scraper ? "#AB3836" : "#F8F8FF",
 }));
 
-const FlexContainer = styled('div')({
-  marginBottom: '16px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-  width: '100%',
+const FlexContainer = styled("div")({
+  marginBottom: "16px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  width: "100%",
 });
 
-const TotalDebrisText = styled('div')({
-  color: '#F8F8FF',
-  fontSize: '16px',
-  marginRight: '8px', // Adjust margin as needed
+const TotalDebrisText = styled("div")({
+  color: "#F8F8FF",
+  fontSize: "16px",
+  marginRight: "8px", // Adjust margin as needed
 });
 
-const TotalDebrisValue = styled('span')({
-  color: '#23CE6B',
+const TotalDebrisValue = styled("span")({
+  color: "#23CE6B",
 });
 
-const InputButtonContainer = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '4px',
-  marginRight: '16px', // Add right margin to create space
+const InputButtonContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  gap: "4px",
+  marginRight: "16px", // Add right margin to create space
 });
 
-const TravelInfoContainer = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  gap: '8px',
-  alignItems: 'flex-start',
-  width: '100%',
+const TravelInfoContainer = styled("div")({
+  display: "flex",
+  flexDirection: "row",
+  gap: "8px",
+  alignItems: "flex-start",
+  width: "100%",
 });
 
-const TravelDetailColumn = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
-  gap: '16px',
-  fontSize: '16px',
-  marginBottom: '48px',
-  flex: '1 1 auto',
+const TravelDetailColumn = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "flex-start",
+  alignItems: "flex-start",
+  gap: "16px",
+  fontSize: "16px",
+  marginBottom: "48px",
+  flex: "1 1 auto",
 });
 
-const TravelInfoName = styled('div')({
-  color: '#F8F8FF',
+const TravelInfoName = styled("div")({
+  color: "#F8F8FF",
 });
 
-const TravelInfoValue = styled('span')({
-  color: '#23CE6B',
+const TravelInfoValue = styled("span")({
+  color: "#23CE6B",
 });
 
-const ShipImage = styled('img')({
-  width: '40px',
-  height: '40px',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  borderRadius: '8px',
+const ShipImage = styled("img")({
+  width: "40px",
+  height: "40px",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  borderRadius: "8px",
 });
 
 interface Props {
@@ -182,7 +182,7 @@ export function ButtonCollectDebris({
 
   const handleInputChange = (e: { target: { value: string } }) => {
     const inputValue =
-      e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value, 10));
+      e.target.value === "" ? 0 : Math.max(0, parseInt(e.target.value, 10));
     setQuantities({ scraper: inputValue });
   };
 
@@ -198,7 +198,7 @@ export function ButtonCollectDebris({
   const availableScrapers =
     Number(ownFleet.scraper) - (quantities.scraper || 0);
 
-  const destinationArray = positionString.split('/');
+  const destinationArray = positionString.split("/");
   const position: Position = {
     system: Number(destinationArray[0]),
     orbit: Number(destinationArray[1]),
@@ -223,12 +223,12 @@ export function ButtonCollectDebris({
     setFuelConsumption(getFuelConsumption(fleet, distance, speedFactor));
   }, [distance, fleet, speed, techs]);
 
-  const { writeAsync, data } = useSendFleet(
+  const { writeAsync, tx } = useSendFleet(
     fleet,
     position,
-    MissionCategory['Debris'],
+    MissionCategory["Debris"],
     speed,
-    colonyId
+    colonyId,
   );
 
   const isShipOverLimit = totalShips > ownFleet.scraper;
@@ -244,11 +244,13 @@ export function ButtonCollectDebris({
   }, [travelTime]);
 
   const handleButtonClick = () => {
-    writeAsync(), setIsModalOpen(false), setIsButtonClicked(true);
+    writeAsync();
+    setIsModalOpen(false);
+    setIsButtonClicked(true);
   };
 
   const handleSpeedChange = (newValue: number | number[]) => {
-    if (typeof newValue === 'number') {
+    if (typeof newValue === "number") {
       setSpeed(newValue);
     }
   };
@@ -270,7 +272,7 @@ export function ButtonCollectDebris({
                   <span
                     style={{
                       color:
-                        totalShips > ownFleet.scraper ? '#AB3836' : '#F8F8FF',
+                        totalShips > ownFleet.scraper ? "#AB3836" : "#F8F8FF",
                     }}
                   >
                     {String(availableScrapers)}
@@ -285,18 +287,18 @@ export function ButtonCollectDebris({
                     size="sm"
                     color="neutral"
                     variant="soft"
-                    style={{ width: '80px' }}
+                    style={{ width: "80px" }}
                   />
                   <KeyboardDoubleArrowUpIcon
                     onClick={() => handleMaxQuantity()}
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: "pointer" }}
                   />
                 </InputButtonContainer>
                 <TotalDebrisText>
-                  Total Debris{' '}
+                  Total Debris{" "}
                   <TotalDebrisValue>
                     {numberWithCommas(
-                      Number(debrisField.steel) + Number(debrisField.quartz)
+                      Number(debrisField.steel) + Number(debrisField.quartz),
                     )}
                   </TotalDebrisValue>
                 </TotalDebrisText>
@@ -305,17 +307,17 @@ export function ButtonCollectDebris({
             <TravelInfoContainer>
               <TravelDetailColumn>
                 <TravelInfoName>
-                  Destination:{' '}
+                  Destination:{" "}
                   <TravelInfoValue>{positionString}</TravelInfoValue>
                 </TravelInfoName>
                 <TravelInfoName>
-                  Travel time:{' '}
+                  Travel time:{" "}
                   <TravelInfoValue>
                     {convertSecondsToTime(travelTime)}
                   </TravelInfoValue>
                 </TravelInfoName>
                 <TravelInfoName>
-                  Time arrival:{' '}
+                  Time arrival:{" "}
                   <TravelInfoValue>
                     {timeOfArrival ? timeOfArrival.toLocaleTimeString() : null}
                   </TravelInfoValue>
@@ -323,19 +325,19 @@ export function ButtonCollectDebris({
               </TravelDetailColumn>
               <TravelDetailColumn>
                 <TravelInfoName>
-                  Tritium consumption:{' '}
+                  Tritium consumption:{" "}
                   <TravelInfoValue>
                     {numberWithCommas(fuelConsumption)}
                   </TravelInfoValue>
                 </TravelInfoName>
                 <TravelInfoName>
-                  Total number of ships:{' '}
+                  Total number of ships:{" "}
                   <TravelInfoValue>
                     {numberWithCommas(totalShips)}
                   </TravelInfoValue>
                 </TravelInfoName>
                 <TravelInfoName>
-                  Cargo Capacity:{' '}
+                  Cargo Capacity:{" "}
                   <TravelInfoValue>
                     {numberWithCommas(totalShips * SCRAPER.cargo)}
                   </TravelInfoValue>
@@ -352,14 +354,14 @@ export function ButtonCollectDebris({
               valueLabelDisplay="auto"
               min={1}
               max={100}
-              sx={{ width: '200px', marginBottom: '24px' }} // Adjust styling as needed
+              sx={{ width: "200px", marginBottom: "24px" }} // Adjust styling as needed
             />
           </SliderContainer>
           <StyledButton
             onClick={handleButtonClick}
             fullWidth
             style={{
-              background: isShipOverLimit ? '#3B3F53' : '#4A63AA',
+              background: isShipOverLimit ? "#3B3F53" : "#4A63AA",
             }}
             disabled={isShipOverLimit}
           >
@@ -368,7 +370,10 @@ export function ButtonCollectDebris({
         </StyledBox>
       </Modal>
       {isButtotClicked && (
-        <TransactionStatus name="Collect Debris" tx={data?.transaction_hash} />
+        <TransactionStatus
+          name="Collect Debris"
+          tx={tx?.transaction_hash.toString()}
+        />
       )}
     </>
   );

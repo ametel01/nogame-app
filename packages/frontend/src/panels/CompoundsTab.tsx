@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import CompoundsBox from '../components/boxes/CompoundsBox';
+import CompoundsBox from "../components/boxes/CompoundsBox";
 import {
   CompoundConfigType,
   CompoundProps,
@@ -18,7 +18,7 @@ import {
   DockyardDescription,
   dockyardImg,
   StyledTabPanel,
-} from '.';
+} from ".";
 
 export const CompoundsTabPanel = ({
   spendableResources,
@@ -32,58 +32,58 @@ export const CompoundsTabPanel = ({
         <SteelMineDescription currentLevel={compoundsLevels.steel} />
       ),
       img: steelImg,
-      title: 'Steel Mine',
+      title: "Steel Mine",
       functionCallName: UpgradeType.SteelMine,
-      compoundName: 'steel',
-      energyKey: 'steel',
+      compoundName: "steel",
+      energyKey: "steel",
     },
     {
       description: (
         <QuartzMineDescription currentLevel={compoundsLevels.quartz} />
       ),
       img: quartzImg,
-      title: 'Quartz Mine',
+      title: "Quartz Mine",
       functionCallName: UpgradeType.QuartzMine,
-      compoundName: 'quartz',
-      energyKey: 'quartz',
+      compoundName: "quartz",
+      energyKey: "quartz",
     },
     {
       description: (
         <TritiumMineDescription currentLevel={compoundsLevels.tritium} />
       ),
       img: tritiumImg,
-      title: 'Tritium Mine',
+      title: "Tritium Mine",
       functionCallName: UpgradeType.TritiumMine,
-      compoundName: 'tritium',
-      energyKey: 'tritium',
+      compoundName: "tritium",
+      energyKey: "tritium",
     },
     {
       description: (
         <EnergyPlantDescription currentLevel={compoundsLevels.energy} />
       ),
       img: energyImg,
-      title: 'Energy Plant',
+      title: "Energy Plant",
       functionCallName: UpgradeType.EnergyPlant,
-      compoundName: 'energy',
-      energyKey: 'energy',
+      compoundName: "energy",
+      energyKey: "energy",
     },
     {
       description: <LabDescription currentLevel={compoundsLevels.lab} />,
       img: labImg,
-      title: 'Research Lab',
+      title: "Research Lab",
       functionCallName: UpgradeType.Lab,
-      compoundName: 'lab',
-      energyKey: 'null',
+      compoundName: "lab",
+      energyKey: "null",
     },
     {
       description: (
         <DockyardDescription currentLevel={compoundsLevels.dockyard} />
       ),
       img: dockyardImg,
-      title: 'Dockyard',
+      title: "Dockyard",
       functionCallName: UpgradeType.Dockyard,
-      compoundName: 'dockyard',
-      energyKey: 'null',
+      compoundName: "dockyard",
+      energyKey: "null",
     },
   ];
 
@@ -109,4 +109,4 @@ export const CompoundsTabPanel = ({
   );
 };
 
-CompoundsTabPanel.tabsRole = 'TabPanel';
+CompoundsTabPanel.tabsRole = "TabPanel";

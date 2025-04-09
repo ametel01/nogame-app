@@ -1,5 +1,5 @@
-import React from 'react';
-import { DefencesStats } from '../../constants/Stats';
+import React from "react";
+import { DefencesStats } from "../../constants/Stats";
 import {
   PopoverBox,
   PopoverHeaderDiv,
@@ -9,12 +9,12 @@ import {
   PopoverRequirements,
   PopoverInfoData,
   PopoverLabel,
-} from '../../shared/styled/PopoverStyle';
+} from "../../shared/styled/PopoverStyle";
 
-import blasterImg from '../../assets/gameElements/defences/blaster4.webp';
-import beamImg from '../../assets/gameElements/defences/beam4.webp';
-import astralLauncherImg from '../../assets/gameElements/defences/astral4.webp';
-import plasmaImg from '../../assets/gameElements/defences/plasma4.webp';
+import blasterImg from "../../assets/gameElements/defences/blaster4.webp";
+import beamImg from "../../assets/gameElements/defences/beam4.webp";
+import astralLauncherImg from "../../assets/gameElements/defences/astral4.webp";
+import plasmaImg from "../../assets/gameElements/defences/plasma4.webp";
 
 // Component props
 interface DescriptionComponentProps {
@@ -37,22 +37,22 @@ const DescriptionComponent = ({
       <PopoverHeaderDiv>{title}</PopoverHeaderDiv>
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          marginBottom: '24px',
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-start",
+          marginBottom: "24px",
         }}
       >
         {/* Image */}
         <img
           src={image}
           alt={`${title}`}
-          style={{ width: '240px', marginRight: '16px', borderRadius: '8px' }}
+          style={{ width: "240px", marginRight: "16px", borderRadius: "8px" }}
         />
         {/* Description and Requirements */}
         <div>
           <PopoverTextBox>{description}</PopoverTextBox>
-          <div style={{ margin: '8px' }}>Requirements:</div>
+          <div style={{ margin: "8px" }}>Requirements:</div>
           <PopoverRequirements>{requirements}</PopoverRequirements>
         </div>
       </div>

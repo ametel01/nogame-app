@@ -1,5 +1,5 @@
-import React from 'react';
-import DefencesBox from '../components/boxes/DefencesBox';
+import React from "react";
+import DefencesBox from "../components/boxes/DefencesBox";
 import {
   DefenceProps,
   BlasterDescription,
@@ -17,7 +17,7 @@ import {
   plasmaRequirements,
   StyledTabPanel,
   calculEnoughResources,
-} from '.';
+} from ".";
 
 export const DefenceTabPanel = ({
   spendableResources,
@@ -32,7 +32,7 @@ export const DefenceTabPanel = ({
     {
       description: <BlasterDescription />,
       img: blasterImg,
-      title: 'Blaster',
+      title: "Blaster",
       functionCallName: BuildType.Blaster,
       level: defenceLevels?.blaster,
       cost: defenceCost?.blaster,
@@ -41,7 +41,7 @@ export const DefenceTabPanel = ({
     {
       description: <BeamCannonDescription />,
       img: beamImg,
-      title: 'Beam',
+      title: "Beam",
       functionCallName: BuildType.Beam,
       level: defenceLevels?.beam,
       cost: defenceCost?.beam,
@@ -50,7 +50,7 @@ export const DefenceTabPanel = ({
     {
       description: <AstralDescription />,
       img: astralLauncherImg,
-      title: 'Astral Launcher',
+      title: "Astral Launcher",
       functionCallName: BuildType.Astral,
       level: defenceLevels?.astral,
       cost: defenceCost?.astral,
@@ -59,7 +59,7 @@ export const DefenceTabPanel = ({
     {
       description: <PlasmaDescription />,
       img: plasmaImg,
-      title: 'Plasma Projector',
+      title: "Plasma Projector",
       functionCallName: BuildType.Plasma,
       level: defenceLevels?.plasma,
       cost: defenceCost?.plasma,
@@ -92,4 +92,4 @@ export const DefenceTabPanel = ({
   );
 };
 
-DefenceTabPanel.tabsRole = 'TabPanel';
+DefenceTabPanel.tabsRole = "TabPanel";

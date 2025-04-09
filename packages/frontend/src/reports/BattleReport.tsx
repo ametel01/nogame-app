@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Tooltip from '@mui/material/Tooltip';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import RotatingLogo from '../components/ui/RotatingLogo';
-import * as Styled from './styledComponents';
-import * as Types from './types';
-import { numberWithCommas } from '../shared/utils/index';
+import React, { useState, useEffect } from "react";
+import Tooltip from "@mui/material/Tooltip";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import RotatingLogo from "../components/ui/RotatingLogo";
+import * as Styled from "./styledComponents";
+import * as Types from "./types";
+import { numberWithCommas } from "../shared/utils/index";
 
 interface Props {
   planetId: number;
@@ -13,36 +13,36 @@ interface Props {
 const BattleReports = ({ planetId }: Props) => {
   const [battleReports, setBattleReports] = useState<Types.BattleReport[]>([]);
   const [debriReports, setDerisReports] = useState<Types.DebrisCollection[]>(
-    []
+    [],
   );
   const [sortedReports, setSortedReports] = useState<
     (Types.BattleReport | (Types.DebrisCollection & { reportType: string }))[]
   >([]);
   const [expandedReports, setExpandedReports] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copyTooltipMessage, setCopyTooltipMessage] =
-    useState<string>('Copy to clipboard');
+    useState<string>("Copy to clipboard");
 
   useEffect(() => {
     const combinedReports: CombinedReport[] = [
       ...battleReports.map((report) => ({
         ...report,
-        reportType: 'battle' as const,
+        reportType: "battle" as const,
       })),
       ...debriReports.map((report) => ({
         ...report,
-        reportType: 'debris' as const,
+        reportType: "debris" as const,
       })),
     ];
 
     combinedReports.sort((a, b) => {
       const dateA =
-        a.reportType === 'battle' ? new Date(a.time) : new Date(a.timestamp);
+        a.reportType === "battle" ? new Date(a.time) : new Date(a.timestamp);
       const dateB =
-        b.reportType === 'battle' ? new Date(b.time) : new Date(b.timestamp);
+        b.reportType === "battle" ? new Date(b.time) : new Date(b.timestamp);
       return dateB.getTime() - dateA.getTime();
     });
 
@@ -51,7 +51,7 @@ const BattleReports = ({ planetId }: Props) => {
 
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const battleApiUrl =
-    nodeEnv === 'production'
+    nodeEnv === "production"
       ? `https://www.api.testnet.no-game.xyz/battle-reports?planet_id=${planetId}`
       : `http://localhost:3001/battle-reports?planet_id=${planetId}`;
 
@@ -62,7 +62,7 @@ const BattleReports = ({ planetId }: Props) => {
       try {
         const response = await fetch(battleApiUrl);
         if (!response.ok) {
-          setError('Error battle debris reports');
+          setError("Error battle debris reports");
           setBattleReports([]);
         } else {
           const data = await response.json();
@@ -70,8 +70,8 @@ const BattleReports = ({ planetId }: Props) => {
           data.sort(
             (
               a: { time: string | number | Date },
-              b: { time: string | number | Date }
-            ) => new Date(b.time).getTime() - new Date(a.time).getTime()
+              b: { time: string | number | Date },
+            ) => new Date(b.time).getTime() - new Date(a.time).getTime(),
           );
           setBattleReports(data);
         }
@@ -79,7 +79,7 @@ const BattleReports = ({ planetId }: Props) => {
         if (error instanceof Error) {
           setError(error.message);
         } else {
-          setError('An unexpected error occurred');
+          setError("An unexpected error occurred");
         }
       } finally {
         setIsLoading(false);
@@ -92,7 +92,7 @@ const BattleReports = ({ planetId }: Props) => {
   }, [battleApiUrl, planetId]);
 
   const debrisApiUrl =
-    nodeEnv === 'production'
+    nodeEnv === "production"
       ? `https://www.api.testnet.no-game.xyz/debris-collection?planet_id=${planetId}`
       : `http://localhost:3001/debris-collection?planet_id=${planetId}`;
 
@@ -103,7 +103,7 @@ const BattleReports = ({ planetId }: Props) => {
       try {
         const response = await fetch(debrisApiUrl);
         if (!response.ok) {
-          setError('Error fetching debris reports');
+          setError("Error fetching debris reports");
           setDerisReports([]);
         } else {
           const data = await response.json();
@@ -111,8 +111,8 @@ const BattleReports = ({ planetId }: Props) => {
           data.sort(
             (
               a: { time: string | number | Date },
-              b: { time: string | number | Date }
-            ) => new Date(b.time).getTime() - new Date(a.time).getTime()
+              b: { time: string | number | Date },
+            ) => new Date(b.time).getTime() - new Date(a.time).getTime(),
           );
           setDerisReports(data);
         }
@@ -120,7 +120,7 @@ const BattleReports = ({ planetId }: Props) => {
         if (error instanceof Error) {
           setError(error.message);
         } else {
-          setError('An unexpected error occurred');
+          setError("An unexpected error occurred");
         }
       } finally {
         setIsLoading(false);
@@ -132,7 +132,7 @@ const BattleReports = ({ planetId }: Props) => {
     }
   }, [debrisApiUrl, planetId]);
 
-  const toggleExpand = (id: number, type: 'battle' | 'debris') => {
+  const toggleExpand = (id: number, type: "battle" | "debris") => {
     setExpandedReports((prevExpandedReports) => {
       const newExpandedReports = new Set(prevExpandedReports);
       const uniqueId = `${type}-${id}`;
@@ -164,9 +164,9 @@ const BattleReports = ({ planetId }: Props) => {
           .filter(([, quantity]) => quantity > 0)
           .map(
             ([type, quantity]) =>
-              `- ${type.charAt(0).toUpperCase() + type.slice(1)}: ${quantity}`
+              `- ${type.charAt(0).toUpperCase() + type.slice(1)}: ${quantity}`,
           )
-          .join('\n') || '- No active fleet units detected.'
+          .join("\n") || "- No active fleet units detected."
       );
     };
 
@@ -176,9 +176,9 @@ const BattleReports = ({ planetId }: Props) => {
           .filter(([, quantity]) => quantity > 0)
           .map(
             ([type, quantity]) =>
-              `- ${type.charAt(0).toUpperCase() + type.slice(1)}: ${quantity}`
+              `- ${type.charAt(0).toUpperCase() + type.slice(1)}: ${quantity}`,
           )
-          .join('\n') || '- No defenses were present.'
+          .join("\n") || "- No defenses were present."
       );
     };
 
@@ -190,9 +190,9 @@ const BattleReports = ({ planetId }: Props) => {
             ([resourceType, quantity]) =>
               `- ${
                 resourceType.charAt(0).toUpperCase() + resourceType.slice(1)
-              }: ${quantity}`
+              }: ${quantity}`,
           )
-          .join('\n') || '- None'
+          .join("\n") || "- None"
       );
     };
 
@@ -204,9 +204,9 @@ const BattleReports = ({ planetId }: Props) => {
             ([resourceType, quantity]) =>
               `- ${
                 resourceType.charAt(0).toUpperCase() + resourceType.slice(1)
-              }: ${quantity}`
+              }: ${quantity}`,
           )
-          .join('\n') || '- None'
+          .join("\n") || "- None"
       );
     };
 
@@ -218,45 +218,45 @@ const BattleReports = ({ planetId }: Props) => {
             ([fleetType, quantity]) =>
               `${quantity} ${
                 fleetType.charAt(0).toUpperCase() + fleetType.slice(1)
-              }`
+              }`,
           )
-          .join(', ') || 'None'
+          .join(", ") || "None"
       );
     };
 
     const formatReportForDiscord = (report: Types.BattleReport) => {
       let formattedReport = `**Battle Report ID**: [${report.battle_id}]\n`;
       formattedReport += `**Timestamp**: [${new Date(
-        report.time
+        report.time,
       ).toLocaleString()}]\n`;
-      formattedReport += '**Operational Summary**:\n';
+      formattedReport += "**Operational Summary**:\n";
       formattedReport += `- Attacking Planet: System ${report.attacker_position.system} Orbit ${report.attacker_position.orbit}\n`;
       formattedReport += `- Defending Planet: System ${report.defender_position.system} Orbit ${report.defender_position.orbit}\n`;
       formattedReport += `**Attacker Fleet Composition**:\n${formatFleetComposition(
-        report.attacker_initial_fleet
+        report.attacker_initial_fleet,
       )}\n`;
       formattedReport += `**Defender Fleet Composition**:\n${formatFleetComposition(
-        report.defender_initial_fleet
+        report.defender_initial_fleet,
       )}\n`;
       formattedReport += `**Defender Planetary Defenses**:\n${formatDefences(
-        report.initial_defences
+        report.initial_defences,
       )}\n`;
-      formattedReport += '**Casualty and Damage Report**:\n';
+      formattedReport += "**Casualty and Damage Report**:\n";
       formattedReport += `- Attacker Losses: ${formatCasualties(
-        report.attacker_fleet_loss
+        report.attacker_fleet_loss,
       )}\n`;
       formattedReport += `- Defender Losses: ${formatCasualties({
         ...report.defender_fleet_loss,
         ...report.defences_loss,
       })}\n`;
       formattedReport += `**Resource Acquisition**:\n${formatLoot(
-        report.loot
+        report.loot,
       )}\n`;
-      formattedReport += '**Post-Combat Assessment**:\n';
+      formattedReport += "**Post-Combat Assessment**:\n";
       formattedReport += `- Outcome: ${
         Object.values(report.loot).some((value) => value > 0)
-          ? 'Decisive Attacker Victory'
-          : 'Attacker Defeat'
+          ? "Decisive Attacker Victory"
+          : "Attacker Defeat"
       }\n`;
       formattedReport += `- Debris Analysis: ${formatDebris(report.debris)}`;
 
@@ -268,29 +268,29 @@ const BattleReports = ({ planetId }: Props) => {
     navigator.clipboard
       .writeText(formattedReport)
       .then(() => {
-        setCopyTooltipMessage('Copied to clipboard'); // Update tooltip message
+        setCopyTooltipMessage("Copied to clipboard"); // Update tooltip message
         setTimeout(() => {
-          setCopyTooltipMessage('Copy to clipboard');
+          setCopyTooltipMessage("Copy to clipboard");
         }, 2000); // Reset message after 2 seconds
       })
       .catch((err) => {
-        console.error('Error in copying text: ', err);
+        console.error("Error in copying text: ", err);
       });
   };
 
   type CombinedReport =
-    | (Types.BattleReport & { reportType: 'battle' })
-    | (Types.DebrisCollection & { reportType: 'debris' });
+    | (Types.BattleReport & { reportType: "battle" })
+    | (Types.DebrisCollection & { reportType: "debris" });
 
   function isBattleReport(
-    report: CombinedReport
-  ): report is Types.BattleReport & { reportType: 'battle' } {
-    return report.reportType === 'battle';
+    report: CombinedReport,
+  ): report is Types.BattleReport & { reportType: "battle" } {
+    return report.reportType === "battle";
   }
 
   const renderReport = (report: CombinedReport) => {
     const uniqueKey =
-      report.reportType === 'battle'
+      report.reportType === "battle"
         ? `battle-${report.battle_id}`
         : `debris-${report.collection_id}`;
     const isExpanded = expandedReports.has(uniqueKey);
@@ -304,7 +304,7 @@ const BattleReports = ({ planetId }: Props) => {
             <span>Battle Report</span>
             <span>{new Date(report.time).toLocaleString()}</span>
           </Styled.BattleReportHeader>
-          <Styled.BattleReportDetails className={isExpanded ? 'expanded' : ''}>
+          <Styled.BattleReportDetails className={isExpanded ? "expanded" : ""}>
             <Tooltip title={copyTooltipMessage}>
               <Styled.CopyButton
                 onClick={(e) => {
@@ -322,11 +322,11 @@ const BattleReports = ({ planetId }: Props) => {
 
             <Styled.DetailItem>Operational Summary:</Styled.DetailItem>
             <Styled.DetailItem>
-              - Attacking Planet: System {report.attacker_position.system} Orbit{' '}
+              - Attacking Planet: System {report.attacker_position.system} Orbit{" "}
               {report.attacker_position.orbit}
             </Styled.DetailItem>
             <Styled.DetailItem>
-              - Defending Planet: System {report.defender_position.system} Orbit{' '}
+              - Defending Planet: System {report.defender_position.system} Orbit{" "}
               {report.defender_position.orbit}
             </Styled.DetailItem>
 
@@ -335,20 +335,20 @@ const BattleReports = ({ planetId }: Props) => {
               .filter(([, quantity]) => quantity > 0)
               .map(([fleetType, quantity]) => (
                 <Styled.DetailItem key={fleetType}>
-                  - {fleetType.charAt(0).toUpperCase() + fleetType.slice(1)}:{' '}
+                  - {fleetType.charAt(0).toUpperCase() + fleetType.slice(1)}:{" "}
                   {quantity}
                 </Styled.DetailItem>
               ))}
 
             <Styled.DetailItem>Defender Fleet Composition:</Styled.DetailItem>
             {Object.entries(report.defender_initial_fleet).filter(
-              ([, quantity]) => quantity > 0
+              ([, quantity]) => quantity > 0,
             ).length > 0 ? (
               Object.entries(report.defender_initial_fleet)
                 .filter(([, quantity]) => quantity > 0)
                 .map(([defenceType, quantity]) => (
                   <Styled.DetailItem key={defenceType}>
-                    -{' '}
+                    -{" "}
                     {defenceType.charAt(0).toUpperCase() + defenceType.slice(1)}
                     : {quantity}
                   </Styled.DetailItem>
@@ -361,13 +361,13 @@ const BattleReports = ({ planetId }: Props) => {
 
             <Styled.DetailItem>Defender Planetary Defences:</Styled.DetailItem>
             {Object.entries(report.initial_defences).filter(
-              ([, quantity]) => quantity > 0
+              ([, quantity]) => quantity > 0,
             ).length > 0 ? (
               Object.entries(report.initial_defences)
                 .filter(([, quantity]) => quantity > 0)
                 .map(([defenceType, quantity]) => (
                   <Styled.DetailItem key={defenceType}>
-                    -{' '}
+                    -{" "}
                     {defenceType.charAt(0).toUpperCase() + defenceType.slice(1)}
                     : {quantity}
                   </Styled.DetailItem>
@@ -378,19 +378,19 @@ const BattleReports = ({ planetId }: Props) => {
 
             <Styled.DetailItem>Casualty and Damage Report:</Styled.DetailItem>
             <Styled.DetailItem>
-              - Attacker Losses:{' '}
+              - Attacker Losses:{" "}
               {Object.entries(report.attacker_fleet_loss)
                 .filter(([, quantity]) => quantity > 0)
                 .map(
                   ([fleetType, quantity]) =>
                     `${quantity} ${
                       fleetType.charAt(0).toUpperCase() + fleetType.slice(1)
-                    }`
+                    }`,
                 )
-                .join(', ') || 'None'}
+                .join(", ") || "None"}
             </Styled.DetailItem>
             <Styled.DetailItem>
-              - Defender Losses:{' '}
+              - Defender Losses:{" "}
               {Object.entries({
                 ...report.defender_fleet_loss,
                 ...report.defences_loss,
@@ -400,9 +400,9 @@ const BattleReports = ({ planetId }: Props) => {
                   ([fleetType, quantity]) =>
                     `${quantity} ${
                       fleetType.charAt(0).toUpperCase() + fleetType.slice(1)
-                    }`
+                    }`,
                 )
-                .join(', ') || 'None'}
+                .join(", ") || "None"}
             </Styled.DetailItem>
 
             <Styled.DetailItem>Resource Acquisition:</Styled.DetailItem>
@@ -411,7 +411,7 @@ const BattleReports = ({ planetId }: Props) => {
                 .filter(([, quantity]) => quantity > 0)
                 .map(([resourceType, quantity]) => (
                   <Styled.DetailItem key={resourceType}>
-                    -{' '}
+                    -{" "}
                     {resourceType.charAt(0).toUpperCase() +
                       resourceType.slice(1)}
                     : {quantity}
@@ -423,14 +423,14 @@ const BattleReports = ({ planetId }: Props) => {
 
             <Styled.DetailItem>Post-Combat Assessment:</Styled.DetailItem>
             <Styled.DetailItem>
-              - Outcome:{' '}
+              - Outcome:{" "}
               {Object.values(report.loot).some((value) => value > 0)
-                ? 'Decisive Attacker Victory'
-                : 'Attacker Defeat'}{' '}
+                ? "Decisive Attacker Victory"
+                : "Attacker Defeat"}{" "}
               {/* Updated logic for determining the outcome */}
             </Styled.DetailItem>
             <Styled.DetailItem>
-              - Debris Analysis:{' '}
+              - Debris Analysis:{" "}
               {Object.entries(report.debris)
                 .filter(([, quantity]) => quantity > 0)
                 .map(
@@ -438,9 +438,9 @@ const BattleReports = ({ planetId }: Props) => {
                     `${
                       resourceType.charAt(0).toUpperCase() +
                       resourceType.slice(1)
-                    }: ${quantity}`
+                    }: ${quantity}`,
                 )
-                .join(', ') || 'No debris field generated post-engagement.'}
+                .join(", ") || "No debris field generated post-engagement."}
             </Styled.DetailItem>
           </Styled.BattleReportDetails>
         </Styled.BattleReportContainer>
@@ -460,8 +460,8 @@ const BattleReports = ({ planetId }: Props) => {
           <Styled.BattleReportDetails
             className={
               expandedReports.has(`debris-${report.collection_id}`)
-                ? 'expanded'
-                : ''
+                ? "expanded"
+                : ""
             }
           >
             <Styled.DetailItem>Debris Field Location:</Styled.DetailItem>

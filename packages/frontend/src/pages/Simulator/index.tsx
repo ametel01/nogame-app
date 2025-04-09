@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Fleet, DefenceLevels } from '../../shared/types';
-import FormattedSimulationResult from './FormatSimulationResult';
-import Header from '../../components/ui/Header';
-import { useAccount } from '@starknet-react/core';
-import { useTokenOf } from '../../hooks/useTokenOf';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Fleet, DefenceLevels } from "../../shared/types";
+import FormattedSimulationResult from "./FormatSimulationResult";
+import Header from "../../components/ui/Header";
+import { useAccount } from "@starknet-react/core";
+import { useTokenOf } from "../../hooks/erc721";
 
 export const Container = styled.div`
   color: #fff; // White text for contrast
@@ -94,12 +94,12 @@ export const BattleSimulator = () => {
   const [defences, setDefences] = useState<DefenceLevels>(baseDefences);
 
   const handleInputChange = (
-    fleetType: 'attacker' | 'defender',
+    fleetType: "attacker" | "defender",
     shipType: keyof Fleet,
-    value: string
+    value: string,
   ) => {
     // Ensure the correct fleet object is updated based on fleetType
-    if (fleetType === 'attacker') {
+    if (fleetType === "attacker") {
       const updatedFleet = { ...attackerFleet, [shipType]: Number(value) };
       setAttackerFleet(updatedFleet);
     } else {
@@ -110,7 +110,7 @@ export const BattleSimulator = () => {
 
   const handleDefenceChange = (
     defenceType: keyof DefenceLevels,
-    value: string
+    value: string,
   ) => {
     // Ensure the keys used here are appropriate for DefenceLevels
     const updatedDefences = { ...defences, [defenceType]: Number(value) };
@@ -125,7 +125,7 @@ export const BattleSimulator = () => {
           <SectionContainer>
             <SectionTitle>Attacker Fleet</SectionTitle>
             {Object.keys(attackerFleet).map((shipType) => (
-              <div style={{ textTransform: 'capitalize' }} key={shipType}>
+              <div style={{ textTransform: "capitalize" }} key={shipType}>
                 <Label htmlFor={`attacker-${shipType}`}>{shipType}</Label>
                 <FleetInput
                   id={`attacker-${shipType}`}
@@ -133,9 +133,9 @@ export const BattleSimulator = () => {
                   value={attackerFleet[shipType as keyof Fleet]}
                   onChange={(e) =>
                     handleInputChange(
-                      'attacker',
+                      "attacker",
                       shipType as keyof Fleet,
-                      e.target.value
+                      e.target.value,
                     )
                   }
                 />
@@ -147,7 +147,7 @@ export const BattleSimulator = () => {
           <SectionContainer>
             <SectionTitle>Defender Fleet</SectionTitle>
             {Object.keys(defenderFleet).map((shipType) => (
-              <div style={{ textTransform: 'capitalize' }} key={shipType}>
+              <div style={{ textTransform: "capitalize" }} key={shipType}>
                 <Label htmlFor={`defender-${shipType}`}>{shipType}</Label>
                 <FleetInput
                   id={`defender-${shipType}`}
@@ -155,9 +155,9 @@ export const BattleSimulator = () => {
                   value={defenderFleet[shipType as keyof Fleet]}
                   onChange={(e) =>
                     handleInputChange(
-                      'defender',
+                      "defender",
                       shipType as keyof Fleet,
-                      e.target.value
+                      e.target.value,
                     )
                   }
                 />
@@ -169,7 +169,7 @@ export const BattleSimulator = () => {
           <SectionContainer>
             <SectionTitle>Defences</SectionTitle>
             {Object.keys(defences).map((defenceType) => (
-              <div style={{ textTransform: 'capitalize' }} key={defenceType}>
+              <div style={{ textTransform: "capitalize" }} key={defenceType}>
                 <Label htmlFor={`defence-${defenceType}`}>{defenceType}</Label>
                 <FleetInput
                   id={`defence-${defenceType}`}
@@ -178,7 +178,7 @@ export const BattleSimulator = () => {
                   onChange={(e) =>
                     handleDefenceChange(
                       defenceType as keyof DefenceLevels,
-                      e.target.value
+                      e.target.value,
                     )
                   }
                 />

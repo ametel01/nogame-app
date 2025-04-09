@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   EnergyDescription,
   energyTechImg,
@@ -43,8 +43,8 @@ import {
   ExoDescription,
   exoImg,
   exoRequirements,
-} from '.';
-import ResearchBox from '../components/boxes/ResearchBox';
+} from ".";
+import ResearchBox from "../components/boxes/ResearchBox";
 
 export const ResearchTabPanel = ({
   spendableResources,
@@ -56,105 +56,105 @@ export const ResearchTabPanel = ({
     {
       description: <EnergyDescription />,
       img: energyTechImg,
-      title: 'Energy Innovation',
+      title: "Energy Innovation",
       functionCallName: UpgradeType.EnergyTech,
-      techName: 'energy',
+      techName: "energy",
       requirements: energyRequirements(labLevel),
     },
     {
       description: <ComputerDescription />,
       img: digitalImg,
-      title: 'Digital Systems',
+      title: "Digital Systems",
       functionCallName: UpgradeType.Digital,
-      techName: 'digital',
+      techName: "digital",
       requirements: digitalRequirements(labLevel),
     },
     {
       description: <BeamDescription />,
       img: beamImg,
-      title: 'Beam Technology',
+      title: "Beam Technology",
       functionCallName: UpgradeType.BeamTech,
-      techName: 'beam',
+      techName: "beam",
       requirements: beamTechRequirements(labLevel, techLevels),
     },
     {
       description: <IonDescription />,
       img: ionImg,
-      title: 'Ion Systems',
+      title: "Ion Systems",
       functionCallName: UpgradeType.Ion,
-      techName: 'ion',
+      techName: "ion",
       requirements: ionRequirements(labLevel, techLevels),
     },
     {
       description: <ExoDescription />,
       img: exoImg,
-      title: 'Exocraft Technology',
+      title: "Exocraft Technology",
       functionCallName: UpgradeType.Exocraft,
-      techName: 'exocraft',
+      techName: "exocraft",
       requirements: exoRequirements(labLevel, techLevels),
     },
     {
       description: <PlasmaDescription />,
       img: plasmaImg,
-      title: 'Plasma Engineering',
+      title: "Plasma Engineering",
       functionCallName: UpgradeType.PlasmaTech,
-      techName: 'plasma',
+      techName: "plasma",
       requirements: plasmaTechRequirements(labLevel, techLevels),
     },
     {
       description: <SpacetimeDescription />,
       img: spacetimeImg,
-      title: 'Spacetime Technology',
+      title: "Spacetime Technology",
       functionCallName: UpgradeType.Warp,
-      techName: 'spacetime',
+      techName: "spacetime",
       requirements: spacetimeRequirements(labLevel, techLevels),
     },
     {
       description: <CombustionDescription />,
       img: combustionImg,
-      title: 'Combustion Drive',
+      title: "Combustion Drive",
       functionCallName: UpgradeType.Combustion,
-      techName: 'combustion',
+      techName: "combustion",
       requirements: combustionRequirements(labLevel, techLevels),
     },
     {
       description: <ThrustDescription />,
       img: thrustImg,
-      title: 'Thrust Propulsion',
+      title: "Thrust Propulsion",
       functionCallName: UpgradeType.Thrust,
-      techName: 'thrust',
+      techName: "thrust",
       requirements: thrustRequirements(labLevel, techLevels),
     },
     {
       description: <WarpDescription />,
       img: warpEnginImg,
-      title: 'Warp Drive',
+      title: "Warp Drive",
       functionCallName: UpgradeType.Warp,
-      techName: 'warp',
+      techName: "warp",
       requirements: warpRequirements(labLevel, techLevels),
     },
     {
       description: <ArmourDescription />,
       img: armourImg,
-      title: 'Armour Innovation',
+      title: "Armour Innovation",
       functionCallName: UpgradeType.Armour,
-      techName: 'armour',
+      techName: "armour",
       requirements: armourRequirements(labLevel),
     },
     {
       description: <WeaponsDescription />,
       img: weaponsImg,
-      title: 'Weapons Development',
+      title: "Weapons Development",
       functionCallName: UpgradeType.Weapons,
-      techName: 'weapons',
+      techName: "weapons",
       requirements: weaponsRequirements(labLevel),
     },
     {
       description: <ShieldDescription />,
       img: shieldImg,
-      title: 'Shields Technology',
+      title: "Shields Technology",
       functionCallName: UpgradeType.Shield,
-      techName: 'shield',
+      techName: "shield",
       requirements: shieldRequirements(labLevel, techLevels),
     },
   ];
@@ -178,4 +178,4 @@ export const ResearchTabPanel = ({
   );
 };
 
-ResearchTabPanel.tabsRole = 'TabPanel';
+ResearchTabPanel.tabsRole = "TabPanel";

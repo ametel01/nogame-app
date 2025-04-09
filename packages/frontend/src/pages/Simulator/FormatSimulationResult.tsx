@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useSimulation } from '../../hooks/useSimulation';
-import { Fleet, DefenceLevels } from '../../shared/types';
-import { CircularProgress, Typography, Box } from '@mui/material';
-import styled from 'styled-components';
-import { ColumnsContainer, SectionTitle } from '.';
-import { TotalLosses } from './TotalLosses';
+import React, { useEffect, useState } from "react";
+import { useSimulation } from "../../hooks/planet";
+import { Fleet, DefenceLevels } from "../../shared/types";
+import { CircularProgress, Typography, Box } from "@mui/material";
+import styled from "styled-components";
+import { ColumnsContainer, SectionTitle } from ".";
+import { TotalLosses } from "./TotalLosses";
 
 interface Props {
   attackerFleet: Fleet;
@@ -58,7 +58,7 @@ export const LossValue = styled.span`
 
 function isFleetEmpty(before: Fleet, after: Fleet) {
   return Object.keys(after).every(
-    (key) => after[key as keyof Fleet] === before[key as keyof Fleet]
+    (key) => after[key as keyof Fleet] === before[key as keyof Fleet],
   );
 }
 
@@ -67,7 +67,11 @@ const FormattedSimulationResult = ({
   defenderFleet,
   defences,
 }: Props) => {
-  const { result } = useSimulation(attackerFleet, defenderFleet, defences);
+  const simulationResult = useSimulation(
+    { ...attackerFleet, celestia: 0 },
+    { ...defenderFleet, celestia: 0 },
+    defences,
+  );
   // Define states for losses
   const [attackerLosses, setAttackerLosses] = useState({
     carrier: 0,
@@ -92,7 +96,8 @@ const FormattedSimulationResult = ({
   });
 
   useEffect(() => {
-    if (result !== undefined) {
+    if (simulationResult !== undefined) {
+      const { result } = simulationResult;
       setAttackerLosses({
         carrier: Number(result.attacker_carrier),
         scraper: Number(result.attacker_scraper),
@@ -115,9 +120,9 @@ const FormattedSimulationResult = ({
         plasma: Number(result.plasma),
       });
     }
-  }, [result]);
+  }, [simulationResult]);
 
-  if (result === undefined) {
+  if (simulationResult === undefined) {
     <LoadingContainer>
       <CircularProgress />
     </LoadingContainer>;
@@ -136,7 +141,7 @@ const FormattedSimulationResult = ({
       <SectionTitle>{title}</SectionTitle>
       {Object.entries(losses).map(([key, value]) => (
         <LossesRow key={key}>
-          <LabelText style={{ letterSpacing: '0.1rem' }}>{`${
+          <LabelText style={{ letterSpacing: "0.1rem" }}>{`${
             key.charAt(0).toUpperCase() + key.slice(1)
           }`}</LabelText>
           <LossValue>{value}</LossValue>

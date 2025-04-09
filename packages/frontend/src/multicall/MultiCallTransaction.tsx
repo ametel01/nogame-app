@@ -1,12 +1,12 @@
-import React, { useState, useCallback } from 'react';
-import styled from 'styled-components';
-import Modal from '@mui/material/Modal';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Badge from '@mui/material/Badge';
-import { StyledButton, HeaderButton } from '../shared/styled/Button';
-import { useContractWrite } from '@starknet-react/core';
-import { useBlockchainCall } from '../context/BlockchainCallContext';
+import React, { useState, useCallback } from "react";
+import styled from "styled-components";
+import Modal from "@mui/material/Modal";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Badge from "@mui/material/Badge";
+import { StyledButton, HeaderButton } from "../shared/styled/Button";
+import { useSendTransaction } from "@starknet-react/core";
+import { useBlockchainCall } from "../context/BlockchainCallContext";
 // Styled Components
 const StyledModal = styled(Modal)`
   display: flex;
@@ -67,7 +67,7 @@ const StyledBadge = styled(Badge)`
   }
 `;
 
-export type CallType = 'compound' | 'tech' | 'ship' | 'defence';
+export type CallType = "compound" | "tech" | "ship" | "defence";
 
 export type SingleCall = {
   type: string;
@@ -80,12 +80,14 @@ export function MultiCallTransaction() {
   const [isOpen, setIsOpen] = useState(false);
   const {
     selectedCalls,
-    setSelectedCalls,
     singleCalls,
+    setSelectedCalls,
     setSingleCalls,
     removeCall,
   } = useBlockchainCall();
-  const { writeAsync } = useContractWrite({ calls: selectedCalls });
+  const { send, isPending } = useSendTransaction({
+    calls: selectedCalls.length > 0 ? selectedCalls : undefined,
+  });
 
   const handleModalClose = () => {
     setIsOpen(false);
@@ -95,10 +97,16 @@ export function MultiCallTransaction() {
     setIsOpen(open);
   }, []);
 
-  const handleClick = () => {
-    writeAsync();
-    setSelectedCalls([]);
-    setSingleCalls([]);
+  const handleClick = async () => {
+    try {
+      if (selectedCalls.length > 0) {
+        await send();
+        setSelectedCalls([]);
+        setSingleCalls([]);
+      }
+    } catch (err) {
+      console.error("Transaction failed:", err);
+    }
   };
 
   return (
@@ -115,12 +123,12 @@ export function MultiCallTransaction() {
             {singleCalls.map((call, index) => {
               const actionText =
                 call.colonyId == 0
-                  ? call.type === 'compound' || call.type === 'tech'
+                  ? call.type === "compound" || call.type === "tech"
                     ? `Upgrade ${call.name} x${call.quantity}`
                     : `Build ${call.name} x${call.quantity}`
-                  : call.type === 'compound' || call.type === 'tech'
-                  ? `Upgrade ${call.name} x${call.quantity} in colony ${call.colonyId}`
-                  : `Build ${call.name} x${call.quantity} in colony ${call.colonyId}`;
+                  : call.type === "compound" || call.type === "tech"
+                    ? `Upgrade ${call.name} x${call.quantity} in colony ${call.colonyId}`
+                    : `Build ${call.name} x${call.quantity} in colony ${call.colonyId}`;
 
               return (
                 <StyledActionItem key={index}>
@@ -141,8 +149,9 @@ export function MultiCallTransaction() {
             onClick={handleClick}
             color="primary"
             fullWidth
+            disabled={isPending || selectedCalls.length === 0}
           >
-            Send Transaction
+            {isPending ? "Sending..." : "Send Transaction"}
           </StyledButton>
         </StyledModalContent>
       </StyledModal>

@@ -12,8 +12,8 @@ import {
   ButtonBuild,
   DockyardBoxProps as Props,
   ButtonState,
-} from '.';
-import { InfoContainer } from './styled';
+} from ".";
+import { InfoContainer } from "./styled";
 
 const DockyardBox = ({
   img,
@@ -33,22 +33,22 @@ const DockyardBox = ({
   const { tx, writeAsync: build } = useShipBuild(
     functionCallName,
     quantity,
-    colonyId
+    colonyId,
   );
 
   const buttonState = useMemo((): ButtonState => {
     if (!requirementsMet) {
-      return 'noRequirements';
+      return "noRequirements";
     } else if (!hasEnoughResources) {
-      return 'noResource';
+      return "noResource";
     }
 
-    return 'valid';
+    return "valid";
   }, [hasEnoughResources, requirementsMet]);
 
-  const hasRequirements = buttonState === 'noRequirements';
+  const hasRequirements = buttonState === "noRequirements";
 
-  const isDisabled = buttonState === 'noResource';
+  const isDisabled = buttonState === "noResource";
 
   // Calculate the cost based on the quantity
   const adjustedSteel = costUpdate
@@ -74,7 +74,7 @@ const DockyardBox = ({
     ? numberWithCommas(adjustedTritium)
     : 0;
 
-  const shouldShowTooltip = ['Armade'].includes(title) && showTooltip;
+  const shouldShowTooltip = ["Armade"].includes(title) && showTooltip;
 
   const boxContent = (
     <Styled.Box>
@@ -102,9 +102,9 @@ const DockyardBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.steel < adjustedSteel
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {steelDisplay}
@@ -116,9 +116,9 @@ const DockyardBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.quartz < adjustedQuartz
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {quartzDisplay}
@@ -130,9 +130,9 @@ const DockyardBox = ({
               style={{
                 color: resourcesAvailable
                   ? resourcesAvailable.tritium < adjustedTritium
-                    ? '#AB3836'
-                    : 'inherit'
-                  : 'inherit',
+                    ? "#AB3836"
+                    : "inherit"
+                  : "inherit",
               }}
             >
               {tritiumDisplay}
@@ -148,7 +148,7 @@ const DockyardBox = ({
               size="sm"
               color="neutral"
               variant="soft"
-              style={{ width: '80px' }}
+              style={{ width: "80px" }}
               onChange={(e) => {
                 const newValue = parseInt(e.target.value, 10);
                 if (!isNaN(newValue) && newValue > 0) {

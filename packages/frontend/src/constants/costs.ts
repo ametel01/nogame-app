@@ -1,4 +1,4 @@
-import { type Resources } from '../shared/types';
+import { type Resources } from "../shared/types";
 
 export const baseTechCost: Record<number, Resources> = {
   6: { steel: 0, quartz: 800, tritium: 400 },

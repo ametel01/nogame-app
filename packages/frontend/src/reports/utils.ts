@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { BattleReport } from './types';
+import { useState, useEffect } from "react";
+import { BattleReport } from "./types";
 
 export function useGetBattleReportsData(planetId: number | null) {
   const [battleReports, setBattleReports] = useState<BattleReport[]>([]);
@@ -23,19 +23,19 @@ export function useGetBattleReportsData(planetId: number | null) {
       try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
-          throw new Error('Error fetching battle reports');
+          throw new Error("Error fetching battle reports");
         }
         const data = await response.json();
 
         if (data.length === 0) {
-          setError('No Battle Reports to show');
+          setError("No Battle Reports to show");
           setBattleReports([]);
         } else {
           setBattleReports(data);
         }
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : 'An unexpected error occurred'
+          err instanceof Error ? err.message : "An unexpected error occurred",
         );
       } finally {
         setIsLoading(false);
